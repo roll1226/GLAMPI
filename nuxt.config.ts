@@ -4,7 +4,6 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -61,10 +60,7 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
-    theme: {
-      dark: true
-    }
+    customVariables: ['~/assets/variables.scss']
   },
   /*
    ** Build configuration
