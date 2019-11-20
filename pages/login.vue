@@ -7,34 +7,38 @@
     <!--
       rules -> もしuserに入ってなければエラーがでる
      -->
-    <v-text-field
-      ref="name"
-      v-model="user"
-      :rules="[() => !!user || '入力しろ']"
-      label="ユーザ名"
-    ></v-text-field>
+    <div v-if="!sigin">
+      <v-text-field
+        ref="name"
+        v-model="user"
+        :rules="[() => !!user || '入力しろ']"
+        label="ユーザ名"
+      ></v-text-field>
 
-    <v-text-field
-      v-model="password"
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      :rules="[rules.required, rules.min]"
-      name="input-10-1"
-      label="パスワード入力"
-      hint="8文字以上のパスワードを入力してください。"
-      counter
-      @click:append="show1 = !show1"
-    ></v-text-field>
+      <v-text-field
+        v-model="password"
+        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="show1 ? 'text' : 'password'"
+        :rules="[rules.required, rules.min]"
+        name="input-10-1"
+        label="パスワード入力"
+        hint="8文字以上のパスワードを入力してください。"
+        counter
+        @click:append="show1 = !show1"
+      ></v-text-field>
 
-    <v-btn :loading="loading" color="promise" @click="login">
-      ログイン
-    </v-btn>
-    <v-btn v-show="loadingerror" :loading="loading" color="error">
-      ログイン失敗
-    </v-btn>
+      <v-btn :loading="loading" color="promise" @click="login">
+        ログイン
+      </v-btn>
+    </div>
 
-    <div v-show="sigin">
-      ログイン成功
+    <div v-else>
+      <h2>
+        ログイン成功
+      </h2>
+      <v-btn @click="logout">
+        ログアウト
+      </v-btn>
     </div>
   </div>
 </template>
@@ -49,7 +53,6 @@ export default class login extends Vue {
   public password: string = ''
   public show1: boolean = false
   public loading: boolean = false
-  public loadingerror: boolean = false
   public sigin: boolean = false
 
   public rules: {} = {
@@ -67,8 +70,13 @@ export default class login extends Vue {
       })
       .catch(() => {
         this.loading = false
-        this.loadingerror = true
       })
+  }
+
+  async logout() {
+    await auth.signOut().then(() => {
+      this.sigin = false
+    })
   }
 }
 </script>
