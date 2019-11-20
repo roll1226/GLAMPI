@@ -59,7 +59,7 @@ export default class login extends Vue {
     required: (value: string) => !!value || 'Required.',
     min: (v: string) => v.length >= 8 || 'Min 8 characters'
   }
-
+  
   async login() {
     this.loading = true
     await auth
