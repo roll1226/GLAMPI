@@ -42,6 +42,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { auth } from '@/plugins/firebase'
+
 @Component
 export default class login extends Vue {
   public user: string = ''
@@ -50,10 +51,12 @@ export default class login extends Vue {
   public loading: boolean = false
   public loadingerror: boolean = false
   public sigin: boolean = false
+
   public rules: {} = {
     required: (value: string) => !!value || 'Required.',
     min: (v: string) => v.length >= 8 || 'Min 8 characters'
   }
+  
   async login() {
     this.loading = true
     await auth
