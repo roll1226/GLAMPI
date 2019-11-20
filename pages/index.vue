@@ -1,6 +1,9 @@
 <template>
   <div>
     <Logo />
+    <nuxt-link to="/login">
+      ログイン
+    </nuxt-link>
   </div>
 </template>
 
