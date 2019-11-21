@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      firebaseテスト
+      firebase
     </h1>
 
     <input v-model="text" type="text" />
