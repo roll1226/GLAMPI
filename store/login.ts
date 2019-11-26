@@ -31,15 +31,6 @@ export const actions = {
     dispatch: ICommit,
     payload: { user: string; password: string }
   ) {
-    // await auth
-    //   .signInWithEmailAndPassword(payload.user, payload.password)
-    //   .then(() => {
-    //     dispatch.commit('SET_LOADING', false)
-    //     dispatch.commit('IS_LOGIN', true)
-    //   })
-    //   .catch(() => {
-    //     dispatch.commit('SET_LOADING', false)
-    //   })
     const params = new URLSearchParams()
     params.append('user', payload.user)
     params.append('passwd', payload.password)
@@ -49,7 +40,6 @@ export const actions = {
       .then((response: object[]) => {
         dispatch.commit('SET_TEST', response)
         dispatch.commit('SET_LOADING', false)
-        // dispatch.commit('IS_LOGIN', true)
       })
   },
 
@@ -61,7 +51,6 @@ export const actions = {
       .then((response: object[]) => {
         dispatch.commit('SET_TEST', response)
         dispatch.commit('SET_LOADING', false)
-        // dispatch.commit('IS_LOGIN', true)
       })
   }
 }

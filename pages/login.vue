@@ -21,7 +21,6 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-// import { auth } from '@/plugins/firebase'
 import LoginModal from '@/components/Btn/LoginModal.vue'
 @Component({
   components: {
@@ -51,11 +50,6 @@ export default class login extends Vue {
     })
   }
   logout() {
-    // await auth.signOut().then(() => {
-    //   this.$store.commit('login/IS_LOGIN', false)
-    //   this.password = ''
-    //   this.user = ''
-    // })
     this.$store.dispatch('login/loginOut', false)
   }
 }
