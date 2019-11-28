@@ -37,6 +37,12 @@
                 日程
               </div>
               <v-list-item-title class="headline mb-1 text-center">
+                <v-text-field
+                  v-model="dateRangeText"
+                  label="日程"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                ></v-text-field>
                 <v-date-picker
                   v-model="dates"
                   locale="ja-jp"
@@ -126,6 +132,10 @@ interface option {
 @Component
 export default class reservation extends Vue {
   page: number = 1
-  dates: [string, string] = ['', '']
+  dates: [] = []
+
+  public get dateRangeText(): string {
+    return this.dates.join(' ~ ')
+  }
 }
 </script>
