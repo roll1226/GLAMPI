@@ -1,20 +1,23 @@
 import * as Vuex from 'vuex'
 // import * as axios from 'axios'
 const { default: axios } = require('axios')
-import { auth } from '@/plugins/firebase'
+
 interface ICommit {
   commit: Vuex.Commit
 }
+
 interface IState {
   loading: boolean
   isLogin: boolean
   test: object[]
 }
+
 export const state = (): IState => ({
   loading: false,
   isLogin: false,
   test: []
 })
+
 export const mutations = {
   SET_LOADING(state: IState, payload: boolean) {
     state.loading = payload
@@ -26,6 +29,7 @@ export const mutations = {
     state.test = payload
   }
 }
+
 export const actions = {
   async loginEmailPass(
     dispatch: ICommit,
@@ -45,6 +49,8 @@ export const actions = {
 
   async loginOut(dispatch: ICommit, payload: boolean) {
     const params = new URLSearchParams()
+    params.append('user', '')
+    params.append('passwd', '')
     params.append('logout', 'aaa')
     await axios
       .post('http://localhost:8080/GLAMPY/login.php', params)

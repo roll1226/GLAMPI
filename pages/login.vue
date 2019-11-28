@@ -7,15 +7,28 @@
       <h2>
         ログインしていません
       </h2>
-      <LoginModal :user.sync="user" :password.sync="password" @login="login" />
+      <LoginModal />
     </div>
     <div v-else>
-      <h2>
-        ログインしています
-      </h2>
-      <v-btn color="red" @click="logout">
-        ログアウト
-      </v-btn>
+      <div v-if="test.data.status">
+        <h2>
+          ログインしています
+        </h2>
+        <v-btn color="red" @click="logout">
+          ログアウト
+        </v-btn>
+      </div>
+
+      <div v-else>
+        <h2>
+          ログインしていません
+        </h2>
+        <LoginModal />
+        <p>
+          ログイン失敗しました
+        </p>
+      </div>
+      {{ test.data.status }}
     </div>
   </div>
 </template>
@@ -27,7 +40,7 @@ import LoginModal from '@/components/Btn/LoginModal.vue'
     LoginModal
   },
   computed: {
-    isLogin(): boolean {
+    isLogin(): any {
       return this.$store.state.login.isLogin
     },
     test(): boolean {
@@ -42,15 +55,9 @@ export default class login extends Vue {
     required: (value: string) => !!value || 'Required.',
     min: (v: string) => v.length >= 8 || 'Min 8 characters'
   }
-  login() {
-    this.$store.commit('login/SET_LOADING', true)
-    this.$store.dispatch('login/loginEmailPass', {
-      user: this.user,
-      password: this.password
-    })
-  }
+
   logout() {
-    this.$store.dispatch('login/loginOut', false)
+    this.$store.dispatch('login/loginOut')
   }
 }
 </script>
