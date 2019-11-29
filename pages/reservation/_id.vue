@@ -5,31 +5,11 @@
     </h1>
 
     <v-row dense>
-      <v-col :cols="12">
-        <v-card>
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="overline mb-1">
-                プラン
-              </div>
-              <v-list-item-title class="headline mb-1">
-                プランA
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-spacer></v-spacer>
-            <v-list-item-content>
-              <div class="overline mb-1">
-                値段
-              </div>
-              <v-list-item-title class="headline mb-1">
-                25,000円
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
+      <v-col :cols="10" class="ma-auto">
+        <Plan />
       </v-col>
 
-      <v-col :cols="12">
+      <v-col :cols="10" class="ma-auto">
         <v-card>
           <v-list-item three-line>
             <v-list-item-content>
@@ -58,7 +38,7 @@
         </v-card>
       </v-col>
 
-      <v-col :cols="12">
+      <v-col :cols="10" class="ma-auto">
         <v-card>
           <v-list-item three-line>
             <v-list-item-content>
@@ -68,42 +48,26 @@
 
               <v-list-item-title class="headline mb-1">
                 <v-row dense>
-                  <v-col v-for="(i, index) in 4" :key="index" :cols="3">
-                    <v-card class="mx-auto mb-5" max-width="300">
-                      <v-img
-                        class="white--text align-end"
-                        height="200px"
-                        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                      >
-                        <v-card-title>
-                          バーベキュー
-                        </v-card-title>
-                      </v-img>
-
-                      <v-card-subtitle class="pb-0">
-                        2,000円
-                      </v-card-subtitle>
-
-                      <v-card-text class="text--primary">
-                        <div>
-                          美味しい
-                        </div>
-
-                        <div>
-                          楽しい
-                        </div>
-                      </v-card-text>
-
-                      <v-card-actions>
-                        <v-btn color="orange" text>
-                          選ぶ
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
+                  <v-col
+                    v-for="(optionList, index) in displayLists"
+                    :key="index"
+                    :cols="4"
+                  >
+                    <Options
+                      :plan-title="optionList.title"
+                      :pay="optionList.pay"
+                      :texts="optionList.text"
+                      :image="optionList.image"
+                      :display-name="optionList.displayName"
+                    />
                   </v-col>
                 </v-row>
                 <div class="text-center">
-                  <v-pagination v-model="page" :length="3"></v-pagination>
+                  <v-pagination
+                    v-model="page"
+                    :length="length"
+                    @input="pageChange"
+                  ></v-pagination>
                 </div>
               </v-list-item-title>
             </v-list-item-content>
@@ -116,9 +80,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-
-const end = new Date()
-end.setDate(end.getDate() + 7)
+import Plan from '~/components/Card/Reservation/Plan.vue'
+import Options from '~/components/Card/Reservation/Options.vue'
 
 interface option {
   slidesPerView: number
@@ -129,13 +92,82 @@ interface option {
   }
 }
 
-@Component
+interface options {
+  title: string
+  text: [...string[]]
+  pay: string
+  image: string
+  displayName: string
+}
+
+@Component({
+  components: {
+    Plan,
+    Options
+  }
+})
 export default class reservation extends Vue {
   page: number = 1
   dates: [] = []
+  length: number = 0
+
+  list: options[] = [
+    {
+      title: 'バーベキュー',
+      text: ['美味しい', '楽しい'],
+      pay: '2000',
+      image: '40',
+      displayName: 'option1'
+    },
+    {
+      title: '誕生日ケーキ',
+      text: ['美味しい', '楽しい'],
+      pay: '1500',
+      image: '10',
+      displayName: 'option2'
+    },
+    {
+      title: '国産牛肉',
+      text: ['高い', 'けど、うまい！'],
+      pay: '20000',
+      image: '16',
+      displayName: 'option3'
+    },
+    {
+      title: '誕生日ケーキ',
+      text: ['美味しい', '楽しい'],
+      pay: '1500',
+      image: '17',
+      displayName: 'option4'
+    },
+    {
+      title: '国産牛肉',
+      text: ['高い', 'けど、うまい！'],
+      pay: '20000',
+      image: '20',
+      displayName: 'option5'
+    },
+    {
+      title: 'バーベキュー',
+      text: ['美味しい', '楽しい'],
+      pay: '2000',
+      image: '30',
+      displayName: 'option6'
+    }
+  ]
+  displayLists?: options[] = []
 
   public get dateRangeText(): string {
     return this.dates.join(' ~ ')
+  }
+
+  mounted() {
+    this.length = Math.ceil(this.list.length / 3)
+    this.displayLists = this.list.slice(0, 3)
+  }
+
+  pageChange(pageNumber: number) {
+    this.displayLists = this.list.slice(3 * (pageNumber - 1), 3 * pageNumber)
   }
 }
 </script>
