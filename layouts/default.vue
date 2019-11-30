@@ -1,33 +1,21 @@
 <template>
   <v-app>
+    <grampi-head />
     <nuxt />
+    <grampi-foot />
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+import GrampiHead from '@/components/GrampiHead.vue'
+import GrampiFoot from '@/components/GrampiFoot.vue'
+
+@Component({
+  components: {
+    GrampiHead,
+    GrampiFoot
   }
-}
+})
+export default class defaultLayout extends Vue {}
 </script>

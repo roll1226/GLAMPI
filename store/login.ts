@@ -1,5 +1,5 @@
 import * as Vuex from 'vuex'
-import { auth } from '@/plugins/firebase'
+import { auth, provider } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit

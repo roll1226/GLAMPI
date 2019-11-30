@@ -1,26 +1,23 @@
 <template>
   <div>
-    <v-btn color="primary" @click.stop="dialog = true">
+    <v-btn text small color="primary" @click.stop="dialog = true">
       ログイン
     </v-btn>
 
     <v-row justify="center">
       <v-dialog v-model="dialog" max-width="500">
-        <v-card>
-          <v-card-title class="headline">
-            ログイン
-          </v-card-title>
-
+        <v-card class="px-6 py-4">
           <v-form @submit.prevent="login">
-            <v-container>
+            <v-container class="py-0 px-0">
               <v-row>
-                <v-col cols="12">
+                <v-col cols="12" class="pb-0">
                   <v-text-field
                     ref="name"
                     v-model="user"
-                    :rules="[() => !!user || '入力しろ']"
+                    :rules="[
+                      () => !!user || 'メールアドレスを入力してください'
+                    ]"
                     label="メールアドレス"
-                    class="px-6"
                   ></v-text-field>
                 </v-col>
 
@@ -33,7 +30,6 @@
                     name="input-10-1"
                     label="パスワード"
                     hint="6文字以上、20文字以内で入力してください"
-                    class="px-6"
                     counter
                     autocomplete="on"
                     @click:append="show1 = !show1"
@@ -53,6 +49,17 @@
               </v-btn>
             </v-card-actions>
           </v-form>
+
+          <v-divider></v-divider>
+
+          <v-row>
+            <v-col class="pb-0">
+              <Twitter />
+            </v-col>
+            <v-col class="pb-0">
+              <Facebook />
+            </v-col>
+          </v-row>
         </v-card>
       </v-dialog>
     </v-row>
@@ -61,12 +68,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import Twitter from '@/components/Btn/Twitter.vue'
+import Facebook from '@/components/Btn/Facebook.vue'
 
 @Component({
   computed: {
     loading(): boolean {
       return this.$store.state.login.loading
     }
+  },
+  components: {
+    Twitter,
+    Facebook
   }
 })
 export default class LoginModal extends Vue {
