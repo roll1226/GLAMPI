@@ -7,9 +7,7 @@
       <h2>
         ログイン前
       </h2>
-      <LoginModal :user.sync="user" :password.sync="password" @login="login" />
-      {{ user }}
-      {{ password }}
+      <LoginModal />
     </div>
 
     <div v-else>
@@ -40,22 +38,6 @@ import LoginModal from '@/components/Btn/LoginModal.vue'
   }
 })
 export default class login extends Vue {
-  public user: string = ''
-  public password: string = ''
-
-  public rules: {} = {
-    required: (value: string) => !!value || 'Required.',
-    min: (v: string) => v.length >= 8 || 'Min 8 characters'
-  }
-
-  login() {
-    this.$store.commit('login/SET_LOADING', true)
-    this.$store.dispatch('login/loginEmailPass', {
-      user: this.user,
-      password: this.password
-    })
-  }
-
   async logout() {
     await auth.signOut().then(() => {
       this.$store.commit('login/IS_LOGIN', false)

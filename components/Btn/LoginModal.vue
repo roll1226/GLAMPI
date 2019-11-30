@@ -11,37 +11,48 @@
             ログイン
           </v-card-title>
 
-          <v-text-field
-            ref="name"
-            v-model="computedUser"
-            :rules="[() => !!computedUser || '入力しろ']"
-            label="メールアドレス"
-            class="px-6"
-          ></v-text-field>
+          <v-form @submit.prevent="login">
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    ref="name"
+                    v-model="user"
+                    :rules="[() => !!user || '入力しろ']"
+                    label="メールアドレス"
+                    class="px-6"
+                  ></v-text-field>
+                </v-col>
 
-          <v-text-field
-            v-model="computedPassword"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="show1 ? 'text' : 'password'"
-            :rules="[rules.required, rules.min, rules.max]"
-            name="input-10-1"
-            label="パスワード"
-            hint="6文字以上、20文字以内で入力してください"
-            class="px-6"
-            counter
-            @click:append="show1 = !show1"
-          ></v-text-field>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="password"
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show1 ? 'text' : 'password'"
+                    :rules="[rules.required, rules.min, rules.max]"
+                    name="input-10-1"
+                    label="パスワード"
+                    hint="6文字以上、20文字以内で入力してください"
+                    class="px-6"
+                    counter
+                    autocomplete="on"
+                    @click:append="show1 = !show1"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
 
-          <v-card-actions class="d-flex justify-center">
-            <v-btn
-              color="success"
-              :disabled="!formIsValid"
-              :loading="loading"
-              @click="login"
-            >
-              ログイン
-            </v-btn>
-          </v-card-actions>
+            <v-card-actions class="d-flex justify-center">
+              <v-btn
+                color="success"
+                :disabled="!formIsValid"
+                :loading="loading"
+                type="submit"
+              >
+                ログイン
+              </v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-dialog>
     </v-row>
@@ -49,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({
   computed: {
@@ -61,6 +72,8 @@ import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
 export default class LoginModal extends Vue {
   public show1: boolean = false
   public dialog: boolean = false
+  public user: string = ''
+  public password: string = ''
 
   public rules: {} = {
     required: (value: string) => !!value || 'パスワードを入力してください',
@@ -72,29 +85,12 @@ export default class LoginModal extends Vue {
     return this.user && this.password
   }
 
-  @Emit('login')
-  private login() {}
-
-  @Prop({ required: true })
-  user: string = ''
-
-  @Prop({ required: true })
-  password: string = ''
-
-  get computedUser() {
-    return this.user
-  }
-
-  set computedUser(value: string) {
-    this.$emit('update:user', value)
-  }
-
-  get computedPassword() {
-    return this.password
-  }
-
-  set computedPassword(value: string) {
-    this.$emit('update:password', value)
+  login() {
+    this.$store.commit('login/SET_LOADING', true)
+    this.$store.dispatch('login/loginEmailPass', {
+      user: this.user,
+      password: this.password
+    })
   }
 }
 </script>
