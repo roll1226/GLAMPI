@@ -9,6 +9,8 @@
 
       <LoginModal />
 
+      <v-divider class="mx-2" inset vertical></v-divider>
+
       <v-btn text small color="green">
         会員登録
       </v-btn>
@@ -30,5 +32,5 @@ import LoginModal from '@/components/Btn/LoginModal.vue'
     }
   }
 })
-export default class header extends Vue {}
+export default class GlampiHead extends Vue {}
 </script>

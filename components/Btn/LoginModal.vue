@@ -52,11 +52,14 @@
 
           <v-divider></v-divider>
 
-          <!-- <v-card-actions class="d-flex justify-center">
-            <v-btn color="success" :loading="loading" type="submit">
-              ログイン
-            </v-btn>
-          </v-card-actions> -->
+          <v-row>
+            <v-col class="pb-0">
+              <Twitter />
+            </v-col>
+            <v-col class="pb-0">
+              <Facebook />
+            </v-col>
+          </v-row>
         </v-card>
       </v-dialog>
     </v-row>
@@ -65,12 +68,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import Twitter from '@/components/Btn/Twitter.vue'
+import Facebook from '@/components/Btn/Facebook.vue'
 
 @Component({
   computed: {
     loading(): boolean {
       return this.$store.state.login.loading
     }
+  },
+  components: {
+    Twitter,
+    Facebook
   }
 })
 export default class LoginModal extends Vue {

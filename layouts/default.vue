@@ -1,17 +1,20 @@
 <template>
   <v-app>
-    <Header />
+    <grampi-head />
     <nuxt />
+    <grampi-foot />
   </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Header from '@/components/Header.vue'
+import GrampiHead from '@/components/GrampiHead.vue'
+import GrampiFoot from '@/components/GrampiFoot.vue'
 
 @Component({
   components: {
-    Header
+    GrampiHead,
+    GrampiFoot
   }
 })
 export default class defaultLayout extends Vue {}
