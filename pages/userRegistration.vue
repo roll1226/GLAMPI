@@ -24,9 +24,10 @@
     <v-text-field
       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
       :type="show1 ? 'text' : 'password'"
-      name="input-10-1"
+      name="input-10-2"
       label="パスワード確認"
-      hint="もう一度入力してください。"
+      hint="パスワードをもう一度入力してください。"
+      :rules2="[rules.required, rules.min]"
       counter
       @click:append="show1 = !show1"
     ></v-text-field>
@@ -41,9 +42,9 @@
       </v-card-text>
     </v-card>
 
-    <v-text-field name="user" label="ユーザ名入力"></v-text-field>
+    <v-text-field name="username" label="ユーザ名入力"></v-text-field>
 
-    <v-btn :loading="loading" color="promise" @click="login">
+    <v-btn :loading="loading" color="promise" @click="regist">
       ログイン
     </v-btn>
   </div>
@@ -73,12 +74,12 @@ export default class login extends Vue {
   value: string = '00000000000'
 
   public rules: {} = {
-    required: (value: string) => !!value || 'Required.',
-    min: (v: string) => v.length >= 8 || 'Min 8 characters'
+    required: (value: string) => !!value || '必須項目',
+    min: (v: string) => v.length >= 8 || '8文字以上で入力してください'
   }
   public rules2: {} = {
-    required: (value: string) => !!value || 'Required.',
-    min: (v: string) => v.length >= 8 || 'Min 8 characters'
+    required: (value: string) => !!value || '必須項目',
+    min: (v: string) => v.length >= 8 || '8文字以上で入力してください'
   }
 
   async login() {
