@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="lighten-1" padless>
+  <v-footer color="lighten-1" class="mt-4" padless>
     <v-row justify="center" no-gutters>
       <v-btn
         v-for="(link, index) in links"
