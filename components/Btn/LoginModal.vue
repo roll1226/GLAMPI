@@ -6,60 +6,68 @@
 
     <v-row justify="center">
       <v-dialog v-model="dialog" max-width="500">
-        <v-card class="px-6 py-4">
-          <v-form @submit.prevent="login">
-            <v-container class="py-0 px-0">
-              <v-row>
-                <v-col cols="12" class="pb-0">
-                  <v-text-field
-                    ref="name"
-                    v-model="user"
-                    :rules="[
-                      () => !!user || 'メールアドレスを入力してください'
-                    ]"
-                    label="メールアドレス"
-                  ></v-text-field>
-                </v-col>
+        <v-card>
+          <v-toolbar dark color="primary">
+            <v-toolbar-title>
+              ログイン
+            </v-toolbar-title>
+          </v-toolbar>
 
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="password"
-                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="show1 ? 'text' : 'password'"
-                    :rules="[rules.required, rules.min, rules.max]"
-                    name="input-10-1"
-                    label="パスワード"
-                    hint="6文字以上、20文字以内で入力してください"
-                    counter
-                    autocomplete="on"
-                    @click:append="show1 = !show1"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
+          <div class="px-5 py-4">
+            <v-form @submit.prevent="login">
+              <v-container class="py-0 px-0">
+                <v-row>
+                  <v-col cols="12" class="pb-0">
+                    <v-text-field
+                      ref="name"
+                      v-model="user"
+                      :rules="[
+                        () => !!user || 'メールアドレスを入力してください'
+                      ]"
+                      label="メールアドレス"
+                    ></v-text-field>
+                  </v-col>
 
-            <v-card-actions class="d-flex justify-center">
-              <v-btn
-                color="success"
-                :disabled="!formIsValid"
-                :loading="loading"
-                type="submit"
-              >
-                ログイン
-              </v-btn>
-            </v-card-actions>
-          </v-form>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="password"
+                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show1 ? 'text' : 'password'"
+                      :rules="[rules.required, rules.min, rules.max]"
+                      name="input-10-1"
+                      label="パスワード"
+                      hint="6文字以上、20文字以内で入力してください"
+                      counter
+                      autocomplete="on"
+                      @click:append="show1 = !show1"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
 
-          <v-divider></v-divider>
+              <v-card-actions class="d-flex justify-center">
+                <v-btn
+                  color="success"
+                  :disabled="!formIsValid"
+                  :loading="loading"
+                  type="submit"
+                >
+                  ログイン
+                </v-btn>
+              </v-card-actions>
+            </v-form>
 
-          <v-row>
-            <v-col class="pb-0">
-              <Twitter />
-            </v-col>
-            <v-col class="pb-0">
-              <Facebook />
-            </v-col>
-          </v-row>
+            <v-divider></v-divider>
+
+            <v-row>
+              <v-col class="pb-0">
+                <Twitter />
+              </v-col>
+              <v-col class="pb-0">
+                <Facebook />
+              </v-col>
+            </v-row>
+          </div>
         </v-card>
       </v-dialog>
     </v-row>
