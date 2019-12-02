@@ -13,10 +13,10 @@
           outlined
           persistent-hint
           dense
-          @blur="cloneInput"
+          @input="search"
         ></v-text-field>
 
-        <SerchList :query-list="queryList" />
+        <SerchList />
       </div>
 
       <v-btn
@@ -41,17 +41,9 @@ import SerchList from '@/components/Card/Search/SearchList.vue'
   }
 })
 export default class algolie extends Vue {
-  public queryList: object[] = []
-  isSearch: boolean = false
-
-  cloneInput() {
-    this.isSearch = false
-  }
-
   search() {
-    this.queryList = []
     if (this.query === '') return
-    this.isSearch = true
+
     this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
   }
 
