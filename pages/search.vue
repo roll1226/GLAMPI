@@ -4,61 +4,43 @@
       Searchテスト
     </h1>
 
-    <v-row>
-      <v-col cols="7" class="pr-0">
-        <div class="input-wrap">
-          <v-text-field
-            v-model="query"
-            label="グランピング検索"
-            hint="地域、施設名を入力して下さい。"
-            outlined
-            persistent-hint
-            dense
-            @blur="cloneInput"
-          ></v-text-field>
+    <div class="d-flex justify-center px-2">
+      <div class="input-wrap" style="width: 600px;">
+        <v-text-field
+          v-model="query"
+          label="グランピング検索"
+          hint="地域、施設名を入力して下さい。"
+          outlined
+          persistent-hint
+          dense
+          @blur="cloneInput"
+        ></v-text-field>
 
-          <v-card v-show="isSearch" class="card-wrap-wrap" max-width="500">
-            <v-list>
-              <v-list-item-group color="primary">
-                <v-list-item
-                  v-for="(item, i) in queryList"
-                  :key="i"
-                  @click="selected(item.name)"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title v-text="item.name"></v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-card>
-        </div>
-      </v-col>
+        <SerchList :query-list="queryList" />
+      </div>
 
-      <v-col class="pl-0" style="margin-top: 1px;">
-        <v-btn color="success" @click="search">
-          検索
-        </v-btn>
-      </v-col>
-    </v-row>
+      <v-btn
+        color="success"
+        class="ml-1"
+        style="margin-top: 1px;"
+        @click="search"
+      >
+        検索
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import algoliasearch from 'algoliasearch'
 import { Component, Vue } from 'nuxt-property-decorator'
-import config from '@/plugins/algolia'
+import SerchList from '@/components/Card/Search/SearchList.vue'
 
-const client = algoliasearch(
-  config.algolia_app_id as string,
-  config.algolia_api_key as string
-)
-
-const index = client.initIndex('Facilities')
-
-@Component
+@Component({
+  components: {
+    SerchList
+  }
+})
 export default class algolie extends Vue {
-  public query: string = ''
   public queryList: object[] = []
   isSearch: boolean = false
 
@@ -66,22 +48,19 @@ export default class algolie extends Vue {
     this.isSearch = false
   }
 
-  async search() {
-    if (this.query === '') {
-      this.queryList = []
-      return
-    }
-    this.isSearch = true
+  search() {
     this.queryList = []
-    const searchResult = await index.search({ query: this.query })
-    this.queryList = searchResult.hits
+    if (this.query === '') return
+    this.isSearch = true
+    this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
   }
 
-  selected(value: string) {
-    console.log(value)
-    this.query = value
-    this.isSearch = false
-    this.queryList = []
+  get query(): string {
+    return this.$store.state.search.queryText
+  }
+
+  set query(val: string) {
+    this.$store.commit('search/SET_QUERY_TEXT', val)
   }
 }
 </script>
@@ -89,9 +68,5 @@ export default class algolie extends Vue {
 <style lang="scss">
 .input-wrap {
   position: relative;
-  .card-wrap-wrap {
-    position: absolute;
-    bottom: -34%;
-  }
 }
 </style>
