@@ -4,15 +4,43 @@
       Searchテスト
     </h1>
 
-    <input v-model="query" type="text" />
+    <v-row>
+      <v-col cols="7" class="pr-0">
+        <div class="input-wrap">
+          <v-text-field
+            v-model="query"
+            label="グランピング検索"
+            hint="地域、施設名を入力して下さい。"
+            outlined
+            persistent-hint
+            dense
+            @blur="cloneInput"
+          ></v-text-field>
 
-    <button @click="search">
-      検索
-    </button>
+          <v-card v-show="isSearch" class="card-wrap-wrap" max-width="500">
+            <v-list>
+              <v-list-item-group color="primary">
+                <v-list-item
+                  v-for="(item, i) in queryList"
+                  :key="i"
+                  @click="selected(item.name)"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title v-text="item.name"></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card>
+        </div>
+      </v-col>
 
-    <div v-for="(query, index) in queryList" :key="index">
-      {{ query.name }}
-    </div>
+      <v-col class="pl-0" style="margin-top: 1px;">
+        <v-btn color="success" @click="search">
+          検索
+        </v-btn>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -32,11 +60,38 @@ const index = client.initIndex('Facilities')
 export default class algolie extends Vue {
   public query: string = ''
   public queryList: object[] = []
+  isSearch: boolean = false
+
+  cloneInput() {
+    this.isSearch = false
+  }
 
   async search() {
+    if (this.query === '') {
+      this.queryList = []
+      return
+    }
+    this.isSearch = true
     this.queryList = []
     const searchResult = await index.search({ query: this.query })
     this.queryList = searchResult.hits
   }
+
+  selected(value: string) {
+    console.log(value)
+    this.query = value
+    this.isSearch = false
+    this.queryList = []
+  }
 }
 </script>
+
+<style lang="scss">
+.input-wrap {
+  position: relative;
+  .card-wrap-wrap {
+    position: absolute;
+    bottom: -34%;
+  }
+}
+</style>
