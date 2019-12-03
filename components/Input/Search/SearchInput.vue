@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h1>
-      Searchテスト
-    </h1>
-
-    <div class="d-flex justify-center px-2">
+    <div class="d-flex mx-3 justify-center px-2">
       <div class="input-wrap" style="width: 600px;">
         <v-text-field
           v-model="query"
@@ -13,6 +9,7 @@
           outlined
           persistent-hint
           dense
+          background-color="white"
           @input="search"
         ></v-text-field>
 
@@ -23,7 +20,7 @@
         color="success"
         class="ml-1"
         style="margin-top: 1px;"
-        @click="search"
+        @click="algoliaSearch"
       >
         検索
       </v-btn>
@@ -46,6 +43,8 @@ export default class algolie extends Vue {
 
     this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
   }
+
+  algoliaSearch() {}
 
   get query(): string {
     return this.$store.state.search.queryText
