@@ -87,7 +87,7 @@ export default class login extends Vue {
     required: (value: string) =>
       !!value || 'パスワードは必ず入力してください。',
     min: (v: string) =>
-      (v && v.length <= 20 && v.length >= 6) ||
+      (v.length <= 20 && v.length >= 6) ||
       'パスワードは6桁以上20桁以内にて入力してください。',
     nameRules: [
       (v: string) =>
