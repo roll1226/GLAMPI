@@ -28,7 +28,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@fortawesome/fontawesome-free/css/all.css'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -63,7 +63,15 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss']
+    customVariables: ['~/assets/variables.scss'],
+    theme: {
+      themes: {
+        dark: {
+          twitter: '#00acee',
+          facebook: '#3b5998'
+        }
+      }
+    }
   },
   /*
    ** Build configuration

@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import * as firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
@@ -8,7 +8,7 @@ const config = {
   databaseURL: process.env.FIREBASE_DATABASE_URL,
   projectId: process.env.FIREBASE_PROJECT_ID,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID
 }
 
 export default !firebase.apps.length
@@ -16,5 +16,10 @@ export default !firebase.apps.length
   : firebase.app()
 const firestore = firebase.firestore()
 const auth = firebase.auth()
+const twitterProvider = new firebase.auth.TwitterAuthProvider()
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
 export { firestore }
 export { auth }
+export { twitterProvider }
+export { facebookProvider }
