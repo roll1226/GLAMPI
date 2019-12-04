@@ -4,35 +4,36 @@
       会員登録
     </h1>
     <!--姓-->
-    <v-text-fieldv-model="sei"
+    <v-text-field
+      v-model="sei"
       label="姓"
       placeholder="姓"
       :rules="rules.fname"
     ></v-text-field>
     <!--名-->
-    <v-text-field v-model="mei"
+    <v-text-field
+      v-model="mei"
       label="名"
       placeholder="名"
       :rules="rules.lname"
     ></v-text-field>
     <!--セイ-->
-    <v-text-field v-model="sei"
-    label="セイ"
-    placeholder="セイ"
-    :rules="rules.fname1"
+    <v-text-field
+      v-model="sei"
+      label="セイ"
+      placeholder="セイ"
+      :rules="rules.fname1"
     ></v-text-field>
-    <v-text-field v-model="mei"
-    label="メイ"
-    placeholder="メイ"
-    :rules="rules.lname1"
+    <v-text-field
+      v-model="mei"
+      label="メイ"
+      placeholder="メイ"
+      :rules="rules.lname1"
     ></v-text-field>
-    <input type="radio"
-    id="M"
-    value="M"
-    v-model="picked" />
+    <input id="M" v-model="picked" type="radio" value="M" />
     <label for="M">男性</label>
     <br />
-    <input type="radio" id="F" value="F" v-model="picked" />
+    <input id="F" v-model="picked" type="radio" value="F" />
     <label for="F">女性</label>
     <br />
     <!-- //生年月日 -->
@@ -153,17 +154,29 @@ export default class login extends Vue {
   value: string = '00000000000'
 
   public rules: {} = {
-    fname: [ (v:string) => !!v || '姓・名は必ず入力してください',
-    (v:string) => (v && v.length <=20) || '姓・名はそれぞれ20文字以内にて入力してください。',
+    fname: [
+      (v: string) => !!v || '姓・名は必ず入力してください',
+      (v: string) =>
+        (v && v.length <= 20) ||
+        '姓・名はそれぞれ20文字以内にて入力してください。'
     ],
-    lname: [ (v:string) => !!v || '姓・名は必ず入力してください',
-    (v:string) => (v && v.length <=20) || '姓・名はそれぞれ20文字以内にて入力してください。',
+    lname: [
+      (v: string) => !!v || '姓・名は必ず入力してください',
+      (v: string) =>
+        (v && v.length <= 20) ||
+        '姓・名はそれぞれ20文字以内にて入力してください。'
     ],
-    fname1: [ (v:string) => !!v || 'セイ・メイは必ず入力してください',
-    (v:string) => (v && v.length <=20) || 'セイ・メイはそれぞれ20文字以内にて入力してください。',
+    fname1: [
+      (v: string) => !!v || 'セイ・メイは必ず入力してください',
+      (v: string) =>
+        (v && v.length <= 20) ||
+        'セイ・メイはそれぞれ20文字以内にて入力してください。'
     ],
-    lname1: [ (v:string) => !!v || 'セイ・メイは必ず入力してください',
-    (v:string) => (v && v.length <=20) || 'セイ・メイはそれぞれ20文字以内にて入力してください。',
+    lname1: [
+      (v: string) => !!v || 'セイ・メイは必ず入力してください',
+      (v: string) =>
+        (v && v.length <= 20) ||
+        'セイ・メイはそれぞれ20文字以内にて入力してください。'
     ],
     isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
     emailLength: (v: string) =>
@@ -186,8 +199,6 @@ export default class login extends Vue {
     ]
     // telRules: (v: string) =>
   }
-
-
 
   async login() {
     this.loading = true
