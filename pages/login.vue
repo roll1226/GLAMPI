@@ -1,13 +1,33 @@
 <template>
   <div>
-    <!--
-      rules -> もしuserに入ってなければエラーがでる
-     -->
-    <div v-if="!isLogin">
-      <h2>
-        ログイン前
-      </h2>
-      <LoginModal />
+    <h2>
+      ログイン
+    </h2>
+
+    <!-- rules -> もしuserに入ってなければエラーがでる -->
+    <div v-if="!sigin">
+      <v-text-field
+        ref="name"
+        v-model="user"
+        :rules="[() => !!user || '入力しろ']"
+        label="ユーザ名"
+      ></v-text-field>
+
+      <v-text-field
+        v-model="password"
+        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="show1 ? 'text' : 'password'"
+        :rules="[rules.required, rules.min]"
+        name="input-10-1"
+        label="パスワード入力"
+        hint="8文字以上のパスワードを入力してください。"
+        counter
+        @click:append="show1 = !show1"
+      ></v-text-field>
+
+      <v-btn :loading="loading" color="promise" @click="login">
+        ログイン
+      </v-btn>
     </div>
 
     <div v-else>
