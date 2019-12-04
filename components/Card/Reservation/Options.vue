@@ -3,7 +3,7 @@
     <v-card class="mx-auto mb-5" max-width="300">
       <v-img
         class="white--text align-end"
-        height="200px"
+        max-height="200px"
         :src="'https://picsum.photos/500/300?image=' + image"
       >
         <v-card-title>
