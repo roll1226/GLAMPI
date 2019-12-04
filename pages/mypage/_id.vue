@@ -42,11 +42,9 @@ import BookingList from '@/components/MyPage/BookingList.vue'
 import Glammity from '@/components/MyPage/Glammity.vue'
 import Favorites from '@/components/MyPage/Favorites.vue'
 import Reviews from '@/components/MyPage/Reviews.vue'
-import Btn from '@/components/MyPage/Btn.vue'
 
 @Component({
   components: {
-    Btn,
     MyTop,
     ChangeInfo,
     BookingList,
@@ -55,7 +53,7 @@ import Btn from '@/components/MyPage/Btn.vue'
     Reviews
   }
 })
-export default class templete extends Vue {
+export default class mypage extends Vue {
   public screen1: number = 0
 
   public toMyTop() {

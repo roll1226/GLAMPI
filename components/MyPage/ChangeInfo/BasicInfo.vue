@@ -56,5 +56,5 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class templete extends Vue {}
+export default class BasicInfo extends Vue {}
 </script>

@@ -8,5 +8,5 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class templete extends Vue {}
+export default class PasswordMypage extends Vue {}
 </script>
