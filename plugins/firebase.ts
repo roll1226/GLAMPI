@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import * as firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
@@ -16,5 +16,10 @@ export default !firebase.apps.length
   : firebase.app()
 const firestore = firebase.firestore()
 const auth = firebase.auth()
+const twitterProvider = new firebase.auth.TwitterAuthProvider()
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
 export { firestore }
 export { auth }
+export { twitterProvider }
+export { facebookProvider }
