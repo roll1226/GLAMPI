@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex">
-      <h1 @click="toMyTop">マイページ</h1>
+      <h1 width="300" height="100" @click="toMyTop">マイページ</h1>
       <v-tabs>
         <v-tabs-slider></v-tabs-slider>
         <v-tab @click="toChangeInfo">情報変更</v-tab>
