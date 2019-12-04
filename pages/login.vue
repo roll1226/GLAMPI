@@ -4,9 +4,7 @@
       ログイン
     </h2>
 
-    <!--
-      rules -> もしuserに入ってなければエラーがでる
-     -->
+    <!-- rules -> もしuserに入ってなければエラーがでる -->
     <div v-if="!sigin">
       <v-text-field
         ref="name"
