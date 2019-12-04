@@ -28,7 +28,6 @@
                   locale="ja-jp"
                   :show-current="false"
                   range
-                  width="600px"
                   :day-format="(date) => new Date(date).getDate()"
                   class="mb-2"
                 ></v-date-picker>
@@ -51,7 +50,10 @@
                   <v-col
                     v-for="(optionList, index) in displayLists"
                     :key="index"
-                    :cols="4"
+                    lg="4"
+                    md="4"
+                    sm="4"
+                    xs="6"
                   >
                     <Options
                       :plan-title="optionList.title"
@@ -75,6 +77,12 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <div class="text-center mt-6">
+      <v-btn color="success">
+        予約する
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -110,6 +118,15 @@ export default class reservation extends Vue {
   page: number = 1
   dates: [] = []
   length: number = 0
+  pageSlice: number = 0
+
+  created() {
+    if (window.parent.screen.width <= 420) {
+      this.pageSlice = 1
+    } else {
+      this.pageSlice = 3
+    }
+  }
 
   list: options[] = [
     {
@@ -162,12 +179,15 @@ export default class reservation extends Vue {
   }
 
   mounted() {
-    this.length = Math.ceil(this.list.length / 3)
-    this.displayLists = this.list.slice(0, 3)
+    this.length = Math.ceil(this.list.length / this.pageSlice)
+    this.displayLists = this.list.slice(0, this.pageSlice)
   }
 
   pageChange(pageNumber: number) {
-    this.displayLists = this.list.slice(3 * (pageNumber - 1), 3 * pageNumber)
+    this.displayLists = this.list.slice(
+      this.pageSlice * (pageNumber - 1),
+      this.pageSlice * pageNumber
+    )
   }
 }
 </script>
