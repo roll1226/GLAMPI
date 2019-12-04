@@ -1,19 +1,23 @@
 <template>
   <div>
-    <!-- <h1>会員登録</h1> -->
-    <!-- /*氏名*/
-    /*漢字*/-->
-    <!-- <v-text-field v-model="sei" label="姓" placeholder="姓"></v-text-field>
-    <v-text-field v-model="mei" label="名" placeholder="名"></v-text-field> -->
-    <!-- /*ひらがな*/ -->
-    <!-- <v-text-field v-model="sei" label="姓" placeholder="セイ"></v-text-field>
-    <v-text-field v-model="mei" label="名" placeholder="メイ"></v-text-field>
+    <h1>会員登録</h1>
+
+    <v-text-fieldv-model="sei"
+      label="姓"
+      placeholder="姓"
+      :rules="rules.fname"
+    ></v-text-field>
+    <v-text-field v-model="mei" label="名" placeholder="名"></v-text-field>
+
+    <v-text-field v-model="sei" label="姓" placeholder="セイ"></v-text-field>
+    <v-text-field v-model="mei"
+    label="名" placeholder="メイ"></v-text-field>
     <input type="radio" id="M" value="M" v-model="picked" />
     <label for="M">男性</label>
     <br />
     <input type="radio" id="F" value="F" v-model="picked" />
     <label for="F">女性</label>
-    <br /> -->
+    <br />
     <!-- //生年月日 -->
     <v-menu
       ref="menu"
@@ -61,8 +65,7 @@
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
 // 郵便番号
 const { mask } = require('vue-the-mask')
-// API
-import axios from 'axios'
+// import axios from "axios";
 
 // 生年月日
 // export default {
@@ -94,9 +97,17 @@ import axios from 'axios'
   }
 })
 export default class admin extends Vue {
+
   public date: string = ''
   public menu: boolean = false
   public picked: string = ''
+
+  public rules: {} ={
+    fname: [ (v:string) => !!v || '姓・名は必ず入力してください',
+    (v:string) => (v && v.length <=20) || '最大桁数以上の入力がされました',
+
+    ]
+  }
   @Watch('menu')
   seMenu(val: string) {
     val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
