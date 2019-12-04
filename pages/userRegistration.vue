@@ -77,7 +77,7 @@
       name="email"
       label="E-mail"
       :counter="100"
-      :rules="rules.emailRules"
+      :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
       hint="XX@XX.XX"
     ></v-text-field>
 
@@ -106,8 +106,9 @@
       <v-card-text>
         <v-text-field
           v-model="value"
-          v-mask="tell"
+          v-mask="tel"
           label="電話番号"
+          rules="rules.telRules"
         ></v-text-field>
       </v-card-text>
     </v-card>
@@ -164,14 +165,16 @@ export default class login extends Vue {
     lname1: [ (v:string) => !!v || 'セイ・メイは必ず入力してください',
     (v:string) => (v && v.length <=20) || 'セイ・メイはそれぞれ20文字以内にて入力してください。',
     ],
-
-    emailRules: [
-      (v: string) => !!v || 'メールアドレスは必ず入力してください。',
-      (v: string) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',
-      (v: string) =>
-        /.+@.+\..+/.test(v) ||
-        'メールアドレスは「XX@XX.XX」の形式にて入力してください。'
-    ],
+    isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
+    emailLength: (v: string) =>
+      (v && v.length <= 100) || 'メールアドレスが長すぎます。',
+    emailFormat: (v: string) => {
+      const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+      return (
+        pattern.test(v) ||
+        'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
+      )
+    },
     required: (value: string) =>
       !!value || 'パスワードは必ず入力してください。',
     min: (v: string) =>
@@ -181,6 +184,7 @@ export default class login extends Vue {
       (v: string) =>
         (v && v.length <= 20) || 'ユーザ名は20字以内にて入力してください。'
     ]
+    // telRules: (v: string) =>
   }
 
 
