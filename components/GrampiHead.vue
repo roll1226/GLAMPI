@@ -11,7 +11,7 @@
 
     <v-toolbar class="mb-5" dense>
       <v-btn text style="position: relative;" width="132px" to="/">
-        <LogoSvg style="position: absolute" width="132px" />
+        <LogoSvg width="132px" />
       </v-btn>
 
       <v-spacer></v-spacer>
@@ -43,7 +43,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import LoginModal from '@/components/Btn/LoginModal.vue'
-import LogoSvg from '@/assets/logo.svg'
+import LogoSvg from '@/assets/svg/logo.svg'
 import { auth } from '@/plugins/firebase'
 
 @Component({
