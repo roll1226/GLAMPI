@@ -10,9 +10,9 @@
     </v-snackbar>
 
     <v-toolbar class="mb-5" dense>
-      <v-toolbar-title>
-        GLAMPI
-      </v-toolbar-title>
+      <v-btn text style="position: relative;" width="132px" to="/">
+        <LogoSvg style="position: absolute" width="132px" />
+      </v-btn>
 
       <v-spacer></v-spacer>
       <template v-if="!isLogin">
@@ -43,11 +43,13 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import LoginModal from '@/components/Btn/LoginModal.vue'
+import LogoSvg from '@/assets/logo.svg'
 import { auth } from '@/plugins/firebase'
 
 @Component({
   components: {
-    LoginModal
+    LoginModal,
+    LogoSvg
   },
   computed: {
     isLogin(): boolean {
@@ -80,3 +82,10 @@ export default class GlampiHead extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.theme--light.v-btn--active:hover::before,
+.theme--light.v-btn--active::before {
+  opacity: 0;
+}
+</style>
