@@ -51,8 +51,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/pwa',
-    'nuxt-svg-loader'
+    '@nuxtjs/pwa'
   ],
   /*
    ** Axios module configuration
@@ -74,13 +73,7 @@ export default {
       }
     }
   },
-  svgLoader: {
-    svgoConfig: {
-      plugins: [
-        { prefixIds: false } // Disables prefixing for SVG IDs
-      ]
-    }
-  },
+
   /*
    ** Build configuration
    */
@@ -90,14 +83,14 @@ export default {
      */
     extend(config: any, ctx: any) {
       // svg
-      const svgRule = config.module.rules.find((rule: any) => rule.test.test('.svg'));
+      // const svgRule = config.module.rules.find((rule: any) => rule.test.test('.svg'));
 
-      svgRule.test = /\.(png|jpe?g|gif|webp)$/;
+      // svgRule.test = /\.(png|jpe?g|gif|webp)$/;
 
-      config.module.rules.push({
-        test: /\.svg$/,
-        loader: 'vue-svg-loader'
-      });
+      // config.module.rules.push({
+      //   test: /\.svg$/,
+      //   loader: 'vue-svg-loader'
+      // });
     }
   }
 }

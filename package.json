@@ -26,7 +26,6 @@
     "npm": "^6.13.1",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.0",
-    "nuxt-svg-loader": "^1.0.1",
     "sass-loader": "^8.0.0",
     "v-calendar": "^1.0.0-beta.22",
     "vue-ctk-date-time-picker": "^2.4.0",
