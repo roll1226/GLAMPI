@@ -11,7 +11,7 @@
 
     <v-toolbar class="mb-5" dense>
       <v-btn text style="position: relative;" width="132px" to="/">
-        <LogoImage />
+        GLAMPI
       </v-btn>
 
       <v-spacer></v-spacer>
@@ -45,12 +45,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import LoginModal from '@/components/Btn/LoginModal.vue'
 import { auth } from '@/plugins/firebase'
 
-import LogoImage from '@/components/Image/LogoImage.vue'
-
 @Component({
   components: {
-    LoginModal,
-    LogoImage
+    LoginModal
   },
   computed: {
     isLogin(): boolean {
