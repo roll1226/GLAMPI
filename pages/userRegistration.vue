@@ -77,6 +77,7 @@
     <v-text-field
       name="email"
       label="E-mail"
+      prepend-icon="mdi-email"
       :counter="100"
       :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
       hint="XX@XX.XX"
@@ -88,6 +89,7 @@
       :type="show1 ? 'text' : 'password'"
       name="input-10-1"
       label="パスワード"
+      prepend-icon="mdi-lock"
       :rules="[rules.required, rules.min, rules.passwordFormat]"
       counter
       @click:append="show1 = !show1"
@@ -98,25 +100,24 @@
       :type="show1 ? 'text' : 'password'"
       name="input-10-2"
       label="パスワード確認"
+      prepend-icon="mdi-lock"
       hint="パスワードをもう一度入力してください。"
       counter
       @click:append="show1 = !show1"
     ></v-text-field>
 
-    <v-card>
-      <v-card-text>
-        <v-text-field
-          v-model="telValue"
-          v-mask="tel"
-          label="電話番号"
-          :rules="rules.telRules"
-        ></v-text-field>
-      </v-card-text>
-    </v-card>
+    <v-text-field
+      v-model="telValue"
+      v-mask="tel"
+      label="電話番号"
+      prepend-icon="mdi-telephone"
+      :rules="rules.telRules"
+    ></v-text-field>
 
     <v-text-field
       name="username"
       label="ユーザ名"
+      prepend-icon="mdi-account-circle"
       :rules="rules.nameRules"
     ></v-text-field>
 
