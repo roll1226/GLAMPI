@@ -110,7 +110,7 @@
       v-model="telValue"
       v-mask="tel"
       label="電話番号"
-      prepend-icon="mdi-telephone"
+      prepend-icon="mdi-phone"
       :rules="rules.telRules"
     ></v-text-field>
 
