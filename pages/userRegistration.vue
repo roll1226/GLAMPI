@@ -30,6 +30,7 @@
       placeholder="メイ"
       :rules="rules.lname1"
     ></v-text-field>
+    <!-- 性別 -->
     <input id="M" v-model="picked" type="radio" value="M" />
     <label for="M">男性</label>
     <br />
@@ -97,13 +98,13 @@
 
     <v-text-field
       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
+      :type="show2 ? 'text' : 'password'"
       name="input-10-2"
       label="パスワード確認"
       prepend-icon="mdi-lock"
       hint="パスワードをもう一度入力してください。"
       counter
-      @click:append="show1 = !show1"
+      @click:append="show2 = !show2"
     ></v-text-field>
 
     <v-text-field
@@ -122,7 +123,7 @@
     ></v-text-field>
 
     <!-- <v-btn :loading="loading" color="promise" @click="regist">
-      ログイン
+      会員登録
     </v-btn> -->
   </div>
 </template>
@@ -152,8 +153,8 @@ export default class login extends Vue {
   public show1: boolean = false
   public loading: boolean = false
   public sigin: boolean = false
-  addressValue: string = '0000000'
-  telValue: string = '00000000000'
+  // addressValue: string = '0000000'
+  // telValue: string = '00000000000'
 
   public rules: {} = {
     fname: [
