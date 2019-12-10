@@ -1,100 +1,196 @@
 <template>
   <div>
-    <transition name="fade">
-      <div v-if="!submitted" class="payment">
-        <h3>Please enter your payment details:</h3>
-        <label for="email">Email</label>
-        <input
-          id="email"
-          v-model="stripeEmail"
-          type="email"
-          placeholder="name@example.com"
-        />
-        <label for="card">Credit Card</label>
-        <p>
-          Test using this credit card:
-          <span class="cc-number">4242 4242 4242 4242</span>, and enter any 5
-          digits for the zip code
-        </p>
-        <card
-          id="card"
-          class="stripe-card"
-          :class="{ complete }"
-          :stripe="stripe_api_key"
-          :options="stripeOptions"
-          @change="complete = $event.complete"
-        />
-        <button
-          class="pay-with-stripe"
-          :disabled="!complete || !stripeEmail"
-          @click="pay"
-        >
-          Pay with credit card
-        </button>
-      </div>
+    <v-btn class="light-blue darken-4 white--text" @click.stop="dialog = true">
+      支払う
+    </v-btn>
 
-      <div v-else class="statussubmit">
-        <div v-if="status === 'failure'">
-          <h3>Oh No!</h3>
-          <p>Something went wrong!</p>
-          <button @click="clearCart">Please try again</button>
-        </div>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" max-width="500">
+        <v-card>
+          <v-toolbar dark class="grey lighten-1">
+            <v-toolbar-title>
+              クレジット支払い
+            </v-toolbar-title>
+          </v-toolbar>
 
-        <div v-else class="loadcontain">
-          <h4>Please hold, we're filling up your cart with goodies</h4>
-        </div>
-      </div>
-    </transition>
+          <div class="px-5 py-3">
+            <v-text-field
+              v-model="stripeEmail"
+              :rules="emailRules.email"
+              label="E-mail"
+              required
+            ></v-text-field>
+
+            <label for="card">
+              クレジットカード
+            </label>
+            <p>
+              テスト用カード<span class="cc-number">4242 4242 4242 4242</span>
+            </p>
+
+            <!-- クレジットカード -->
+            <card
+              id="card"
+              class="stripe-card"
+              :class="{ complete }"
+              :stripe="stripeApiKey"
+              :options="stripeOptions"
+              @change="complete = $event.complete"
+            />
+
+            <div class="text-center">
+              <v-btn
+                class="pay-with-stripe light-blue darken-4 white--text"
+                :disabled="!complete || !stripeEmail"
+                :loading="loading"
+                @click="pay"
+              >
+                支払う
+              </v-btn>
+            </div>
+          </div>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </div>
 </template>
 
-<script>
-import { Card, createToken } from 'vue-stripe-elements-plus'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+const { Card, createToken } = require('vue-stripe-elements-plus')
+const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 
-export default {
+const api = process.env.STRIPE_PUBLIC_KEY
+@Component({
   components: {
     Card
-  },
-  props: {
-    total: {
-      type: [Number, String],
-      default: '50.00'
-    },
-    success: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      submitted: false,
-      complete: false,
-      status: '',
-      response: '',
-      stripe_api_key: process.env.STRIPE_PUBLIC_KEY,
-      stripeOptions: {
-        // you can configure that cc element. I liked the default, but you can
-        // see https://stripe.com/docs/stripe.js#element-options for details
-        hidePostalCode: true
-      },
-      stripeEmail: ''
-    }
-  },
-  methods: {
-    async pay() {
-      await createToken().then((data) => {
-        this.submitted = true
-        console.log(data) // this is a token we would use for the stripeToken below
+  }
+})
+export default class stripe extends Vue {
+  complete: boolean = false
+  loading: boolean = false
+  dialog: boolean = false
+  stripeApiKey: string | undefined = api
+  stripeOptions: { hidePostalCode: boolean } = {
+    hidePostalCode: true
+  }
+  emailRules: {} = {
+    email: [
+      (v: string) => !!v || 'メールアドレスは必ず入力してください。',
+      (v: string) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',
+      (v: string) => {
+        const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+        return (
+          pattern.test(v) ||
+          'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
+        )
+      }
+    ]
+  }
+  stripeEmail: string = ''
+
+  async pay() {
+    this.loading = true
+    await createToken().then(async (data: { token: string }) => {
+      const token = data.token
+      console.log(data)
+
+      await fetch(checkoutUrl, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          token,
+          charge: {
+            amount: 1000,
+            currency: 'JPY',
+            email: this.stripeEmail
+          }
+        })
       })
-    },
-    clearCart() {
-      this.submitted = false
-      this.status = ''
-      this.complete = false
-      this.response = ''
-    }
+        .then((result) => {
+          this.loading = false
+          this.dialog = false
+          console.log(result)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    })
+  }
+
+  clearCart() {
+    this.complete = false
   }
 }
+// export default {
+
+//   data() {
+//     return {
+//       complete: false,
+//       status: '',
+//       response: '',
+//       loading: false,
+//       dialog: false,
+//       stripeApiKey: process.env.STRIPE_PUBLIC_KEY,
+//       stripeOptions: {
+//         // you can configure that cc element. I liked the default, but you can
+//         // see https://stripe.com/docs/stripe.js#element-options for details
+//         hidePostalCode: true
+//       },
+//       emailRules: [
+//         (v) => !!v || 'メールアドレスは必ず入力してください。',
+//         (v) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',
+//         (v) => {
+//           const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+//           return (
+//             pattern.test(v) ||
+//             'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
+//           )
+//         }
+//       ],
+//       stripeEmail: ''
+//     }
+//   },
+//   methods: {
+//     async pay() {
+//       this.loading = true
+//       await createToken().then(async (data) => {
+//         const token = data.token
+//         console.log(data)
+
+//         await fetch(checkoutUrl, {
+//           method: 'POST',
+//           headers: {
+//             'Content-type': 'application/json'
+//           },
+//           body: JSON.stringify({
+//             token,
+//             charge: {
+//               amount: 1000,
+//               currency: 'JPY',
+//               email: this.stripeEmail
+//             }
+//           })
+//         })
+//           .then((result) => {
+//             this.loading = false
+//             console.log(result)
+//           })
+//           .catch((error) => {
+//             console.error(error)
+//           })
+//       })
+//     },
+//     clearCart() {
+//       this.submitted = false
+//       this.status = ''
+//       this.complete = false
+//       this.response = ''
+//     }
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>
