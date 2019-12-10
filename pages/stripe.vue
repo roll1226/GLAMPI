@@ -20,7 +20,7 @@
           id="card"
           class="stripe-card"
           :class="{ complete }"
-          stripe="pk_test_5ThYi0UvX3xwoNdgxxxTxxrG"
+          :stripe="stripe_api_key"
           :options="stripeOptions"
           @change="complete = $event.complete"
         />
@@ -71,6 +71,7 @@ export default {
       complete: false,
       status: '',
       response: '',
+      stripe_api_key: process.env.STRIPE_PUBLIC_KEY,
       stripeOptions: {
         // you can configure that cc element. I liked the default, but you can
         // see https://stripe.com/docs/stripe.js#element-options for details
