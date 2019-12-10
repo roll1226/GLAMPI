@@ -7,10 +7,10 @@ interface ICommit {
 
 interface IState {
   loading: boolean
-  isLogin: boolean,
-  snackbar: boolean,
-  snackbarText: string,
-  snackbarIcon: string,
+  isLogin: boolean
+  snackbar: boolean
+  snackbarText: string
+  snackbarIcon: string
   snackbarColor: string
 }
 
