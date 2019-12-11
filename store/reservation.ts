@@ -9,7 +9,8 @@ interface IState {
   nowActive: string,
   planPay: number,
   optionPay: number,
-  totalPay: number
+  totalPay: number,
+  dates: [...string[]]
 }
 
 export const state = (): IState => ({
@@ -17,7 +18,8 @@ export const state = (): IState => ({
   nowActive: '',
   planPay: 15000, // 読み込まれた時に挿入
   optionPay: 0,
-  totalPay: 0
+  totalPay: 0,
+  dates: []
 })
 
 export const mutations = {
@@ -32,5 +34,9 @@ export const mutations = {
 
   ADDITION(state: IState) {
     state.totalPay = state.planPay + state.optionPay
+  },
+
+  SET_DATES(state: IState, payload: []) {
+    state.dates = payload
   }
 }

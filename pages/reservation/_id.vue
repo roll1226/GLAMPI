@@ -16,6 +16,7 @@
               <div class="overline mb-1">
                 日程
               </div>
+
               <v-list-item-title class="headline mb-1 text-center">
                 <v-text-field
                   v-model="dateRangeText"
@@ -114,7 +115,7 @@ interface options {
 })
 export default class reservation extends Vue {
   page: number = 1
-  dates: [] = []
+  // dates: [] = []
   length: number = 0
   pageSlice: number = 0
   payNum: number = 2000
@@ -177,8 +178,16 @@ export default class reservation extends Vue {
     return this.dates.join(' ~ ')
   }
 
+  get dates(): [] {
+    return this.$store.state.reservation.dates
+  }
+
   get planPay(): number {
     return this.$store.state.reservation.planPay
+  }
+
+  set dates(selectdates: []) {
+    this.$store.commit('reservation/SET_DATES', selectdates)
   }
 
   mounted() {
