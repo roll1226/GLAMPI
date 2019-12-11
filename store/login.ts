@@ -1,5 +1,5 @@
 import * as Vuex from 'vuex'
-import { auth } from '@/plugins/firebase'
+const { default: axios } = require('axios')
 
 interface ICommit {
   commit: Vuex.Commit
@@ -7,10 +7,10 @@ interface ICommit {
 
 interface IState {
   loading: boolean
-  isLogin: boolean,
-  snackbar: boolean,
-  snackbarText: string,
-  snackbarIcon: string,
+  isLogin: boolean
+  snackbar: boolean
+  snackbarText: string
+  snackbarIcon: string
   snackbarColor: string
 }
 
@@ -54,25 +54,23 @@ export const actions = {
     dispatch: ICommit,
     payload: { user: string; password: string }
   ) {
-    await auth
-      .signInWithEmailAndPassword(payload.user, payload.password)
-      .then(() => {
-        dispatch.commit('SET_LOADING', false)
-        dispatch.commit('IS_LOGIN', true)
-        dispatch.commit('SET_SNACKBAR', true)
+    const params = new URLSearchParams()
+    params.append('user', payload.user)
+    params.append('passwd', payload.password)
+    params.append('login', 'login')
+    await axios
+      .post(
+        'http://localhost:8080/GLAMPY/Controller/usersController.php',
+        params
+      )
+      .then((response: { isLogin: boolean; status: boolean }) => {
+        dispatch.commit('IS_LOGIN', response.isLogin)
+        console.log(response)
+        dispatch.commit('SET_SNACKBAR', response.status)
         dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
         dispatch.commit('SET_SNACKBAR_COLOR', 'success')
-      })
-      .catch(() => {
         dispatch.commit('SET_LOADING', false)
-        dispatch.commit('SET_SNACKBAR', true)
-        dispatch.commit(
-          'SET_SNACKBAR_TEXT',
-          'メールアドレス又は、パスワードが違います。'
-        )
-        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
-        dispatch.commit('SET_SNACKBAR_COLOR', 'error')
       })
   }
 }
