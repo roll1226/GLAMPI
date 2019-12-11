@@ -20,8 +20,17 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="orange" text @click="selected(displayName)">
-          選ぶ
+        <v-btn
+          color="success"
+          outlined
+          @click="selected(displayName, pay.split(',').join(''))"
+        >
+          <v-icon v-if="isActive && nowActive === displayName">
+            fas fa-check
+          </v-icon>
+          <span v-else>
+            選ぶ
+          </span>
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -34,11 +43,12 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 @Component
 export default class reservation extends Vue {
   public selectedOption: string = ''
+  isActive: boolean = false
   @Prop({ required: true, default: '' })
   planTitle!: string
 
   @Prop({ required: true, default: '' })
-  pay!: string
+  pay!: number
 
   @Prop({ default: [] })
   texts!: []
@@ -49,9 +59,13 @@ export default class reservation extends Vue {
   @Prop({ required: true, default: '' })
   displayName!: string
 
-  selected(e: string) {
-    this.selectedOption = e
-    console.log(this.selectedOption)
+  get nowActive(): string {
+    return this.$store.state.reservation.nowActive
+  }
+
+  selected(e: string, num: string) {
+    this.isActive = true
+    this.$store.commit('reservation/SET_NOW_ACTIVE', { active: e, pay: num })
   }
 }
 </script>

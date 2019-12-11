@@ -15,7 +15,7 @@
           値段
         </div>
         <v-list-item-title class="headline mb-1">
-          25,000円
+          {{ payNumber.toLocaleString() }}円
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -23,8 +23,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
-export default class plan extends Vue {}
+export default class plan extends Vue {
+  @Prop({ required: true, default: 0 })
+  payNumber!: number
+}
 </script>
