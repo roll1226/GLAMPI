@@ -17,7 +17,7 @@ export default !firebase.apps.length
 const firestore = firebase.firestore()
 const auth = firebase.auth()
 const twitterProvider = new firebase.auth.TwitterAuthProvider()
-const facebookProvider = new firebase.auth.FacebookAuthProvider();
+const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
 export { firestore }
 export { auth }

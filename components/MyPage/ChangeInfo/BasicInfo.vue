@@ -1,7 +1,7 @@
 <template>
   <v-card width="850">
     <v-card-title>基本情報変更</v-card-title>
-    <v-form class="h-adr">
+    <v-form>
       <v-container>
         <v-row>
           <v-col cols="6">
@@ -20,9 +20,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12">
-            <v-text-field v-model="email" label="メールアドレス"></v-text-field>
-          </v-col>
+          <v-col cols="12"> </v-col>
         </v-row>
         <v-row>
           <v-col>

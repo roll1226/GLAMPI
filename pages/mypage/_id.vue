@@ -6,7 +6,7 @@
         <v-tabs-slider></v-tabs-slider>
         <v-tab @click="toChangeInfo">情報変更</v-tab>
         <v-divider inset vertical></v-divider>
-        <v-tab @click="toBookingList">予約変更</v-tab>
+        <v-tab @click="toBookingList">予約履歴</v-tab>
         <v-divider inset vertical></v-divider>
         <v-tab @click="toGlammity">GLAMMITY</v-tab>
         <v-divider inset vertical></v-divider>
