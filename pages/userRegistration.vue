@@ -80,46 +80,16 @@
       prepend-icon="mdi-"
       :rules="[rules.isAddress]"
     ></v-text-field>
+    <!-- メールアドレス(email) -->
     <email></email>
     <!-- パスワード(password) -->
-    <v-text-field
-      v-model="password"
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      name="input-10-1"
-      label="パスワード"
-      prepend-icon="mdi-lock"
-      :rules="[rules.isPassword, rules.passwordLength, rules.passwordFormat]"
-      counter
-      @click:append="show1 = !show1"
-    ></v-text-field>
+    <password></password>
     <!-- パスワード確認(passwordcheck) -->
-    <v-text-field
-      v-model="passwordCheck"
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show2 ? 'text' : 'password'"
-      label="パスワード確認"
-      prepend-icon="mdi-lock"
-      hint="パスワードをもう一度入力してください。"
-      counter
-      @click:append="show2 = !show2"
-    ></v-text-field>
+    <passwordCheck></passwordCheck>
     <!-- 電話番号(tel) -->
-    <v-text-field
-      v-model="tel"
-      v-mask="telMask"
-      label="電話番号"
-      prepend-icon="mdi-phone"
-      :rules="[rules.isTel, rules.telFormat]"
-    ></v-text-field>
+    <tel></tel>
     <!-- ユーザ名(username) -->
-    <v-text-field
-      v-model="username"
-      label="ユーザ名"
-      prepend-icon="mdi-account-circle"
-      :rules="rules.usernameLength"
-    ></v-text-field>
-
+    <username></username>
     <!-- <v-btn :loading="loading" color="promise" @click="regist">
       会員登録
     </v-btn> -->
@@ -130,6 +100,10 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { auth } from '@/plugins/firebase'
 import email from '@/components/UserRegistration/email.vue'
+import password from '@/components/UserRegistration/password.vue'
+import passwordCheck from '@/components/UserRegistration/passwordCheck.vue'
+import tel from '@/components/UserRegistration/tel.vue'
+import username from '@/components/UserRegistration/username.vue'
 const { mask } = require('vue-the-mask')
 
 @Component({
@@ -137,7 +111,11 @@ const { mask } = require('vue-the-mask')
     mask
   },
   components: {
-    email
+    email,
+    password,
+    passwordCheck,
+    tel,
+    username
   },
   data() {
     return {
@@ -146,7 +124,7 @@ const { mask } = require('vue-the-mask')
     }
   }
 })
-export default class login extends Vue {
+export default class UserRegistration extends Vue {
   public date: string = ''
   public menu: boolean = false
   public picked: string = ''
@@ -176,29 +154,7 @@ export default class login extends Vue {
       (v && v.length <= 20) ||
       'セイ・メイはそれぞれ20文字以内にて入力してください。',
     isPostal: (v: string) => !!v || '郵便番号は必ず入力してください',
-    isAddress: (v: string) => !!v || '住所は必ず入力してください',
-
-    isPassword: (v: string) => !!v || 'パスワードは必ず入力してください。',
-    passwordLength: (v: string) =>
-      (v.length <= 20 && v.length >= 6) ||
-      'パスワードは6桁以上20桁以内にて入力してください。',
-    passwordFormat: (v: string) => {
-      const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
-      return (
-        pattern.test(v) ||
-        'パスワードは半角英字と、数字の両方を必ず入れてください。'
-      )
-    },
-    isTel: (v: string) => !!v || '電話番号は必ず入力してください。',
-    telFormat: (v: string) => {
-      const pattern = /^0[9876]0[-]?\d{4}[-]?\d{4}$/
-      return (
-        pattern.test(v) ||
-        '入力された携帯番号は使用されていません。正しい番号を入力してください。'
-      )
-    },
-    usernameLength: (v: string) =>
-      (v && v.length <= 20) || 'ユーザ名は20字以内にて入力してください。'
+    isAddress: (v: string) => !!v || '住所は必ず入力してください'
   }
 
   async login() {
