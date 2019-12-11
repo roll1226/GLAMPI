@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="text-center mt-6">
-      <v-btn class="light-blue darken-4 white--text" @click.stop="openDialog">
+      <v-btn
+        :disabled="!reservationIsValid"
+        class="light-blue darken-4 white--text"
+        @click.stop="openDialog"
+      >
         予約する
       </v-btn>
     </div>
@@ -96,6 +100,14 @@ export default {
   computed: {
     totalPay() {
       return this.$store.state.reservation.totalPay
+    },
+
+    dates() {
+      return this.$store.state.reservation.dates
+    },
+
+    reservationIsValid() {
+      return this.dates[0] && this.dates[1]
     }
   },
 
