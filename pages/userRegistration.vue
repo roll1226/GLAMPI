@@ -123,7 +123,7 @@ const { mask } = require('vue-the-mask')
     }
   }
 })
-export default class login extends Vue {
+export default class UserRegistration extends Vue {
   public date: string = ''
   public menu: boolean = false
   public picked: string = ''
