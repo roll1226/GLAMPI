@@ -5,22 +5,22 @@
       <v-container>
         <v-row>
           <v-col cols="6">
-            <v-text-field v-model="name" label="姓"></v-text-field>
+            <v-text-field label="姓"></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-text-field v-model="name" label="名"></v-text-field>
+            <v-text-field label="名"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="6">
-            <v-text-field v-model="name" label="セイ"></v-text-field>
+            <v-text-field label="セイ"></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-text-field v-model="name" label="メイ"></v-text-field>
+            <v-text-field label="メイ"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12"> </v-col>
+          <v-col cols="12"><email></email></v-col>
         </v-row>
         <v-row>
           <v-col>
@@ -34,15 +34,12 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field v-model="username" label="ユーザ名"></v-text-field>
+            <v-text-field label="ユーザ名"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field
-              v-model="plofile"
-              label="プロフィールコメント"
-            ></v-text-field>
+            <v-text-field label="プロフィールコメント"></v-text-field>
           </v-col>
         </v-row>
       </v-container>
@@ -52,7 +49,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import email from '@/components/UserRegistration/email.vue'
 
-@Component
+@Component({
+  components: {
+    email
+  }
+})
 export default class BasicInfo extends Vue {}
 </script>
