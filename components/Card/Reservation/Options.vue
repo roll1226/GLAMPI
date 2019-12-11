@@ -64,8 +64,13 @@ export default class reservation extends Vue {
   }
 
   selected(e: string, num: string) {
-    this.isActive = true
-    this.$store.commit('reservation/SET_NOW_ACTIVE', { active: e, pay: num })
+    if (this.nowActive === this.displayName) {
+      this.isActive = false
+      this.$store.commit('reservation/SET_NOW_ACTIVE', { active: '', pay: 0 })
+    } else {
+      this.isActive = true
+      this.$store.commit('reservation/SET_NOW_ACTIVE', { active: e, pay: num })
+    }
   }
 }
 </script>
