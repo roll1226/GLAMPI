@@ -80,15 +80,7 @@
       prepend-icon="mdi-"
       :rules="[rules.isAddress]"
     ></v-text-field>
-    <!-- メールアドレス(email) -->
-    <v-text-field
-      v-model="email"
-      label="E-mail"
-      prepend-icon="mdi-email"
-      :counter="100"
-      :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
-      hint="XX@XX.XX"
-    ></v-text-field>
+    <email></email>
     <!-- パスワード(password) -->
     <v-text-field
       v-model="password"
@@ -137,11 +129,15 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { auth } from '@/plugins/firebase'
+import email from '@/components/UserRegistration/email.vue'
 const { mask } = require('vue-the-mask')
 
 @Component({
   directives: {
     mask
+  },
+  components: {
+    email
   },
   data() {
     return {
@@ -181,16 +177,7 @@ export default class login extends Vue {
       'セイ・メイはそれぞれ20文字以内にて入力してください。',
     isPostal: (v: string) => !!v || '郵便番号は必ず入力してください',
     isAddress: (v: string) => !!v || '住所は必ず入力してください',
-    isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
-    emailLength: (v: string) =>
-      (v && v.length <= 100) || 'メールアドレスが長すぎます。',
-    emailFormat: (v: string) => {
-      const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
-      return (
-        pattern.test(v) ||
-        'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
-      )
-    },
+
     isPassword: (v: string) => !!v || 'パスワードは必ず入力してください。',
     passwordLength: (v: string) =>
       (v.length <= 20 && v.length >= 6) ||
