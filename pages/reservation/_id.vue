@@ -13,7 +13,7 @@
         <v-card>
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="overline mb-1">
+              <div class="body-2 mb-1">
                 日程
               </div>
 
@@ -42,7 +42,7 @@
         <v-card>
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="overline mb-1">
+              <div class="body-2 mb-1">
                 オプション
               </div>
 

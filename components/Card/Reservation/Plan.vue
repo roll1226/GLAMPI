@@ -2,7 +2,7 @@
   <v-card>
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline mb-1">
+        <div class="body-2 mb-1">
           プラン
         </div>
         <v-list-item-title class="headline mb-1">
@@ -11,7 +11,7 @@
       </v-list-item-content>
       <v-spacer></v-spacer>
       <v-list-item-content>
-        <div class="overline mb-1">
+        <div class="body-2 mb-1">
           値段
         </div>
         <v-list-item-title class="headline mb-1">
