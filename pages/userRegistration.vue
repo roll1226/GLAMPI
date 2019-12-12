@@ -118,8 +118,7 @@ const { mask } = require('vue-the-mask')
   },
   data() {
     return {
-      postalMask: '###-####',
-      telMask: '###-####-####'
+      postalMask: '###-####'
     }
   }
 })
@@ -131,6 +130,14 @@ export default class UserRegistration extends Vue {
   public password: string = ''
   public loading: boolean = false
   public sigin: boolean = false
+  public sei: string = ''
+  public mei: string = ''
+  public seiKana: string = ''
+  public meiKana: string = ''
+  public sex: string = ''
+  public save: string = ''
+  public postal: string = ''
+  public address: string = ''
   // postal: string = '0000000'
   // tel: string = '00000000000'
 

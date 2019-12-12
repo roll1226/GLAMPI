@@ -15,6 +15,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class emailUserRegistration extends Vue {
+  public email: string = ''
   public rules: {} = {
     isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
     emailLength: (v: string) =>

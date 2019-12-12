@@ -11,10 +11,21 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+const { mask } = require('vue-the-mask')
 
-@Component
-export default class passwordUserRegistration extends Vue {
+@Component({
+  directives: {
+    mask
+  },
+  data() {
+    return {
+      telMask: '###-####-####'
+    }
+  }
+})
+export default class telUserRegistration extends Vue {
   public tel: string = ''
+  public telMask: string = ''
   public rules: {} = {
     isTel: (v: string) => !!v || '電話番号は必ず入力してください。',
     telFormat: (v: string) => {
