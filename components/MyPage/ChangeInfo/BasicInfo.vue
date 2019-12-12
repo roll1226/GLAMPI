@@ -1,6 +1,8 @@
 <template>
   <v-card width="850">
     <v-card-title>基本情報変更</v-card-title>
+    <!--基本情報変更ページは入力欄に初期値で現在の情報を表示する。-->
+    <!--コンポーネントは登録の時のだけどどうするのか？-->
     <v-form>
       <v-container>
         <v-row>
@@ -34,7 +36,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field label="ユーザ名"></v-text-field>
+            <username></username>
           </v-col>
         </v-row>
         <v-row>
@@ -50,10 +52,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import email from '@/components/UserRegistration/email.vue'
+import username from '@/components/UserRegistration/username.vue'
 
 @Component({
   components: {
-    email
+    email,
+    username
   }
 })
 export default class BasicInfo extends Vue {}
