@@ -37,7 +37,7 @@ export default class BookingList extends Vue {
   public facility: string = '施設名'
   public plan: string = 'プラン名'
   public option: string = 'オプション名' // ない場合もある
-  public cost: string = '金額' // 実際はnumber?
+  public cost: number = 1111 // 実際はnumber?
   // 日付は色々不明
   public checkIn: string = 'チェックイン'
   public checkOut: string = 'チェックアウト'
