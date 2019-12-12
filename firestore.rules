@@ -5,7 +5,7 @@ service cloud.firestore {
       allow create:
               if isAuthenticated()
               && incomingData().size() == 9
-              && incomingData().displayName is list
+              && incomingData().displayName is string
               && incomingData().email is string
               && incomingData().name is string
               && incomingData().officerName is string
