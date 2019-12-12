@@ -129,7 +129,6 @@ export default class UserRegistration extends Vue {
   public picked: string = ''
   public user: string = ''
   public password: string = ''
-  public show1: boolean = false
   public loading: boolean = false
   public sigin: boolean = false
   // postal: string = '0000000'
