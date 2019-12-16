@@ -65,11 +65,11 @@ export const actions = {
       )
       .then((response: { isLogin: boolean; status: boolean }) => {
         dispatch.commit('IS_LOGIN', response.isLogin)
-        console.log(response)
         dispatch.commit('SET_SNACKBAR', response.status)
         dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
         dispatch.commit('SET_SNACKBAR_COLOR', 'success')
+        dispatch.commit('IS_LOGIN', true)
         dispatch.commit('SET_LOADING', false)
       })
   }

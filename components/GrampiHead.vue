@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-snackbar v-model="snackbar" absolute bottom right :color="snackbarColor">
+    <v-snackbar v-model="snackbar" absolute top left :color="snackbarColor">
       <span>
         {{ snackbarText }}
       </span>
