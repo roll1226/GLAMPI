@@ -7,32 +7,28 @@
     <v-text-field
       v-model="sei"
       label="姓"
-      prepend-icon="mdi-"
       :rules="[rules.isFname, rules.fnameLength]"
     ></v-text-field>
     <!-- 名(mei) -->
     <v-text-field
       v-model="mei"
       label="名"
-      prepend-icon="mdi-"
       :rules="[rules.isLname, rules.lnameLength]"
     ></v-text-field>
     <!-- セイ(seiKana) -->
     <v-text-field
       v-model="seiKana"
       label="セイ"
-      prepend-icon="mdi-"
       :rules="[rules.isFnameKana, rules.fnameKanaLength]"
     ></v-text-field>
     <!-- メイ(meiKana) -->
     <v-text-field
       v-model="meiKana"
       label="メイ"
-      prepend-icon="mdi-"
       :rules="[rules.isLnameKana, rules.lnameKanaLength]"
     ></v-text-field>
-    <!-- 性別(sex) -->
-    <v-radio-group v-model="sex" prepend-icon="mdi-" row>
+    <!-- 性別(seibetsu) -->
+    <v-radio-group v-model="seibetsu" row>
       <v-radio label="男性" value="M"></v-radio>
       <v-radio label="女性" value="F"></v-radio>
     </v-radio-group>
@@ -134,7 +130,7 @@ export default class UserRegistration extends Vue {
   public mei: string = ''
   public seiKana: string = ''
   public meiKana: string = ''
-  public sex: string = ''
+  public seibetsu: string = ''
   public save: string = ''
   public postal: string = ''
   public address: string = ''
