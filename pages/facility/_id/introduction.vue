@@ -4,8 +4,9 @@
       施設名
     </h1>
 
-    <v-btn large icon>
-      <v-icon>mdi-heart</v-icon>
+    <v-btn icon large @click="like = !like">
+      <v-icon v-if="!like">mdi-heart</v-icon>
+      <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
     </v-btn>
 
     <v-carousel
@@ -22,10 +23,10 @@
     </v-carousel>
 
     <v-card>
-      <p class="text-left mt-5" max-width="300">
+      <v-card-text class="text-left mt-5" max-width="300">
         hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge
         hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge
-      </p>
+      </v-card-text>
     </v-card>
 
     <v-row>
@@ -134,6 +135,78 @@
         </v-list-item-content>
       </v-list-item>
     </v-card>
+
+    <!-- コメント -->
+    <v-card outlined>
+      <v-card-actions class="py-2 px-4">
+        <v-rating
+          :value="rating"
+          readonly
+          color="indigo lighten-3"
+          dense
+          half-increments
+          hover
+          size="22"
+        ></v-rating>
+        <span class="grey--text text--lighten-2 caption mr-2">
+          ({{ rating }})
+        </span>
+
+        <v-spacer></v-spacer>
+
+        <span class="subtitle-2">
+          2019年10月21日
+        </span>
+      </v-card-actions>
+
+      <v-divider></v-divider>
+
+      <v-card-text class="ml-10 pa-2">
+        <v-avatar>
+          <v-img
+            class="elevation-2 mr-8"
+            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+          ></v-img>
+        </v-avatar>
+
+        <span class="subtitle-1">
+          コメント表示
+        </span>
+      </v-card-text>
+    </v-card>
+
+    <v-card outlined>
+      <v-card-actions class="pt-2 pb-1 px-4">
+        <v-rating
+          v-model="rating"
+          color="indigo lighten-3"
+          class="mx-2"
+          dense
+          size="28"
+        ></v-rating>
+        <span class="grey--text text--lighten-2 caption mr-2">
+          ({{ rating }})
+        </span>
+      </v-card-actions>
+
+      <v-card-text class="pt-1 pb-0">
+        <v-textarea
+          solo
+          class="mx-2"
+          name="input-7-4"
+          label="Solo textarea"
+          prepend-inner-icon="far fa-comment"
+          counter="1000"
+        ></v-textarea>
+      </v-card-text>
+
+      <v-card-actions class="pt-0">
+        <v-spacer></v-spacer>
+        <v-btn class="mx-4">
+          投稿
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -157,6 +230,10 @@ interface IGlammity {
 
 @Component
 export default class introduction extends Vue {
+  // ハート
+  like: boolean = false
+  // 星
+  rating: number = 4
   // スライダー画像
   items: IItem[] = [
     {
@@ -215,6 +292,8 @@ export default class introduction extends Vue {
     }
   ]
   displayLists?: IGlammity[] = []
+
+  rules: [] = []
 
   created() {
     if (window.parent.screen.width <= 420) {
