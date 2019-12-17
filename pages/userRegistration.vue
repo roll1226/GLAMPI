@@ -46,7 +46,6 @@
         <v-text-field
           v-model="date"
           label="生年月日"
-          prepend-icon="mdi-"
           :rules="rules.isDate"
           readonly
           v-on="on"
@@ -65,14 +64,12 @@
       v-model="postal"
       v-mask="postalMask"
       label="郵便番号"
-      prepend-icon="mdi-"
       :rules="[rules.isPostal]"
     ></v-text-field>
     <!-- 住所(address) -->
     <v-text-field
       v-model="address"
       label="住所"
-      prepend-icon="mdi-"
       :rules="[rules.isAddress]"
     ></v-text-field>
     <!-- メールアドレス(email) -->
