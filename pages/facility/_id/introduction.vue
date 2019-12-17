@@ -1,13 +1,17 @@
 <template>
   <div>
-    <h1>
-      施設名
-    </h1>
+    <div class="d-flex">
+      <h2>
+        施設名
+      </h2>
 
-    <v-btn icon large @click="like = !like">
-      <v-icon v-if="!like">mdi-heart</v-icon>
-      <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
-    </v-btn>
+      <v-spacer></v-spacer>
+
+      <v-btn icon @click="like = !like">
+        <v-icon v-if="!like">mdi-heart</v-icon>
+        <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
+      </v-btn>
+    </div>
 
     <v-carousel
       cycle
@@ -38,36 +42,12 @@
         sm="6"
         xs="12"
       >
-        <v-card>
-          <v-img
-            :src="card.src"
-            class="white--text align-end"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            height="200px"
-          >
-            <v-card-title v-text="card.title"></v-card-title>
-          </v-img>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <!-- モーダルで詳細を表示 -->
-            <v-btn>
-              <v-icon class="mr-2">
-                fas fa-info-circle
-              </v-icon>
-              詳細
-            </v-btn>
-
-            <!-- 予約ページに遷移する -->
-            <v-btn>
-              <v-icon class="mr-2">
-                fas fa-campground
-              </v-icon>
-              予約
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <PlanCard
+          :src="card.src"
+          :plan-title="card.title"
+          :url="card.url"
+          :details="card.details"
+        />
       </v-col>
     </v-row>
 
@@ -212,6 +192,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import PlanCard from '@/components/Card/Facility/Introduction/PlanCard.vue'
 
 interface IItem {
   src: string
@@ -220,6 +201,8 @@ interface IItem {
 interface ICard {
   title: string
   src: string
+  details: [...string[]]
+  url: string
 }
 
 interface IGlammity {
@@ -228,7 +211,11 @@ interface IGlammity {
   src: string
 }
 
-@Component
+@Component({
+  components: {
+    PlanCard
+  }
+})
 export default class introduction extends Vue {
   // ハート
   like: boolean = false
@@ -254,15 +241,21 @@ export default class introduction extends Vue {
   cards: ICard[] = [
     {
       title: 'プラン名1',
-      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
+      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
+      details: ['凄い楽しそう', '面白そう'],
+      url: '123'
     },
     {
       title: 'プラン名2',
-      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
+      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
+      details: ['凄い広そう', '凄い虫いなそう'],
+      url: '456'
     },
     {
       title: 'プラン名3',
-      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
+      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
+      details: ['凄い', '多分'],
+      url: '789'
     }
   ]
 
