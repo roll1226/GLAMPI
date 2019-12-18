@@ -13,7 +13,7 @@
 
     <v-row>
       <v-col>
-        <h3 class="ml-10" style="color: #575f45;">
+        <h3 class="ml-10 top-page-flammity-title headline font-weight-bold">
           GLAMMITY
         </h3>
       </v-col>
@@ -34,3 +34,9 @@ import SearchInput from '@/components/Input/Search/SearchInput.vue'
 })
 export default class IndexPage extends Vue {}
 </script>
+
+<style lang="scss">
+.top-page-flammity-title {
+  color: $site_color_2;
+}
+</style>
