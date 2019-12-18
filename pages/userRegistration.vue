@@ -1,84 +1,30 @@
 <template>
   <div>
-    <h1>
-      会員登録
-    </h1>
-    <!--姓-->
-    <v-text-field
-      v-model="sei"
-      label="姓"
-      placeholder="姓"
-      :rules="rules.fname"
-    ></v-text-field>
-    <!--名-->
-    <v-text-field
-      v-model="mei"
-      label="名"
-      placeholder="名"
-      :rules="rules.lname"
-    ></v-text-field>
-    <!--セイ-->
-    <v-text-field
-      v-model="sei"
-      label="セイ"
-      placeholder="セイ"
-      :rules="rules.fname1"
-    ></v-text-field>
-    <v-text-field
-      v-model="mei"
-      label="メイ"
-      placeholder="メイ"
-      :rules="rules.lname1"
-    ></v-text-field>
-    <input id="M" v-model="picked" type="radio" value="M" />
-    <label for="M">男性</label>
-    <br />
-    <input id="F" v-model="picked" type="radio" value="F" />
-    <label for="F">女性</label>
-    <br />
-    <!-- //生年月日 -->
-    <v-menu
-      ref="menu"
-      v-model="menu"
-      :close-on-content-click="false"
-      transition="scale-transition"
-      offset-y
-      full-width
-      min-width="290px"
-    >
-      <template v-slot:activator="{ on }">
-        <v-text-field
-          v-model="date"
-          label="生年月日"
-          readonly
-          v-on="on"
-        ></v-text-field>
-      </template>
-      <v-date-picker
-        ref="picker"
-        v-model="date"
-        :max="new Date().toISOString().substr(0, 10)"
-        min="1950-01-01"
-        @change="save"
-      ></v-date-picker>
-    </v-menu>
-    <!--郵便番号-->
-    <v-card>
-      <v-card-text>
-        <v-text-field
-          v-model="value"
-          v-mask="address"
-          label="郵便番号番号入力"
-        ></v-text-field>
-      </v-card-text>
-    </v-card>
-    <v-text-field v-model="sei" label="住所" placeholder="住所"></v-text-field>
+    <h1>会員登録</h1>
+    <!-- 姓(sei) -->
+    <sei></sei>
+    <!-- 名(mei) -->
+    <mei></mei>
+    <!-- セイ(seiKana) -->
+    <seiKana></seiKana>
+    <!-- メイ(meiKana) -->
+    <meiKana></meiKana>
+    <!--性別(row)-->
+    <row></row>
+    <!-- 生年月日(birthValue)-->
+    <v-row>
+      <v-col cols="12" sm="4">
+        <v-overflow-btn :items="dropdown"></v-overflow-btn>
+      </v-col>
+    </v-row>
+    <!-- 住所(address) -->
+    <address1></address1>
 
     <v-text-field
       name="email"
       label="E-mail"
       :counter="100"
-      :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
+      :rules="rules.emailRules"
       hint="XX@XX.XX"
     ></v-text-field>
 
@@ -106,10 +52,9 @@
     <v-card>
       <v-card-text>
         <v-text-field
-          v-model="value"
+          v-model="telValue"
           v-mask="tel"
           label="電話番号"
-          rules="rules.telRules"
         ></v-text-field>
       </v-card-text>
     </v-card>
@@ -120,14 +65,20 @@
       :rules="rules.nameRules"
     ></v-text-field>
 
-    <!-- <v-btn :loading="loading" color="promise" @click="regist">
+    <v-btn :loading="loading" color="promise" @click="regist">
       ログイン
-    </v-btn> -->
+    </v-btn>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import sei from '@/components/UserRegistration1/sei.vue'
+import mei from '@/components/UserRegistration1/mei.vue'
+import seiKana from '@/components/UserRegistration1/seikana.vue'
+import meiKana from '@/components/UserRegistration1/meikana.vue'
+import address1 from '@/components/UserRegistration1/address.vue'
+import row from '@/components/UserRegistration1/sex.vue'
 import { auth } from '@/plugins/firebase'
 const { mask } = require('vue-the-mask')
 
@@ -135,59 +86,39 @@ const { mask } = require('vue-the-mask')
   directives: {
     mask
   },
+  components: {
+    sei,
+    mei,
+    seiKana,
+    meiKana,
+    address1,
+    row
+  },
   data() {
     return {
-      tell: '###-####-####',
-      address: '###-####'
+      tel: '###-####-####',
+      POST: '###',
+      POST1: '####'
     }
   }
 })
 export default class login extends Vue {
-  public date: string = ''
-  public menu: boolean = false
-  public picked: string = ''
   public user: string = ''
   public password: string = ''
   public show1: boolean = false
   public loading: boolean = false
   public sigin: boolean = false
-  value: string = '00000000000'
+  addressValue: string = '0000000'
+  telValue: string = '00000000000'
 
   public rules: {} = {
-    fname: [
-      (v: string) => !!v || '姓・名は必ず入力してください',
+    emailRules: [
+      (v: string) => !!v || 'メールアドレスは必ず入力してください。',
+      (v: string) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',
       (v: string) =>
-        (v && v.length <= 20) ||
-        '姓・名はそれぞれ20文字以内にて入力してください。'
+        /.+@.+\..+/.test(v) ||
+        'メールアドレスは「XX@XX.XX」の形式にて入力してください。'
     ],
-    lname: [
-      (v: string) => !!v || '姓・名は必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        '姓・名はそれぞれ20文字以内にて入力してください。'
-    ],
-    fname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ],
-    lname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ],
-    isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
-    emailLength: (v: string) =>
-      (v && v.length <= 100) || 'メールアドレスが長すぎます。',
-    emailFormat: (v: string) => {
-      const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
-      return (
-        pattern.test(v) ||
-        'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
-      )
-    },
     required: (value: string) =>
       !!value || 'パスワードは必ず入力してください。',
     min: (v: string) =>
@@ -197,7 +128,6 @@ export default class login extends Vue {
       (v: string) =>
         (v && v.length <= 20) || 'ユーザ名は20字以内にて入力してください。'
     ]
-    // telRules: (v: string) =>
   }
 
   async login() {
