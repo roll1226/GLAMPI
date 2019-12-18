@@ -27,47 +27,82 @@
       :rules="rules.emailRules"
       hint="XX@XX.XX"
     ></v-text-field>
-
+    <!-- 名(mei) -->
     <v-text-field
-      v-model="password"
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      name="input-10-1"
-      label="パスワード"
-      :rules="[rules.required, rules.min]"
-      counter
-      @click:append="show1 = !show1"
+      v-model="mei"
+      label="名"
+      :rules="[rules.isLname, rules.lnameLength]"
     ></v-text-field>
-
+    <!-- セイ(seiKana) -->
     <v-text-field
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      name="input-10-2"
-      label="パスワード確認"
-      hint="パスワードをもう一度入力してください。"
-      counter
-      @click:append="show1 = !show1"
+      v-model="seiKana"
+      label="セイ"
+      :rules="[rules.isFnameKana, rules.fnameKanaLength]"
     ></v-text-field>
-
-    <v-card>
-      <v-card-text>
+    <!-- メイ(meiKana) -->
+    <v-text-field
+      v-model="meiKana"
+      label="メイ"
+      :rules="[rules.isLnameKana, rules.lnameKanaLength]"
+    ></v-text-field>
+    <!-- 性別(sex) -->
+    <v-radio-group v-model="sex" row>
+      <v-radio label="男性" value="M"></v-radio>
+      <v-radio label="女性" value="F"></v-radio>
+    </v-radio-group>
+    <!-- 生年月日(date) -->
+    <v-menu
+      ref="menu"
+      v-model="menu"
+      :close-on-content-click="false"
+      transition="scale-transition"
+      offset-y
+      full-width
+      min-width="290px"
+    >
+      <template v-slot:activator="{ on }">
         <v-text-field
-          v-model="telValue"
-          v-mask="tel"
-          label="電話番号"
+          v-model="date"
+          label="生年月日"
+          :rules="rules.isDate"
+          readonly
+          v-on="on"
         ></v-text-field>
-      </v-card-text>
-    </v-card>
-
+      </template>
+      <v-date-picker
+        ref="picker"
+        v-model="date"
+        :max="new Date().toISOString().substr(0, 10)"
+        min="1950-01-01"
+        @change="save"
+      ></v-date-picker>
+    </v-menu>
+    <!-- 郵便番号(postal) -->
     <v-text-field
-      name="username"
-      label="ユーザ名"
-      :rules="rules.nameRules"
+      v-model="postal"
+      v-mask="postalMask"
+      label="郵便番号"
+      :rules="[rules.isPostal]"
     ></v-text-field>
-
-    <v-btn :loading="loading" color="promise" @click="regist">
-      ログイン
-    </v-btn>
+    <!-- 住所(address) -->
+    <v-text-field
+      v-model="address"
+      label="住所"
+      :rules="[rules.isAddress]"
+    ></v-text-field>
+    <!-- メールアドレス(email) -->
+    <email></email>
+    <!-- パスワード(password) -->
+    <password></password>
+    <!-- パスワード確認(passwordcheck) -->
+    <passwordCheck></passwordCheck>
+    <!-- 電話番号(tel) -->
+    <tel></tel>
+    <!-- ユーザ名(username) -->
+    <username></username>
+    <!-- <v-btn :loading="loading" color="promise" @click="regist">
+      会員登録
+    </v-btn> -->
   </div>
 </template>
 
@@ -80,6 +115,11 @@ import meiKana from '@/components/UserRegistration1/meikana.vue'
 import address1 from '@/components/UserRegistration1/address.vue'
 import row from '@/components/UserRegistration1/sex.vue'
 import { auth } from '@/plugins/firebase'
+import email from '@/components/UserRegistration/email.vue'
+import password from '@/components/UserRegistration/password.vue'
+import passwordCheck from '@/components/UserRegistration/passwordCheck.vue'
+import tel from '@/components/UserRegistration/tel.vue'
+import username from '@/components/UserRegistration/username.vue'
 const { mask } = require('vue-the-mask')
 
 @Component({
@@ -87,6 +127,11 @@ const { mask } = require('vue-the-mask')
     mask
   },
   components: {
+    email,
+    password,
+    passwordCheck,
+    tel,
+    username,
     sei,
     mei,
     seiKana,
@@ -102,32 +147,44 @@ const { mask } = require('vue-the-mask')
     }
   }
 })
-export default class login extends Vue {
+export default class UserRegistration extends Vue {
+  public date: string = ''
+  public menu: boolean = false
+  public picked: string = ''
   public user: string = ''
   public password: string = ''
-  public show1: boolean = false
   public loading: boolean = false
   public sigin: boolean = false
-  addressValue: string = '0000000'
-  telValue: string = '00000000000'
+  public sei: string = ''
+  public mei: string = ''
+  public seiKana: string = ''
+  public meiKana: string = ''
+  public sex: string = ''
+  public save: string = ''
+  public postal: string = ''
+  public address: string = ''
+  // postal: string = '0000000'
+  // tel: string = '00000000000'
 
   public rules: {} = {
-    emailRules: [
-      (v: string) => !!v || 'メールアドレスは必ず入力してください。',
-      (v: string) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',
-      (v: string) =>
-        /.+@.+\..+/.test(v) ||
-        'メールアドレスは「XX@XX.XX」の形式にて入力してください。'
-    ],
-    required: (value: string) =>
-      !!value || 'パスワードは必ず入力してください。',
-    min: (v: string) =>
-      (v.length <= 20 && v.length >= 6) ||
-      'パスワードは6桁以上20桁以内にて入力してください。',
-    nameRules: [
-      (v: string) =>
-        (v && v.length <= 20) || 'ユーザ名は20字以内にて入力してください。'
-    ]
+    isFname: (v: string) => !!v || '姓・名は必ず入力してください',
+    fnameLength: (v: string) =>
+      (v && v.length <= 20) ||
+      '姓・名はそれぞれ20文字以内にて入力してください。',
+    isLname: (v: string) => !!v || '姓・名は必ず入力してください',
+    lnameLength: (v: string) =>
+      (v && v.length <= 20) ||
+      '姓・名はそれぞれ20文字以内にて入力してください。',
+    isFnameKana: (v: string) => !!v || 'セイ・メイは必ず入力してください',
+    fnameKanaLength: (v: string) =>
+      (v && v.length <= 20) ||
+      'セイ・メイはそれぞれ20文字以内にて入力してください。',
+    isLnameKana: (v: string) => !!v || 'セイ・メイは必ず入力してください',
+    lnameKanaLength: (v: string) =>
+      (v && v.length <= 20) ||
+      'セイ・メイはそれぞれ20文字以内にて入力してください。',
+    isPostal: (v: string) => !!v || '郵便番号は必ず入力してください',
+    isAddress: (v: string) => !!v || '住所は必ず入力してください'
   }
 
   async login() {
