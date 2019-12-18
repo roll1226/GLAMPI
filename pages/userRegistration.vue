@@ -1,13 +1,31 @@
 <template>
   <div>
-    <h1>
-      会員登録
-    </h1>
+    <h1>会員登録</h1>
     <!-- 姓(sei) -->
+    <sei></sei>
+    <!-- 名(mei) -->
+    <mei></mei>
+    <!-- セイ(seiKana) -->
+    <seiKana></seiKana>
+    <!-- メイ(meiKana) -->
+    <meiKana></meiKana>
+    <!--性別(row)-->
+    <row></row>
+    <!-- 生年月日(birthValue)-->
+    <v-row>
+      <v-col cols="12" sm="4">
+        <v-overflow-btn :items="dropdown"></v-overflow-btn>
+      </v-col>
+    </v-row>
+    <!-- 住所(address) -->
+    <address1></address1>
+
     <v-text-field
-      v-model="sei"
-      label="姓"
-      :rules="[rules.isFname, rules.fnameLength]"
+      name="email"
+      label="E-mail"
+      :counter="100"
+      :rules="rules.emailRules"
+      hint="XX@XX.XX"
     ></v-text-field>
     <!-- 名(mei) -->
     <v-text-field
@@ -90,6 +108,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import sei from '@/components/UserRegistration1/sei.vue'
+import mei from '@/components/UserRegistration1/mei.vue'
+import seiKana from '@/components/UserRegistration1/seikana.vue'
+import meiKana from '@/components/UserRegistration1/meikana.vue'
+import address1 from '@/components/UserRegistration1/address.vue'
+import row from '@/components/UserRegistration1/sex.vue'
 import { auth } from '@/plugins/firebase'
 import email from '@/components/UserRegistration/email.vue'
 import password from '@/components/UserRegistration/password.vue'
@@ -107,11 +131,19 @@ const { mask } = require('vue-the-mask')
     password,
     passwordCheck,
     tel,
-    username
+    username,
+    sei,
+    mei,
+    seiKana,
+    meiKana,
+    address1,
+    row
   },
   data() {
     return {
-      postalMask: '###-####'
+      tel: '###-####-####',
+      POST: '###',
+      POST1: '####'
     }
   }
 })

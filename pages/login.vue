@@ -32,7 +32,7 @@
 
     <div v-else>
       <h2>
-        ログイン成功
+        ログイン中
       </h2>
       <v-btn @click="logout">
         ログアウト
@@ -45,35 +45,22 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { auth } from '@/plugins/firebase'
 
-@Component
+import LoginModal from '@/components/Btn/LoginModal.vue'
+
+@Component({
+  components: {
+    LoginModal
+  },
+  computed: {
+    isLogin(): boolean {
+      return this.$store.state.login.isLogin
+    }
+  }
+})
 export default class login extends Vue {
-  public user: string = ''
-  public password: string = ''
-  public show1: boolean = false
-  public loading: boolean = false
-  public sigin: boolean = false
-
-  public rules: {} = {
-    required: (value: string) => !!value || 'Required.',
-    min: (v: string) => v.length >= 8 || 'Min 8 characters'
-  }
-
-  async login() {
-    this.loading = true
-    await auth
-      .signInWithEmailAndPassword(this.user, this.password)
-      .then(() => {
-        this.loading = false
-        this.sigin = true
-      })
-      .catch(() => {
-        this.loading = false
-      })
-  }
-
   async logout() {
     await auth.signOut().then(() => {
-      this.sigin = false
+      this.$store.commit('login/IS_LOGIN', false)
     })
   }
 }
