@@ -21,6 +21,8 @@
         {{ texts.createdAt }}
       </p>
     </div>
+
+    <logoBg />
   </div>
 </template>
 

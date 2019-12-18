@@ -71,6 +71,7 @@ export default {
       }
     }
   },
+
   /*
    ** Build configuration
    */
