@@ -6,7 +6,6 @@ import * as admin from 'firebase-admin';
 const cors = require('cors')({origin: true});
 const stripe = require('stripe')(functions.config().stripe.secret_token);
 
-
 admin.initializeApp(functions.config().firebase)
 // Algoliaの認証情報
 const ALGOLIA_APP_ID = functions.config().algolia.app_id;

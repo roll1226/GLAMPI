@@ -1,42 +1,56 @@
 <template>
   <div>
-    <h1>
-      会員登録
-    </h1>
-    <!--姓-->
+    <h1>会員登録</h1>
+    <!-- 姓(sei) -->
+    <sei></sei>
+    <!-- 名(mei) -->
+    <mei></mei>
+    <!-- セイ(seiKana) -->
+    <seiKana></seiKana>
+    <!-- メイ(meiKana) -->
+    <meiKana></meiKana>
+    <!--性別(row)-->
+    <row></row>
+    <!-- 生年月日(birthValue)-->
+    <v-row>
+      <v-col cols="12" sm="4">
+        <v-overflow-btn :items="dropdown"></v-overflow-btn>
+      </v-col>
+    </v-row>
+    <!-- 住所(address) -->
+    <address1></address1>
+
     <v-text-field
-      v-model="sei"
-      label="姓"
-      placeholder="姓"
-      :rules="rules.fname"
+      name="email"
+      label="E-mail"
+      :counter="100"
+      :rules="rules.emailRules"
+      hint="XX@XX.XX"
     ></v-text-field>
-    <!--名-->
+    <!-- 名(mei) -->
     <v-text-field
       v-model="mei"
       label="名"
-      placeholder="名"
-      :rules="rules.lname"
+      :rules="[rules.isLname, rules.lnameLength]"
     ></v-text-field>
-    <!--セイ-->
+    <!-- セイ(seiKana) -->
     <v-text-field
-      v-model="sei"
+      v-model="seiKana"
       label="セイ"
-      placeholder="セイ"
-      :rules="rules.fname1"
+      :rules="[rules.isFnameKana, rules.fnameKanaLength]"
     ></v-text-field>
+    <!-- メイ(meiKana) -->
     <v-text-field
-      v-model="mei"
+      v-model="meiKana"
       label="メイ"
-      placeholder="メイ"
-      :rules="rules.lname1"
+      :rules="[rules.isLnameKana, rules.lnameKanaLength]"
     ></v-text-field>
-    <input id="M" v-model="picked" type="radio" value="M" />
-    <label for="M">男性</label>
-    <br />
-    <input id="F" v-model="picked" type="radio" value="F" />
-    <label for="F">女性</label>
-    <br />
-    <!-- //生年月日 -->
+    <!-- 性別(sex) -->
+    <v-radio-group v-model="sex" row>
+      <v-radio label="男性" value="M"></v-radio>
+      <v-radio label="女性" value="F"></v-radio>
+    </v-radio-group>
+    <!-- 生年月日(date) -->
     <v-menu
       ref="menu"
       v-model="menu"
@@ -50,6 +64,7 @@
         <v-text-field
           v-model="date"
           label="生年月日"
+          :rules="rules.isDate"
           readonly
           v-on="on"
         ></v-text-field>
@@ -62,142 +77,114 @@
         @change="save"
       ></v-date-picker>
     </v-menu>
-    <!--郵便番号-->
-    <v-card>
-      <v-card-text>
-        <v-text-field
-          v-model="value"
-          v-mask="address"
-          label="郵便番号番号入力"
-        ></v-text-field>
-      </v-card-text>
-    </v-card>
-    <v-text-field v-model="sei" label="住所" placeholder="住所"></v-text-field>
-
+    <!-- 郵便番号(postal) -->
     <v-text-field
-      name="email"
-      label="E-mail"
-      :counter="100"
-      :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
-      hint="XX@XX.XX"
+      v-model="postal"
+      v-mask="postalMask"
+      label="郵便番号"
+      :rules="[rules.isPostal]"
     ></v-text-field>
-
+    <!-- 住所(address) -->
     <v-text-field
-      v-model="password"
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      name="input-10-1"
-      label="パスワード"
-      :rules="[rules.required, rules.min]"
-      counter
-      @click:append="show1 = !show1"
+      v-model="address"
+      label="住所"
+      :rules="[rules.isAddress]"
     ></v-text-field>
-
-    <v-text-field
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      name="input-10-2"
-      label="パスワード確認"
-      hint="パスワードをもう一度入力してください。"
-      counter
-      @click:append="show1 = !show1"
-    ></v-text-field>
-
-    <v-card>
-      <v-card-text>
-        <v-text-field
-          v-model="value"
-          v-mask="tel"
-          label="電話番号"
-          rules="rules.telRules"
-        ></v-text-field>
-      </v-card-text>
-    </v-card>
-
-    <v-text-field
-      name="username"
-      label="ユーザ名"
-      :rules="rules.nameRules"
-    ></v-text-field>
-
+    <!-- メールアドレス(email) -->
+    <email></email>
+    <!-- パスワード(password) -->
+    <password></password>
+    <!-- パスワード確認(passwordcheck) -->
+    <passwordCheck></passwordCheck>
+    <!-- 電話番号(tel) -->
+    <tel></tel>
+    <!-- ユーザ名(username) -->
+    <username></username>
     <!-- <v-btn :loading="loading" color="promise" @click="regist">
-      ログイン
+      会員登録
     </v-btn> -->
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import sei from '@/components/UserRegistration1/sei.vue'
+import mei from '@/components/UserRegistration1/mei.vue'
+import seiKana from '@/components/UserRegistration1/seikana.vue'
+import meiKana from '@/components/UserRegistration1/meikana.vue'
+import address1 from '@/components/UserRegistration1/address.vue'
+import row from '@/components/UserRegistration1/sex.vue'
 import { auth } from '@/plugins/firebase'
+import email from '@/components/UserRegistration/email.vue'
+import password from '@/components/UserRegistration/password.vue'
+import passwordCheck from '@/components/UserRegistration/passwordCheck.vue'
+import tel from '@/components/UserRegistration/tel.vue'
+import username from '@/components/UserRegistration/username.vue'
 const { mask } = require('vue-the-mask')
 
 @Component({
   directives: {
     mask
   },
+  components: {
+    email,
+    password,
+    passwordCheck,
+    tel,
+    username,
+    sei,
+    mei,
+    seiKana,
+    meiKana,
+    address1,
+    row
+  },
   data() {
     return {
-      tell: '###-####-####',
-      address: '###-####'
+      tel: '###-####-####',
+      POST: '###',
+      POST1: '####'
     }
   }
 })
-export default class login extends Vue {
+export default class UserRegistration extends Vue {
   public date: string = ''
   public menu: boolean = false
   public picked: string = ''
   public user: string = ''
   public password: string = ''
-  public show1: boolean = false
   public loading: boolean = false
   public sigin: boolean = false
-  value: string = '00000000000'
+  public sei: string = ''
+  public mei: string = ''
+  public seiKana: string = ''
+  public meiKana: string = ''
+  public sex: string = ''
+  public save: string = ''
+  public postal: string = ''
+  public address: string = ''
+  // postal: string = '0000000'
+  // tel: string = '00000000000'
 
   public rules: {} = {
-    fname: [
-      (v: string) => !!v || '姓・名は必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        '姓・名はそれぞれ20文字以内にて入力してください。'
-    ],
-    lname: [
-      (v: string) => !!v || '姓・名は必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        '姓・名はそれぞれ20文字以内にて入力してください。'
-    ],
-    fname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ],
-    lname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ],
-    isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
-    emailLength: (v: string) =>
-      (v && v.length <= 100) || 'メールアドレスが長すぎます。',
-    emailFormat: (v: string) => {
-      const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
-      return (
-        pattern.test(v) ||
-        'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
-      )
-    },
-    required: (value: string) =>
-      !!value || 'パスワードは必ず入力してください。',
-    min: (v: string) =>
-      (v.length <= 20 && v.length >= 6) ||
-      'パスワードは6桁以上20桁以内にて入力してください。',
-    nameRules: [
-      (v: string) =>
-        (v && v.length <= 20) || 'ユーザ名は20字以内にて入力してください。'
-    ]
-    // telRules: (v: string) =>
+    isFname: (v: string) => !!v || '姓・名は必ず入力してください',
+    fnameLength: (v: string) =>
+      (v && v.length <= 20) ||
+      '姓・名はそれぞれ20文字以内にて入力してください。',
+    isLname: (v: string) => !!v || '姓・名は必ず入力してください',
+    lnameLength: (v: string) =>
+      (v && v.length <= 20) ||
+      '姓・名はそれぞれ20文字以内にて入力してください。',
+    isFnameKana: (v: string) => !!v || 'セイ・メイは必ず入力してください',
+    fnameKanaLength: (v: string) =>
+      (v && v.length <= 20) ||
+      'セイ・メイはそれぞれ20文字以内にて入力してください。',
+    isLnameKana: (v: string) => !!v || 'セイ・メイは必ず入力してください',
+    lnameKanaLength: (v: string) =>
+      (v && v.length <= 20) ||
+      'セイ・メイはそれぞれ20文字以内にて入力してください。',
+    isPostal: (v: string) => !!v || '郵便番号は必ず入力してください',
+    isAddress: (v: string) => !!v || '住所は必ず入力してください'
   }
 
   async login() {

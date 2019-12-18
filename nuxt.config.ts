@@ -33,9 +33,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    '@/plugins/v-calender.ts'
-  ],
+  plugins: ['@/plugins/v-calender.ts'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -74,6 +72,7 @@ export default {
       }
     }
   },
+
   /*
    ** Build configuration
    */
