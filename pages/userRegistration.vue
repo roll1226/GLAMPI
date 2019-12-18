@@ -27,8 +27,8 @@
       label="メイ"
       :rules="[rules.isLnameKana, rules.lnameKanaLength]"
     ></v-text-field>
-    <!-- 性別(seibetsu) -->
-    <v-radio-group v-model="seibetsu" row>
+    <!-- 性別(sex) -->
+    <v-radio-group v-model="sex" row>
       <v-radio label="男性" value="M"></v-radio>
       <v-radio label="女性" value="F"></v-radio>
     </v-radio-group>
@@ -127,7 +127,7 @@ export default class UserRegistration extends Vue {
   public mei: string = ''
   public seiKana: string = ''
   public meiKana: string = ''
-  public seibetsu: string = ''
+  public sex: string = ''
   public save: string = ''
   public postal: string = ''
   public address: string = ''
