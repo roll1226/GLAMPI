@@ -1,65 +1,25 @@
 <template>
   <div>
     <h1>会員登録</h1>
-    <v-text-field
-      v-model="sei"
-      label="姓"
-      placeholder="姓"
-      :rules="rules.fname"
-    ></v-text-field>
+    <!-- 姓(sei) -->
+    <sei></sei>
+    <!-- 名(mei) -->
+    <mei></mei>
+    <!-- セイ(seiKana) -->
+    <seiKana></seiKana>
+    <!-- メイ(meiKana) -->
+    <meiKana></meiKana>
+    <!--性別(row)-->
+    <row></row>
+    <!-- 生年月日(birthValue)-->
+    <v-row>
+      <v-col cols="12" sm="4">
+        <v-overflow-btn :items="dropdown"></v-overflow-btn>
+      </v-col>
+    </v-row>
+    <!-- 住所(address) -->
+    <address1></address1>
 
-    <v-text-field
-      v-model="mei"
-      placeholder="名"
-      label="名"
-      :rules="rules.lname"
-    ></v-text-field>
-
-    <v-text-field
-      v-model="sei1"
-      placeholder="セイ"
-      label="セイ"
-      :rules="rules.fname1"
-    ></v-text-field>
-
-    <v-text-field
-      v-model="mei1"
-      placeholder="メイ"
-      label="メイ"
-      :rules="rules.lname1"
-    ></v-text-field>
-
-    <v-radio-group v-model="row" row>
-      <v-radio label="男性" value="M"></v-radio>
-      <v-radio label="女性" value="F"></v-radio>
-    </v-radio-group>
-
-    <v-card>
-      <v-card-text>
-        <v-text-field
-          v-model="birthValue"
-          v-mask="birth"
-          label="生年月日"
-        ></v-text-field>
-      </v-card-text>
-    </v-card>
-
-    <v-date-picker
-      min="1900-01-01"
-      max="2019-01-01"
-      :allowed-dates="allowedDate"
-    ></v-date-picker>
-
-    <v-card>
-      <v-card-text>
-        <v-text-field
-          v-model="addressValue"
-          v-mask="address"
-          label="郵便番号入力"
-        ></v-text-field>
-      </v-card-text>
-    </v-card>
-    <v-text-field v-model="address1" label="住所"></v-text-field>
     <v-text-field
       name="email"
       label="E-mail"
@@ -113,6 +73,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import sei from '@/components/UserRegistration1/sei.vue'
+import mei from '@/components/UserRegistration1/mei.vue'
+import seiKana from '@/components/UserRegistration1/seikana.vue'
+import meiKana from '@/components/UserRegistration1/meikana.vue'
+import address1 from '@/components/UserRegistration1/address.vue'
+import row from '@/components/UserRegistration1/sex.vue'
 import { auth } from '@/plugins/firebase'
 const { mask } = require('vue-the-mask')
 
@@ -120,18 +86,23 @@ const { mask } = require('vue-the-mask')
   directives: {
     mask
   },
+  components: {
+    sei,
+    mei,
+    seiKana,
+    meiKana,
+    address1,
+    row
+  },
   data() {
     return {
-      birth: '####/##/##',
-      address: '###-####',
-      tel: '###-####-####'
+      tel: '###-####-####',
+      POST: '###',
+      POST1: '####'
     }
   }
 })
 export default class login extends Vue {
-  public date: string = ''
-  public menu: boolean = false
-  public picked: string = ''
   public user: string = ''
   public password: string = ''
   public show1: boolean = false
@@ -141,31 +112,6 @@ export default class login extends Vue {
   telValue: string = '00000000000'
 
   public rules: {} = {
-    fname: [
-      (v: string) => !!v || '姓・名は必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        '姓・名はそれぞれ20文字以内にて入力してください。'
-    ],
-    lname: [
-      (v: string) => !!v || '姓・名は必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        '姓・名はそれぞれ20文字以内にて入力してください。'
-    ],
-    fname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ],
-    lname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ],
-
     emailRules: [
       (v: string) => !!v || 'メールアドレスは必ず入力してください。',
       (v: string) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',

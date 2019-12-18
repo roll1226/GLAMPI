@@ -1,0 +1,86 @@
+<template>
+  <div>
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="addres1"
+          v-mask="POST"
+          label="aaaa"
+        ></v-text-field>
+      </v-col>
+      <div class="mt-10">
+        ー
+      </div>
+      <v-col>
+        <v-text-field
+          v-model="addres2"
+          v-mask="POST1"
+          label="bbbb"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+
+    <v-text-field v-model="address" label="住所"></v-text-field>
+
+    <v-btn @click="checkCode()" outlined>検索</v-btn>
+    <br />
+    {{ code }}
+    {{ error }}
+    {{ uuid }}
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+const { mask } = require('vue-the-mask')
+const uuidv1 = require('uuid/v4')
+
+@Component({
+  directives: {
+    mask
+  },
+  data() {
+    return {
+      POST: '###',
+      POST1: '####'
+    }
+  }
+})
+export default class addressUserRegistration extends Vue {
+  public address: string = ''
+  code: object[] = []
+  pref?: string = ''
+  addres1: string = ''
+  addres2: string = ''
+  error?: string = ''
+  uuid?: string = uuidv1()
+    .split('-')
+    .join('')
+  public rules: {} = {
+    lname1: [
+      (v: string) => !!v || 'セイ・メイは必ず入力してください',
+      (v: string) =>
+        (v && v.length <= 20) ||
+        'セイ・メイはそれぞれ20文字以内にて入力してください。'
+    ]
+  }
+  async checkCode() {
+    // 初期化
+    this.code = []
+    this.pref = ''
+    // axios
+    await this.$axios
+      .get(`https://api.zipaddress.net/?zipcode=${this.addres1}${this.addres2}`)
+      .then((res) => {
+        if (res.data.code === 200) {
+          // push
+          this.code.push(res.data)
+          this.pref = res.data.data.pref
+        } else {
+          this.error = 'ばか'
+        }
+      })
+    console.log(this.code)
+  }
+}
+</script>
