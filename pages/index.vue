@@ -11,13 +11,31 @@
       <SearchInput
     /></v-img>
 
-    <v-row>
-      <v-col>
-        <h3 class="ml-10 top-page-flammity-title headline font-weight-bold">
-          GLAMMITY
-        </h3>
-      </v-col>
-    </v-row>
+    <div class="top-page-introduction-wrap">
+      <v-row>
+        <v-col>
+          <h3 class="ml-10 top-page-glammity-title headline font-weight-bold">
+            GLAMMITY
+          </h3>
+        </v-col>
+      </v-row>
+      <v-row class="top-page-introduction-lists">
+        <v-col
+          v-for="(glammity, cardIndex) in cards"
+          :key="cardIndex"
+          lg="3"
+          md="3"
+          sm="3"
+          xs="6"
+        >
+          <GlammityCard
+            :glammity-image="glammity.src"
+            :glammity-name="glammity.title"
+            :introduction="glammity.text"
+          />
+        </v-col>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -25,18 +43,56 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import Logo from '@/components/Logo.vue'
 import SearchInput from '@/components/Input/Search/SearchInput.vue'
+import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
+
+interface IGlammity {
+  title: string
+  text: string
+  src: string
+}
 
 @Component({
   components: {
     Logo,
-    SearchInput
+    SearchInput,
+    GlammityCard
   }
 })
-export default class IndexPage extends Vue {}
+export default class IndexPage extends Vue {
+  cards: IGlammity[] = [
+    {
+      title: 'GLAMMITY1',
+      text: '凄い',
+      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
+    },
+    {
+      title: 'GLAMMITY2',
+      text: 'やばい',
+      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
+    },
+    {
+      title: 'GLAMMITY3',
+      text: '博俊',
+      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
+    },
+    {
+      title: 'GLAMMITY4',
+      text: '優人',
+      src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
+    }
+  ]
+}
 </script>
 
 <style lang="scss">
-.top-page-flammity-title {
+.top-page-glammity-title {
   color: $site_color_2;
+}
+.top-page-introduction-wrap {
+  margin-top: 18px;
+  .top-page-introduction-lists {
+    margin-left: 65px;
+    margin-right: 65px;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="300">
+  <v-card class="mx-auto" max-width="300" elevation="4">
     <v-img class="white--text align-end" height="200px" :src="glammityImage">
       <v-card-title>
         {{ glammityName }}
@@ -20,11 +20,11 @@
       <v-spacer></v-spacer>
 
       <!-- 詳細飛ぶ -->
-      <v-btn outlined>
+      <v-btn outlined color="rgb(87, 95, 69)">
         詳細
       </v-btn>
       <!-- 参加する -->
-      <v-btn outlined>
+      <v-btn outlined color="rgb(87, 95, 69)">
         参加
       </v-btn>
     </v-card-actions>
@@ -46,3 +46,9 @@ export default class GlammityCard extends Vue {
   introduction!: string
 }
 </script>
+
+<style lang="scss">
+.glammity-btn {
+  color: $site_color_2;
+}
+</style>
