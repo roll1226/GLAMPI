@@ -2,13 +2,11 @@
   <v-footer class="mt-4" padless>
     <v-row justify="center" class="glampi-footer" no-gutters>
       <v-toolbar-items v-for="(link, index) in links" :key="index">
-        <v-btn text class="my-2" :to="link.displayName">
-          <span class="glampi-footer-btn">
-            {{ link.name }}
-          </span>
+        <v-btn text class="my-2 glampi-footer-btn" :to="link.displayName">
+          {{ link.name }}
         </v-btn>
         <v-divider
-          v-show="index !== 4"
+          v-if="index !== 4"
           vertical
           class="my-2 mx-4"
           style="background: white;"
@@ -63,6 +61,10 @@ export default class GlampiFoot extends Vue {
 }
 
 .glampi-footer-btn {
-  color: $site_color_8;
+  &.theme--light.v-btn {
+    color: $site_color_8;
+    caret-color: $site_color_8;
+    border-radius: 50px 50px 50px 50px;
+  }
 }
 </style>

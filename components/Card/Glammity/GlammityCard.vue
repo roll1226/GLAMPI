@@ -20,11 +20,11 @@
       <v-spacer></v-spacer>
 
       <!-- 詳細飛ぶ -->
-      <v-btn outlined color="rgb(87, 95, 69)">
+      <v-btn outlined class="glammity-btn">
         詳細
       </v-btn>
       <!-- 参加する -->
-      <v-btn outlined color="rgb(87, 95, 69)">
+      <v-btn outlined class="glammity-btn">
         参加
       </v-btn>
     </v-card-actions>
@@ -49,6 +49,9 @@ export default class GlammityCard extends Vue {
 
 <style lang="scss">
 .glammity-btn {
-  color: $site_color_2;
+  &.theme--light.v-btn {
+    color: $site_color_2;
+    caret-color: $site_color_2;
+  }
 }
 </style>
