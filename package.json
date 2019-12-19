@@ -23,12 +23,13 @@
     "firebase": "^7.3.0",
     "install": "^0.13.0",
     "node-sass": "^4.13.0",
-    "npm": "^6.13.1",
+    "npm": "^6.13.4",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.0",
     "sass-loader": "^8.0.0",
     "v-calendar": "^1.0.0-beta.22",
     "vue-ctk-date-time-picker": "^2.4.0",
+    "vue-stripe-elements-plus": "^0.3.2",
     "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {

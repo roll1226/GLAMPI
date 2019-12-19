@@ -4,7 +4,7 @@
       v-model="username"
       label="ユーザ名"
       prepend-icon="mdi-account-circle"
-      :rules="rules.usernameLength"
+      :rules="[rules.usernameLength]"
     ></v-text-field>
   </div>
 </template>
@@ -12,7 +12,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class passwordUserRegistration extends Vue {
+export default class usernameUserRegistration extends Vue {
   public username: string = ''
   public rules: {} = {
     usernameLength: (v: string) =>

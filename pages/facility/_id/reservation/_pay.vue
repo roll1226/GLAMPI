@@ -6,16 +6,17 @@
 
     <v-row dense>
       <v-col :cols="10" class="ma-auto">
-        <Plan />
+        <Plan :pay-number="planPay" />
       </v-col>
 
       <v-col :cols="10" class="ma-auto">
         <v-card>
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="overline mb-1">
+              <div class="body-2 mb-1">
                 日程
               </div>
+
               <v-list-item-title class="headline mb-1 text-center">
                 <v-text-field
                   v-model="dateRangeText"
@@ -41,7 +42,7 @@
         <v-card>
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="overline mb-1">
+              <div class="body-2 mb-1">
                 オプション
               </div>
 
@@ -57,7 +58,7 @@
                   >
                     <Options
                       :plan-title="optionList.title"
-                      :pay="optionList.pay"
+                      :pay="optionList.pay.toLocaleString()"
                       :texts="optionList.text"
                       :image="optionList.image"
                       :display-name="optionList.displayName"
@@ -78,16 +79,13 @@
       </v-col>
     </v-row>
 
-    <div class="text-center mt-6">
-      <v-btn color="success">
-        予約する
-      </v-btn>
-    </div>
+    <Stripe />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import Stripe from '~/components/Btn/Stripe.vue'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
 
@@ -103,7 +101,7 @@ interface option {
 interface options {
   title: string
   text: [...string[]]
-  pay: string
+  pay: number
   image: string
   displayName: string
 }
@@ -111,14 +109,16 @@ interface options {
 @Component({
   components: {
     Plan,
-    Options
+    Options,
+    Stripe
   }
 })
 export default class reservation extends Vue {
   page: number = 1
-  dates: [] = []
+  // dates: [] = []
   length: number = 0
   pageSlice: number = 0
+  payNum: number = 2000
 
   created() {
     if (window.parent.screen.width <= 420) {
@@ -132,42 +132,42 @@ export default class reservation extends Vue {
     {
       title: 'バーベキュー',
       text: ['美味しい', '楽しい'],
-      pay: '2000',
+      pay: 2000,
       image: '40',
       displayName: 'option1'
     },
     {
       title: '誕生日ケーキ',
       text: ['美味しい', '楽しい'],
-      pay: '1500',
+      pay: 1500,
       image: '10',
       displayName: 'option2'
     },
     {
       title: '国産牛肉',
       text: ['高い', 'けど、うまい！'],
-      pay: '20000',
+      pay: 20000,
       image: '16',
       displayName: 'option3'
     },
     {
       title: '誕生日ケーキ',
       text: ['美味しい', '楽しい'],
-      pay: '1500',
+      pay: 1500,
       image: '17',
       displayName: 'option4'
     },
     {
       title: '国産牛肉',
       text: ['高い', 'けど、うまい！'],
-      pay: '20000',
+      pay: 20000,
       image: '20',
       displayName: 'option5'
     },
     {
       title: 'バーベキュー',
       text: ['美味しい', '楽しい'],
-      pay: '2000',
+      pay: 2000,
       image: '30',
       displayName: 'option6'
     }
@@ -176,6 +176,18 @@ export default class reservation extends Vue {
 
   public get dateRangeText(): string {
     return this.dates.join(' ~ ')
+  }
+
+  get dates(): [] {
+    return this.$store.state.reservation.dates
+  }
+
+  get planPay(): number {
+    return this.$store.state.reservation.planPay
+  }
+
+  set dates(selectdates: []) {
+    this.$store.commit('reservation/SET_DATES', selectdates)
   }
 
   mounted() {
