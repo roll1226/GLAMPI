@@ -4,12 +4,12 @@
       <span>
         {{ snackbarText }}
       </span>
-      <v-icon dark>
+      <v-icon>
         {{ snackbarIcon }}
       </v-icon>
     </v-snackbar>
 
-    <v-toolbar class="mb-5" dense>
+    <v-toolbar dense>
       <v-btn text style="position: relative;" width="132px" to="/">
         <logo />
       </v-btn>

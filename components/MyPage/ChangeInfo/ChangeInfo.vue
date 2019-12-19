@@ -35,7 +35,7 @@ import Password from '@/components/MyPage/ChangeInfo/Password.vue'
     Password
   }
 })
-export default class template extends Vue {
+export default class ChangeInfo extends Vue {
   public screen2: number = 0
   public toBasicInfo() {
     this.screen2 = 0

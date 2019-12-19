@@ -17,6 +17,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class passwordCheckUserRegistration extends Vue {
+  public show1: boolean = false
   public passwordCheck: string = ''
   public show2: boolean = false
 }
