@@ -6,7 +6,7 @@
         <v-tabs-slider></v-tabs-slider>
         <v-tab @click="toChangeInfo">情報変更</v-tab>
         <v-divider inset vertical></v-divider>
-        <v-tab @click="toBookingList">予約変更</v-tab>
+        <v-tab @click="toBookingList">予約履歴</v-tab>
         <v-divider inset vertical></v-divider>
         <v-tab @click="toGlammity">GLAMMITY</v-tab>
         <v-divider inset vertical></v-divider>
@@ -42,11 +42,9 @@ import BookingList from '@/components/MyPage/BookingList.vue'
 import Glammity from '@/components/MyPage/Glammity.vue'
 import Favorites from '@/components/MyPage/Favorites.vue'
 import Reviews from '@/components/MyPage/Reviews.vue'
-import Btn from '@/components/MyPage/Btn.vue'
 
 @Component({
   components: {
-    Btn,
     MyTop,
     ChangeInfo,
     BookingList,
@@ -55,7 +53,7 @@ import Btn from '@/components/MyPage/Btn.vue'
     Reviews
   }
 })
-export default class templete extends Vue {
+export default class mypage extends Vue {
   public screen1: number = 0
 
   public toMyTop() {
