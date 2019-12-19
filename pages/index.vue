@@ -1,15 +1,22 @@
 <template>
   <div>
-    <v-row align="center" justify="center">
-      <v-img
-        src="https://glmd.jp/wp-content/themes/glamd/img/test.jpg"
-        aspect-ratio="1"
-        class="grey lighten-2"
-        max-height="640"
-        style="display: flex; flex-flow: row nowrap; justify-content: center; align-items: center;"
-      >
-        <SearchInput
-      /></v-img>
+    <v-img
+      src="https://firebasestorage.googleapis.com/v0/b/j4k1-b789f.appspot.com/o/glampy%2Ftop.jpg?alt=media&token=01d75370-7f04-4932-b3dd-c9d286798a01"
+      aspect-ratio="1"
+      class="grey lighten-2"
+      max-height="540"
+      style="display: flex; flex-flow: row nowrap; justify-content: center; align-items: center;"
+      gradient="rgba(255,255,255,.4), rgba(255,255,255,.4)"
+    >
+      <SearchInput
+    /></v-img>
+
+    <v-row>
+      <v-col>
+        <h3 class="ml-10 top-page-flammity-title headline font-weight-bold">
+          GLAMMITY
+        </h3>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -27,3 +34,9 @@ import SearchInput from '@/components/Input/Search/SearchInput.vue'
 })
 export default class IndexPage extends Vue {}
 </script>
+
+<style lang="scss">
+.top-page-flammity-title {
+  color: $site_color_2;
+}
+</style>
