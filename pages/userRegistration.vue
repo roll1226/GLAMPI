@@ -29,9 +29,9 @@
     <tel></tel>
     <!-- ユーザ名(username) -->
     <username></username>
-    <!-- <v-btn :loading="loading" color="promise" @click="regist">
+    <v-btn :loading="loading" color="promise" @click="regist">
       会員登録
-    </v-btn> -->
+    </v-btn>
   </div>
 </template>
 
@@ -48,45 +48,21 @@ import password from '@/components/UserRegistration/password.vue'
 import passwordCheck from '@/components/UserRegistration/passwordCheck.vue'
 import tel from '@/components/UserRegistration/tel.vue'
 import username from '@/components/UserRegistration/username.vue'
-import { auth } from '@/plugins/firebase'
 
 @Component({
   components: {
-    email,
-    password,
-    passwordCheck,
-    tel,
-    username,
     sei,
     mei,
     seiKana,
     meiKana,
+    row,
     address1,
-    row
+    email,
+    password,
+    passwordCheck,
+    tel,
+    username
   }
 })
-export default class UserRegistration extends Vue {
-  public user: string = ''
-  public password: string = ''
-  public loading: boolean = false
-  public sigin: boolean = false
-
-  async login() {
-    this.loading = true
-    await auth
-      .signInWithEmailAndPassword(this.user, this.password)
-      .then(() => {
-        this.loading = false
-        this.sigin = true
-      })
-      .catch(() => {
-        this.loading = false
-      })
-  }
-  async logout() {
-    await auth.signOut().then(() => {
-      this.sigin = false
-    })
-  }
-}
+export default class UserRegistration extends Vue {}
 </script>
