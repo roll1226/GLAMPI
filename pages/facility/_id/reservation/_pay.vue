@@ -29,6 +29,7 @@
                   locale="ja-jp"
                   :show-current="false"
                   range
+                  :min="nowDate"
                   :day-format="(date) => new Date(date).getDate()"
                   class="mb-2"
                 ></v-date-picker>
@@ -85,6 +86,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import moment from 'moment'
 import Stripe from '~/components/Btn/Stripe.vue'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
@@ -119,6 +121,7 @@ export default class reservation extends Vue {
   length: number = 0
   pageSlice: number = 0
   payNum: number = 2000
+  nowDate: string = ''
 
   created() {
     if (window.parent.screen.width <= 420) {
@@ -126,6 +129,8 @@ export default class reservation extends Vue {
     } else {
       this.pageSlice = 3
     }
+    this.nowDate = moment(new Date()).format('YYYY-MM-DD')
+    console.log(moment(new Date()).format('YYYY-MM-DD'))
   }
 
   list: options[] = [

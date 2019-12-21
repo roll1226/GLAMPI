@@ -136,6 +136,10 @@ export default {
             this.loading = false
             this.dialog = false
 
+            this.$router.push(
+              `/facility/${this.$route.params.id}/reservation/complete`
+            )
+
             // 成功時firebaseに投げる
 
             console.log(result)
