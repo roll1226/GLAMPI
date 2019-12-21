@@ -16,6 +16,8 @@
     <RecommendationIndexWrap />
 
     <NewArrivalIndexCard />
+
+    <TagIndexWrap />
   </div>
 </template>
 
@@ -26,6 +28,7 @@ import SearchInput from '@/components/Input/Search/SearchInput.vue'
 import GlammityIndexWrap from '@/components/IndexContentWrap/GlammityIndexWrap.vue'
 import RecommendationIndexWrap from '@/components/IndexContentWrap/RecommendationIndexWrap.vue'
 import NewArrivalIndexCard from '@/components/IndexContentWrap/NewArrivalIndexCard.vue'
+import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
 
 @Component({
   components: {
@@ -33,7 +36,8 @@ import NewArrivalIndexCard from '@/components/IndexContentWrap/NewArrivalIndexCa
     SearchInput,
     GlammityIndexWrap,
     RecommendationIndexWrap,
-    NewArrivalIndexCard
+    NewArrivalIndexCard,
+    TagIndexWrap
   }
 })
 export default class IndexPage extends Vue {}
