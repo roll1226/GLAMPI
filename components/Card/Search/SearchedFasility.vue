@@ -33,7 +33,7 @@
           <v-card-actions class="pb-0">
             <v-row>
               <v-col cols="5">
-                <v-btn block :to="introductionUrl">
+                <v-btn block :to="`/facility/${introductionUrl}/introduction`">
                   詳細
                 </v-btn>
               </v-col>
