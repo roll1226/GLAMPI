@@ -24,11 +24,10 @@
           :plan-pay="facility.planPay"
           :introduction-url="facility.introduction"
           :grammity-url="facility.grammity"
+          :facility-img="facility.facilityImg[0]"
         />
       </v-col>
     </v-row>
-
-    {{ $route.query.facilityKeyWord }}
   </div>
 </template>
 
@@ -39,6 +38,7 @@ import { firestore } from '@/plugins/firebase'
 
 interface IFacility {
   facilityName: string
+  facilityImg: string
   address: string
   planName: string
   planPay: number
@@ -80,6 +80,7 @@ export default class Searched extends Vue {
 
                     const facilityName = facility.name
                     const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                    const facilityImg = facility.slider
                     const planName = plan.planTitle
                     const planPay = plan.pay
                     const introduction = facility.displayName
@@ -87,6 +88,7 @@ export default class Searched extends Vue {
 
                     const facilityArray = {
                       facilityName,
+                      facilityImg,
                       address,
                       planName,
                       planPay,

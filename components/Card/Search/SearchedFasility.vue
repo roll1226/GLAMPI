@@ -3,11 +3,7 @@
     <v-container>
       <v-row justify="space-between">
         <v-col cols="auto">
-          <v-img
-            height="200"
-            max-width="340"
-            src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-          ></v-img>
+          <v-img height="200" max-width="340" :src="facilityImg"></v-img>
         </v-col>
 
         <v-col class="pb-0">
@@ -60,6 +56,9 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 export default class SearchedFasility extends Vue {
   @Prop({ required: true, default: '' })
   fasilityName!: string
+
+  @Prop({ required: true, default: '' })
+  facilityImg!: string
 
   @Prop({ required: true, default: '' })
   address!: string
