@@ -20,22 +20,23 @@
       width="500"
     >
       <v-carousel-item
-        v-for="(item, i) in items"
+        v-for="(slider, i) in facility.slider"
         :key="i"
-        :src="item.src"
+        :src="slider"
       ></v-carousel-item>
     </v-carousel>
 
     <v-card>
       <v-card-text class="text-left mt-5" max-width="300">
-        hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge
-        hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge
+        <div v-for="(info, index) in facility.info" :key="index">
+          {{ info }}
+        </div>
       </v-card-text>
     </v-card>
 
     <v-row>
       <v-col
-        v-for="(card, index) in cards"
+        v-for="(planCard, index) in plan"
         :key="index"
         lg="6"
         md="6"
@@ -43,10 +44,11 @@
         xs="12"
       >
         <PlanCard
-          :src="card.src"
-          :plan-title="card.title"
-          :url="card.url"
-          :details="card.details"
+          :src="planCard.planImage"
+          :plan-title="planCard.planTitle"
+          :pay="planCard.pay"
+          :url="planCard.pay"
+          :details="planCard.details"
         />
       </v-col>
     </v-row>
@@ -117,43 +119,7 @@
     </v-card>
 
     <!-- コメント -->
-    <v-card outlined>
-      <v-card-actions class="py-2 px-4">
-        <v-rating
-          :value="rating"
-          readonly
-          color="indigo lighten-3"
-          dense
-          half-increments
-          hover
-          size="22"
-        ></v-rating>
-        <span class="grey--text text--lighten-2 caption mr-2">
-          ({{ rating }})
-        </span>
-
-        <v-spacer></v-spacer>
-
-        <span class="subtitle-2">
-          2019年10月21日
-        </span>
-      </v-card-actions>
-
-      <v-divider></v-divider>
-
-      <v-card-text class="ml-10 pa-2">
-        <v-avatar>
-          <v-img
-            class="elevation-2 mr-8"
-            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-          ></v-img>
-        </v-avatar>
-
-        <span class="subtitle-1">
-          コメント表示
-        </span>
-      </v-card-text>
-    </v-card>
+    <CommentCard />
 
     <v-card outlined>
       <v-card-actions class="pt-2 pb-1 px-4">
@@ -171,6 +137,7 @@
 
       <v-card-text class="pt-1 pb-0">
         <v-textarea
+          v-model="comment"
           solo
           class="mx-2"
           name="input-7-4"
@@ -182,7 +149,7 @@
 
       <v-card-actions class="pt-0">
         <v-spacer></v-spacer>
-        <v-btn class="mx-4">
+        <v-btn class="mx-4" @click="testComment">
           投稿
         </v-btn>
       </v-card-actions>
@@ -193,17 +160,9 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import PlanCard from '@/components/Card/Facility/Introduction/PlanCard.vue'
-
-interface IItem {
-  src: string
-}
-
-interface ICard {
-  title: string
-  src: string
-  details: [...string[]]
-  url: string
-}
+import { IFacility, IPlan } from '@/store/facility'
+import CommentCard from '@/components/Card/Facility/Introduction/CommentCard.vue'
+import { firestore, timestamp } from '@/plugins/firebase'
 
 interface IGlammity {
   title: string
@@ -213,51 +172,17 @@ interface IGlammity {
 
 @Component({
   components: {
-    PlanCard
+    PlanCard,
+    CommentCard
   }
 })
 export default class introduction extends Vue {
   // ハート
   like: boolean = false
   // 星
-  rating: number = 4
-  // スライダー画像
-  items: IItem[] = [
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-    },
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-    },
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-    },
-    {
-      src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-    }
-  ]
-
-  // プラン一覧
-  cards: ICard[] = [
-    {
-      title: 'プラン名1',
-      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-      details: ['凄い楽しそう', '面白そう'],
-      url: '123'
-    },
-    {
-      title: 'プラン名2',
-      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
-      details: ['凄い広そう', '凄い虫いなそう'],
-      url: '456'
-    },
-    {
-      title: 'プラン名3',
-      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-      details: ['凄い', '多分'],
-      url: '789'
-    }
-  ]
+  rating: number = 0
+  // コメント
+  comment: string = ''
 
   pageSlice: number = 0
   length: number = 0
@@ -286,6 +211,14 @@ export default class introduction extends Vue {
   ]
   displayLists?: IGlammity[] = []
 
+  get facility(): IFacility {
+    return this.$store.state.facility.facility
+  }
+
+  get plan(): IPlan {
+    return this.$store.state.facility.plan
+  }
+
   rules: [] = []
 
   created() {
@@ -294,6 +227,7 @@ export default class introduction extends Vue {
     } else {
       this.pageSlice = 3
     }
+    this.$store.dispatch('facility/catchFacility', this.$route.params.id)
   }
 
   mounted() {
@@ -306,6 +240,16 @@ export default class introduction extends Vue {
       this.pageSlice * (pageNumber - 1),
       this.pageSlice * pageNumber
     )
+  }
+
+  async testComment() {
+    await firestore.collection('comments').add({
+      createdAt: timestamp,
+      star: this.rating,
+      text: this.comment,
+      userId: 'mZ7qYdUy04iiJiM8SvFI',
+      facilityUrl: this.$route.params.id
+    })
   }
 }
 </script>

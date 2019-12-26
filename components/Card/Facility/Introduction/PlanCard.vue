@@ -10,7 +10,7 @@
     </v-img>
 
     <v-card-subtitle class="pb-0">
-      プラン詳細
+      {{ pay.toLocaleString() }}円
     </v-card-subtitle>
 
     <v-card-text class="text--primary">
@@ -41,14 +41,14 @@ export default class PlanCard extends Vue {
   @Prop({ required: true, default: '' })
   src!: string
 
+  @Prop({ required: true, default: 0 })
+  pay!: number
+
   @Prop({ required: true, default: '' })
   planTitle!: string
 
   @Prop({ required: true, default: '' })
   url!: string
-
-  @Prop({ required: true, default: '' })
-  facilityId!: string
 
   @Prop({ required: true, default: [] })
   details!: [...string[]]
