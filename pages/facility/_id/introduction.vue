@@ -243,13 +243,26 @@ export default class introduction extends Vue {
   }
 
   async testComment() {
-    await firestore.collection('comments').add({
-      createdAt: timestamp,
-      star: this.rating,
-      text: this.comment,
-      userId: 'mZ7qYdUy04iiJiM8SvFI',
-      facilityUrl: this.$route.params.id
-    })
+    await firestore
+      .collection('facilities')
+      .where('displayName', '==', this.$route.params.id)
+      .get()
+      .then((snapshot) => {
+        if (!snapshot.empty) {
+          snapshot.forEach(async (doc) => {
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('comments')
+              .add({
+                createdAt: timestamp,
+                star: this.rating,
+                text: this.comment,
+                userId: 'mZ7qYdUy04iiJiM8SvFI'
+              })
+          })
+        }
+      })
   }
 }
 </script>

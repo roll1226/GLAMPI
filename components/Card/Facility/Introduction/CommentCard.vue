@@ -56,86 +56,106 @@ export default class CommentCard extends Vue {
   private cnt: number = 0
 
   async created() {
-    await firestore
-      .collection('comments')
-      .where('facilityUrl', '==', this.$route.params.id)
-      .orderBy('createdAt', 'desc')
-      .limit(1)
-      .onSnapshot((commentSnapshot) => {
-        if (!commentSnapshot.empty) {
-          commentSnapshot.forEach(async (commentDoc) => {
-            const comment = commentDoc.data()
-            const date = commentDoc.data().createdAt.toDate()
-            await firestore
-              .collection('users')
-              .doc(comment.userId)
-              .get()
-              .then((userDoc: any) => {
-                this.userName = userDoc.data().nickname
-                this.userImg = userDoc.data().userImg
+    const facility = firestore.collection('facilities')
+    // .get()
+    // .then((snapshot) => {
+    //   if (!snapshot.empty) {
+    //     snapshot.forEach(async (doc) => {
+    await facility
+      .where('displayName', '==', this.$route.params.id)
+      .get()
+      .then((snapshot) => {
+        if (!snapshot.empty) {
+          snapshot.forEach(async (doc) => {
+            this.facilityId = doc.id
 
-                if (userDoc.data().nickname === '') {
-                  this.userName =
-                    userDoc.data().lastName + userDoc.data().firstName
-                }
+            const comment = facility.doc(this.facilityId).collection('comments')
 
-                const commentList = {
-                  date: moment(date).format('YYYY年MM月DD日'),
-                  star: comment.star,
-                  text: comment.text,
-                  userName: this.userName,
-                  userImg: this.userImg
-                }
+            await comment
+              .orderBy('createdAt', 'desc')
+              .limit(1)
+              .onSnapshot((commentSnapshot) => {
+                if (!commentSnapshot.empty) {
+                  commentSnapshot.forEach(async (commentDoc) => {
+                    const comment = commentDoc.data()
+                    await firestore
+                      .collection('users')
+                      .doc(comment.userId)
+                      .get()
+                      .then((userDoc: any) => {
+                        this.userName = userDoc.data().nickname
+                        this.userImg = userDoc.data().userImg
 
-                // this.$store.commit(
-                //   'facility/SET_COMMENT_NEW',
-                //   commentList
-                // )
-                this.comments.unshift(commentList)
-                if (this.cnt === 0) {
-                  this.comments.shift()
-                  this.cnt++
-                  console.log('hogr')
+                        if (userDoc.data().nickname === '') {
+                          this.userName =
+                            userDoc.data().lastName + userDoc.data().firstName
+                        }
+
+                        const star = comment.star
+                        const userName = this.userName
+                        const userImg = this.userImg
+                        const date = moment(comment.createdAt.toDate()).format(
+                          'YYYY年MM月DD日'
+                        )
+
+                        const commentList = {
+                          star,
+                          text: comment.text,
+                          userName,
+                          userImg,
+                          date
+                        }
+
+                        // this.$store.commit(
+                        //   'facility/SET_COMMENT_NEW',
+                        //   commentList
+                        // )
+                        this.comments.unshift(commentList)
+                        if (this.cnt === 0) {
+                          this.comments.shift()
+                          this.cnt++
+                          console.log('hogr')
+                        }
+                      })
+                  })
                 }
               })
-          })
-        }
-      })
 
-    await firestore
-      .collection('comments')
-      .where('facilityUrl', '==', this.$route.params.id)
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then((commentSnapshot) => {
-        if (!commentSnapshot.empty) {
-          commentSnapshot.forEach((commentDoc: any) => {
-            const comment = commentDoc.data()
-
-            firestore
-              .collection('users')
-              .doc(comment.userId)
+            await comment
+              .orderBy('createdAt', 'desc')
               .get()
-              .then((userDoc: any) => {
-                this.userName = userDoc.data().nickname
-                const userUserImg = userDoc.data().userImg
+              .then((commentSnapshot) => {
+                if (!commentSnapshot.empty) {
+                  commentSnapshot.forEach((commentDoc) => {
+                    const comment = commentDoc.data()
 
-                if (userDoc.data().nickname === '') {
-                  this.userName =
-                    userDoc.data().lastName + userDoc.data().firstName
+                    firestore
+                      .collection('users')
+                      .doc(comment.userId)
+                      .get()
+                      .then((userDoc: any) => {
+                        this.userName = userDoc.data().nickname
+                        const userUserImg = userDoc.data().userImg
+
+                        if (userDoc.data().nickname === '') {
+                          this.userName =
+                            userDoc.data().lastName + userDoc.data().firstName
+                        }
+
+                        const commentList = {
+                          date: moment(comment.createdAt.toDate()).format(
+                            'YYYY年MM月DD日'
+                          ),
+                          star: comment.star,
+                          text: comment.text,
+                          userName: this.userName,
+                          userImg: userUserImg
+                        }
+
+                        this.comments.push(commentList)
+                      })
+                  })
                 }
-
-                const commentList = {
-                  date: moment(commentDoc.data().createdAt.toDate()).format(
-                    'YYYY年MM月DD日'
-                  ),
-                  star: comment.star,
-                  text: comment.text,
-                  userName: this.userName,
-                  userImg: userUserImg
-                }
-
-                this.comments.push(commentList)
               })
           })
         }
