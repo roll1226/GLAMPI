@@ -6,7 +6,7 @@
           プラン
         </div>
         <v-list-item-title class="headline mb-1">
-          プランA
+          {{ planTitle }}
         </v-list-item-title>
       </v-list-item-content>
       <v-spacer></v-spacer>
@@ -29,6 +29,10 @@ import { Component, Vue } from 'nuxt-property-decorator'
 export default class plan extends Vue {
   get planPay(): number {
     return this.$store.state.reservation.planPay
+  }
+
+  get planTitle(): string {
+    return this.$store.state.reservation.planTitle
   }
 }
 </script>

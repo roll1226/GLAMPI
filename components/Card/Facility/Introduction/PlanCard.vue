@@ -23,7 +23,7 @@
       <v-spacer></v-spacer>
 
       <!-- 予約ページに遷移する -->
-      <v-btn @click="setPay(pay)">
+      <v-btn @click="setPay(pay, planTitle)">
         <v-icon class="mr-2">
           fas fa-campground
         </v-icon>
@@ -53,9 +53,11 @@ export default class PlanCard extends Vue {
   @Prop({ required: true, default: [] })
   details!: [...string[]]
 
-  setPay(pay: number) {
+  setPay(pay: number, planTitle: string) {
     // `/facility/${$route.params.id}/reservation/${url}`
     this.$store.commit('reservation/SET_PAY', pay)
+    this.$store.commit('reservation/SET_PLAN_TITLE', planTitle)
+
     this.$router.push(
       `/facility/${this.$route.params.id}/reservation/${this.url}`
     )
