@@ -29,9 +29,17 @@
       <v-divider></v-divider>
 
       <v-card-text class="ml-10 pa-2">
-        <v-avatar>
-          <v-img class="elevation-2 mr-8" :src="comment.userImg"></v-img>
-        </v-avatar>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-avatar v-on="on">
+              <v-img class="elevation-2 mr-8" :src="comment.userImg"></v-img>
+            </v-avatar>
+          </template>
+
+          <span>
+            {{ comment.userName }}
+          </span>
+        </v-tooltip>
 
         <span class="subtitle-1">
           {{ comment.text }}
