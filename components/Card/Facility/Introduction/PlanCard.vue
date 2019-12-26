@@ -9,16 +9,18 @@
       <v-card-title v-text="planTitle"></v-card-title>
     </v-img>
 
+    <v-card-subtitle class="pb-0">
+      プラン詳細
+    </v-card-subtitle>
+
+    <v-card-text class="text--primary">
+      <div v-for="(detail, index) in details" :key="index">
+        {{ detail }}
+      </div>
+    </v-card-text>
+
     <v-card-actions>
       <v-spacer></v-spacer>
-
-      <!-- モーダルで詳細を表示 -->
-      <v-btn>
-        <v-icon class="mr-2">
-          fas fa-info-circle
-        </v-icon>
-        詳細
-      </v-btn>
 
       <!-- 予約ページに遷移する -->
       <v-btn :to="`/facility/${$route.params.id}/reservation/${url}`">
