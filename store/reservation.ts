@@ -16,7 +16,7 @@ interface IState {
 export const state = (): IState => ({
   isActive: false,
   nowActive: '',
-  planPay: 15000, // 読み込まれた時に挿入
+  planPay: 0, // 読み込まれた時に挿入
   optionPay: 0,
   totalPay: 0,
   dates: []
@@ -38,5 +38,9 @@ export const mutations = {
 
   SET_DATES(state: IState, payload: []) {
     state.dates = payload
+  },
+
+  SET_PAY(state: IState, payload: number) {
+    state.planPay = payload
   }
 }
