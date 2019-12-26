@@ -71,7 +71,8 @@ export default class Searched extends Vue {
               .collection('facilities')
               .doc(doc.id)
               .collection('plans')
-              .orderBy('pay', 'desc')
+              .orderBy('pay', 'asc')
+              .limit(1)
               .get()
               .then((queryPlan) => {
                 if (!queryPlan.empty) {
