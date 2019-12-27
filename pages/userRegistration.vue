@@ -1,23 +1,24 @@
 <template>
   <div>
     <h1>会員登録</h1>
-    <!-- 姓(sei) -->
-    <sei></sei>
-    <!-- 名(mei) -->
-    <mei></mei>
-    <!-- セイ(seiKana) -->
-    <seiKana></seiKana>
-    <!-- メイ(meiKana) -->
-    <meiKana></meiKana>
-    <!--性別(row)-->
-    <row></row>
-    <!-- 生年月日(birthValue)-->
-    <v-row>
-      <v-col cols="12" sm="4">
-        <v-overflow-btn :items="dropdown"></v-overflow-btn>
-      </v-col>
-    </v-row>
-    <address1></address1>
+    <!-- 姓(sei),名(mei) -->
+    <div class="mx-12">
+      <seimei></seimei>
+      <!-- セイ(seiKana),メイ(meiKana) -->
+      <seimeiKana></seimeiKana>
+      <!--性別(row)-->
+      <row></row>
+      <!-- 生年月日(birthValue)-->
+      <v-row>
+        <v-col cols="12" sm="4">
+          <v-overflow-btn
+            :items="dropdown"
+            v-model="birthValue"
+          ></v-overflow-btn>
+        </v-col>
+      </v-row>
+      <address1></address1>
+    </div>
     <div class="mx-12">
       <email></email>
       <password></password>
@@ -32,11 +33,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { firestore, timestamp } from '@/plugins/firebase'
-import sei from '@/components/UserRegistration1/sei.vue'
-import mei from '@/components/UserRegistration1/mei.vue'
-import seiKana from '@/components/UserRegistration1/seikana.vue'
-import meiKana from '@/components/UserRegistration1/meikana.vue'
+import seimei from '@/components/UserRegistration1/seimei.vue'
+import seimeiKana from '@/components/UserRegistration1/seimeiKana.vue'
 import address1 from '@/components/UserRegistration1/address.vue'
 import row from '@/components/UserRegistration1/sex.vue'
 import email from '@/components/UserRegistration/email.vue'
@@ -46,10 +44,8 @@ import username from '@/components/UserRegistration/username.vue'
 
 @Component({
   components: {
-    sei,
-    mei,
-    seiKana,
-    meiKana,
+    seimei,
+    seimeiKana,
     row,
     address1,
     email,
@@ -83,6 +79,9 @@ export default class UserRegistration extends Vue {
           })
         }
       })
+  public dropdown: string = ''
+  data: {} = {
+    dropdown: ['a']
   }
 }
 </script>

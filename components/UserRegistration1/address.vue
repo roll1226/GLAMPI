@@ -1,32 +1,33 @@
 <template>
   <div>
     <v-row>
-      <v-col>
+      <v-col sm="2">
         <v-text-field
           v-model="addres1"
           v-mask="POST"
           label="aaaa"
+          prepend-icon="mdi-home"
         ></v-text-field>
       </v-col>
       <div class="mt-10">
         ー
       </div>
-      <v-col>
+      <v-col sm="2">
         <v-text-field
           v-model="addres2"
           v-mask="POST1"
           label="bbbb"
         ></v-text-field>
       </v-col>
+      <v-col>
+        <v-btn @click="checkCode()" outlined>検索</v-btn>
+      </v-col>
     </v-row>
-
-    <v-text-field v-model="address" label="住所"></v-text-field>
-
-    <v-btn @click="checkCode()" outlined>検索</v-btn>
-    <br />
-    {{ code }}
-    {{ error }}
-    {{ uuid }}
+    <v-text-field
+      v-model="address"
+      label="住所"
+      prepend-icon="mdi-"
+    ></v-text-field>
   </div>
 </template>
 
@@ -76,6 +77,7 @@ export default class addressUserRegistration extends Vue {
           // push
           this.code.push(res.data)
           this.pref = res.data.data.pref
+          this.address = res.data.data.fullAddress
         } else {
           this.error = 'ばか'
         }
