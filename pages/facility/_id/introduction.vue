@@ -113,7 +113,7 @@ interface IGlammity {
   components: {
     PlanCard,
     GlammityListCard,
-    CommentCard
+    CommentCard,
     GlammityCard
   }
 })
