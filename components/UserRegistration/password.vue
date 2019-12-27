@@ -11,6 +11,17 @@
       counter
       @click:append="show1 = !show1"
     ></v-text-field>
+    <v-text-field
+      v-model="passwordCheck"
+      :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+      :type="show2 ? 'text' : 'password'"
+      label="パスワード確認"
+      prepend-icon="mdi-lock"
+      hint="パスワードをもう一度入力してください。"
+      :rules="[rules.passwordLegend]"
+      counter
+      @click:append="show2 = !show2"
+    ></v-text-field>
   </div>
 </template>
 <script lang="ts">
@@ -19,7 +30,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class passwordUserRegistration extends Vue {
   public show1: boolean = false
+  public show2: boolean = false
   public password: string = ''
+  public passwordCheck: string = ''
   public rules: {} = {
     isPassword: (v: string) => !!v || 'パスワードは必ず入力してください。',
     passwordLength: (v: string) =>
@@ -31,7 +44,9 @@ export default class passwordUserRegistration extends Vue {
         pattern.test(v) ||
         'パスワードは半角英字と、数字の両方を必ず入れてください。'
       )
-    }
+    },
+    passwordLegend: (v: string) =>
+      v === this.password || 'パスワードが一致していません。'
   }
 }
 </script>
