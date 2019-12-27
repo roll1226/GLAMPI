@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-radio-group v-model="row" row>
+    <v-radio-group v-model="row" row prepend-icon="mdi-human-male-female">
       <v-radio label="男性" value="M"></v-radio>
       <v-radio label="女性" value="F"></v-radio>
     </v-radio-group>
