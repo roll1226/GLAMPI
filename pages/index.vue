@@ -11,13 +11,13 @@
       <SearchInput
     /></v-img>
 
-    <v-row>
-      <v-col>
-        <h3 class="ml-10 top-page-flammity-title headline font-weight-bold">
-          GLAMMITY
-        </h3>
-      </v-col>
-    </v-row>
+    <GlammityIndexWrap />
+
+    <RecommendationIndexWrap />
+
+    <NewArrivalIndexCard />
+
+    <TagIndexWrap />
   </div>
 </template>
 
@@ -25,18 +25,33 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import Logo from '@/components/Logo.vue'
 import SearchInput from '@/components/Input/Search/SearchInput.vue'
+import GlammityIndexWrap from '@/components/IndexContentWrap/GlammityIndexWrap.vue'
+import RecommendationIndexWrap from '@/components/IndexContentWrap/RecommendationIndexWrap.vue'
+import NewArrivalIndexCard from '@/components/IndexContentWrap/NewArrivalIndexCard.vue'
+import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
 
 @Component({
   components: {
     Logo,
-    SearchInput
+    SearchInput,
+    GlammityIndexWrap,
+    RecommendationIndexWrap,
+    NewArrivalIndexCard,
+    TagIndexWrap
   }
 })
 export default class IndexPage extends Vue {}
 </script>
 
 <style lang="scss">
-.top-page-flammity-title {
+.top-page-glammity-title {
   color: $site_color_2;
+}
+.top-page-introduction-wrap {
+  margin-top: 18px;
+  .top-page-introduction-lists {
+    margin-left: 65px;
+    margin-right: 65px;
+  }
 }
 </style>

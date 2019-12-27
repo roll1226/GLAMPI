@@ -101,6 +101,7 @@ import { IFacility, IPlan } from '@/store/facility'
 import CommentCard from '@/components/Card/Facility/Introduction/CommentCard.vue'
 import { firestore, timestamp } from '@/plugins/firebase'
 import GlammityListCard from '@/components/Card/Facility/Introduction/GlammityListCard.vue'
+import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
 
 interface IGlammity {
   title: string
@@ -113,6 +114,7 @@ interface IGlammity {
     PlanCard,
     GlammityListCard,
     CommentCard
+    GlammityCard
   }
 })
 export default class introduction extends Vue {
