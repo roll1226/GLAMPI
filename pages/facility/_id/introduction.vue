@@ -53,6 +53,8 @@
       </v-col>
     </v-row>
 
+    <OptionListCard />
+
     <GlammityListCard />
 
     <!-- コメント -->
@@ -102,6 +104,7 @@ import CommentCard from '@/components/Card/Facility/Introduction/CommentCard.vue
 import { firestore, timestamp } from '@/plugins/firebase'
 import GlammityListCard from '@/components/Card/Facility/Introduction/GlammityListCard.vue'
 import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
+import OptionListCard from '@/components/Card/Facility/Introduction/OptionListCard.vue'
 
 interface IGlammity {
   title: string
@@ -114,7 +117,8 @@ interface IGlammity {
     PlanCard,
     GlammityListCard,
     CommentCard,
-    GlammityCard
+    GlammityCard,
+    OptionListCard
   }
 })
 export default class introduction extends Vue {
