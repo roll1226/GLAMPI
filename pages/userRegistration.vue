@@ -24,14 +24,15 @@
       <tel></tel>
       <username></username>
     </div>
-    <v-btn :loading="loading" color="promise" justify="end" @click="regist">
+    <!-- <v-btn :loading="loading" color="promise" justify="end" @click="regist">
       会員登録
-    </v-btn>
+    </v-btn> -->
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { firestore, timestamp } from '@/plugins/firebase'
 import sei from '@/components/UserRegistration1/sei.vue'
 import mei from '@/components/UserRegistration1/mei.vue'
 import seiKana from '@/components/UserRegistration1/seikana.vue'
@@ -57,5 +58,31 @@ import username from '@/components/UserRegistration/username.vue'
     username
   }
 })
-export default class UserRegistration extends Vue {}
+export default class UserRegistration extends Vue {
+  async testComment() {
+    await firestore
+      .collection('facilities')
+      .where('displayName', '==', this.$route.params.id)
+      .get()
+      .then((snapshot) => {
+        if (!snapshot.empty) {
+          snapshot.forEach(async (doc) => {
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('comments')
+              .add({
+                createdAt: timestamp,
+                star: this.rating,
+                text: this.comment,
+                userId: 'mZ7qYdUy04iiJiM8SvFI'
+              })
+              .then(() => {
+                this.clearComment()
+              })
+          })
+        }
+      })
+  }
+}
 </script>
