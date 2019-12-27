@@ -5,6 +5,7 @@ interface ICommit {
 }
 
 interface IState {
+  planTitle: string,
   isActive: boolean,
   nowActive: string,
   planPay: number,
@@ -14,9 +15,10 @@ interface IState {
 }
 
 export const state = (): IState => ({
+  planTitle: '',
   isActive: false,
   nowActive: '',
-  planPay: 15000, // 読み込まれた時に挿入
+  planPay: 0, // 読み込まれた時に挿入
   optionPay: 0,
   totalPay: 0,
   dates: []
@@ -38,5 +40,13 @@ export const mutations = {
 
   SET_DATES(state: IState, payload: []) {
     state.dates = payload
+  },
+
+  SET_PAY(state: IState, payload: number) {
+    state.planPay = payload
+  },
+
+  SET_PLAN_TITLE(state: IState, payload: string) {
+    state.planTitle = payload
   }
 }

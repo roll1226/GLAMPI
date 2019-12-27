@@ -22,12 +22,10 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import password from '@/components/UserRegistration/password.vue'
-import passwordCheck from '@/components/UserRegistration/passwordCheck.vue'
 
 @Component({
   components: {
-    password,
-    passwordCheck
+    password
   }
 })
 export default class PasswordMypage extends Vue {}

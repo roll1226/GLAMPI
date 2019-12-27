@@ -1,18 +1,24 @@
 <template>
-  <v-footer color="lighten-1" class="mt-4" padless>
-    <v-row justify="center" no-gutters>
-      <v-btn
-        v-for="(link, index) in links"
-        :key="index"
-        text
-        rounded
-        class="my-2"
-        :to="link.displayName"
-      >
-        {{ link.name }}
-      </v-btn>
-      <v-col class="grey lighten-2 lighten-2 py-4 text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>GLAMPI</strong>
+  <v-footer class="glampi-footer-wrap" padless>
+    <v-row justify="center" class="glampi-footer" no-gutters>
+      <v-toolbar-items v-for="(link, index) in links" :key="index">
+        <v-btn
+          text
+          class="my-2 px-10 block caption glampi-footer-btn"
+          :to="link.displayName"
+        >
+          {{ link.name }}
+        </v-btn>
+        <v-divider
+          v-if="index !== 4"
+          vertical
+          class="my-2 mx-4"
+          style="background: white;"
+        ></v-divider>
+      </v-toolbar-items>
+
+      <v-col class="text-center py-4 overline" cols="12">
+        &copy;2019-2020 J4K1 GLAMPI.All right reserved
       </v-col>
     </v-row>
   </v-footer>
@@ -52,3 +58,19 @@ export default class GlampiFoot extends Vue {
   ]
 }
 </script>
+<style lang="scss">
+.glampi-footer-wrap {
+  margin-top: 100px;
+  .glampi-footer {
+    background-color: $site_color_2;
+    color: $site_color_8;
+    .glampi-footer-btn {
+      &.theme--light.v-btn {
+        color: $site_color_8;
+        caret-color: $site_color_8;
+        border-radius: 50px 50px 50px 50px;
+      }
+    }
+  }
+}
+</style>

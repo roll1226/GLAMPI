@@ -14,10 +14,10 @@
           dense
           background-color="white"
           @input="search"
-          @click:append="algoliaSearch"
+          @click:append="facilitySearch"
         ></v-text-field>
 
-        <SerchList />
+        <SearchList />
       </v-card>
     </div>
   </div>
@@ -25,11 +25,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import SerchList from '@/components/Card/Search/SearchList.vue'
+import SearchList from '@/components/Card/Search/SearchList.vue'
 
 @Component({
   components: {
-    SerchList
+    SearchList
   }
 })
 export default class algolie extends Vue {
@@ -39,8 +39,8 @@ export default class algolie extends Vue {
     this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
   }
 
-  algoliaSearch() {
-    console.log('ok')
+  facilitySearch() {
+    this.$router.push(`/searched?facilityKeyWord=${this.query}`)
   }
 
   get query(): string {

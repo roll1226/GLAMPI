@@ -6,7 +6,7 @@
           プラン
         </div>
         <v-list-item-title class="headline mb-1">
-          プランA
+          {{ planTitle }}
         </v-list-item-title>
       </v-list-item-content>
       <v-spacer></v-spacer>
@@ -15,7 +15,7 @@
           値段
         </div>
         <v-list-item-title class="headline mb-1">
-          {{ payNumber.toLocaleString() }}円
+          {{ planPay.toLocaleString() }}円
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -23,11 +23,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class plan extends Vue {
-  @Prop({ required: true, default: 0 })
-  payNumber!: number
+  get planPay(): number {
+    return this.$store.state.reservation.planPay
+  }
+
+  get planTitle(): string {
+    return this.$store.state.reservation.planTitle
+  }
 }
 </script>
