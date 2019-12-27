@@ -30,6 +30,10 @@ export const mutations = {
 
   SET_QUERY_TEXT(state: IState, payload: string) {
     state.queryText = payload
+  },
+
+  CLEAR_QUERY(state: IState) {
+    state.queryText = ''
   }
 }
 

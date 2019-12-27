@@ -55,6 +55,7 @@ export default class Searched extends Vue {
   facilityList: IFacility[] = []
 
   async created() {
+    this.$store.commit('search/CLEAR_QUERY')
     const searchQuery = this.$route.query.facilityKeyWord
     await firestore
       .collection('facilities')
