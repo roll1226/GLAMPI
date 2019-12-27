@@ -9,19 +9,21 @@
       <v-card-title v-text="planTitle"></v-card-title>
     </v-img>
 
+    <v-card-subtitle class="pb-0">
+      {{ pay.toLocaleString() }}円
+    </v-card-subtitle>
+
+    <v-card-text class="text--primary">
+      <div v-for="(detail, index) in details" :key="index">
+        {{ detail }}
+      </div>
+    </v-card-text>
+
     <v-card-actions>
       <v-spacer></v-spacer>
 
-      <!-- モーダルで詳細を表示 -->
-      <v-btn>
-        <v-icon class="mr-2">
-          fas fa-info-circle
-        </v-icon>
-        詳細
-      </v-btn>
-
       <!-- 予約ページに遷移する -->
-      <v-btn :to="`/facility/${$route.params.id}/reservation/${url}`">
+      <v-btn @click="setPay(pay)">
         <v-icon class="mr-2">
           fas fa-campground
         </v-icon>
@@ -39,16 +41,24 @@ export default class PlanCard extends Vue {
   @Prop({ required: true, default: '' })
   src!: string
 
+  @Prop({ required: true, default: 0 })
+  pay!: number
+
   @Prop({ required: true, default: '' })
   planTitle!: string
 
   @Prop({ required: true, default: '' })
   url!: string
 
-  @Prop({ required: true, default: '' })
-  facilityId!: string
-
   @Prop({ required: true, default: [] })
   details!: [...string[]]
+
+  setPay(pay: number) {
+    // `/facility/${$route.params.id}/reservation/${url}`
+    this.$store.commit('reservation/SET_PAY', pay)
+    this.$router.push(
+      `/facility/${this.$route.params.id}/reservation/${this.url}`
+    )
+  }
 }
 </script>

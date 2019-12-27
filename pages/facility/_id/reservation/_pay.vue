@@ -6,7 +6,7 @@
 
     <v-row dense>
       <v-col :cols="10" class="ma-auto">
-        <Plan :pay-number="planPay" />
+        <Plan />
       </v-col>
 
       <v-col :cols="10" class="ma-auto">
@@ -180,10 +180,6 @@ export default class reservation extends Vue {
 
   get dates(): [] {
     return this.$store.state.reservation.dates
-  }
-
-  get planPay(): number {
-    return this.$store.state.reservation.planPay
   }
 
   set dates(selectdates: []) {
