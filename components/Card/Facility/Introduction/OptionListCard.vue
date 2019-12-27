@@ -93,6 +93,7 @@ export default class OptionListCard extends Vue {
             .collection('facilities')
             .doc(doc.id)
             .collection('options')
+            .orderBy('pay', 'asc')
             .get()
             .then((optionSnapshot) => {
               optionSnapshot.forEach((optionDoc) => {
