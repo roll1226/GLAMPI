@@ -17,19 +17,14 @@
         <v-overflow-btn :items="dropdown"></v-overflow-btn>
       </v-col>
     </v-row>
-    <!-- 住所(address) -->
     <address1></address1>
-    <!-- メールアドレス(email) -->
-    <email></email>
-    <!-- パスワード(password) -->
-    <password></password>
-    <!-- パスワード確認(passwordcheck) -->
-    <passwordCheck></passwordCheck>
-    <!-- 電話番号(tel) -->
-    <tel></tel>
-    <!-- ユーザ名(username) -->
-    <username></username>
-    <v-btn :loading="loading" color="promise" @click="regist">
+    <div class="mx-12">
+      <email></email>
+      <password></password>
+      <tel></tel>
+      <username></username>
+    </div>
+    <v-btn :loading="loading" color="promise" justify="end" @click="regist">
       会員登録
     </v-btn>
   </div>
@@ -45,7 +40,6 @@ import address1 from '@/components/UserRegistration1/address.vue'
 import row from '@/components/UserRegistration1/sex.vue'
 import email from '@/components/UserRegistration/email.vue'
 import password from '@/components/UserRegistration/password.vue'
-import passwordCheck from '@/components/UserRegistration/passwordCheck.vue'
 import tel from '@/components/UserRegistration/tel.vue'
 import username from '@/components/UserRegistration/username.vue'
 
@@ -59,7 +53,6 @@ import username from '@/components/UserRegistration/username.vue'
     address1,
     email,
     password,
-    passwordCheck,
     tel,
     username
   }
