@@ -39,6 +39,6 @@ export default class reservation extends Vue {
 <style lang="scss">
 .card-wrap-wrap {
   position: absolute;
-  bottom: -50%;
+  bottom: -80%;
 }
 </style>
