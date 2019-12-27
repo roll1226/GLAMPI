@@ -86,7 +86,7 @@
 
       <v-card-actions class="pt-0">
         <v-spacer></v-spacer>
-        <v-btn class="mx-4" @click="testComment">
+        <v-btn class="mx-4" :disabled="formIsValid" @click="testComment">
           投稿
         </v-btn>
       </v-card-actions>
@@ -125,33 +125,6 @@ export default class introduction extends Vue {
   // コメント
   comment: string = ''
 
-  pageSlice: number = 0
-  length: number = 0
-  page: number = 1
-  list: IGlammity[] = [
-    {
-      title: 'GLAMMITY1',
-      text: '凄い',
-      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
-    },
-    {
-      title: 'GLAMMITY2',
-      text: 'やばい',
-      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
-    },
-    {
-      title: 'GLAMMITY3',
-      text: '博俊',
-      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
-    },
-    {
-      title: 'GLAMMITY4',
-      text: '優人',
-      src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
-    }
-  ]
-  displayLists?: IGlammity[] = []
-
   get facility(): IFacility {
     return this.$store.state.facility.facility
   }
@@ -160,27 +133,8 @@ export default class introduction extends Vue {
     return this.$store.state.facility.plan
   }
 
-  rules: [] = []
-
   created() {
-    if (window.parent.screen.width <= 420) {
-      this.pageSlice = 1
-    } else {
-      this.pageSlice = 3
-    }
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
-  }
-
-  mounted() {
-    this.length = Math.ceil(this.list.length / this.pageSlice)
-    this.displayLists = this.list.slice(0, this.pageSlice)
-  }
-
-  pageChange(pageNumber: number) {
-    this.displayLists = this.list.slice(
-      this.pageSlice * (pageNumber - 1),
-      this.pageSlice * pageNumber
-    )
   }
 
   async testComment() {
@@ -201,9 +155,25 @@ export default class introduction extends Vue {
                 text: this.comment,
                 userId: 'mZ7qYdUy04iiJiM8SvFI'
               })
+              .then(() => {
+                this.clearComment()
+              })
           })
         }
       })
+  }
+
+  public get formIsValid(): boolean {
+    if (this.rating !== 0 && this.comment !== '') {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  clearComment() {
+    this.rating = 0
+    this.comment = ''
   }
 }
 </script>
