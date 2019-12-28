@@ -22,7 +22,7 @@
         ></v-text-field>
       </v-col>
       <v-col>
-        <v-btn outlined @click="checkCode()">検索</v-btn>
+        <v-btn class="mt-3" outlined @click="checkCode()">検索</v-btn>
       </v-col>
     </v-row>
     <v-text-field
