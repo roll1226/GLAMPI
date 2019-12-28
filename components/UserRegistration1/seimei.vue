@@ -25,7 +25,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class seiUserRegistration extends Vue {
+export default class seimeiUserRegistration extends Vue {
   // public sei: string = ''
   get sei(): string {
     return this.$store.state.registration.lastName

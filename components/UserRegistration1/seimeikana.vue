@@ -25,7 +25,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class seiUserRegistration extends Vue {
+export default class seimeiKanaUserRegistration extends Vue {
   // public sei: string = ''
   get seiKana(): string {
     return this.$store.state.registration.lastNameKana
@@ -39,7 +39,7 @@ export default class seiUserRegistration extends Vue {
     return this.$store.state.registration.firstNameKana
   }
 
-  set meikana(value: string) {
+  set meiKana(value: string) {
     this.$store.commit('registration/SET_FIRST_NAME_KANA', value)
   }
   public rules: {} = {

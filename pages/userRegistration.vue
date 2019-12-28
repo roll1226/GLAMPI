@@ -9,14 +9,8 @@
       <!--性別(row)-->
       <row></row>
       <!-- 生年月日(birthValue)-->
-      <v-row>
-        <v-col cols="12" sm="4">
-          <v-overflow-btn
-            :items="dropdown"
-            v-model="birthValue"
-          ></v-overflow-btn>
-        </v-col>
-      </v-row>
+      <birthValue></birthValue>
+      <!-- 住所(address1)-->
       <address1></address1>
     </div>
     <div class="mx-12">
@@ -37,6 +31,7 @@ import seimei from '@/components/UserRegistration1/seimei.vue'
 import seimeiKana from '@/components/UserRegistration1/seimeiKana.vue'
 import address1 from '@/components/UserRegistration1/address.vue'
 import row from '@/components/UserRegistration1/sex.vue'
+import birthValue from '@/components/UserRegistration1/birthValue.vue'
 import email from '@/components/UserRegistration/email.vue'
 import password from '@/components/UserRegistration/password.vue'
 import tel from '@/components/UserRegistration/tel.vue'
@@ -47,6 +42,7 @@ import username from '@/components/UserRegistration/username.vue'
     seimei,
     seimeiKana,
     row,
+    birthValue,
     address1,
     email,
     password,
@@ -79,9 +75,5 @@ export default class UserRegistration extends Vue {
   //         })
   //       }
   //     })
-  public dropdown: string = ''
-  data: {} = {
-    dropdown: ['a']
-  }
 }
 </script>

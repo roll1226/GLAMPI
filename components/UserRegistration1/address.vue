@@ -5,8 +5,9 @@
         <v-text-field
           v-model="addres1"
           v-mask="POST"
-          label="aaaa"
+          label="xxx"
           prepend-icon="mdi-home"
+          :rules="[rules.post1]"
         ></v-text-field>
       </v-col>
       <div class="mt-10">
@@ -16,7 +17,8 @@
         <v-text-field
           v-model="addres2"
           v-mask="POST1"
-          label="bbbb"
+          label="xxxx"
+          :rules="rules.post2"
         ></v-text-field>
       </v-col>
       <v-col>
@@ -27,6 +29,7 @@
       v-model="address"
       label="住所"
       prepend-icon="mdi-"
+      :rules="rules.post3"
     ></v-text-field>
   </div>
 </template>
@@ -64,12 +67,7 @@ export default class addressUserRegistration extends Vue {
     .split('-')
     .join('')
   public rules: {} = {
-    lname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ]
+    post1: (v: string) => !!v || '郵便番号は半角数字で必ず入力してください'
   }
   async checkCode() {
     // 初期化
@@ -91,7 +89,7 @@ export default class addressUserRegistration extends Vue {
           })
           this.address = res.data.data.fullAddress
         } else {
-          this.error = 'ばか'
+          this.address = '存在しない郵便番号です。'
         }
       })
     console.log(this.code)
