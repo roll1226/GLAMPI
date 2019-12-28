@@ -15,7 +15,14 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class emailUserRegistration extends Vue {
-  public email: string = ''
+  // public email: string = ''
+  get email(): string {
+    return this.$store.state.registration.email
+  }
+
+  set email(value: string) {
+    this.$store.commit('registration/SET_EMAIL', value)
+  }
   public rules: {} = {
     isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
     emailLength: (v: string) =>

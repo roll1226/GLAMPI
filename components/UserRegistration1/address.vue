@@ -20,7 +20,7 @@
         ></v-text-field>
       </v-col>
       <v-col>
-        <v-btn @click="checkCode()" outlined>検索</v-btn>
+        <v-btn outlined @click="checkCode()">検索</v-btn>
       </v-col>
     </v-row>
     <v-text-field
@@ -48,9 +48,15 @@ const uuidv1 = require('uuid/v4')
   }
 })
 export default class addressUserRegistration extends Vue {
-  public address: string = ''
+  // public address: string = ''
+  get address(): string {
+    return this.$store.state.registration.postalCode
+  }
+
+  set address(value: string) {
+    this.$store.commit('registration/SET_POSTAL_CODE', value)
+  }
   code: object[] = []
-  pref?: string = ''
   addres1: string = ''
   addres2: string = ''
   error?: string = ''
@@ -68,7 +74,6 @@ export default class addressUserRegistration extends Vue {
   async checkCode() {
     // 初期化
     this.code = []
-    this.pref = ''
     // axios
     await this.$axios
       .get(`https://api.zipaddress.net/?zipcode=${this.addres1}${this.addres2}`)
@@ -76,7 +81,14 @@ export default class addressUserRegistration extends Vue {
         if (res.data.code === 200) {
           // push
           this.code.push(res.data)
-          this.pref = res.data.data.pref
+          const pref = res.data.data.pref
+          const city = res.data.data.city
+          const town = res.data.data.town
+          this.$store.commit('registration/SET_STREET_ADDRESS', {
+            pref,
+            city,
+            town
+          })
           this.address = res.data.data.fullAddress
         } else {
           this.error = 'ばか'

@@ -55,30 +55,30 @@ import username from '@/components/UserRegistration/username.vue'
   }
 })
 export default class UserRegistration extends Vue {
-  async testComment() {
-    await firestore
-      .collection('facilities')
-      .where('displayName', '==', this.$route.params.id)
-      .get()
-      .then((snapshot) => {
-        if (!snapshot.empty) {
-          snapshot.forEach(async (doc) => {
-            await firestore
-              .collection('facilities')
-              .doc(doc.id)
-              .collection('comments')
-              .add({
-                createdAt: timestamp,
-                star: this.rating,
-                text: this.comment,
-                userId: 'mZ7qYdUy04iiJiM8SvFI'
-              })
-              .then(() => {
-                this.clearComment()
-              })
-          })
-        }
-      })
+  // async testComment() {
+  //   await firestore
+  //     .collection('facilities')
+  //     .where('displayName', '==', this.$route.params.id)
+  //     .get()
+  //     .then((snapshot) => {
+  //       if (!snapshot.empty) {
+  //         snapshot.forEach(async (doc) => {
+  //           await firestore
+  //             .collection('facilities')
+  //             .doc(doc.id)
+  //             .collection('comments')
+  //             .add({
+  //               createdAt: timestamp,
+  //               star: this.rating,
+  //               text: this.comment,
+  //               userId: 'mZ7qYdUy04iiJiM8SvFI'
+  //             })
+  //             .then(() => {
+  //               this.clearComment()
+  //             })
+  //         })
+  //       }
+  //     })
   public dropdown: string = ''
   data: {} = {
     dropdown: ['a']

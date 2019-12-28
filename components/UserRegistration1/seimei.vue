@@ -34,7 +34,14 @@ export default class seiUserRegistration extends Vue {
   set sei(value: string) {
     this.$store.commit('registration/SET_LAST_NAME', value)
   }
-  public mei: string = ''
+  // public mei: string = ''
+  get mei(): string {
+    return this.$store.state.registration.firstName
+  }
+
+  set mei(value: string) {
+    this.$store.commit('registration/SET_FIRST_NAME', value)
+  }
   public rules: {} = {
     fname: [
       (v: string) => !!v || '姓・名は必ず入力してください',
