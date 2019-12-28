@@ -16,6 +16,7 @@ interface IState {
   postalCode: string
   streetAddress: [...string[]]
   email: string
+  password: string
   phoneNumber: string
   nickname: string
 }
@@ -32,6 +33,7 @@ export const state = (): IState => ({
   postalCode: '',
   streetAddress: [],
   email: '',
+  password: '',
   phoneNumber: '',
   nickname: ''
 })
@@ -82,6 +84,10 @@ export const mutations = {
 
   SET_EMAIL(state: IState, payload: string) {
     state.email = payload
+  },
+
+  CHECK_PASSWORD(state: IState, payload: string) {
+    state.password = payload
   },
 
   SET_PHONE_NUMBER(state: IState, payload: string) {

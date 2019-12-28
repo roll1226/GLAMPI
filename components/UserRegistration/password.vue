@@ -30,7 +30,13 @@ import { Component, Vue } from 'nuxt-property-decorator'
 export default class passwordUserRegistration extends Vue {
   public show1: boolean = false
   public show2: boolean = false
-  public password: string = ''
+  // public password: string = ''
+  get password() {
+    return this.$store.state.registration.password
+  }
+  set password(value: string) {
+    this.$store.commit('registration/CHECK_PASSWORD', value)
+  }
   public passwordCheck: string = ''
   public rules: {} = {
     isPassword: (v: string) => !!v || 'パスワードは必ず入力してください。',
