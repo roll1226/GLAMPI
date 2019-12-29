@@ -53,11 +53,11 @@ const uuidv1 = require('uuid/v4')
 export default class addressUserRegistration extends Vue {
   // public address: string = ''
   get address(): string {
-    return this.$store.state.registration.postalCode
+    return this.$store.state.registration.address
   }
 
   set address(value: string) {
-    this.$store.commit('registration/SET_POSTAL_CODE', value)
+    this.$store.commit('registration/SET_ADDRESS', value)
   }
   code: object[] = []
   addres1: string = ''

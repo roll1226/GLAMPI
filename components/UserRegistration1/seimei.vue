@@ -28,19 +28,19 @@ import { Component, Vue } from 'nuxt-property-decorator'
 export default class seimeiUserRegistration extends Vue {
   // public sei: string = ''
   get sei(): string {
-    return this.$store.state.registration.lastName
-  }
-
-  set sei(value: string) {
-    this.$store.commit('registration/SET_LAST_NAME', value)
-  }
-  // public mei: string = ''
-  get mei(): string {
     return this.$store.state.registration.firstName
   }
 
-  set mei(value: string) {
+  set sei(value: string) {
     this.$store.commit('registration/SET_FIRST_NAME', value)
+  }
+  // public mei: string = ''
+  get mei(): string {
+    return this.$store.state.registration.lastName
+  }
+
+  set mei(value: string) {
+    this.$store.commit('registration/SET_LAST_NAME', value)
   }
   public rules: {} = {
     fname: [

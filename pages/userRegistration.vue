@@ -1,19 +1,12 @@
 <template>
   <div>
     <h1>会員登録</h1>
-    <!-- 姓(sei),名(mei) -->
     <div class="mx-12">
       <seimei></seimei>
-      <!-- セイ(seiKana),メイ(meiKana) -->
       <seimeiKana></seimeiKana>
-      <!--性別(row)-->
-      <row></row>
-      <!-- 生年月日(birthValue)-->
+      <sex></sex>
       <birthValue></birthValue>
-      <!-- 住所(address1)-->
       <address1></address1>
-    </div>
-    <div class="mx-12">
       <email></email>
       <password></password>
       <tel></tel>
@@ -30,7 +23,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import seimei from '@/components/UserRegistration1/seimei.vue'
 import seimeiKana from '@/components/UserRegistration1/seimeiKana.vue'
 import address1 from '@/components/UserRegistration1/address.vue'
-import row from '@/components/UserRegistration1/sex.vue'
+import sex from '@/components/UserRegistration1/sex.vue'
 import birthValue from '@/components/UserRegistration1/birthValue.vue'
 import email from '@/components/UserRegistration/email.vue'
 import password from '@/components/UserRegistration/password.vue'
@@ -41,7 +34,7 @@ import username from '@/components/UserRegistration/username.vue'
   components: {
     seimei,
     seimeiKana,
-    row,
+    sex,
     birthValue,
     address1,
     email,

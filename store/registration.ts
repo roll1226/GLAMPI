@@ -13,10 +13,11 @@ interface IState {
   birthdayYear: string
   birthdayMonth: string
   birthdayDay: string
-  postalCode: string
+  address: string
   streetAddress: [...string[]]
   email: string
   password: string
+  passwordCheck: string
   phoneNumber: string
   nickname: string
 }
@@ -30,10 +31,11 @@ export const state = (): IState => ({
   birthdayYear: '',
   birthdayMonth: '',
   birthdayDay: '',
-  postalCode: '',
+  address: '',
   streetAddress: [],
   email: '',
   password: '',
+  passwordCheck: '',
   phoneNumber: '',
   nickname: ''
 })
@@ -71,8 +73,8 @@ export const mutations = {
     state.birthdayDay = payload
   },
 
-  SET_POSTAL_CODE(state: IState, payload: string) {
-    state.postalCode = payload
+  SET_ADDRESS(state: IState, payload: string) {
+    state.address = payload
   },
 
   SET_STREET_ADDRESS(state: IState, payload: {pref: string, city: string, town: string}) {
@@ -88,6 +90,10 @@ export const mutations = {
 
   CHECK_PASSWORD(state: IState, payload: string) {
     state.password = payload
+  },
+
+  CHECK_PASSWORDCHECK(state: IState, payload: string) {
+    state.passwordCheck = payload
   },
 
   SET_PHONE_NUMBER(state: IState, payload: string) {
