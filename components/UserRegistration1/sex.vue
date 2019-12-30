@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-radio-group v-model="sex" row prepend-icon="mdi-human-male-female">
+    <v-radio-group v-model="sex" prepend-icon="mdi-human-male-female" row>
       <v-radio label="男性" value="M"></v-radio>
       <v-radio label="女性" value="F"></v-radio>
     </v-radio-group>
@@ -10,7 +10,13 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-@Component
+@Component({
+  data() {
+    return {
+      // sex: 'M'
+    }
+  }
+})
 export default class sexUserRegistration extends Vue {
   // public sex: string = ''
   get sex(): string {

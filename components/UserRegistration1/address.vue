@@ -18,7 +18,7 @@
           v-model="addres2"
           v-mask="POST1"
           label="xxxx"
-          :rules="rules.post2"
+          :rules="[rules.post2]"
         ></v-text-field>
       </v-col>
       <v-col>
@@ -29,7 +29,24 @@
       v-model="address"
       label="住所"
       prepend-icon="mdi-"
-      :rules="rules.post3"
+      :rules="[
+        rules.isAddress,
+        rules.addressLength,
+        rules.addressFormatSpace,
+        rules.addressFormatFullwidth
+      ]"
+      counter="50"
+    ></v-text-field>
+    <v-text-field
+      v-model="address2"
+      label="住所2"
+      prepend-icon="mdi-"
+      :rules="[
+        rules.isAddress,
+        rules.addressLength,
+        rules.addressFormatFullwidth
+      ]"
+      hint="丁、番地やマンションなど"
     ></v-text-field>
   </div>
 </template>
@@ -59,6 +76,14 @@ export default class addressUserRegistration extends Vue {
   set address(value: string) {
     this.$store.commit('registration/SET_ADDRESS', value)
   }
+
+  get address2(): string {
+    return this.$store.state.registration.address2
+  }
+
+  set address2(value: string) {
+    this.$store.commit('registration/SET_ADDRESS2', value)
+  }
   code: object[] = []
   addres1: string = ''
   addres2: string = ''
@@ -67,7 +92,31 @@ export default class addressUserRegistration extends Vue {
     .split('-')
     .join('')
   public rules: {} = {
-    post1: (v: string) => !!v || '郵便番号は半角数字で必ず入力してください'
+    post1: (v: string) => {
+      const pattern = /^\d{3}$/
+      return (
+        pattern.test(v) || '郵便番号は半角数字3桁にて必ず入力してください。'
+      )
+    },
+    post2: (v: string) => {
+      const pattern = /^\d{4}$/
+      return (
+        pattern.test(v) || '郵便番号は半角数字4桁にて必ず入力してください。'
+      )
+    },
+    isAddress: (v: string) => !!v || '住所は必ず入力してください。',
+    addressLength: (v: string) =>
+      (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+    addressFormatSpace: (v: string) => {
+      // eslint-disable-next-line no-irregular-whitespace
+      const pattern = /^[^ 　]+$/
+      return pattern.test(v) || 'スペースが入力されています。削除してください。'
+    },
+    addressFormatFullwidth: (v: string) => {
+      // eslint-disable-next-line no-control-regex
+      const pattern = /^[^\x01-\x7E\xA1-\xDF]+$/
+      return pattern.test(v) || '住所は全角で入力してください。'
+    }
   }
   async checkCode() {
     // 初期化

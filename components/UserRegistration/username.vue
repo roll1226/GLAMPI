@@ -23,7 +23,7 @@ export default class usernameUserRegistration extends Vue {
   }
   public rules: {} = {
     usernameLength: (v: string) =>
-      (v && v.length <= 20) || 'ユーザ名は20字以内にて入力してください。'
+      v.length <= 20 || 'ユーザ名は20字以内にて入力してください。'
   }
 }
 </script>
