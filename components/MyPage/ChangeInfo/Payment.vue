@@ -89,9 +89,9 @@ export default class Payment extends Vue {
   }
 
   created() {
-    for (let index1 = 0; index1 < 12; index1++) {
+    for (let index = 0; index < 12; index++) {
       const month = 1
-      this.dropdown.push(String(month + index1))
+      this.dropdown.push(String(month + index))
 
       for (let index = 0; index < 101; index++) {
         const year = 2020
