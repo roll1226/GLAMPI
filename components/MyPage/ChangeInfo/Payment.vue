@@ -10,7 +10,11 @@
             <v-text-field
               v-model="paymentID"
               label="カード番号"
-              :rules="[rules.isPaymentID, rules.paymentIDFormat]"
+              :rules="[
+                rules.isPaymentID,
+                rules.paymentIDLength,
+                rules.paymentIDFormat
+              ]"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -30,9 +34,11 @@ export default class Payment extends Vue {
 
   public rules: {} = {
     isPaymentID: (v: string) => !!v || 'カード番号は必ず入力してください。',
+    paymentIDLength: (v: string) =>
+      (v && v.length === 16) || 'カード番号は16桁で入力してください',
     paymentIDFormat: (v: string) => {
       const pattern = /^\d{16}$/
-      return pattern.test(v) || 'カード番号は半角数字16桁で入力してください。'
+      return pattern.test(v) || 'カード番号は半角数字で入力してください。'
     }
   }
 }
