@@ -11,10 +11,10 @@
       <password></password>
       <tel></tel>
       <username></username>
+      <v-btn @click="regist">
+        会員登録
+      </v-btn>
     </div>
-    <v-btn @click="regist">
-      会員登録
-    </v-btn>
   </div>
 </template>
 
