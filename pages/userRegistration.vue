@@ -12,16 +12,17 @@
       <tel></tel>
       <username></username>
     </div>
-    <!-- <v-btn :loading="loading" color="promise" justify="end" @click="regist">
+    <v-btn @click="regist">
       会員登録
-    </v-btn> -->
+    </v-btn>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { auth } from '@/plugins/firebase'
 import seimei from '@/components/UserRegistration1/seimei.vue'
-import seimeiKana from '@/components/UserRegistration1/seimeiKana.vue'
+import seimeiKana from '@/components/UserRegistration1/seimeikana.vue'
 import address1 from '@/components/UserRegistration1/address.vue'
 import sex from '@/components/UserRegistration1/sex.vue'
 import birthValue from '@/components/UserRegistration1/birthValue.vue'
@@ -44,29 +45,16 @@ import username from '@/components/UserRegistration/username.vue'
   }
 })
 export default class UserRegistration extends Vue {
-  // async testComment() {
-  //   await firestore
-  //     .collection('facilities')
-  //     .where('displayName', '==', this.$route.params.id)
-  //     .get()
-  //     .then((snapshot) => {
-  //       if (!snapshot.empty) {
-  //         snapshot.forEach(async (doc) => {
-  //           await firestore
-  //             .collection('facilities')
-  //             .doc(doc.id)
-  //             .collection('comments')
-  //             .add({
-  //               createdAt: timestamp,
-  //               star: this.rating,
-  //               text: this.comment,
-  //               userId: 'mZ7qYdUy04iiJiM8SvFI'
-  //             })
-  //             .then(() => {
-  //               this.clearComment()
-  //             })
-  //         })
-  //       }
-  //     })
+  get email() {
+    return this.$store.state.registration.email
+  }
+  get password() {
+    return this.$store.state.registration.password
+  }
+  regist() {
+    auth.createUserWithEmailAndPassword(this.email, this.password).then(() => {
+      console.log('ok')
+    })
+  }
 }
 </script>

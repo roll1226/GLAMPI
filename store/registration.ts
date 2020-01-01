@@ -9,7 +9,7 @@ interface IState {
   firstName: string
   lastNameKana: string
   firstNameKana: string
-  sex: boolean
+  sex: string
   birthdayYear: string
   birthdayMonth: string
   birthdayDay: string
@@ -28,7 +28,7 @@ export const state = (): IState => ({
   firstName: '',
   lastNameKana: '',
   firstNameKana: '',
-  sex: true,
+  sex: 'M',
   birthdayYear: '',
   birthdayMonth: '',
   birthdayDay: '',
@@ -59,7 +59,7 @@ export const mutations = {
     state.firstNameKana = payload
   },
 
-  SET_SEX(state: IState, payload: boolean) {
+  SET_SEX(state: IState, payload: string) {
     state.sex = payload
   },
 
