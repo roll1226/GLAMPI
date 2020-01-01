@@ -14,7 +14,7 @@
           </v-toolbar>
 
           <div class="px-5 py-4">
-            <v-form @submit.prevent="login">
+            <v-form ref="form" @submit.prevent="login">
               <v-container class="py-0 px-0">
                 <v-row>
                   <v-col cols="12" class="pb-0">
@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import Twitter from '@/components/Btn/Twitter.vue'
 import Facebook from '@/components/Btn/Facebook.vue'
 
@@ -98,12 +98,19 @@ export default class LoginModal extends Vue {
 
   public rules: {} = {
     required: (value: string) => !!value || 'パスワードを入力してください',
-    min: (v: string) => v.length >= 6 || '6文字以上で入力してください',
-    max: (v: string) => v.length < 21 || '20文字以内で入力してください'
+    min: (v: string) => (v && v.length >= 6) || '6文字以上で入力してください',
+    max: (v: string) => (v && v.length < 21) || '20文字以内で入力してください'
   }
 
   public get formIsValid(): string {
     return this.user && this.password
+  }
+
+  @Watch('dialog')
+  checkDialog() {
+    if (this.dialog === true) return
+    const form: any = this.$refs.form
+    form.reset()
   }
 
   login() {
