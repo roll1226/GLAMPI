@@ -45,7 +45,7 @@ import username from '@/components/UserRegistration/username.vue'
   }
 })
 export default class UserRegistration extends Vue {
-  public url = 'http://us-central1-j4k1-b789f.cloudfuntions.net/regist'
+  public url = 'https://us-central1-j4k1-b789f.cloudfunctions.net/regist'
   get email(): string {
     return this.$store.state.registration.email
   }
