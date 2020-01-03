@@ -103,11 +103,16 @@ export default class introduction extends Vue {
     return this.$store.state.facility.plan
   }
 
+  get isLogin(): boolean {
+    return this.$store.state.login.isLogin
+  }
+
   created() {
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
   }
 
   changeLike() {
+    if (this.isLogin === false) return
     this.like = !this.like
   }
 }
