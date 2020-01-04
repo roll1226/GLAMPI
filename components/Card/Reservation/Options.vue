@@ -1,40 +1,34 @@
 <template>
-  <div>
-    <v-card class="mx-auto mb-5" max-width="300">
-      <v-img
-        class="white--text align-end"
-        max-height="200px"
-        :src="'https://picsum.photos/500/300?image=' + image"
+  <v-card class="mx-auto mb-5" max-width="300">
+    <v-img class="white--text align-end" height="200px" :src="image">
+      <v-card-title>
+        {{ planTitle }}
+      </v-card-title>
+    </v-img>
+
+    <v-card-subtitle class="pb-0">{{ pay }}円</v-card-subtitle>
+
+    <v-card-text class="text--primary">
+      <div v-for="(text, index) in texts" :key="index">
+        {{ text }}
+      </div>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="success"
+        outlined
+        @click="selected(displayName, pay.split(',').join(''))"
       >
-        <v-card-title>
-          {{ planTitle }}
-        </v-card-title>
-      </v-img>
-
-      <v-card-subtitle class="pb-0">{{ pay }}円</v-card-subtitle>
-
-      <v-card-text class="text--primary">
-        <div v-for="(text, index) in texts" :key="index">
-          {{ text }}
-        </div>
-      </v-card-text>
-
-      <v-card-actions>
-        <v-btn
-          color="success"
-          outlined
-          @click="selected(displayName, pay.split(',').join(''))"
-        >
-          <v-icon v-if="isActive && nowActive === displayName">
-            fas fa-check
-          </v-icon>
-          <span v-else>
-            選ぶ
-          </span>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </div>
+        <v-icon v-if="isActive && nowActive === displayName">
+          fas fa-check
+        </v-icon>
+        <span v-else>
+          選ぶ
+        </span>
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -50,8 +44,8 @@ export default class reservation extends Vue {
   @Prop({ required: true, default: '' })
   pay!: number
 
-  @Prop({ default: [] })
-  texts!: []
+  @Prop({ default: '' })
+  texts!: [...string[]]
 
   @Prop({ required: true, default: '' })
   image!: string

@@ -58,13 +58,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { firestore } from '@/plugins/firebase'
-
-interface IOption {
-  title: string
-  texts: [...string[]]
-  src: string
-  pay: number
-}
+import { IOption } from '@/store/facility'
 
 @Component
 export default class OptionListCard extends Vue {
@@ -102,16 +96,19 @@ export default class OptionListCard extends Vue {
                 const texts = options.texts
                 const src = options.img
                 const pay = options.pay
+                const displayName = options.displayName
 
                 const optionsList = {
                   title,
                   texts,
                   src,
-                  pay
+                  pay,
+                  displayName
                 }
                 console.log(optionsList)
                 this.list.push(optionsList)
               })
+              this.$store.commit('facility/SET_OPTION', this.list)
               this.slise()
             })
         })

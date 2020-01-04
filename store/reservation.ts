@@ -50,3 +50,7 @@ export const mutations = {
     state.planTitle = payload
   }
 }
+
+export const actions = {
+  SEND_FIRESTORE_RESERVATION(state: IState, payload: string) {}
+}

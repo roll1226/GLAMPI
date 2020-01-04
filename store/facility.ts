@@ -21,6 +21,14 @@ export interface IPlan {
   planTitle: string
 }
 
+export interface IOption {
+  title: string
+  texts: [...string[]]
+  src: string
+  pay: number
+  displayName: string
+}
+
 export interface IComment {
   date: string
   star: number
@@ -33,6 +41,7 @@ interface IState {
   facility: IFacility
   plan: IPlan[]
   comments: IComment[]
+  options: IOption[]
 }
 
 export const state = (): IState => ({
@@ -47,7 +56,9 @@ export const state = (): IState => ({
 
   plan: [],
 
-  comments: []
+  comments: [],
+
+  options: []
 })
 
 export const mutations = {
@@ -70,6 +81,10 @@ export const mutations = {
 
   RESET_PlAN(state: IState) {
     state.plan = []
+  },
+
+  SET_OPTION(state: IState, payload: IOption[]) {
+    state.options = payload
   },
 
   RESET_COMMENT(state: IState) {
