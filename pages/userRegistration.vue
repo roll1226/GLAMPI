@@ -11,9 +11,17 @@
       <password></password>
       <tel></tel>
       <username></username>
-      <v-btn @click="regist">
-        会員登録
-      </v-btn>
+      <v-row justify="end" class="mr-12 mt-6 mb-n10">
+        <v-btn
+          color="grey darken-3 white--text"
+          width="200"
+          height="60"
+          class="title"
+          @click="regist"
+        >
+          会員登録
+        </v-btn>
+      </v-row>
     </div>
   </div>
 </template>
