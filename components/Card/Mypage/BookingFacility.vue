@@ -16,32 +16,32 @@
             </v-list-item-subtitle>
           </v-list-item-content>
 
-          <v-card outlined>
-            <v-card-text class="body-2">
+          <v-card-text class="text--primary">
+            <div>
+              {{ introduction }}
               最安値のプラン
               <span class="font-weight-bold">
                 {{ planName }}
               </span>
-              : {{ planPay.toLocaleString() }}円〜
-            </v-card-text>
-          </v-card>
-
+              {{ planPay }}
+            </div>
+          </v-card-text>
+          <v-spacer></v-spacer>
           <v-card-actions class="pb-0">
-            <v-row>
-              <v-col cols="5">
-                <v-btn block :to="`/facility/${introductionUrl}/introduction`">
-                  詳細
-                </v-btn>
-              </v-col>
+            <v-col cols="5">
+              <!--予約中の時と宿泊済みとでキャンセル/再予約を切替。それに伴ってクリック時の処理も分ける-->
+              <v-btn block>
+                {{ cancel }}
+              </v-btn>
+            </v-col>
 
-              <v-spacer></v-spacer>
-
-              <v-col cols="5">
-                <v-btn block :to="glammityUrl">
-                  GLAMMITY
-                </v-btn>
-              </v-col>
-            </v-row>
+            <v-spacer></v-spacer>
+            <v-col>
+              <!-- 参加する -->
+              <v-btn disabled>
+                {{ status }}
+              </v-btn>
+            </v-col>
           </v-card-actions>
         </v-col>
       </v-row>
@@ -53,12 +53,18 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
-export default class SearchedFasility extends Vue {
+export default class BookingFasility extends Vue {
+  status: string = '予約中'
+  cancel: string = '予約キャンセル'
+
   @Prop({ required: true, default: '' })
   fasilityName!: string
 
   @Prop({ required: true, default: '' })
   facilityImg!: string
+
+  @Prop({ required: true, default: '' })
+  introduction!: string
 
   @Prop({ required: true, default: '' })
   address!: string
@@ -71,8 +77,5 @@ export default class SearchedFasility extends Vue {
 
   @Prop({ required: true, default: '' })
   introductionUrl!: string
-
-  @Prop({ required: true, default: '' })
-  glammityUrl!: string
 }
 </script>

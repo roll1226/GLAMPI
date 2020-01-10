@@ -23,7 +23,7 @@
           :plan-name="facility.planName"
           :plan-pay="facility.planPay"
           :introduction-url="facility.introduction"
-          :grammity-url="facility.grammity"
+          :glammity-url="facility.glammity"
           :facility-img="facility.facilityImg[0]"
         />
       </v-col>
@@ -43,7 +43,7 @@ interface IFacility {
   planName: string
   planPay: number
   introduction: string
-  grammity: string
+  glammity: string
 }
 
 @Component({
@@ -85,7 +85,7 @@ export default class Searched extends Vue {
                     const planName = plan.planTitle
                     const planPay = plan.pay
                     const introduction = facility.displayName
-                    const grammity = introduction
+                    const glammity = introduction
 
                     const facilityArray = {
                       facilityName,
@@ -94,7 +94,7 @@ export default class Searched extends Vue {
                       planName,
                       planPay,
                       introduction,
-                      grammity
+                      glammity
                     }
                     this.facilityList.push(facilityArray)
                   })
