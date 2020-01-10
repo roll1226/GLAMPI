@@ -24,7 +24,14 @@ const { mask } = require('vue-the-mask')
   }
 })
 export default class telUserRegistration extends Vue {
-  public tel: string = ''
+  // public tel: string = ''
+  get tel(): string {
+    return this.$store.state.registration.phoneNumber
+  }
+
+  set tel(value: string) {
+    this.$store.commit('registration/SET_PHONE_NUMBER', value)
+  }
   public telMask: string = ''
   public rules: {} = {
     isTel: (v: string) => !!v || '電話番号は必ず入力してください。',
