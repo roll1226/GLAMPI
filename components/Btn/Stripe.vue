@@ -65,7 +65,7 @@
 import { Card, createToken } from 'vue-stripe-elements-plus'
 import { firestore } from '@/plugins/firebase'
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
-const uuidv1 = require('uuid/v1')
+const uuid = require('uuid/v4')
 
 const api = process.env.STRIPE_PUBLIC_KEY
 export default {
@@ -114,7 +114,12 @@ export default {
   },
 
   created() {
-    console.log(uuidv1())
+    console.log(
+      uuid()
+        .split('-')
+        .join('')
+        .slice(0, -12)
+    )
   },
 
   methods: {
