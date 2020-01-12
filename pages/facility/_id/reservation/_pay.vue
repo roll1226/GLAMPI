@@ -57,7 +57,7 @@
                     xs="6"
                   >
                     <Options
-                      :plan-title="optionList.title"
+                      :option-title="optionList.title"
                       :pay="optionList.pay.toLocaleString()"
                       :texts="optionList.texts"
                       :image="optionList.src"

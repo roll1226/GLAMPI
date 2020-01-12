@@ -42,6 +42,7 @@ interface IState {
   plan: IPlan[]
   comments: IComment[]
   options: IOption[]
+  uuid: string
 }
 
 export const state = (): IState => ({
@@ -53,6 +54,8 @@ export const state = (): IState => ({
     slider: [],
     streetAddress: []
   },
+
+  uuid: '',
 
   plan: [],
 
@@ -87,18 +90,18 @@ export const mutations = {
     state.options = payload
   },
 
+  SET_UID(state: IState, payload: string) {
+    state.uuid = payload
+  },
+
   RESET_COMMENT(state: IState) {
     state.comments = []
   }
 }
 
 export const actions = {
-  async catchFacility(
-    dispatch: ICommit,
-    payload: string
-  ) {
-    const facilityFirebase = firestore
-    .collection('facilities')
+  async catchFacility(dispatch: ICommit, payload: string) {
+    const facilityFirebase = firestore.collection('facilities')
 
     dispatch.commit('RESET_PlAN', [])
     await facilityFirebase
@@ -109,6 +112,7 @@ export const actions = {
           snapshot.forEach(async (doc) => {
             dispatch.commit('SET_FACILITY', doc.data())
             const facilityId = doc.id
+            dispatch.commit('SET_UID', facilityId)
 
             await facilityFirebase
               .doc(facilityId)

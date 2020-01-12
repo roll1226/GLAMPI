@@ -2,7 +2,7 @@
   <v-card class="mx-auto mb-5" max-width="300">
     <v-img class="white--text align-end" height="200px" :src="image">
       <v-card-title>
-        {{ planTitle }}
+        {{ optionTitle }}
       </v-card-title>
     </v-img>
 
@@ -39,7 +39,7 @@ export default class reservation extends Vue {
   public selectedOption: string = ''
   isActive: boolean = false
   @Prop({ required: true, default: '' })
-  planTitle!: string
+  optionTitle!: string
 
   @Prop({ required: true, default: '' })
   pay!: number
@@ -60,10 +60,18 @@ export default class reservation extends Vue {
   selected(e: string, num: string) {
     if (this.nowActive === this.displayName) {
       this.isActive = false
-      this.$store.commit('reservation/SET_NOW_ACTIVE', { active: '', pay: 0 })
+      this.$store.commit('reservation/SET_NOW_ACTIVE', {
+        active: '',
+        pay: 0,
+        optionTitle: ''
+      })
     } else {
       this.isActive = true
-      this.$store.commit('reservation/SET_NOW_ACTIVE', { active: e, pay: num })
+      this.$store.commit('reservation/SET_NOW_ACTIVE', {
+        active: e,
+        pay: num,
+        optionTitle: this.optionTitle
+      })
     }
   }
 }

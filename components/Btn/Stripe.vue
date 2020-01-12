@@ -63,7 +63,7 @@
 
 <script>
 import { Card, createToken } from 'vue-stripe-elements-plus'
-import { firestore } from '@/plugins/firebase'
+import { firestore, timestamp } from '@/plugins/firebase'
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const uuid = require('uuid/v4')
 
@@ -95,7 +95,12 @@ export default {
           }
         ]
       },
-      stripeEmail: ''
+      stripeEmail: '',
+
+      uuid: uuid()
+        .split('-')
+        .join('')
+        .slice(0, -12)
     }
   },
 
@@ -106,6 +111,18 @@ export default {
 
     dates() {
       return this.$store.state.reservation.dates
+    },
+
+    optionTitle() {
+      return this.$store.state.reservation.optionTitle
+    },
+
+    planTitle() {
+      return this.$store.state.reservation.planTitle
+    },
+
+    uid() {
+      return this.$store.state.facility.uuid
     },
 
     reservationIsValid() {
@@ -143,14 +160,45 @@ export default {
             }
           })
         })
-          .then((result) => {
+          .then(async () => {
             this.loading = false
             this.dialog = false
 
             // 成功時firebaseに投げる
 
-            console.log(result)
-            firestore.collection('')
+            const batch = firestore.batch()
+
+            const reservationList = {
+              checkDates: [this.dates[0], this.dates[1]],
+              createdAt: timestamp,
+              facilityId: this.$route.params.id,
+              option: this.optionTitle,
+              payment: 'クレジットカード',
+              plan: this.planTitle,
+              status: '宿泊前',
+              totalPay: this.totalPay
+            }
+
+            batch.set(
+              firestore
+                .collection('users')
+                .doc('mZ7qYdUy04iiJiM8SvFI')
+                .collection('reservations')
+                .doc(this.uuid),
+              { reservationList }
+            )
+
+            batch.set(
+              firestore
+                .collection('facilities')
+                .doc(this.uid)
+                .collection('reservations')
+                .doc(this.uuid),
+              { reservationList }
+            )
+
+            await batch.commit()
+            await firestore.app.delete()
           })
           .catch((error) => {
             console.error(error)
