@@ -110,6 +110,10 @@ export default class introduction extends Vue {
     return this.$store.state.login.isLogin
   }
 
+  get facilityId() {
+    return this.$store.state.facility.uuid
+  }
+
   // ユーザidをログイン時に登録
 
   created() {
@@ -125,12 +129,14 @@ export default class introduction extends Vue {
     if (this.like === true) {
       this.$store.dispatch('facility/deleteLike', {
         userId: 'mZ7qYdUy04iiJiM8SvFI',
-        facilityId: this.$route.params.id
+        facilityId: this.$route.params.id,
+        facilityUid: this.facilityId
       })
     } else if (this.like === false) {
       this.$store.dispatch('facility/creatLike', {
         userId: 'mZ7qYdUy04iiJiM8SvFI',
-        facilityId: this.$route.params.id
+        facilityId: this.$route.params.id,
+        facilityUid: this.facilityId
       })
     }
   }

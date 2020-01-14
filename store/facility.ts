@@ -1,5 +1,5 @@
 import * as Vuex from 'vuex'
-import { firestore } from '@/plugins/firebase'
+import { firestore, fieldValue } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
@@ -158,7 +158,7 @@ export const actions = {
 
   async creatLike(
     dispatch: ICommit,
-    payload: { userId: string; facilityId: string }
+    payload: { userId: string; facilityId: string; facilityUid: string }
   ) {
     const user = firestore
       .collection('users')
@@ -167,13 +167,24 @@ export const actions = {
       .doc(payload.facilityId)
 
     await user.set({}).then(() => {
-      dispatch.commit('SET_LIKE', true)
+      firestore
+        .collection('facilities')
+        .doc(payload.facilityUid)
+        .set(
+          {
+            pay: fieldValue.increment(1)
+          },
+          { merge: true }
+        )
+        .then(() => {
+          dispatch.commit('SET_LIKE', true)
+        })
     })
   },
 
   async deleteLike(
     dispatch: ICommit,
-    payload: { userId: string; facilityId: string }
+    payload: { userId: string; facilityId: string; facilityUid: string }
   ) {
     const user = firestore
       .collection('users')
@@ -182,7 +193,18 @@ export const actions = {
       .doc(payload.facilityId)
 
     await user.delete().then(() => {
-      dispatch.commit('SET_LIKE', false)
+      firestore
+        .collection('facilities')
+        .doc(payload.facilityUid)
+        .set(
+          {
+            pay: fieldValue.increment(-1)
+          },
+          { merge: true }
+        )
+        .then(() => {
+          dispatch.commit('SET_LIKE', false)
+        })
     })
   }
 }
