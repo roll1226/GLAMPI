@@ -93,7 +93,10 @@ interface IGlammity {
 })
 export default class introduction extends Vue {
   // ハート
-  like: boolean = false
+  // like: boolean = false
+  get like(): boolean {
+    return this.$store.state.facility.like
+  }
 
   get facility(): IFacility {
     return this.$store.state.facility.facility
@@ -107,13 +110,29 @@ export default class introduction extends Vue {
     return this.$store.state.login.isLogin
   }
 
+  // ユーザidをログイン時に登録
+
   created() {
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
+    this.$store.dispatch('facility/catchUserLike', {
+      userId: 'mZ7qYdUy04iiJiM8SvFI',
+      facilityId: this.$route.params.id
+    })
   }
 
   changeLike() {
     if (this.isLogin === false) return
-    this.like = !this.like
+    if (this.like === true) {
+      this.$store.dispatch('facility/deleteLike', {
+        userId: 'mZ7qYdUy04iiJiM8SvFI',
+        facilityId: this.$route.params.id
+      })
+    } else if (this.like === false) {
+      this.$store.dispatch('facility/creatLike', {
+        userId: 'mZ7qYdUy04iiJiM8SvFI',
+        facilityId: this.$route.params.id
+      })
+    }
   }
 }
 </script>

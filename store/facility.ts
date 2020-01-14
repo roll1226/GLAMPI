@@ -43,6 +43,7 @@ interface IState {
   comments: IComment[]
   options: IOption[]
   uuid: string
+  like: boolean
 }
 
 export const state = (): IState => ({
@@ -61,7 +62,9 @@ export const state = (): IState => ({
 
   comments: [],
 
-  options: []
+  options: [],
+
+  like: false
 })
 
 export const mutations = {
@@ -96,6 +99,10 @@ export const mutations = {
 
   RESET_COMMENT(state: IState) {
     state.comments = []
+  },
+
+  SET_LIKE(state: IState, payload: boolean) {
+    state.like = payload
   }
 }
 
@@ -128,5 +135,54 @@ export const actions = {
           })
         }
       })
+  },
+
+  async catchUserLike(
+    dispatch: ICommit,
+    payload: { userId: string; facilityId: string }
+  ) {
+    const user = firestore
+      .collection('users')
+      .doc(payload.userId)
+      .collection('likes')
+      .doc(payload.facilityId)
+
+    await user.get().then((likeFacility) => {
+      if (likeFacility.exists) {
+        dispatch.commit('SET_LIKE', true)
+      } else {
+        console.log('no')
+      }
+    })
+  },
+
+  async creatLike(
+    dispatch: ICommit,
+    payload: { userId: string; facilityId: string }
+  ) {
+    const user = firestore
+      .collection('users')
+      .doc(payload.userId)
+      .collection('likes')
+      .doc(payload.facilityId)
+
+    await user.set({}).then(() => {
+      dispatch.commit('SET_LIKE', true)
+    })
+  },
+
+  async deleteLike(
+    dispatch: ICommit,
+    payload: { userId: string; facilityId: string }
+  ) {
+    const user = firestore
+      .collection('users')
+      .doc(payload.userId)
+      .collection('likes')
+      .doc(payload.facilityId)
+
+    await user.delete().then(() => {
+      dispatch.commit('SET_LIKE', false)
+    })
   }
 }
