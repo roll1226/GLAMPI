@@ -9,7 +9,7 @@ export interface IFacility {
   info: [...string[]]
   email: string
   phoneNumber: string
-  facilityName: string
+  name: string
   slider: [...string[]]
   streetAddress: [...string[]]
 }
@@ -50,7 +50,7 @@ export const state = (): IState => ({
     info: [],
     email: '',
     phoneNumber: '',
-    facilityName: '',
+    name: '',
     slider: [],
     streetAddress: []
   },

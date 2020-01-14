@@ -15,6 +15,17 @@ interface IState {
   dates: [...string[]]
 }
 
+interface IReservation {
+  checkDates: [...string[]]
+  createdAt: Date
+  facilityId: string
+  option: string
+  payment: string
+  plan: string
+  status: string
+  totalPay: string
+}
+
 export const state = (): IState => ({
   planTitle: '',
   isActive: false,
@@ -55,8 +66,4 @@ export const mutations = {
   SET_PLAN_TITLE(state: IState, payload: string) {
     state.planTitle = payload
   }
-}
-
-export const actions = {
-  SEND_FIRESTORE_RESERVATION(state: IState, payload: string) {}
 }

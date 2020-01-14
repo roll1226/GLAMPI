@@ -121,7 +121,7 @@ export default {
       return this.$store.state.reservation.planTitle
     },
 
-    uid() {
+    facilityId() {
       return this.$store.state.facility.uuid
     },
 
@@ -179,25 +179,45 @@ export default {
               totalPay: this.totalPay
             }
 
-            batch.set(
-              firestore
-                .collection('users')
-                .doc('mZ7qYdUy04iiJiM8SvFI')
-                .collection('reservations')
-                .doc(this.uuid),
-              { reservationList }
-            )
+            const userReservation = firestore
+              .collection('users')
+              .doc('mZ7qYdUy04iiJiM8SvFI')
+              .collection('reservations')
+              .doc(this.uuid)
 
-            batch.set(
-              firestore
-                .collection('facilities')
-                .doc(this.uid)
-                .collection('reservations')
-                .doc(this.uuid),
-              { reservationList }
-            )
+            const facilityReservation = firestore
+              .collection('facilities')
+              .doc(this.facilityId)
+              .collection('reservations')
+              .doc(this.uuid)
 
-            await batch.commit()
+            batch.set(userReservation, {})
+
+            batch.set(facilityReservation, {})
+
+            await batch.commit().then(async () => {
+              await firestore.runTransaction(async (transaction) => {
+                const [
+                  userReservationDoc,
+                  facilityReservationDoc
+                ] = await Promise.all([
+                  transaction.get(userReservation),
+                  transaction.get(facilityReservation)
+                ])
+
+                console.log(`${userReservationDoc}${facilityReservationDoc}`)
+
+                transaction.update(userReservation, {
+                  reservationList
+                })
+                transaction.update(facilityReservation, {
+                  reservationList
+                })
+                this.$router.push(
+                  `/facility/${this.$route.params.id}/reservation/complete`
+                )
+              })
+            })
             await firestore.app.delete()
           })
           .catch((error) => {

@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex">
       <h2>
-        施設名
+        {{ facility.name }}
       </h2>
 
       <v-spacer></v-spacer>
