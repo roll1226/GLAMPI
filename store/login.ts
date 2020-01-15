@@ -1,5 +1,5 @@
 import * as Vuex from 'vuex'
-import { auth } from '@/plugins/firebase'
+import { auth, twitterProvider, facebookProvider } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
@@ -12,6 +12,7 @@ interface IState {
   snackbarText: string
   snackbarIcon: string
   snackbarColor: string
+  userUid: string
 }
 
 export const state = (): IState => ({
@@ -20,7 +21,8 @@ export const state = (): IState => ({
   snackbar: false,
   snackbarText: '',
   snackbarIcon: '',
-  snackbarColor: ''
+  snackbarColor: '',
+  userUid: ''
 })
 
 export const mutations = {
@@ -46,6 +48,11 @@ export const mutations = {
 
   SET_SNACKBAR_COLOR(state: IState, payload: string) {
     state.snackbarColor = payload
+  },
+
+  SET_USER_UID(state: IState, payload: string) {
+    state.userUid = payload
+    console.log(state.userUid)
   }
 }
 
@@ -56,13 +63,14 @@ export const actions = {
   ) {
     await auth
       .signInWithEmailAndPassword(payload.user, payload.password)
-      .then(() => {
+      .then((res: any) => {
         dispatch.commit('SET_LOADING', false)
         dispatch.commit('IS_LOGIN', true)
         dispatch.commit('SET_SNACKBAR', true)
         dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
         dispatch.commit('SET_SNACKBAR_COLOR', 'success')
+        dispatch.commit('SET_USER_UID', res.user.uid)
       })
       .catch(() => {
         dispatch.commit('SET_LOADING', false)
@@ -71,6 +79,46 @@ export const actions = {
           'SET_SNACKBAR_TEXT',
           'メールアドレス又は、パスワードが違います。'
         )
+        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
+        dispatch.commit('SET_SNACKBAR_COLOR', 'error')
+      })
+  },
+
+  async loginTwitter(dispatch: ICommit) {
+    await auth
+      .signInWithPopup(twitterProvider)
+      .then((res: any) => {
+        console.log(res)
+        dispatch.commit('IS_LOGIN', true)
+        dispatch.commit('SET_SNACKBAR', true)
+        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
+        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
+        dispatch.commit('SET_SNACKBAR_COLOR', 'success')
+        dispatch.commit('SET_USER_UID', res.user.uid)
+      })
+      .catch(() => {
+        dispatch.commit('SET_SNACKBAR', true)
+        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインに失敗しました。')
+        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
+        dispatch.commit('SET_SNACKBAR_COLOR', 'error')
+      })
+  },
+
+  async loginFacebook(dispatch: ICommit) {
+    await auth
+      .signInWithPopup(facebookProvider)
+      .then((res: any) => {
+        console.log(res)
+        dispatch.commit('IS_LOGIN', true)
+        dispatch.commit('SET_SNACKBAR', true)
+        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
+        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
+        dispatch.commit('SET_SNACKBAR_COLOR', 'success')
+        dispatch.commit('SET_USER_UID', res.user.uid)
+      })
+      .catch(() => {
+        dispatch.commit('SET_SNACKBAR', true)
+        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインに失敗しました。')
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
         dispatch.commit('SET_SNACKBAR_COLOR', 'error')
       })

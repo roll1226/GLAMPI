@@ -16,40 +16,11 @@
               sm="4"
               xs="6"
             >
-              <v-card class="mx-auto" max-width="300">
-                <v-img
-                  class="white--text align-end"
-                  height="200px"
-                  :src="glammity.src"
-                >
-                  <v-card-title>
-                    {{ glammity.title }}
-                  </v-card-title>
-                </v-img>
-
-                <v-card-subtitle class="pb-0">
-                  GLAMMITY紹介文
-                </v-card-subtitle>
-
-                <v-card-text class="text--primary">
-                  <div>
-                    {{ glammity.text }}
-                  </div>
-                </v-card-text>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-
-                  <!-- 詳細飛ぶ -->
-                  <v-btn>
-                    詳細
-                  </v-btn>
-                  <!-- 参加する -->
-                  <v-btn>
-                    参加
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
+              <GlammityCard
+                :glammity-image="glammity.src"
+                :glammity-name="glammity.title"
+                :introduction="glammity.text"
+              />
             </v-col>
           </v-row>
           <div class="text-center">
@@ -67,6 +38,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
 
 interface IGlammity {
   title: string
@@ -74,7 +46,11 @@ interface IGlammity {
   src: string
 }
 
-@Component
+@Component({
+  components: {
+    GlammityCard
+  }
+})
 export default class GlammityListCard extends Vue {
   pageSlice: number = 0
   length: number = 0

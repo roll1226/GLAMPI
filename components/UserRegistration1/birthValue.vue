@@ -6,6 +6,7 @@
           v-model="birthValueYear"
           :items="dropdown"
           label="西暦"
+          prepend-icon="mdi-folder-account"
         ></v-overflow-btn>
       </v-col>
       <v-col cols="12" sm="4">

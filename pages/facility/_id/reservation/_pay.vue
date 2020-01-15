@@ -29,6 +29,7 @@
                   locale="ja-jp"
                   :show-current="false"
                   range
+                  :min="nowDate"
                   :day-format="(date) => new Date(date).getDate()"
                   class="mb-2"
                 ></v-date-picker>
@@ -57,10 +58,10 @@
                     xs="6"
                   >
                     <Options
-                      :plan-title="optionList.title"
+                      :option-title="optionList.title"
                       :pay="optionList.pay.toLocaleString()"
-                      :texts="optionList.text"
-                      :image="optionList.image"
+                      :texts="optionList.texts"
+                      :image="optionList.src"
                       :display-name="optionList.displayName"
                     />
                   </v-col>
@@ -85,6 +86,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import moment from 'moment'
 import Stripe from '~/components/Btn/Stripe.vue'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
@@ -119,6 +121,7 @@ export default class reservation extends Vue {
   length: number = 0
   pageSlice: number = 0
   payNum: number = 2000
+  nowDate: string = ''
 
   created() {
     if (window.parent.screen.width <= 420) {
@@ -126,52 +129,11 @@ export default class reservation extends Vue {
     } else {
       this.pageSlice = 3
     }
+    this.nowDate = moment(new Date()).format('YYYY-MM-DD')
+    console.log(moment(new Date()).format('YYYY-MM-DD'))
   }
 
-  list: options[] = [
-    {
-      title: 'バーベキュー',
-      text: ['美味しい', '楽しい'],
-      pay: 2000,
-      image: '40',
-      displayName: 'option1'
-    },
-    {
-      title: '誕生日ケーキ',
-      text: ['美味しい', '楽しい'],
-      pay: 1500,
-      image: '10',
-      displayName: 'option2'
-    },
-    {
-      title: '国産牛肉',
-      text: ['高い', 'けど、うまい！'],
-      pay: 20000,
-      image: '16',
-      displayName: 'option3'
-    },
-    {
-      title: '誕生日ケーキ',
-      text: ['美味しい', '楽しい'],
-      pay: 1500,
-      image: '17',
-      displayName: 'option4'
-    },
-    {
-      title: '国産牛肉',
-      text: ['高い', 'けど、うまい！'],
-      pay: 20000,
-      image: '20',
-      displayName: 'option5'
-    },
-    {
-      title: 'バーベキュー',
-      text: ['美味しい', '楽しい'],
-      pay: 2000,
-      image: '30',
-      displayName: 'option6'
-    }
-  ]
+  list: options[] = this.$store.state.facility.options
   displayLists?: options[] = []
 
   public get dateRangeText(): string {

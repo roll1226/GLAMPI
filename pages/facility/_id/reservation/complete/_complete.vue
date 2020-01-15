@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    支払い完了しました。
+  </div>
 </template>
 
 <script lang="ts">

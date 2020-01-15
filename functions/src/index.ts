@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
-const algoliasearch = require('algoliasearch')
 import * as admin from 'firebase-admin'
+const algoliasearch = require('algoliasearch')
 
 // stripe
 const cors = require('cors')({ origin: true })
@@ -38,9 +38,9 @@ const stripeCharge = (
   const amount = body.charge.amount
   const currency = body.charge.currency
   const description = 'グランピング支払い' // ここはあとで変えルカ
-  const receipt_email = body.charge.email
+  const receiptEmail = body.charge.email
   const source = body.token.id
-  const charge = { amount, currency, description, receipt_email, source }
+  const charge = { amount, currency, description, receiptEmail, source }
 
   stripe.charges
     .create(charge)

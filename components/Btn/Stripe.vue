@@ -63,7 +63,9 @@
 
 <script>
 import { Card, createToken } from 'vue-stripe-elements-plus'
+import { firestore, timestamp } from '@/plugins/firebase'
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
+const uuid = require('uuid/v4')
 
 const api = process.env.STRIPE_PUBLIC_KEY
 export default {
@@ -93,7 +95,12 @@ export default {
           }
         ]
       },
-      stripeEmail: ''
+      stripeEmail: '',
+
+      uuid: uuid()
+        .split('-')
+        .join('')
+        .slice(0, -12)
     }
   },
 
@@ -106,9 +113,30 @@ export default {
       return this.$store.state.reservation.dates
     },
 
+    optionTitle() {
+      return this.$store.state.reservation.optionTitle
+    },
+
+    planTitle() {
+      return this.$store.state.reservation.planTitle
+    },
+
+    facilityId() {
+      return this.$store.state.facility.uuid
+    },
+
     reservationIsValid() {
       return this.dates[0] && this.dates[1]
     }
+  },
+
+  created() {
+    console.log(
+      uuid()
+        .split('-')
+        .join('')
+        .slice(0, -12)
+    )
   },
 
   methods: {
@@ -132,13 +160,69 @@ export default {
             }
           })
         })
-          .then((result) => {
+          .then(async () => {
             this.loading = false
             this.dialog = false
 
+            this.$router.push(
+              `/facility/${this.$route.params.id}/reservation/complete`
+            )
+
             // 成功時firebaseに投げる
 
-            console.log(result)
+            const batch = firestore.batch()
+
+            const reservationList = {
+              checkDates: [this.dates[0], this.dates[1]],
+              createdAt: timestamp,
+              facilityId: this.$route.params.id,
+              option: this.optionTitle,
+              payment: 'クレジットカード',
+              plan: this.planTitle,
+              status: '宿泊前',
+              totalPay: this.totalPay
+            }
+
+            const userReservation = firestore
+              .collection('users')
+              .doc('mZ7qYdUy04iiJiM8SvFI')
+              .collection('reservations')
+              .doc(this.uuid)
+
+            const facilityReservation = firestore
+              .collection('facilities')
+              .doc(this.facilityId)
+              .collection('reservations')
+              .doc(this.uuid)
+
+            batch.set(userReservation, {})
+
+            batch.set(facilityReservation, {})
+
+            await batch.commit().then(async () => {
+              await firestore.runTransaction(async (transaction) => {
+                const [
+                  userReservationDoc,
+                  facilityReservationDoc
+                ] = await Promise.all([
+                  transaction.get(userReservation),
+                  transaction.get(facilityReservation)
+                ])
+
+                console.log(`${userReservationDoc}${facilityReservationDoc}`)
+
+                transaction.update(userReservation, {
+                  reservationList
+                })
+                transaction.update(facilityReservation, {
+                  reservationList
+                })
+                this.$router.push(
+                  `/facility/${this.$route.params.id}/reservation/complete`
+                )
+              })
+            })
+            await firestore.app.delete()
           })
           .catch((error) => {
             console.error(error)

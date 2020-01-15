@@ -15,7 +15,8 @@ import GrampiFoot from '@/components/GrampiFoot.vue'
   components: {
     GrampiHead,
     GrampiFoot
-  }
+  },
+  middleware: 'auth'
 })
 export default class defaultLayout extends Vue {}
 </script>

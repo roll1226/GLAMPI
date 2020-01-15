@@ -21,6 +21,7 @@ const auth = firebase.auth()
 const twitterProvider = new firebase.auth.TwitterAuthProvider()
 const facebookProvider = new firebase.auth.FacebookAuthProvider()
 const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+const fieldValue = firebase.firestore.FieldValue
 
 export { firestore }
 export { auth }
@@ -28,3 +29,4 @@ export { functions }
 export { twitterProvider }
 export { facebookProvider }
 export { timestamp }
+export { fieldValue }

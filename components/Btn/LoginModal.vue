@@ -22,7 +22,9 @@
                       ref="name"
                       v-model="user"
                       :rules="[
-                        () => !!user || 'メールアドレスを入力してください'
+                        emailRules.isEmail,
+                        emailRules.emailLength,
+                        emailRules.emailFormat
                       ]"
                       label="メールアドレス"
                     ></v-text-field>
@@ -100,6 +102,19 @@ export default class LoginModal extends Vue {
     required: (value: string) => !!value || 'パスワードを入力してください',
     min: (v: string) => (v && v.length >= 6) || '6文字以上で入力してください',
     max: (v: string) => (v && v.length < 21) || '20文字以内で入力してください'
+  }
+
+  public emailRules: {} = {
+    isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
+    emailLength: (v: string) =>
+      (v && v.length <= 100) || 'メールアドレスが長すぎます。',
+    emailFormat: (v: string) => {
+      const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+      return (
+        pattern.test(v) ||
+        'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
+      )
+    }
   }
 
   public get formIsValid(): string {

@@ -40,6 +40,7 @@ export default class algolie extends Vue {
   }
 
   facilitySearch() {
+    this.$store.commit('search/SET_SEARCH_LIST', [])
     this.$router.push(`/searched?facilityKeyWord=${this.query}`)
   }
 

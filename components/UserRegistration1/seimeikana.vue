@@ -6,7 +6,7 @@
           v-model="seiKana"
           label="セイ"
           placeholder="セイ"
-          :rules="rules.fname1"
+          :rules="[rules.fname1, rules.seimeiFormat]"
           prepend-icon="mdi-"
         ></v-text-field>
       </v-col>
@@ -15,7 +15,7 @@
           v-model="meiKana"
           placeholder="メイ"
           label="メイ"
-          :rules="rules.lname1"
+          :rules="[rules.lname1, rules.seimeiFormat]"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -54,7 +54,11 @@ export default class seimeiKanaUserRegistration extends Vue {
       (v: string) =>
         (v && v.length <= 20) ||
         'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ]
+    ],
+    seimeiFormat: (v: string) => {
+      const pattern = /^[ァ-ヶー]+$/
+      return pattern.test(v) || 'セイ・メイは全角カタカナで入力してください。'
+    }
   }
 }
 </script>
