@@ -32,7 +32,7 @@
 
         <v-divider class="mx-2" inset vertical></v-divider>
 
-        <v-btn text small color="primary">
+        <v-btn text small color="primary" to="/mypage">
           マイページ
         </v-btn>
       </template>
