@@ -185,7 +185,7 @@ export default {
 
             const userReservation = firestore
               .collection('users')
-              .doc('mZ7qYdUy04iiJiM8SvFI')
+              .doc(this.$store.state.login.userUid)
               .collection('reservations')
               .doc(this.uuid)
 
