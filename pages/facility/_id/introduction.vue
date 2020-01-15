@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import PlanCard from '@/components/Card/Facility/Introduction/PlanCard.vue'
 import { IFacility, IPlan } from '@/store/facility'
 import CommentCard from '@/components/Card/Facility/Introduction/CommentCard.vue'
@@ -110,16 +110,24 @@ export default class introduction extends Vue {
     return this.$store.state.login.isLogin
   }
 
-  get facilityId() {
+  get facilityId(): string {
     return this.$store.state.facility.uuid
+  }
+
+  get userUid(): string {
+    return this.$store.state.login.userUid
   }
 
   // ユーザidをログイン時に登録
 
   created() {
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
+  }
+
+  @Watch('userUid')
+  chackLike() {
     this.$store.dispatch('facility/catchUserLike', {
-      userId: 'mZ7qYdUy04iiJiM8SvFI',
+      userId: this.$store.state.login.userUid,
       facilityId: this.$route.params.id
     })
   }
@@ -128,13 +136,13 @@ export default class introduction extends Vue {
     if (this.isLogin === false) return
     if (this.like === true) {
       this.$store.dispatch('facility/deleteLike', {
-        userId: 'mZ7qYdUy04iiJiM8SvFI',
+        userId: this.userUid,
         facilityId: this.$route.params.id,
         facilityUid: this.facilityId
       })
     } else if (this.like === false) {
       this.$store.dispatch('facility/creatLike', {
-        userId: 'mZ7qYdUy04iiJiM8SvFI',
+        userId: this.userUid,
         facilityId: this.$route.params.id,
         facilityUid: this.facilityId
       })

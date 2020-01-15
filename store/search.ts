@@ -47,6 +47,7 @@ export const mutations = {
 
   CLEAR_QUERY(state: IState) {
     state.queryText = ''
+    state.facilityList = []
   },
 
   SET_FACILITY_LIST(state: IState, payload: IFacility) {
