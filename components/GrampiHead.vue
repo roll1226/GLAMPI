@@ -4,7 +4,7 @@
       <span>
         {{ snackbarText }}
       </span>
-      <v-icon>
+      <v-icon style="color: white;">
         {{ snackbarIcon }}
       </v-icon>
     </v-snackbar>

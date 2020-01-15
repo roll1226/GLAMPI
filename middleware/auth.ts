@@ -1,5 +1,5 @@
-import { auth } from '@/plugins/firebase'
 import { Middleware } from '@nuxt/types'
+import { auth } from '@/plugins/firebase'
 
 // const middleware:Middleware = ({ route, store, redirect }) => {
 //   auth.onAuthStateChanged((user) => {
@@ -9,11 +9,9 @@ import { Middleware } from '@nuxt/types'
 
 const middleware: Middleware = ({ route, store, redirect }) => {
   auth.onAuthStateChanged((user) => {
-    if (!user) {
-      redirect('/')
-    } else {
-      store.commit('login/IS_LOGIN', true)
-    }
+    console.log(route.name)
+    if (user) store.commit('login/IS_LOGIN', true)
+    if (!user && route.name === 'mypage-id') redirect('/')
   })
 }
 
