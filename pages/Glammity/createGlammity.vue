@@ -1,66 +1,32 @@
 <template>
-  <div></div>
+  <div>
+    <h1>GLAMMITY作成ページ</h1>
+    <div class="mx-12">
+      <glammityName></glammityName>
+      <facilityName></facilityName>
+      <plan></plan>
+      <people></people>
+      <schedule></schedule>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import glammityName from '@/components/createGlammity/glammityName.vue'
+import facilityName from '@/components/createGlammity/facilityName.vue'
+import plan from '@/components/createGlammity/plan.vue'
+import people from '@/components/createGlammity/people.vue'
+import schedule from '@/components/createGlammity/schedule.vue'
 
 @Component({
   components: {
-    GlammityName,
+    glammityName,
     facilityName,
     plan,
-    recruitmentNumbers,
+    people,
     schedule
   }
 })
-export default class template extends Vue {
-  get a(): string {
-    return this.$store.state.registration.GlammityName
-  }
-
-  set a(value: string) {
-    this.$store.commit('createGlammity/SET_GLAMMITY_NAME', value)
-  }
-
-  get b(): string {
-    return this.$store.state.registration.facilityName
-  }
-
-  set b(value: string) {
-    this.$store.commit('createGlammity/SET_FACILITY_NAME', value)
-  }
-
-  get c(): string {
-    return this.$store.state.registration.plan
-  }
-
-  set c(value: string) {
-    this.$store.commit('createGlammity/SET_PLAN', value)
-  }
-
-  get d(): string {
-    return this.$store.state.registration.recruitmentNumbers
-  }
-
-  set d(value: string) {
-    this.$store.commit('createGlammity/SET_RECRUITMENT_NUMBERS', value)
-  }
-
-  get e(): string {
-    return this.$store.state.registration.chedule
-  }
-
-  set e(value: string) {
-    this.$store.commit('createGlammity/SET_SCHEDULE', value)
-  }
-
-  public rules: {} = {
-    a1: (v:string)
-    a2: (v: string) => {
-      const pattern = /^[亜-黑]{1,20}$/
-      return pattern.test(v) || '姓は必ず漢字で20文字以内にて入力してください。'
-    }
-  }
-}
+export default class CreateGlammity extends Vue {}
 </script>

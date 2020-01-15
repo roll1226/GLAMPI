@@ -61,8 +61,8 @@ export default class birthValueUserRegistration extends Vue {
   dropdown2: [...string[]] = []
 
   created() {
-    for (let index = 0; index < 120; index++) {
-      const year = 1900
+    for (let index = 0; index < 120; index--) {
+      const year = 2020
       this.dropdown.push(String(year + index))
 
       for (let index1 = 0; index1 < 12; index1++) {

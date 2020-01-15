@@ -17,7 +17,7 @@ export const state = (): IState => ({
   facilityName: '',
   plan: '',
   recruitmentNumbers: '',
-  schedule: '',
+  schedule: ''
 })
 
 export const mutations = {
