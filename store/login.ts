@@ -95,7 +95,6 @@ export const actions = {
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
         dispatch.commit('SET_SNACKBAR_COLOR', 'success')
         dispatch.commit('SET_USER_UID', res.user.uid)
-
       })
       .catch(() => {
         dispatch.commit('SET_SNACKBAR', true)
