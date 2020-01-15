@@ -2,12 +2,12 @@
   <div>
     <div class="d-flex">
       <h2>
-        施設名
+        {{ facility.name }}
       </h2>
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="like = !like">
+      <v-btn icon @click="changeLike">
         <v-icon v-if="!like">mdi-heart</v-icon>
         <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
       </v-btn>
@@ -53,44 +53,15 @@
       </v-col>
     </v-row>
 
+    <OptionListCard />
+
     <GlammityListCard />
 
     <!-- コメント -->
     <CommentCard />
 
-    <v-card outlined>
-      <v-card-actions class="pt-2 pb-1 px-4">
-        <v-rating
-          v-model="rating"
-          color="indigo lighten-3"
-          class="mx-2"
-          dense
-          size="28"
-        ></v-rating>
-        <span class="grey--text text--lighten-2 caption mr-2">
-          ({{ rating }})
-        </span>
-      </v-card-actions>
-
-      <v-card-text class="pt-1 pb-0">
-        <v-textarea
-          v-model="comment"
-          solo
-          class="mx-2"
-          name="input-7-4"
-          label="Solo textarea"
-          prepend-inner-icon="far fa-comment"
-          counter="1000"
-        ></v-textarea>
-      </v-card-text>
-
-      <v-card-actions class="pt-0">
-        <v-spacer></v-spacer>
-        <v-btn class="mx-4" :disabled="formIsValid" @click="testComment">
-          投稿
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+    <!-- コメント入力カード -->
+    <SendCommentCard />
   </div>
 </template>
 
@@ -99,9 +70,10 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import PlanCard from '@/components/Card/Facility/Introduction/PlanCard.vue'
 import { IFacility, IPlan } from '@/store/facility'
 import CommentCard from '@/components/Card/Facility/Introduction/CommentCard.vue'
-import { firestore, timestamp } from '@/plugins/firebase'
 import GlammityListCard from '@/components/Card/Facility/Introduction/GlammityListCard.vue'
 import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
+import OptionListCard from '@/components/Card/Facility/Introduction/OptionListCard.vue'
+import SendCommentCard from '@/components/Card/Facility/Introduction/SendCommentCard.vue'
 
 interface IGlammity {
   title: string
@@ -114,16 +86,17 @@ interface IGlammity {
     PlanCard,
     GlammityListCard,
     CommentCard,
-    GlammityCard
+    GlammityCard,
+    OptionListCard,
+    SendCommentCard
   }
 })
 export default class introduction extends Vue {
   // ハート
-  like: boolean = false
-  // 星
-  rating: number = 0
-  // コメント
-  comment: string = ''
+  // like: boolean = false
+  get like(): boolean {
+    return this.$store.state.facility.like
+  }
 
   get facility(): IFacility {
     return this.$store.state.facility.facility
@@ -133,47 +106,39 @@ export default class introduction extends Vue {
     return this.$store.state.facility.plan
   }
 
+  get isLogin(): boolean {
+    return this.$store.state.login.isLogin
+  }
+
+  get facilityId() {
+    return this.$store.state.facility.uuid
+  }
+
+  // ユーザidをログイン時に登録
+
   created() {
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
+    this.$store.dispatch('facility/catchUserLike', {
+      userId: 'mZ7qYdUy04iiJiM8SvFI',
+      facilityId: this.$route.params.id
+    })
   }
 
-  async testComment() {
-    await firestore
-      .collection('facilities')
-      .where('displayName', '==', this.$route.params.id)
-      .get()
-      .then((snapshot) => {
-        if (!snapshot.empty) {
-          snapshot.forEach(async (doc) => {
-            await firestore
-              .collection('facilities')
-              .doc(doc.id)
-              .collection('comments')
-              .add({
-                createdAt: timestamp,
-                star: this.rating,
-                text: this.comment,
-                userId: 'mZ7qYdUy04iiJiM8SvFI'
-              })
-              .then(() => {
-                this.clearComment()
-              })
-          })
-        }
+  changeLike() {
+    if (this.isLogin === false) return
+    if (this.like === true) {
+      this.$store.dispatch('facility/deleteLike', {
+        userId: 'mZ7qYdUy04iiJiM8SvFI',
+        facilityId: this.$route.params.id,
+        facilityUid: this.facilityId
       })
-  }
-
-  public get formIsValid(): boolean {
-    if (this.rating !== 0 && this.comment !== '') {
-      return false
-    } else {
-      return true
+    } else if (this.like === false) {
+      this.$store.dispatch('facility/creatLike', {
+        userId: 'mZ7qYdUy04iiJiM8SvFI',
+        facilityId: this.$route.params.id,
+        facilityUid: this.facilityId
+      })
     }
-  }
-
-  clearComment() {
-    this.rating = 0
-    this.comment = ''
   }
 }
 </script>

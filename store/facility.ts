@@ -1,5 +1,5 @@
 import * as Vuex from 'vuex'
-import { firestore } from '@/plugins/firebase'
+import { firestore, fieldValue } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
@@ -9,7 +9,7 @@ export interface IFacility {
   info: [...string[]]
   email: string
   phoneNumber: string
-  facilityName: string
+  name: string
   slider: [...string[]]
   streetAddress: [...string[]]
 }
@@ -19,6 +19,14 @@ export interface IPlan {
   pay: number
   planImage: string
   planTitle: string
+}
+
+export interface IOption {
+  title: string
+  texts: [...string[]]
+  src: string
+  pay: number
+  displayName: string
 }
 
 export interface IComment {
@@ -33,6 +41,9 @@ interface IState {
   facility: IFacility
   plan: IPlan[]
   comments: IComment[]
+  options: IOption[]
+  uuid: string
+  like: boolean
 }
 
 export const state = (): IState => ({
@@ -40,14 +51,20 @@ export const state = (): IState => ({
     info: [],
     email: '',
     phoneNumber: '',
-    facilityName: '',
+    name: '',
     slider: [],
     streetAddress: []
   },
 
+  uuid: '',
+
   plan: [],
 
-  comments: []
+  comments: [],
+
+  options: [],
+
+  like: false
 })
 
 export const mutations = {
@@ -72,18 +89,26 @@ export const mutations = {
     state.plan = []
   },
 
+  SET_OPTION(state: IState, payload: IOption[]) {
+    state.options = payload
+  },
+
+  SET_UID(state: IState, payload: string) {
+    state.uuid = payload
+  },
+
   RESET_COMMENT(state: IState) {
     state.comments = []
+  },
+
+  SET_LIKE(state: IState, payload: boolean) {
+    state.like = payload
   }
 }
 
 export const actions = {
-  async catchFacility(
-    dispatch: ICommit,
-    payload: string
-  ) {
-    const facilityFirebase = firestore
-    .collection('facilities')
+  async catchFacility(dispatch: ICommit, payload: string) {
+    const facilityFirebase = firestore.collection('facilities')
 
     dispatch.commit('RESET_PlAN', [])
     await facilityFirebase
@@ -94,6 +119,7 @@ export const actions = {
           snapshot.forEach(async (doc) => {
             dispatch.commit('SET_FACILITY', doc.data())
             const facilityId = doc.id
+            dispatch.commit('SET_UID', facilityId)
 
             await facilityFirebase
               .doc(facilityId)
@@ -109,5 +135,76 @@ export const actions = {
           })
         }
       })
+  },
+
+  async catchUserLike(
+    dispatch: ICommit,
+    payload: { userId: string; facilityId: string }
+  ) {
+    const user = firestore
+      .collection('users')
+      .doc(payload.userId)
+      .collection('likes')
+      .doc(payload.facilityId)
+
+    await user.get().then((likeFacility) => {
+      if (likeFacility.exists) {
+        dispatch.commit('SET_LIKE', true)
+      } else {
+        console.log('no')
+      }
+    })
+  },
+
+  async creatLike(
+    dispatch: ICommit,
+    payload: { userId: string; facilityId: string; facilityUid: string }
+  ) {
+    const user = firestore
+      .collection('users')
+      .doc(payload.userId)
+      .collection('likes')
+      .doc(payload.facilityId)
+
+    await user.set({}).then(() => {
+      firestore
+        .collection('facilities')
+        .doc(payload.facilityUid)
+        .set(
+          {
+            pay: fieldValue.increment(1)
+          },
+          { merge: true }
+        )
+        .then(() => {
+          dispatch.commit('SET_LIKE', true)
+        })
+    })
+  },
+
+  async deleteLike(
+    dispatch: ICommit,
+    payload: { userId: string; facilityId: string; facilityUid: string }
+  ) {
+    const user = firestore
+      .collection('users')
+      .doc(payload.userId)
+      .collection('likes')
+      .doc(payload.facilityId)
+
+    await user.delete().then(() => {
+      firestore
+        .collection('facilities')
+        .doc(payload.facilityUid)
+        .set(
+          {
+            pay: fieldValue.increment(-1)
+          },
+          { merge: true }
+        )
+        .then(() => {
+          dispatch.commit('SET_LIKE', false)
+        })
+    })
   }
 }

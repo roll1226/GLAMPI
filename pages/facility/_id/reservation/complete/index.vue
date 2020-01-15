@@ -1,5 +1,9 @@
 <template>
-  <div></div>
+  <div>
+    <h1>
+      支払い完了
+    </h1>
+  </div>
 </template>
 
 <script lang="ts">

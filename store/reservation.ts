@@ -5,13 +5,25 @@ interface ICommit {
 }
 
 interface IState {
-  planTitle: string,
-  isActive: boolean,
-  nowActive: string,
-  planPay: number,
-  optionPay: number,
-  totalPay: number,
+  planTitle: string
+  isActive: boolean
+  nowActive: string
+  planPay: number
+  optionTitle: string
+  optionPay: number
+  totalPay: number
   dates: [...string[]]
+}
+
+interface IReservation {
+  checkDates: [...string[]]
+  createdAt: Date
+  facilityId: string
+  option: string
+  payment: string
+  plan: string
+  status: string
+  totalPay: string
 }
 
 export const state = (): IState => ({
@@ -19,6 +31,7 @@ export const state = (): IState => ({
   isActive: false,
   nowActive: '',
   planPay: 0, // 読み込まれた時に挿入
+  optionTitle: '',
   optionPay: 0,
   totalPay: 0,
   dates: []
@@ -29,9 +42,13 @@ export const mutations = {
     state.isActive = payload
   },
 
-  SET_NOW_ACTIVE(state: IState, payload: { active: string, pay: string }) {
+  SET_NOW_ACTIVE(
+    state: IState,
+    payload: { active: string; pay: string; optionTitle: string }
+  ) {
     state.nowActive = payload.active
     state.optionPay = Number(payload.pay)
+    state.optionTitle = payload.optionTitle
   },
 
   ADDITION(state: IState) {

@@ -1636,6 +1636,13 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/uuid@^3.4.6":
+  version "3.4.6"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.6.tgz#d2c4c48eb85a757bf2927f75f939942d521e3016"
+  integrity sha512-cCdlC/1kGEZdEglzOieLDYBxHsvEOIg7kp/2FYyVR9Pxakq+Qf/inL3RKQ+PA8gOlI/NnL+fXmQH12nwcGzsHw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/vue-the-mask@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@types/vue-the-mask/-/vue-the-mask-0.11.0.tgz#ce7016234d251dcbb29193cc733b11c3b1f6160a"
