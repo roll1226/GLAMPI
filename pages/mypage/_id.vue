@@ -24,12 +24,20 @@
         </v-avatar>
         <p class="text-center .body-1">username</p>
       </div>
-      <div v-if="screen1 == 0"><MyTop></MyTop></div>
-      <div v-else-if="screen1 == 1"><ChangeInfo></ChangeInfo></div>
-      <div v-else-if="screen1 == 2"><BookingList></BookingList></div>
-      <div v-else-if="screen1 == 3"><Glammity></Glammity></div>
-      <div v-else-if="screen1 == 4"><Favorites></Favorites></div>
-      <div v-else><Reviews></Reviews></div>
+      <div v-if="screen1 == 0"><MyTop class="mypage-wrapp"></MyTop></div>
+      <div v-else-if="screen1 == 1">
+        <ChangeInfo class="mypage-wrapp"></ChangeInfo>
+      </div>
+      <div v-else-if="screen1 == 2">
+        <BookingList class="mypage-wrapp"></BookingList>
+      </div>
+      <div v-else-if="screen1 == 3">
+        <Glammity class="mypage-wrapp"></Glammity>
+      </div>
+      <div v-else-if="screen1 == 4">
+        <Favorites class="mypage-wrapp"></Favorites>
+      </div>
+      <div v-else><Reviews class="mypage-wrapp"></Reviews></div>
     </div>
   </div>
 </template>
@@ -77,4 +85,8 @@ export default class mypage extends Vue {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.mypage-wrapp {
+  width: 1000px;
+}
+</style>

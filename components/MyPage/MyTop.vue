@@ -16,9 +16,6 @@
         <p>abcdefg</p>
       </v-card-text>
     </v-card>
-    <v-card width="max-content">
-      <v-card-title></v-card-title>
-    </v-card>
   </div>
 </template>
 
