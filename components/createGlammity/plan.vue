@@ -27,5 +27,8 @@ export default class PlanCreateGlammity extends Vue {
       this.dropdown.push(String(x + index))
     }
   }
+  public rules: {} = {
+    isPlanName: (v: string) => !!v || '施設名は必ず入力してください。'
+  }
 }
 </script>
