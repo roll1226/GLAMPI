@@ -9,6 +9,7 @@
           v-model="facilityName"
           label="施設名"
           :items="dropdown"
+          :rules="[rules.isFacilityName]"
         ></v-overflow-btn>
       </v-col>
     </v-row>
@@ -35,7 +36,7 @@ export default class FacilityNameCreateGlammity extends Vue {
     }
   }
   public rules: {} = {
-    isFacilityName: (v: string) => !!v || '施設名は必ず入力してください。'
+    isFacilityName: (v: string) => !!v || '施設名は必ず選択してください。'
   }
 }
 </script>

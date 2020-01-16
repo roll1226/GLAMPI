@@ -9,6 +9,7 @@
           v-model="people"
           label="募集人数"
           :items="dropdown"
+          :rules="[rules.isPeople]"
         ></v-overflow-btn>
       </v-col>
     </v-row>
@@ -33,6 +34,9 @@ export default class PeopleCreateGlammity extends Vue {
       const x = 1
       this.dropdown.push(String(x + index))
     }
+  }
+  public rules: {} = {
+    isPeople: (v: string) => !!v || '募集人数は必ず選択してください。'
   }
 }
 </script>

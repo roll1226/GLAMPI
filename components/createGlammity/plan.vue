@@ -9,6 +9,7 @@
           v-model="plan"
           label="プラン名"
           :items="dropdown"
+          :rules="[rules.isPlanName]"
         ></v-overflow-btn>
       </v-col>
     </v-row>
@@ -35,7 +36,7 @@ export default class PlanCreateGlammity extends Vue {
     }
   }
   public rules: {} = {
-    isPlanName: (v: string) => !!v || '施設名は必ず入力してください。'
+    isPlanName: (v: string) => !!v || 'プラン名は必ず選択してください。'
   }
 }
 </script>
