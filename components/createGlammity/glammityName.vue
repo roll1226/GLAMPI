@@ -1,10 +1,17 @@
 <template>
   <div>
-    <v-text-field
-      v-model="glammityName"
-      label="GLAMMITY名"
-      :rules="[rules.isGlammityName, rules.glammityNameLength]"
-    ></v-text-field>
+    <v-row>
+      <v-col sm="2">
+        <h2>GLAMMITY名</h2>
+      </v-col>
+      <v-col sm="5">
+        <v-text-field
+          v-model="glammityName"
+          label="GLAMMITY名"
+          :rules="[rules.isGlammityName, rules.glammityNameLength]"
+        ></v-text-field>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

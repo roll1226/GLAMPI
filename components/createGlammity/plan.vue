@@ -1,10 +1,17 @@
 <template>
   <div>
-    <v-overflow-btn
-      v-model="plan"
-      label="プラン名"
-      :items="dropdown"
-    ></v-overflow-btn>
+    <v-row>
+      <v-col sm="2">
+        <h2>プラン名</h2>
+      </v-col>
+      <v-col sm="5">
+        <v-overflow-btn
+          v-model="plan"
+          label="プラン名"
+          :items="dropdown"
+        ></v-overflow-btn>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

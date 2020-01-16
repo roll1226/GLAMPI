@@ -1,10 +1,17 @@
 <template>
   <div>
-    <v-overflow-btn
-      v-model="people"
-      label="募集人数"
-      :items="dropdown"
-    ></v-overflow-btn>
+    <v-row>
+      <v-col sm="2">
+        <h2>募集人数</h2>
+      </v-col>
+      <v-col sm="5">
+        <v-overflow-btn
+          v-model="people"
+          label="募集人数"
+          :items="dropdown"
+        ></v-overflow-btn>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
