@@ -5,17 +5,15 @@
         <v-text-field
           v-model="seiKana"
           label="セイ"
-          placeholder="セイ"
-          :rules="[rules.fname1]"
+          :rules="[rules.seiKanaFormat]"
           prepend-icon="mdi-"
         ></v-text-field>
       </v-col>
       <v-col>
         <v-text-field
           v-model="meiKana"
-          placeholder="メイ"
           label="メイ"
-          :rules="[rules.lname1]"
+          :rules="[rules.meiKanaFormat]"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -43,22 +41,14 @@ export default class seimeiKanaUserRegistration extends Vue {
     this.$store.commit('registration/SET_LAST_NAME_KANA', value)
   }
   public rules: {} = {
-    fname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ],
-    lname1: [
-      (v: string) => !!v || 'セイ・メイは必ず入力してください',
-      (v: string) =>
-        (v && v.length <= 20) ||
-        'セイ・メイはそれぞれ20文字以内にて入力してください。'
-    ]
-    // seimeiFormat: (v: string) => {
-    //   const pattern = /^[ァ-ヶー]+$/
-    //   return pattern.test(v) || 'セイ・メイは全角カタカナで入力してください。'
-    // }
+    seiKanaFormat: (v: string) => {
+      const pattern = /^[ァ-ヶー]{1,20}$/
+      return pattern.test(v) || 'セイは全角カタカナにて必ず入力してください。'
+    },
+    meiKanaFormat: (v: string) => {
+      const pattern = /^[ァ-ヶー]{1,20}$/
+      return pattern.test(v) || 'メイは全角カタカナにて必ず入力してください。'
+    }
   }
 }
 </script>

@@ -115,7 +115,7 @@ export default class addressUserRegistration extends Vue {
     addressFormatFullwidth: (v: string) => {
       // eslint-disable-next-line no-control-regex
       const pattern = /^[^\x01-\x7E\xA1-\xDF]+$/
-      return pattern.test(v) || '住所は全角で入力してください。'
+      return pattern.test(v) || '住所は全角にて入力してください。'
     }
   }
   async checkCode() {
@@ -138,7 +138,8 @@ export default class addressUserRegistration extends Vue {
           })
           this.address = res.data.data.fullAddress
         } else {
-          this.address = '存在しない郵便番号です。'
+          this.address =
+            '存在しない郵便番号です。正しい郵便番号を入力してください。'
         }
       })
     console.log(this.code)

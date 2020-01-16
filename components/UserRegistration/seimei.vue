@@ -5,8 +5,7 @@
         <v-text-field
           v-model="sei"
           label="姓"
-          placeholder="姓"
-          :rules="[rules.fnameFormat]"
+          :rules="[rules.seiFormat]"
           prepend-icon="mdi-pencil"
           counter="20"
         ></v-text-field>
@@ -14,9 +13,8 @@
       <v-col>
         <v-text-field
           v-model="mei"
-          placeholder="名"
           label="名"
-          :rules="[rules.lnameFormat]"
+          :rules="[rules.meiFormat]"
           counter="20"
         ></v-text-field>
       </v-col>
@@ -45,25 +43,13 @@ export default class seimeiUserRegistration extends Vue {
     this.$store.commit('registration/SET_LAST_NAME', value)
   }
   public rules: {} = {
-    // fname: [
-    //   (v: string) => !!v || '姓・名は必ず入力してください',
-    //   (v: string) =>
-    //     (v && v.length <= 20) ||
-    //     '姓・名はそれぞれ20文字以内にて入力してください。'
-    // ],
-    fnameFormat: (v: string) => {
+    seiFormat: (v: string) => {
       const pattern = /^[亜-黑]{1,20}$/
-      return pattern.test(v) || '姓は必ず漢字で20文字以内にて入力してください。'
+      return pattern.test(v) || '姓は全角で20文字以内にて必ず入力してください。'
     },
-    // lname: [
-    //   (v: string) => !!v || '姓・名は必ず入力してください',
-    //   (v: string) =>
-    //     (v && v.length <= 20) ||
-    //     '姓・名はそれぞれ20文字以内にて入力してください。'
-    // ],
-    lnameFormat: (v: string) => {
+    meiFormat: (v: string) => {
       const pattern = /^[亜-黑]{1,20}$/
-      return pattern.test(v) || '名は必ず漢字で20文字以内にて入力してください。'
+      return pattern.test(v) || '名は全角で20文字以内にて必ず入力してください。'
     }
   }
 }
