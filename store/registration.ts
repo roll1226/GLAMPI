@@ -83,7 +83,10 @@ export const mutations = {
     state.address2 = payload
   },
 
-  SET_STREET_ADDRESS(state: IState, payload: {pref: string, city: string, town: string}) {
+  SET_STREET_ADDRESS(
+    state: IState,
+    payload: { pref: string; city: string; town: string }
+  ) {
     state.streetAddress = []
     state.streetAddress.push(payload.pref)
     state.streetAddress.push(payload.city)
