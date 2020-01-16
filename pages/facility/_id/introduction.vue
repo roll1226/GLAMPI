@@ -126,6 +126,7 @@ export default class introduction extends Vue {
 
   @Watch('userUid')
   chackLike() {
+    if (this.isLogin === false) return
     this.$store.dispatch('facility/catchUserLike', {
       userId: this.$store.state.login.userUid,
       facilityId: this.$route.params.id
