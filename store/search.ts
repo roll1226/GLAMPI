@@ -62,52 +62,101 @@ export const actions = {
   },
 
   async CREATE_SEARCHED_FACILITY(dispatch: ICommit, payload: string) {
-    await firestore
-      .collection('facilities')
-      .where('searchQuery', 'array-contains', payload)
-      .get()
-      .then((querySnapshot) => {
-        if (!querySnapshot.empty) {
-          querySnapshot.forEach(async (doc) => {
-            console.log(doc.data())
-            console.log(doc.id)
-            const facility = doc.data()
+    if (payload === '') {
+      await firestore
+        .collection('facilities')
+        .get()
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach(async (doc) => {
+              console.log(doc.data())
+              console.log(doc.id)
+              const facility = doc.data()
 
-            await firestore
-              .collection('facilities')
-              .doc(doc.id)
-              .collection('plans')
-              .orderBy('pay', 'asc')
-              .limit(1)
-              .get()
-              .then((queryPlan) => {
-                if (!queryPlan.empty) {
-                  queryPlan.forEach((docPlan) => {
-                    const plan = docPlan.data()
+              await firestore
+                .collection('facilities')
+                .doc(doc.id)
+                .collection('plans')
+                .orderBy('pay', 'asc')
+                .limit(1)
+                .get()
+                .then((queryPlan) => {
+                  if (!queryPlan.empty) {
+                    queryPlan.forEach((docPlan) => {
+                      const plan = docPlan.data()
 
-                    const facilityName = facility.name
-                    const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
-                    const facilityImg = facility.slider
-                    const planName = plan.planTitle
-                    const planPay = plan.pay
-                    const introduction = facility.displayName
-                    const glammity = introduction
+                      const facilityName = facility.name
+                      const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                      const facilityImg = facility.slider
+                      const planName = plan.planTitle
+                      const planPay = plan.pay
+                      const introduction = facility.displayName
+                      const glammity = introduction
 
-                    const facilityArray = {
-                      facilityName,
-                      facilityImg,
-                      address,
-                      planName,
-                      planPay,
-                      introduction,
-                      glammity
-                    }
-                    dispatch.commit('SET_FACILITY_LIST', facilityArray)
-                  })
-                }
-              })
-          })
-        }
-      })
+                      const facilityArray = {
+                        facilityName,
+                        facilityImg,
+                        address,
+                        planName,
+                        planPay,
+                        introduction,
+                        glammity
+                      }
+                      dispatch.commit('SET_FACILITY_LIST', facilityArray)
+                    })
+                  }
+                })
+            })
+          }
+        })
+    } else {
+      await firestore
+        .collection('facilities')
+        .where('searchQuery', 'array-contains', payload)
+        .get()
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach(async (doc) => {
+              console.log(doc.data())
+              console.log(doc.id)
+              const facility = doc.data()
+
+              await firestore
+                .collection('facilities')
+                .doc(doc.id)
+                .collection('plans')
+                .orderBy('pay', 'asc')
+                .limit(1)
+                .get()
+                .then((queryPlan) => {
+                  if (!queryPlan.empty) {
+                    queryPlan.forEach((docPlan) => {
+                      const plan = docPlan.data()
+
+                      const facilityName = facility.name
+                      const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                      const facilityImg = facility.slider
+                      const planName = plan.planTitle
+                      const planPay = plan.pay
+                      const introduction = facility.displayName
+                      const glammity = introduction
+
+                      const facilityArray = {
+                        facilityName,
+                        facilityImg,
+                        address,
+                        planName,
+                        planPay,
+                        introduction,
+                        glammity
+                      }
+                      dispatch.commit('SET_FACILITY_LIST', facilityArray)
+                    })
+                  }
+                })
+            })
+          }
+        })
+    }
   }
 }

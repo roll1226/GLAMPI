@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Emit } from 'nuxt-property-decorator'
 
 @Component
 export default class reservation extends Vue {
@@ -29,6 +29,7 @@ export default class reservation extends Vue {
     return this.$store.state.search.searchList
   }
 
+  @Emit('focus')
   selected(value: string) {
     this.$store.commit('search/SET_QUERY_TEXT', value)
     this.$store.commit('search/SET_SEARCH_LIST', [])
