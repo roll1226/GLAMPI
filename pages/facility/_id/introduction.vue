@@ -7,10 +7,21 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="changeLike">
+      <v-btn v-if="isLogin === true" icon @click="changeLike">
         <v-icon v-if="!like">mdi-heart</v-icon>
         <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
       </v-btn>
+
+      <v-tooltip v-else-if="isLogin === false" bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn color="grey" icon v-on="on">
+            <v-icon v-if="!like">mdi-heart</v-icon>
+          </v-btn>
+        </template>
+        <span color="pink">
+          お気に入りに登録するにはログインが必要です。
+        </span>
+      </v-tooltip>
     </div>
 
     <v-carousel
