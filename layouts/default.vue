@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <grampi-head />
-    <nuxt />
+    <nuxt style="overflow: hidden;" />
     <grampi-foot />
   </v-app>
 </template>
