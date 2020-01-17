@@ -1,5 +1,5 @@
 <template>
-  <div class="top-page-introduction-wrap index-tags-wrap">
+  <div class="top-page-introduction-wrap mb-1 index-wrap-tag">
     <v-row>
       <v-col>
         <h3 class="ml-10 top-page-glammity-title headline font-weight-bold">
@@ -40,4 +40,11 @@ import { Component, Vue } from 'nuxt-property-decorator'
 export default class TagIndexWrap extends Vue {}
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@media screen and (min-width: 770px) {
+  .index-wrap-tag {
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+}
+</style>
