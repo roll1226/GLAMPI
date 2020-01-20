@@ -127,6 +127,10 @@ export default {
 
     reservationIsValid() {
       return this.dates[0] && this.dates[1]
+    },
+
+    facility() {
+      return this.$store.state.facility.facility
     }
   },
 
@@ -163,10 +167,6 @@ export default {
           .then(async () => {
             this.loading = false
             this.dialog = false
-
-            this.$router.push(
-              `/facility/${this.$route.params.id}/reservation/complete`
-            )
 
             // 成功時firebaseに投げる
 
@@ -217,12 +217,59 @@ export default {
                 transaction.update(facilityReservation, {
                   reservationList
                 })
+              })
+            })
+
+            // const facilityReser = {
+            //   name: 'roll1226',
+            //   checkIn: this.dates[0],
+            //   checkOut: this.dates[1],
+            //   plan: this.planTitle,
+            //   option: this.optionTitle,
+            //   payment: 'クレジットカード',
+            //   facility: this.facility.name,
+            //   pay: this.totalPay,
+            //   email: this.stripeEmail
+            // }
+
+            // const mailer = functions.httpsCallable('sendEmail')
+            // mailer(facilityReser).then(() => {
+            //   this.$router.push(
+            //     `/facility/${this.$route.params.id}/reservation/complete`
+            //   )
+            // })
+            await fetch(
+              'https://us-central1-j4k1-b789f.cloudfunctions.net/sendReservationMail',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                  facilityReser: {
+                    name: 'roll1226',
+                    checkIn: this.dates[0],
+                    checkOut: this.dates[1],
+                    plan: this.planTitle,
+                    option: this.optionTitle,
+                    payment: 'クレジットカード',
+                    facility: this.facility.name,
+                    pay: this.totalPay,
+                    email: this.stripeEmail
+                  }
+                })
+              }
+            )
+              .then((response) => {
+                console.log('response data', response)
+
                 this.$router.push(
                   `/facility/${this.$route.params.id}/reservation/complete`
                 )
               })
-            })
-            await firestore.app.delete()
+              .catch((error) => {
+                console.log('response error', error)
+              })
           })
           .catch((error) => {
             console.error(error)
