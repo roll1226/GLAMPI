@@ -80,14 +80,21 @@
       </v-col>
     </v-row>
 
-    <Stripe />
+    <div class="text-center" @click="toVerification">
+      <v-btn :disabled="!isReservation">
+        予約確認
+      </v-btn>
+    </div>
+
+    {{ dates }}
+
+    {{ reservationIsValid }}
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import moment from 'moment'
-import Stripe from '~/components/Btn/Stripe.vue'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
 
@@ -111,8 +118,7 @@ interface options {
 @Component({
   components: {
     Plan,
-    Options,
-    Stripe
+    Options
   }
 })
 export default class reservation extends Vue {
@@ -122,6 +128,7 @@ export default class reservation extends Vue {
   pageSlice: number = 0
   payNum: number = 2000
   nowDate: string = ''
+  isReservation: boolean = false
 
   created() {
     if (window.parent.screen.width <= 420) {
@@ -156,6 +163,30 @@ export default class reservation extends Vue {
     this.$store.commit('reservation/SET_DATES', selectdates)
   }
 
+  @Watch('dates')
+  reservationIsValid() {
+    this.isReservation =
+      this.isDateInputed(this.dates[0]) &&
+      this.isDateInputed(this.dates[1]) &&
+      this.checkDateLength(this.dates)
+  }
+
+  private isDateInputed(date: string): boolean {
+    if (date !== '') {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  private checkDateLength(dates: [...string[]]): boolean {
+    if (dates.length === 2) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   mounted() {
     this.length = Math.ceil(this.list.length / this.pageSlice)
     this.displayLists = this.list.slice(0, this.pageSlice)
@@ -165,6 +196,12 @@ export default class reservation extends Vue {
     this.displayLists = this.list.slice(
       this.pageSlice * (pageNumber - 1),
       this.pageSlice * pageNumber
+    )
+  }
+
+  toVerification() {
+    this.$router.push(
+      `/facility/${this.$route.params.id}/reservation/${this.$route.params.pay}/verification`
     )
   }
 }

@@ -1,18 +1,14 @@
 <template>
   <div>
     <div class="text-center mt-6">
-      <v-btn
-        :disabled="!reservationIsValid"
-        class="light-blue darken-4 white--text"
-        @click.stop="openDialog"
-      >
+      <v-btn class="light-blue darken-4 white--text" @click.stop="openDialog">
         予約する
       </v-btn>
     </div>
 
     <v-row justify="center">
       <v-dialog v-model="dialog" max-width="500">
-        <v-card>
+        <v-card :loading="loading">
           <v-toolbar dark class="grey lighten-1">
             <v-toolbar-title>
               クレジット支払い
@@ -48,7 +44,6 @@
               <v-btn
                 class="pay-with-stripe light-blue darken-4 white--text"
                 :disabled="!complete || !stripeEmail"
-                :loading="loading"
                 @click="pay"
               >
                 {{ totalPay.toLocaleString() }}円、支払う
@@ -125,10 +120,6 @@ export default {
       return this.$store.state.facility.uuid
     },
 
-    reservationIsValid() {
-      return this.dates[0] && this.dates[1]
-    },
-
     facility() {
       return this.$store.state.facility.facility
     }
@@ -165,9 +156,6 @@ export default {
           })
         })
           .then(async () => {
-            this.loading = false
-            this.dialog = false
-
             // 成功時firebaseに投げる
 
             const batch = firestore.batch()
@@ -220,24 +208,6 @@ export default {
               })
             })
 
-            // const facilityReser = {
-            //   name: 'roll1226',
-            //   checkIn: this.dates[0],
-            //   checkOut: this.dates[1],
-            //   plan: this.planTitle,
-            //   option: this.optionTitle,
-            //   payment: 'クレジットカード',
-            //   facility: this.facility.name,
-            //   pay: this.totalPay,
-            //   email: this.stripeEmail
-            // }
-
-            // const mailer = functions.httpsCallable('sendEmail')
-            // mailer(facilityReser).then(() => {
-            //   this.$router.push(
-            //     `/facility/${this.$route.params.id}/reservation/complete`
-            //   )
-            // })
             await fetch(
               'https://us-central1-j4k1-b789f.cloudfunctions.net/sendReservationMail',
               {
@@ -262,6 +232,8 @@ export default {
             )
               .then((response) => {
                 console.log('response data', response)
+                this.loading = false
+                this.dialog = false
 
                 this.$router.push(
                   `/facility/${this.$route.params.id}/reservation/complete`
