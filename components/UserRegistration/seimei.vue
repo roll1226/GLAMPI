@@ -5,7 +5,7 @@
         <v-text-field
           v-model="sei"
           label="姓"
-          :rules="[rules.seiFormat]"
+          :rules="[rules.isSeiLength, rules.seiFormat]"
           prepend-icon="mdi-pencil"
           counter="20"
         ></v-text-field>
@@ -14,7 +14,7 @@
         <v-text-field
           v-model="mei"
           label="名"
-          :rules="[rules.meiFormat]"
+          :rules="[rules.isMeiLength, rules.meiFormat]"
           counter="20"
         ></v-text-field>
       </v-col>
@@ -43,13 +43,19 @@ export default class seimeiUserRegistration extends Vue {
     this.$store.commit('registration/SET_LAST_NAME', value)
   }
   public rules: {} = {
+    isSeiLength: (v: string) =>
+      (v.length >= 1 && v.length <= 20) ||
+      '姓は20文字以内にて必ず入力してください。',
     seiFormat: (v: string) => {
-      const pattern = /^[亜-黑]{1,20}$/
-      return pattern.test(v) || '姓は全角で20文字以内にて必ず入力してください。'
+      const pattern = /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/
+      return pattern.test(v) || '使用できない文字が含まれています。'
     },
+    isMeiLength: (v: string) =>
+      (v.length >= 1 && v.length <= 20) ||
+      '名は20文字以内にて必ず入力してください。',
     meiFormat: (v: string) => {
-      const pattern = /^[亜-黑]{1,20}$/
-      return pattern.test(v) || '名は全角で20文字以内にて必ず入力してください。'
+      const pattern = /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/
+      return pattern.test(v) || '使用できない文字が含まれています。'
     }
   }
 }
