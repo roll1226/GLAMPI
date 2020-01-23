@@ -11,7 +11,7 @@
 
     <v-toolbar dense>
       <v-btn text style="position: relative;" width="132px" to="/">
-        <logo />
+        <v-img :src="require('@/assets/svg/logo.svg')" width="132px"></v-img>
       </v-btn>
 
       <v-spacer></v-spacer>
@@ -42,14 +42,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import logo from '@/components/imgFile/Logo.vue'
+import Logo from '@/components/imgFile/Logo.vue'
 import LoginModal from '@/components/Btn/LoginModal.vue'
 import { auth } from '@/plugins/firebase'
 
 @Component({
   components: {
     LoginModal,
-    logo
+    Logo
   },
   computed: {
     isLogin(): boolean {

@@ -5,15 +5,23 @@
     </v-btn>
 
     <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="500">
-        <v-card>
-          <v-toolbar dark color="primary">
-            <v-toolbar-title>
-              ログイン
-            </v-toolbar-title>
-          </v-toolbar>
+      <v-dialog v-model="dialog" max-width="470">
+        <v-card :loading="loading">
+          <v-toolbar-title class="mb-0 pt-5">
+            <!-- <v-img
+              :src="require('@/assets/svg/logoBg.svg')"
+              width="200px"
+              class="mx-auto"
+            ></v-img> -->
+            <img
+              src="@/assets/svg/logoBg.svg"
+              width="200px"
+              class="mx-auto d-block"
+              alt="GLAMPI"
+            />
+          </v-toolbar-title>
 
-          <div class="px-5 py-4">
+          <div class="px-5 pb-4 pt-0">
             <v-form ref="form" @submit.prevent="login">
               <v-container class="py-0 px-0">
                 <v-row>
@@ -48,13 +56,22 @@
               </v-container>
 
               <v-card-actions class="d-flex justify-center">
-                <v-btn
-                  color="success"
-                  :disabled="!formIsValid"
-                  :loading="loading"
-                  type="submit"
-                >
+                <v-btn color="primary" :disabled="!formIsValid" type="submit">
                   ログイン
+                </v-btn>
+              </v-card-actions>
+
+              <v-card-actions class="pb-0">
+                <v-spacer></v-spacer>
+                <v-btn color="green" text small class="caption">
+                  会員登録はこちら
+                </v-btn>
+              </v-card-actions>
+
+              <v-card-actions class="pt-0">
+                <v-spacer></v-spacer>
+                <v-btn color="red" text small class="caption">
+                  パスワードを忘れた方はこちら
                 </v-btn>
               </v-card-actions>
             </v-form>

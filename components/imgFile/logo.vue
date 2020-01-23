@@ -10,7 +10,7 @@
       viewBox="0 0 500 139"
       style="enable-background:new 0 0 500 139;"
       xml:space="preserve"
-      width="132px"
+      :width="`${logoWidth}px`"
     >
       <style type="text/css">
         .st0 {
@@ -158,8 +158,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
-export default class logo extends Vue {}
+export default class logo extends Vue {
+  @Prop({ required: true, default: '' })
+  logoWidth!: string
+}
 </script>
