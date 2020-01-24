@@ -3,6 +3,9 @@ export default {
   /*
    ** Headers of the page
    */
+  server: {
+    host: '0.0.0.0'
+  },
   head: {
     title: process.env.npm_package_name || '',
     script: [{ src: 'https://js.stripe.com/v3/' }],
