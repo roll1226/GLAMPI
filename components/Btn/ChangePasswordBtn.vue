@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-btn color="red" text small class="caption" @click.stop="dialog = true">
+    <v-btn color="red" text small class="caption" @click.stop="openCard">
       パスワードを忘れた方はこちら
     </v-btn>
 
     <div justify="center">
       <v-dialog v-model="dialog" max-width="500">
-        <v-card :loading="loading">
+        <v-card :loading="loadings">
           <v-form ref="changePasswordForm" @submit.prevent="send">
             <v-container>
               <v-text-field
@@ -34,14 +34,10 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
-import { auth } from '@/plugins/firebase'
 
 @Component({})
 export default class ChangePasswordBtn extends Vue {
-  dialog: boolean = false
-  loading: boolean = false
   email: string = ''
-  actionCodeSettings: { url: string } = { url: '' }
 
   emailRules: {} = {
     isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
@@ -60,10 +56,16 @@ export default class ChangePasswordBtn extends Vue {
     return this.email
   }
 
-  mounted() {
-    this.$nextTick(() => {
-      this.actionCodeSettings.url = window.location.href
-    })
+  get dialog(): boolean {
+    return this.$store.state.login.changePasswordDialog
+  }
+
+  set dialog(value: boolean) {
+    this.$store.commit('login/SET_CHANGE_PASSWORD_DIALOG', value)
+  }
+
+  get loadings(): boolean {
+    return this.$store.state.login.loadingChangePassword
   }
 
   @Watch('dialog')
@@ -73,18 +75,19 @@ export default class ChangePasswordBtn extends Vue {
     form.reset()
   }
 
+  openCard() {
+    this.$store.commit('login/SET_CHANGE_PASSWORD_DIALOG', true)
+  }
+
   send() {
-    this.loading = true
-    auth
-      .sendPasswordResetEmail(this.email, this.actionCodeSettings)
-      .then(() => {
-        console.log('OK')
-        this.loading = false
-      })
-      .catch((error) => {
-        console.log(error)
-        this.loading = false
-      })
+    this.$store.commit('login/SET_LOADING_CHANGE_PASSWORD', true)
+
+    const actionCodeSettings = { url: window.location.href }
+
+    this.$store.dispatch('login/changePassword', {
+      email: this.email,
+      actionCodeSettings
+    })
   }
 }
 </script>

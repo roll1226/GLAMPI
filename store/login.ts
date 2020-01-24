@@ -6,28 +6,38 @@ interface ICommit {
 }
 
 interface IState {
-  loading: boolean
-  isLogin: boolean
-  snackbar: boolean
   snackbarText: string
   snackbarIcon: string
   snackbarColor: string
   userUid: string
+  loading: boolean
+  loadingChangePassword: boolean
+  isLogin: boolean
+  snackbar: boolean
+  loginDialog: boolean
+  changePasswordDialog: boolean
 }
 
 export const state = (): IState => ({
-  loading: false,
-  isLogin: false,
-  snackbar: false,
   snackbarText: '',
   snackbarIcon: '',
   snackbarColor: '',
-  userUid: ''
+  userUid: '',
+  loading: false,
+  loadingChangePassword: false,
+  isLogin: false,
+  snackbar: false,
+  loginDialog: false,
+  changePasswordDialog: false
 })
 
 export const mutations = {
   SET_LOADING(state: IState, payload: boolean) {
     state.loading = payload
+  },
+
+  SET_LOADING_CHANGE_PASSWORD(state: IState, payload: boolean) {
+    state.loadingChangePassword = payload
   },
 
   IS_LOGIN(state: IState, payload: boolean) {
@@ -53,6 +63,14 @@ export const mutations = {
   SET_USER_UID(state: IState, payload: string) {
     state.userUid = payload
     console.log(state.userUid)
+  },
+
+  SET_LOGIN_DIALOG(state: IState, payload: boolean) {
+    state.loginDialog = payload
+  },
+
+  SET_CHANGE_PASSWORD_DIALOG(state: IState, payload: boolean) {
+    state.changePasswordDialog = payload
   }
 }
 
@@ -121,6 +139,25 @@ export const actions = {
         dispatch.commit('SET_SNACKBAR_TEXT', 'ログインに失敗しました。')
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
         dispatch.commit('SET_SNACKBAR_COLOR', 'error')
+      })
+  },
+
+  async changePassword(
+    dispatch: ICommit,
+    payload: { email: string; actionCodeSettings: { url: string } }
+  ) {
+    await auth
+      .sendPasswordResetEmail(payload.email, payload.actionCodeSettings)
+      .then(() => {
+        console.log('OK')
+        dispatch.commit('SET_CHANGE_PASSWORD_DIALOG', false)
+        dispatch.commit('SET_LOADING_CHANGE_PASSWORD', false)
+        dispatch.commit('SET_LOGIN_DIALOG', false)
+      })
+      .catch((error) => {
+        console.log(error)
+
+        dispatch.commit('SET_LOADING_CHANGE_PASSWORD', false)
       })
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn text small color="primary" @click.stop="dialog = true">
+    <v-btn text small color="primary" @click.stop="openCard">
       ログイン
     </v-btn>
 
@@ -63,16 +63,20 @@
 
               <v-card-actions class="pb-0">
                 <v-spacer></v-spacer>
-                <v-btn color="green" text small class="caption">
+                <v-btn
+                  color="green"
+                  text
+                  small
+                  class="caption"
+                  to="/userRegistration"
+                  @click="toUserRegistration"
+                >
                   会員登録はこちら
                 </v-btn>
               </v-card-actions>
 
               <v-card-actions class="pt-0">
                 <v-spacer></v-spacer>
-                <!-- <v-btn color="red" text small class="caption">
-                  パスワードを忘れた方はこちら
-                </v-btn> -->
                 <ChangePasswordBtn />
               </v-card-actions>
             </v-form>
@@ -108,18 +112,18 @@ import ChangePasswordBtn from '@/components/Btn/ChangePasswordBtn.vue'
   }
 })
 export default class LoginModal extends Vue {
-  public show1: boolean = false
-  public dialog: boolean = false
-  public user: string = ''
-  public password: string = ''
+  show1: boolean = false
+  // dialog: boolean = false
+  user: string = ''
+  password: string = ''
 
-  public rules: {} = {
+  rules: {} = {
     required: (value: string) => !!value || 'パスワードを入力してください',
     min: (v: string) => (v && v.length >= 6) || '6文字以上で入力してください',
     max: (v: string) => (v && v.length < 21) || '20文字以内で入力してください'
   }
 
-  public emailRules: {} = {
+  emailRules: {} = {
     isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
     emailLength: (v: string) =>
       (v && v.length <= 100) || 'メールアドレスが長すぎます。',
@@ -132,12 +136,24 @@ export default class LoginModal extends Vue {
     }
   }
 
-  public get formIsValid(): string {
+  get formIsValid(): string {
     return this.user && this.password
   }
 
   get isLoading(): boolean {
     return this.$store.state.login.loading
+  }
+
+  get dialog(): boolean {
+    return this.$store.state.login.loginDialog
+  }
+
+  set dialog(value: boolean) {
+    this.$store.commit('login/SET_LOGIN_DIALOG', value)
+  }
+
+  openCard() {
+    this.$store.commit('login/SET_LOGIN_DIALOG', true)
   }
 
   @Watch('dialog')
@@ -153,6 +169,10 @@ export default class LoginModal extends Vue {
       user: this.user,
       password: this.password
     })
+  }
+
+  toUserRegistration() {
+    this.$store.commit('login/SET_LOGIN_DIALOG', false)
   }
 }
 </script>
