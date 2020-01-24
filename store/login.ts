@@ -156,11 +156,27 @@ export const actions = {
         dispatch.commit('SET_CHANGE_PASSWORD_DIALOG', false)
         dispatch.commit('SET_LOADING_CHANGE_PASSWORD', false)
         dispatch.commit('SET_LOGIN_DIALOG', false)
+
+        dispatch.commit('SET_SNACKBAR', true)
+        dispatch.commit(
+          'SET_SNACKBAR_TEXT',
+          `${payload.email}宛ににメールを送信しました。`
+        )
+        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
+        dispatch.commit('SET_SNACKBAR_COLOR', 'success')
       })
       .catch((error) => {
         console.log(error)
 
         dispatch.commit('SET_LOADING_CHANGE_PASSWORD', false)
+
+        dispatch.commit('SET_SNACKBAR', true)
+        dispatch.commit(
+          'SET_SNACKBAR_TEXT',
+          '入力されたメールアドレスは登録されていないか、間違っている可能性があります。'
+        )
+        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
+        dispatch.commit('SET_SNACKBAR_COLOR', 'error')
       })
   }
 }
