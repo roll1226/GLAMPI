@@ -4,9 +4,9 @@
       ログイン
     </v-btn>
 
-    <v-row justify="center">
+    <div justify="center">
       <v-dialog v-model="dialog" max-width="470">
-        <v-card :loading="loading">
+        <v-card :loading="isLoading">
           <v-toolbar-title class="mb-0 pt-5">
             <!-- <v-img
               :src="require('@/assets/svg/logoBg.svg')"
@@ -70,9 +70,10 @@
 
               <v-card-actions class="pt-0">
                 <v-spacer></v-spacer>
-                <v-btn color="red" text small class="caption">
+                <!-- <v-btn color="red" text small class="caption">
                   パスワードを忘れた方はこちら
-                </v-btn>
+                </v-btn> -->
+                <ChangePasswordBtn />
               </v-card-actions>
             </v-form>
 
@@ -89,7 +90,7 @@
           </div>
         </v-card>
       </v-dialog>
-    </v-row>
+    </div>
   </div>
 </template>
 
@@ -97,16 +98,13 @@
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import Twitter from '@/components/Btn/Twitter.vue'
 import Facebook from '@/components/Btn/Facebook.vue'
+import ChangePasswordBtn from '@/components/Btn/ChangePasswordBtn.vue'
 
 @Component({
-  computed: {
-    loading(): boolean {
-      return this.$store.state.login.loading
-    }
-  },
   components: {
     Twitter,
-    Facebook
+    Facebook,
+    ChangePasswordBtn
   }
 })
 export default class LoginModal extends Vue {
@@ -136,6 +134,10 @@ export default class LoginModal extends Vue {
 
   public get formIsValid(): string {
     return this.user && this.password
+  }
+
+  get isLoading(): boolean {
+    return this.$store.state.login.loading
   }
 
   @Watch('dialog')
