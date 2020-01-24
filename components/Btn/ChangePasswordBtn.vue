@@ -7,8 +7,19 @@
     <div justify="center">
       <v-dialog v-model="dialog" max-width="500">
         <v-card :loading="loadings">
+          <v-card-text class="pt-3 pb-0">
+            <div class="text-center headline pb-5">
+              パスワードのリセット
+            </div>
+
+            <div>
+              パスワード再設定のためのアクセス先をメールで送信します。
+              アカウント登録に使用したメールアドレスを入力してください。
+            </div>
+          </v-card-text>
+
           <v-form ref="changePasswordForm" @submit.prevent="send">
-            <v-container>
+            <v-container class="pt-2 px-7 pb-0">
               <v-text-field
                 v-model="email"
                 label="メールアドレス"
@@ -20,8 +31,13 @@
               ></v-text-field>
             </v-container>
 
-            <v-card-actions class="d-flex justify-center">
-              <v-btn color="green" :disabled="!email" type="submit">
+            <v-card-actions class="d-flex justify-center pb-3">
+              <v-btn
+                color="green"
+                class="white--text"
+                :disabled="!email"
+                type="submit"
+              >
                 送信
               </v-btn>
             </v-card-actions>

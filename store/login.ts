@@ -89,6 +89,7 @@ export const actions = {
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
         dispatch.commit('SET_SNACKBAR_COLOR', 'success')
         dispatch.commit('SET_USER_UID', res.user.uid)
+        dispatch.commit('SET_LOGIN_DIALOG', false)
       })
       .catch(() => {
         dispatch.commit('SET_LOADING', false)
@@ -113,6 +114,7 @@ export const actions = {
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
         dispatch.commit('SET_SNACKBAR_COLOR', 'success')
         dispatch.commit('SET_USER_UID', res.user.uid)
+        dispatch.commit('SET_LOGIN_DIALOG', false)
       })
       .catch(() => {
         dispatch.commit('SET_SNACKBAR', true)
@@ -133,6 +135,7 @@ export const actions = {
         dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
         dispatch.commit('SET_SNACKBAR_COLOR', 'success')
         dispatch.commit('SET_USER_UID', res.user.uid)
+        dispatch.commit('SET_LOGIN_DIALOG', false)
       })
       .catch(() => {
         dispatch.commit('SET_SNACKBAR', true)
