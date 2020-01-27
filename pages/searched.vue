@@ -34,17 +34,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import SearchedFasility from '@/components/Card/Search/SearchedFasility.vue'
-import { firestore } from '@/plugins/firebase'
-
-interface IFacility {
-  facilityName: string
-  facilityImg: string
-  address: string
-  planName: string
-  planPay: number
-  introduction: string
-  glammity: string
-}
+import { IFacility } from '@/store/facility'
 
 @Component({
   components: {
@@ -52,58 +42,14 @@ interface IFacility {
   }
 })
 export default class Searched extends Vue {
-  facilityList: IFacility[] = []
+  get facilityList(): IFacility[] {
+    return this.$store.state.search.facilityList
+  }
 
   async created() {
     this.$store.commit('search/CLEAR_QUERY')
-    const searchQuery = this.$route.query.facilityKeyWord
-    await firestore
-      .collection('facilities')
-      .where('searchQuery', 'array-contains', searchQuery)
-      .get()
-      .then((querySnapshot) => {
-        if (!querySnapshot.empty) {
-          querySnapshot.forEach(async (doc) => {
-            console.log(doc.data())
-            console.log(doc.id)
-            const facility = doc.data()
-
-            await firestore
-              .collection('facilities')
-              .doc(doc.id)
-              .collection('plans')
-              .orderBy('pay', 'asc')
-              .limit(1)
-              .get()
-              .then((queryPlan) => {
-                if (!queryPlan.empty) {
-                  queryPlan.forEach((docPlan) => {
-                    const plan = docPlan.data()
-
-                    const facilityName = facility.name
-                    const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
-                    const facilityImg = facility.slider
-                    const planName = plan.planTitle
-                    const planPay = plan.pay
-                    const introduction = facility.displayName
-                    const glammity = introduction
-
-                    const facilityArray = {
-                      facilityName,
-                      facilityImg,
-                      address,
-                      planName,
-                      planPay,
-                      introduction,
-                      glammity
-                    }
-                    this.facilityList.push(facilityArray)
-                  })
-                }
-              })
-          })
-        }
-      })
+    const searchQuery = decodeURI(this.$route.query.facilityKeyWord as string)
+    await this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
   }
 }
 </script>

@@ -1,19 +1,27 @@
 <template>
   <div>
-    <v-btn text small color="primary" @click.stop="dialog = true">
+    <v-btn text small color="primary" @click.stop="openCard">
       ログイン
     </v-btn>
 
-    <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="500">
-        <v-card>
-          <v-toolbar dark color="primary">
-            <v-toolbar-title>
-              ログイン
-            </v-toolbar-title>
-          </v-toolbar>
+    <div justify="center">
+      <v-dialog v-model="dialog" max-width="470">
+        <v-card :loading="isLoading">
+          <v-toolbar-title class="mb-0 pt-5">
+            <!-- <v-img
+              :src="require('@/assets/svg/logoBg.svg')"
+              width="200px"
+              class="mx-auto"
+            ></v-img> -->
+            <img
+              src="@/assets/svg/logoBg.svg"
+              width="200px"
+              class="mx-auto d-block"
+              alt="GLAMPI"
+            />
+          </v-toolbar-title>
 
-          <div class="px-5 py-4">
+          <div class="px-5 pb-4 pt-0">
             <v-form ref="form" @submit.prevent="login">
               <v-container class="py-0 px-0">
                 <v-row>
@@ -48,14 +56,28 @@
               </v-container>
 
               <v-card-actions class="d-flex justify-center">
-                <v-btn
-                  color="success"
-                  :disabled="!formIsValid"
-                  :loading="loading"
-                  type="submit"
-                >
+                <v-btn color="primary" :disabled="!formIsValid" type="submit">
                   ログイン
                 </v-btn>
+              </v-card-actions>
+
+              <v-card-actions class="pb-0">
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green"
+                  text
+                  small
+                  class="caption"
+                  to="/userRegistration"
+                  @click="toUserRegistration"
+                >
+                  会員登録はこちら
+                </v-btn>
+              </v-card-actions>
+
+              <v-card-actions class="pt-0">
+                <v-spacer></v-spacer>
+                <ChangePasswordBtn />
               </v-card-actions>
             </v-form>
 
@@ -72,7 +94,7 @@
           </div>
         </v-card>
       </v-dialog>
-    </v-row>
+    </div>
   </div>
 </template>
 
@@ -80,31 +102,28 @@
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import Twitter from '@/components/Btn/Twitter.vue'
 import Facebook from '@/components/Btn/Facebook.vue'
+import ChangePasswordBtn from '@/components/Btn/ChangePasswordBtn.vue'
 
 @Component({
-  computed: {
-    loading(): boolean {
-      return this.$store.state.login.loading
-    }
-  },
   components: {
     Twitter,
-    Facebook
+    Facebook,
+    ChangePasswordBtn
   }
 })
 export default class LoginModal extends Vue {
-  public show1: boolean = false
-  public dialog: boolean = false
-  public user: string = ''
-  public password: string = ''
+  show1: boolean = false
+  // dialog: boolean = false
+  user: string = ''
+  password: string = ''
 
-  public rules: {} = {
+  rules: {} = {
     required: (value: string) => !!value || 'パスワードを入力してください',
     min: (v: string) => (v && v.length >= 6) || '6文字以上で入力してください',
     max: (v: string) => (v && v.length < 21) || '20文字以内で入力してください'
   }
 
-  public emailRules: {} = {
+  emailRules: {} = {
     isEmail: (v: string) => !!v || 'メールアドレスは必ず入力してください。',
     emailLength: (v: string) =>
       (v && v.length <= 100) || 'メールアドレスが長すぎます。',
@@ -117,8 +136,24 @@ export default class LoginModal extends Vue {
     }
   }
 
-  public get formIsValid(): string {
+  get formIsValid(): string {
     return this.user && this.password
+  }
+
+  get isLoading(): boolean {
+    return this.$store.state.login.loading
+  }
+
+  get dialog(): boolean {
+    return this.$store.state.login.loginDialog
+  }
+
+  set dialog(value: boolean) {
+    this.$store.commit('login/SET_LOGIN_DIALOG', value)
+  }
+
+  openCard() {
+    this.$store.commit('login/SET_LOGIN_DIALOG', true)
   }
 
   @Watch('dialog')
@@ -134,6 +169,10 @@ export default class LoginModal extends Vue {
       user: this.user,
       password: this.password
     })
+  }
+
+  toUserRegistration() {
+    this.$store.commit('login/SET_LOGIN_DIALOG', false)
   }
 }
 </script>

@@ -23,7 +23,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Logo from '@/components/Logo.vue'
 import SearchInput from '@/components/Input/Search/SearchInput.vue'
 import GlammityIndexWrap from '@/components/IndexContentWrap/GlammityIndexWrap.vue'
 import RecommendationIndexWrap from '@/components/IndexContentWrap/RecommendationIndexWrap.vue'
@@ -32,7 +31,6 @@ import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
 
 @Component({
   components: {
-    Logo,
     SearchInput,
     GlammityIndexWrap,
     RecommendationIndexWrap,

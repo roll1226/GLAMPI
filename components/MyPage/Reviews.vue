@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="d-flex">
+    <v-card>
       <v-card-title>口コミ</v-card-title>
     </v-card>
   </div>

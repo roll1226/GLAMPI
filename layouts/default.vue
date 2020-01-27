@@ -20,3 +20,17 @@ import GrampiFoot from '@/components/GrampiFoot.vue'
 })
 export default class defaultLayout extends Vue {}
 </script>
+
+<style lang="scss">
+.theme--light.v-application {
+  background: #ffffff;
+  background-image: initial;
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(255, 255, 255);
+}
+</style>
