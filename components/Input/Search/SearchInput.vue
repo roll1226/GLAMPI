@@ -6,6 +6,7 @@
     >
       <v-card outlined class="input-wrap px-3 pt-1 pb-0" style="width: 600px;">
         <v-text-field
+          ref="searchInput"
           v-model="query"
           append-icon="fas fa-search"
           label="地域、施設名を入力して下さい。"
@@ -15,9 +16,10 @@
           background-color="white"
           @input="search"
           @click:append="facilitySearch"
+          @keydown.enter="onKeydownEnter($event.keyCode)"
         ></v-text-field>
 
-        <SearchList />
+        <SearchList @focus="focus" />
       </v-card>
     </div>
   </div>
@@ -42,6 +44,17 @@ export default class algolie extends Vue {
   facilitySearch() {
     this.$store.commit('search/SET_SEARCH_LIST', [])
     this.$router.push(`/searched?facilityKeyWord=${this.query}`)
+  }
+
+  onKeydownEnter(keyCode: number) {
+    if (keyCode !== 13) return
+    // 実行したい処理
+    this.facilitySearch()
+  }
+
+  focus() {
+    const searchInput: any = this.$refs.searchInput
+    searchInput.focus()
   }
 
   get query(): string {

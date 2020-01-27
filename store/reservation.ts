@@ -65,5 +65,10 @@ export const mutations = {
 
   SET_PLAN_TITLE(state: IState, payload: string) {
     state.planTitle = payload
+  },
+
+  SET_DATE_RE(state: IState, payload: { checkIn: string; checkOut: string }) {
+    state.dates[0] = payload.checkIn
+    state.dates[1] = payload.checkOut
   }
 }

@@ -137,14 +137,22 @@ export default class reservation extends Vue {
   displayLists?: options[] = []
 
   public get dateRangeText(): string {
+    if (this.dates[1]) {
+      if (this.dates[0] > this.dates[1]) {
+        const checkOut = this.dates[0]
+        const checkIn = this.dates[1]
+
+        this.$store.commit('reservation/SET_DATE_RE', { checkIn, checkOut })
+      }
+    }
     return this.dates.join(' ~ ')
   }
 
-  get dates(): [] {
+  get dates(): [...string[]] {
     return this.$store.state.reservation.dates
   }
 
-  set dates(selectdates: []) {
+  set dates(selectdates: [...string[]]) {
     this.$store.commit('reservation/SET_DATES', selectdates)
   }
 
