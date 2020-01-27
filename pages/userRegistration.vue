@@ -13,7 +13,7 @@
       <username></username>
       <v-row justify="end" class="mr-12 mt-6 mb-n10">
         <v-btn
-          color="grey darken-3 white--text"
+          color="success"
           width="200"
           height="60"
           class="title"
@@ -29,11 +29,11 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { auth } from '@/plugins/firebase'
-import seimei from '@/components/UserRegistration1/seimei.vue'
-import seimeiKana from '@/components/UserRegistration1/seimeikana.vue'
-import address1 from '@/components/UserRegistration1/address.vue'
-import sex from '@/components/UserRegistration1/sex.vue'
-import birthValue from '@/components/UserRegistration1/birthValue.vue'
+import seimei from '@/components/UserRegistration/seimei.vue'
+import seimeiKana from '@/components/UserRegistration/seimeikana.vue'
+import address1 from '@/components/UserRegistration/address.vue'
+import sex from '@/components/UserRegistration/sex.vue'
+import birthValue from '@/components/UserRegistration/birthValue.vue'
 import email from '@/components/UserRegistration/email.vue'
 import password from '@/components/UserRegistration/password.vue'
 import tel from '@/components/UserRegistration/tel.vue'
