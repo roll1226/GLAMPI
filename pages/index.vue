@@ -42,14 +42,25 @@ export default class IndexPage extends Vue {}
 </script>
 
 <style lang="scss">
-.top-page-glammity-title {
-  color: $site_color_2;
-}
 .top-page-introduction-wrap {
   margin-top: 18px;
+  .top-page-glammity-title {
+    color: $site_color_2;
+    margin-left: 20px;
+  }
+
   .top-page-introduction-lists {
-    margin-left: 65px;
-    margin-right: 65px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+@media screen and (min-width: 770px) {
+  .top-page-introduction-wrap {
+    .top-page-introduction-lists {
+      margin-left: 65px;
+      margin-right: 65px;
+    }
   }
 }
 </style>
