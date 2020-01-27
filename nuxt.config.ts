@@ -3,6 +3,9 @@ export default {
   /*
    ** Headers of the page
    */
+  server: {
+    host: '0.0.0.0' // デフォルト: localhost
+  },
   head: {
     title: process.env.npm_package_name || '',
     script: [{ src: 'https://js.stripe.com/v3/' }],
@@ -84,6 +87,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config: any, ctx: any) {}
+    extend(config: any, ctx: any) { // eslint-disable-line
+    }
   }
 }

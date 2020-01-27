@@ -1,17 +1,17 @@
 <template>
   <div>
-    <v-snackbar v-model="snackbar" absolute top left :color="snackbarColor">
+    <v-snackbar v-model="snackbar" top left :color="snackbarColor">
       <span>
         {{ snackbarText }}
       </span>
-      <v-icon style="color: white;">
+      <v-icon class="pl-2" style="color: white;">
         {{ snackbarIcon }}
       </v-icon>
     </v-snackbar>
 
     <v-toolbar dense>
       <v-btn text style="position: relative;" width="132px" to="/">
-        <logo />
+        <v-img :src="require('@/assets/svg/logo.svg')" width="132px"></v-img>
       </v-btn>
 
       <v-spacer></v-spacer>
@@ -42,14 +42,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import logo from '@/components/imgFile/Logo.vue'
+import Logo from '@/components/imgFile/Logo.vue'
 import LoginModal from '@/components/Btn/LoginModal.vue'
 import { auth } from '@/plugins/firebase'
 
 @Component({
   components: {
     LoginModal,
-    logo
+    Logo
   },
   computed: {
     isLogin(): boolean {
