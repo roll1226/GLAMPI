@@ -4,7 +4,7 @@
       <v-col sm="2">
         <h2>プラン名</h2>
       </v-col>
-      <v-col sm="5">
+      <v-col sm="9">
         <v-overflow-btn
           v-model="plan"
           label="プラン名"

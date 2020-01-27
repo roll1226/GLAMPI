@@ -4,7 +4,7 @@
       <v-col sm="2">
         <h2>募集人数</h2>
       </v-col>
-      <v-col sm="5">
+      <v-col sm="9">
         <v-overflow-btn
           v-model="people"
           label="募集人数"
