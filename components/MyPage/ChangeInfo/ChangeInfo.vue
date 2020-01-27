@@ -1,25 +1,22 @@
 <template>
-  <div>
-    <v-card class="d-flex pa-5">
-      <div width="max-content" class="mr-7">
-        <!--ボタン-->
-        <v-btn width="200" class="mb-3" @click="toBasicInfo"
-          >基本情報変更</v-btn
-        >
-        <v-btn class="mb-3" block @click="toPayment">支払い方法変更</v-btn>
-        <v-btn block @click="toPassword">パスワード変更</v-btn>
-      </div>
-      <div v-if="screen2 == 0">
-        <BasicInfo></BasicInfo>
-      </div>
-      <div v-if="screen2 == 1">
-        <Payment></Payment>
-      </div>
-      <div v-if="screen2 == 2">
-        <Password></Password>
-      </div>
-    </v-card>
-  </div>
+  <v-card>
+    <v-card-text>
+      <v-row>
+        <v-col lg="3" md="3" sm="12" xs="12">
+          <!--ボタン-->
+          <v-btn block class="mb-3" @click="toBasicInfo">基本情報変更</v-btn>
+          <v-btn class="mb-3" block @click="toPayment">支払い方法変更</v-btn>
+          <v-btn block @click="toPassword">パスワード変更</v-btn>
+        </v-col>
+
+        <v-col lg="9" md="9" sm="12" xs="12">
+          <BasicInfo v-if="screen2 == 0" />
+          <Payment v-if="screen2 == 1" />
+          <Password v-if="screen2 == 2" />
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script lang="ts">
