@@ -80,23 +80,21 @@
       </v-col>
     </v-row>
 
-    <div class="text-center" @click="toVerification">
+    <!-- <div class="text-center mb-1" @click="toVerification">
       <v-btn :disabled="!isReservation">
         予約確認
       </v-btn>
-    </div>
-
-    {{ dates }}
-
-    {{ reservationIsValid }}
+    </div> -->
+    <ReservationBtn />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import moment from 'moment'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
+import ReservationBtn from '@/components/Btn/ReservationBtn.vue'
 
 interface option {
   slidesPerView: number
@@ -118,7 +116,8 @@ interface options {
 @Component({
   components: {
     Plan,
-    Options
+    Options,
+    ReservationBtn
   }
 })
 export default class reservation extends Vue {
@@ -128,22 +127,21 @@ export default class reservation extends Vue {
   pageSlice: number = 0
   payNum: number = 2000
   nowDate: string = ''
-  isReservation: boolean = false
 
   created() {
+    this.$store.commit('reservation/SET_DATES', [])
     if (window.parent.screen.width <= 420) {
       this.pageSlice = 1
     } else {
       this.pageSlice = 3
     }
     this.nowDate = moment(new Date()).format('YYYY-MM-DD')
-    console.log(moment(new Date()).format('YYYY-MM-DD'))
   }
 
   list: options[] = this.$store.state.facility.options
   displayLists?: options[] = []
 
-  public get dateRangeText(): string {
+  get dateRangeText(): string {
     if (this.dates[1]) {
       if (this.dates[0] > this.dates[1]) {
         const checkOut = this.dates[0]
@@ -163,30 +161,6 @@ export default class reservation extends Vue {
     this.$store.commit('reservation/SET_DATES', selectdates)
   }
 
-  @Watch('dates')
-  reservationIsValid() {
-    this.isReservation =
-      this.isDateInputed(this.dates[0]) &&
-      this.isDateInputed(this.dates[1]) &&
-      this.checkDateLength(this.dates)
-  }
-
-  private isDateInputed(date: string): boolean {
-    if (date !== '') {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  private checkDateLength(dates: [...string[]]): boolean {
-    if (dates.length === 2) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   mounted() {
     this.length = Math.ceil(this.list.length / this.pageSlice)
     this.displayLists = this.list.slice(0, this.pageSlice)
@@ -196,12 +170,6 @@ export default class reservation extends Vue {
     this.displayLists = this.list.slice(
       this.pageSlice * (pageNumber - 1),
       this.pageSlice * pageNumber
-    )
-  }
-
-  toVerification() {
-    this.$router.push(
-      `/facility/${this.$route.params.id}/reservation/${this.$route.params.pay}/verification`
     )
   }
 }
