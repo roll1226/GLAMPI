@@ -172,7 +172,7 @@ export const actions = {
         .doc(payload.facilityUid)
         .set(
           {
-            pay: fieldValue.increment(1)
+            like: fieldValue.increment(1)
           },
           { merge: true }
         )
@@ -198,7 +198,7 @@ export const actions = {
         .doc(payload.facilityUid)
         .set(
           {
-            pay: fieldValue.increment(-1)
+            like: fieldValue.increment(-1)
           },
           { merge: true }
         )

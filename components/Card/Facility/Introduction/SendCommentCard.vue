@@ -52,6 +52,10 @@ export default class SendCommentCard extends Vue {
   // ローディング
   loading: boolean = false
 
+  get userUid(): string {
+    return this.$store.state.login.userUid
+  }
+
   public get formIsValid(): boolean {
     if (this.rating !== 0 && this.comment !== '') {
       return false
@@ -82,7 +86,7 @@ export default class SendCommentCard extends Vue {
                 createdAt: timestamp,
                 star: this.rating,
                 text: this.comment,
-                userId: 'mZ7qYdUy04iiJiM8SvFI'
+                userId: this.userUid
               })
               .then(() => {
                 this.clearComment()
