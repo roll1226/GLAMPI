@@ -88,4 +88,8 @@ export default class GlampiHead extends Vue {
 .theme--light.v-btn--active::before {
   opacity: 0;
 }
+
+.theme--light.v-btn:hover::before {
+  opacity: 0;
+}
 </style>

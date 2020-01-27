@@ -1,44 +1,53 @@
 <template>
-  <div>
-    <div class="d-flex">
-      <h1 width="300" height="100" @click="toMyTop">マイページ</h1>
-      <v-tabs>
-        <v-tabs-slider></v-tabs-slider>
-        <v-tab @click="toChangeInfo">情報変更</v-tab>
-        <v-divider inset vertical></v-divider>
-        <v-tab @click="toBookingList">予約履歴</v-tab>
-        <v-divider inset vertical></v-divider>
-        <v-tab @click="toGlammity">GLAMMITY</v-tab>
-        <v-divider inset vertical></v-divider>
-        <v-tab @click="toFavorites">お気に入り</v-tab>
-        <v-divider inset vertical></v-divider>
-        <v-tab @click="toReviews">口コミ</v-tab>
-        <v-divider inset vertical></v-divider>
-      </v-tabs>
-    </div>
+  <div class="mypage-bg">
+    <v-row>
+      <v-col lg="2" md="2" sm="2" xs="12">
+        <h2 class="mt-2">
+          マイページ
+        </h2>
+      </v-col>
 
-    <div class="d-flex">
-      <div width="300" height="400" class="ma-5 mr-10">
-        <v-avatar color="teal" size="150">
-          <v-icon size="130" dark>mdi-account-circle</v-icon>
+      <v-col>
+        <v-tabs background-color="transparent" color="rgb(87, 95, 69)">
+          <v-tabs-slider></v-tabs-slider>
+          <v-tab @click="toMyTop">トップ</v-tab>
+          <v-divider inset vertical></v-divider>
+          <v-tab @click="toChangeInfo">情報変更</v-tab>
+          <v-divider inset vertical></v-divider>
+          <v-tab @click="toBookingList">予約履歴</v-tab>
+          <v-divider inset vertical></v-divider>
+          <v-tab @click="toGlammity">GLAMMITY</v-tab>
+          <v-divider inset vertical></v-divider>
+          <v-tab @click="toFavorites">お気に入り</v-tab>
+          <v-divider inset vertical></v-divider>
+          <v-tab @click="toReviews">口コミ</v-tab>
+          <v-divider inset vertical></v-divider>
+        </v-tabs>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col lg="2" md="2" sm="2" xs="12" class="text-center">
+        <v-avatar class="promg" size="180">
+          <v-icon size="160" dark>mdi-account-circle</v-icon>
         </v-avatar>
-        <p class="text-center .body-1">username</p>
-      </div>
-      <div v-if="screen1 == 0"><MyTop class="mypage-wrapp"></MyTop></div>
-      <div v-else-if="screen1 == 1">
-        <ChangeInfo class="mypage-wrapp"></ChangeInfo>
-      </div>
-      <div v-else-if="screen1 == 2">
-        <BookingList class="mypage-wrapp"></BookingList>
-      </div>
-      <div v-else-if="screen1 == 3">
-        <Glammity class="mypage-wrapp"></Glammity>
-      </div>
-      <div v-else-if="screen1 == 4">
-        <Favorites class="mypage-wrapp"></Favorites>
-      </div>
-      <div v-else><Reviews class="mypage-wrapp"></Reviews></div>
-    </div>
+        <p class=".body-1 text-center">username</p>
+      </v-col>
+
+      <v-col>
+        <MyTop v-if="screen1 == 0" />
+
+        <ChangeInfo v-else-if="screen1 == 1" />
+
+        <BookingList v-else-if="screen1 == 2" />
+
+        <Glammity v-else-if="screen1 == 3" />
+
+        <Favorites v-else-if="screen1 == 4" />
+
+        <Reviews v-else />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -86,7 +95,14 @@ export default class mypage extends Vue {
 </script>
 
 <style lang="scss">
+.mypage-bg {
+  margin: 0 20px;
+}
 .mypage-wrapp {
-  width: 1000px;
+  width: 100%;
+}
+
+.promg {
+  background-color: $site_color_2;
 }
 </style>
