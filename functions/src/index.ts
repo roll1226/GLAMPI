@@ -156,6 +156,7 @@ const adminContents = (data: {
     お問い合わせ先: 080-〇〇〇〇-〇〇〇〇
 `
 } // 管理者用のメールテンプレート
+
 exports.sendReservationMail = functions.https.onRequest((req, res) => {
   /**
    * Here we're using Gmail to send
@@ -189,22 +190,49 @@ exports.sendReservationMail = functions.https.onRequest((req, res) => {
   })
 })
 
-// exports.sendMail = functions.https.onCall((request, response) => {
-//   cors(request, response, () => {
-//     const adminMail = {
-//       from: gmailEmail,
-//       to: request.body.email,
-//       subject: '予約を受け付けました。',
-//       text: adminContents(request.body)
-//     }
+// 管理者用のメールテンプレート
+const textMailContents = () => {
+  return `
+    テストメールです。
 
-//     // 管理者へのメール送信
-//     mailTransport.sendMail(
-//       adminMail,
-//       (e: any, response: functions.Response) => {
-//         console.log(e)
-//         send(response, 200, { message: 'success！' })
-//       }
-//     )
-//   })
-// })
+    <br />
+    ----------------------------------------------------------------------------------------------------
+
+    <br />
+    こちらのご予約に見覚えがない場合はお問い合わせをお願いします。
+    お問い合わせ先: 080-〇〇〇〇-〇〇〇〇
+`
+} // 管理者用のメールテンプレート
+
+exports.sendTextMail = functions.https.onRequest((req, res) => {
+  /**
+   * Here we're using Gmail to send
+   */
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,
+    port: 25,
+    auth: {
+      user: gmailEmail, // google account email
+      pass: gmailPassword // google account password
+    }
+  })
+
+  cors(req, res, () => {
+    const email = req.body.email
+
+    const mailOptions = {
+      from: 'GLAMPI <email@gmail.com>',
+      to: email,
+      subject: 'テストメールです。',
+      html: textMailContents()
+    }
+    // returning result
+    transporter.sendMail(mailOptions, (err: any) => {
+      if (err) {
+        send(res, 500, { error: err })
+      }
+      send(res, 200, { message: 'success！' })
+    })
+  })
+})
