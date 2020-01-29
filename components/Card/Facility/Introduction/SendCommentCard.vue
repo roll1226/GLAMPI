@@ -7,6 +7,7 @@
         class="mx-2"
         dense
         size="28"
+        :readonly="!isLogin"
       ></v-rating>
       <span class="grey--text text--lighten-2 caption mr-2">
         ({{ rating }})
@@ -19,9 +20,10 @@
         solo
         class="mx-2"
         name="input-7-4"
-        label="Solo textarea"
+        label="コメント入力欄"
         prepend-inner-icon="far fa-comment"
         counter="1000"
+        :disabled="!isLogin"
       ></v-textarea>
     </v-card-text>
 
@@ -30,7 +32,7 @@
       <v-btn
         class="mx-4"
         :loading="loading"
-        :disabled="formIsValid"
+        :disabled="formIsValid || !isLogin"
         @click="sendComment"
       >
         投稿
@@ -54,6 +56,10 @@ export default class SendCommentCard extends Vue {
 
   get userUid(): string {
     return this.$store.state.login.userUid
+  }
+
+  get isLogin(): boolean {
+    return this.$store.state.login.isLogin
   }
 
   public get formIsValid(): boolean {
