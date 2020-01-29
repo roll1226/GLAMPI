@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-text-field
-      v-model="resPerson"
+      v-model="facilityName"
       label="施設名"
       prepend-icon="mdi-"
       :rules="[rules.isFacilityName]"
@@ -15,12 +15,11 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class facilityNameFacilityRegistration extends Vue {
   // public sei: string = ''
-  get sei(): string {
-    return this.$store.state.registration.firstName
+  get facilityName(): string {
+    return this.$store.state.facilityRegist.facilityName
   }
-
-  set sei(value: string) {
-    this.$store.commit('registration/SET_FIRST_NAME', value)
+  set facilityName(value: string) {
+    this.$store.commit('facilityRegist/SET_FIRST_NAME', value)
   }
   public rules: {} = {
     isFacilityName: (v: string) =>

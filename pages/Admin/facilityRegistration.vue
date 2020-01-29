@@ -26,12 +26,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { auth } from '@/plugins/firebase'
-import email from '@/components/UserRegistration/email.vue'
-import password from '@/components/UserRegistration/password.vue'
+import email from '@/components/FacilityRegistration/facilityEmail.vue'
+import password from '@/components/FacilityRegistration/facilityPassword.vue'
 import resPerson from '@/components/FacilityRegistration/resPerson.vue'
-import tel from '@/components/UserRegistration/tel.vue'
+import tel from '@/components/FacilityRegistration/facilityTel.vue'
 import facilityName from '@/components/FacilityRegistration/facilityName.vue'
-import address1 from '@/components/UserRegistration/address.vue'
+import address1 from '@/components/FacilityRegistration/facilityAddress.vue'
 @Component({
   components: {
     email,
@@ -42,7 +42,7 @@ import address1 from '@/components/UserRegistration/address.vue'
     address1
   }
 })
-export default class UserRegistration extends Vue {
+export default class facilityRegistration extends Vue {
   public url = 'https://us-central1-j4k1-b789f.cloudfunctions.net/regist'
   get email(): string {
     return this.$store.state.registration.email

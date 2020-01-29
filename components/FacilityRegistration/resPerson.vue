@@ -15,12 +15,11 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class resPersonFacilityRegistration extends Vue {
   // public sei: string = ''
-  get sei(): string {
-    return this.$store.state.registration.firstName
+  get resPerson(): string {
+    return this.$store.state.facilityRegist.resPerson
   }
-
-  set sei(value: string) {
-    this.$store.commit('registration/SET_FIRST_NAME', value)
+  set resPerson(value: string) {
+    this.$store.commit('facilityRegist/SET_FIRST_NAME', value)
   }
   public rules: {} = {
     isResPerson: (v: string) =>
