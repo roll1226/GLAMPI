@@ -43,7 +43,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { firestore, timestamp } from '@/plugins/firebase'
+import moment from 'moment'
+import { firestore } from '@/plugins/firebase'
+import { IComment } from '@/store/facility'
 
 @Component
 export default class SendCommentCard extends Vue {
@@ -53,7 +55,7 @@ export default class SendCommentCard extends Vue {
   comment: string = ''
   // ローディング
   loading: boolean = false
-
+  userName: string = ''
   get userUid(): string {
     return this.$store.state.login.userUid
   }
@@ -75,8 +77,13 @@ export default class SendCommentCard extends Vue {
     this.comment = ''
   }
 
+  get comments(): IComment[] {
+    return this.$store.state.facility.comments
+  }
+
   async sendComment() {
     this.loading = true
+    const date = new Date()
     await firestore
       .collection('facilities')
       .where('displayName', '==', this.$route.params.id)
@@ -89,12 +96,24 @@ export default class SendCommentCard extends Vue {
               .doc(doc.id)
               .collection('comments')
               .add({
-                createdAt: timestamp,
+                createdAt: date,
                 star: this.rating,
                 text: this.comment,
                 userId: this.userUid
               })
               .then(() => {
+                if (this.comments.length === 0) {
+                  const commentBox = {
+                    date: moment(date).format('YYYY年MM月DD日'),
+                    star: this.rating,
+                    text: this.comment
+                  }
+                  this.$store.dispatch('facility/getUser', {
+                    userUid: this.userUid,
+                    commentBox,
+                    nowChange: false
+                  })
+                }
                 this.clearComment()
                 this.loading = false
               })

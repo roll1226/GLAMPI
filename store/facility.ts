@@ -1,8 +1,10 @@
 import * as Vuex from 'vuex'
+import moment from 'moment'
 import { firestore, fieldValue } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
+  dispatch: Vuex.Dispatch
 }
 
 export interface IFacility {
@@ -30,11 +32,17 @@ export interface IOption {
 }
 
 export interface IComment {
-  date: string
+  date: string | undefined
   star: number
   text: string
   userName: string
   userImg: string
+}
+
+export interface ICommentBox {
+  date: string | undefined
+  star: number
+  text: string
 }
 
 interface IState {
@@ -78,6 +86,10 @@ export const mutations = {
 
   SET_COMMENT(state: IState, payload: IComment) {
     state.comments.push(payload)
+  },
+
+  SET_COMMENT_NOW(state: IState, payload: IComment) {
+    if (state.comments.length !== 0) state.comments.unshift(payload)
   },
 
   SET_COMMENT_NEW(state: IState, payload: IComment) {
@@ -206,5 +218,95 @@ export const actions = {
           dispatch.commit('SET_LIKE', false)
         })
     })
+  },
+
+  async getUser(
+    dispatch: ICommit,
+    payload: { userUid: string; commentBox: ICommentBox; nowChange: boolean }
+  ) {
+    await firestore
+      .collection('users')
+      .doc(payload.userUid)
+      .get()
+      .then((user: any) => {
+        let userName = user.data().nickname
+        const userUserImg = user.data().userImg
+        if (userName === '')
+          userName = user.data().lastName + user.data().firstName
+
+        const commentList = {
+          date: payload.commentBox.date,
+          star: payload.commentBox.star,
+          text: payload.commentBox.text,
+          userName,
+          userImg: userUserImg
+        }
+        if (payload.nowChange) {
+          dispatch.commit('SET_COMMENT_NOW', commentList)
+        } else {
+          dispatch.commit('SET_COMMENT', commentList)
+        }
+      })
+  },
+
+  async getComment(dispatch: ICommit, payload: { displayName: string }) {
+    const facility = firestore.collection('facilities')
+    await facility
+      .where('displayName', '==', payload.displayName)
+      .get()
+      .then((snap: any) => {
+        snap.forEach(async (doc: any) => {
+          const facilityId = doc.id
+          const comment = facility.doc(facilityId).collection('comments')
+          dispatch.dispatch('changeCommentData', { facilityId })
+
+          await comment
+            .orderBy('createdAt', 'desc')
+            .get()
+            .then((commentSnapshot) => {
+              if (!commentSnapshot.empty) {
+                commentSnapshot.forEach((commentDoc) => {
+                  const comment = commentDoc.data()
+                  const commentList = {
+                    star: comment.star,
+                    text: comment.text,
+                    date: moment(comment.date).format('YYYY年MM月DD日')
+                  }
+                  dispatch.dispatch('getUser', {
+                    userUid: comment.userId,
+                    commentBox: commentList,
+                    nowChange: false
+                  })
+                })
+              }
+            })
+        })
+      })
+  },
+
+  async changeCommentData(dispatch: ICommit, payload: { facilityId: string }) {
+    const facility = firestore.collection('facilities')
+    await facility
+      .doc(payload.facilityId)
+      .collection('comments')
+      .orderBy('createdAt', 'desc')
+      .limit(1)
+      .onSnapshot((commentSnapshot: any) => {
+        if (!commentSnapshot.empty) {
+          commentSnapshot.forEach((commentDoc: any) => {
+            const comment = commentDoc.data()
+            const commentList = {
+              star: comment.star,
+              text: comment.text,
+              date: moment(comment.date).format('YYYY年MM月DD日')
+            }
+            dispatch.dispatch('getUser', {
+              userUid: comment.userId,
+              commentBox: commentList,
+              nowChange: true
+            })
+          })
+        }
+      })
   }
 }
