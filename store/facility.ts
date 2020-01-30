@@ -52,6 +52,9 @@ interface IState {
   options: IOption[]
   uuid: string
   like: boolean
+  rating: number
+  comment: string
+  loading: boolean
 }
 
 export const state = (): IState => ({
@@ -65,14 +68,14 @@ export const state = (): IState => ({
   },
 
   uuid: '',
-
   plan: [],
-
   comments: [],
-
   options: [],
+  like: false,
 
-  like: false
+  rating: 0,
+  comment: '',
+  loading: false
 })
 
 export const mutations = {
@@ -115,6 +118,24 @@ export const mutations = {
 
   SET_LIKE(state: IState, payload: boolean) {
     state.like = payload
+  },
+
+  SET_LOADING(state: IState, payload: boolean) {
+    state.loading = payload
+  },
+
+  SET_RATING(state: IState, payload: number) {
+    state.rating = payload
+  },
+
+  SET_COMMENTS(state: IState, payload: string) {
+    state.comment = payload
+  },
+
+  CLEAR_COMMENT(state: IState) {
+    state.comment = ''
+    state.rating = 0
+    state.loading = false
   }
 }
 
@@ -305,6 +326,54 @@ export const actions = {
               commentBox: commentList,
               nowChange: true
             })
+          })
+        }
+      })
+  },
+
+  async postComment(
+    dispatch: ICommit,
+    payload: {
+      displayName: string
+      rating: number
+      comment: string
+      uuid: string,
+      comments: IComment[]
+    }
+  ) {
+    const date = new Date()
+    await firestore
+      .collection('facilities')
+      .where('displayName', '==', payload.displayName)
+      .get()
+      .then((snapshot) => {
+        if (!snapshot.empty) {
+          snapshot.forEach(async (doc) => {
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('comments')
+              .add({
+                createdAt: date,
+                star: payload.rating,
+                text: payload.comment,
+                userId: payload.uuid
+              })
+              .then(() => {
+                if (payload.comments.length === 0) {
+                  const commentBox = {
+                    date: moment(date).format('YYYY年MM月DD日'),
+                    star: payload.rating,
+                    text: payload.comment
+                  }
+                  dispatch.dispatch('getUser', {
+                    userUid: payload.uuid,
+                    commentBox,
+                    nowChange: false
+                  })
+                }
+                dispatch.commit('CLEAR_COMMENT')
+              })
           })
         }
       })
