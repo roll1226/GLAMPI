@@ -272,6 +272,7 @@ export const actions = {
 
   async getComment(dispatch: ICommit, payload: { displayName: string }) {
     const facility = firestore.collection('facilities')
+    dispatch.commit('RESET_COMMENT')
     await facility
       .where('displayName', '==', payload.displayName)
       .get()
@@ -337,7 +338,7 @@ export const actions = {
       displayName: string
       rating: number
       comment: string
-      uuid: string,
+      uuid: string
       comments: IComment[]
     }
   ) {

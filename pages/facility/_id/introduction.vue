@@ -15,7 +15,7 @@
       <v-tooltip v-else-if="isLogin === false" bottom>
         <template v-slot:activator="{ on }">
           <v-btn color="grey" icon v-on="on">
-            <v-icon v-if="!like">mdi-heart</v-icon>
+            <v-icon>mdi-heart</v-icon>
           </v-btn>
         </template>
         <span color="pink">
