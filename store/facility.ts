@@ -132,6 +132,17 @@ export const mutations = {
     state.comment = payload
   },
 
+  RESET_FACILITY_INFO(state: IState) {
+    state.facility = {
+      info: [],
+      email: '',
+      phoneNumber: '',
+      name: '',
+      slider: [],
+      streetAddress: []
+    }
+  },
+
   CLEAR_COMMENT(state: IState) {
     state.comment = ''
     state.rating = 0

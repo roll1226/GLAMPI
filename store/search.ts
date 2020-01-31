@@ -52,6 +52,10 @@ export const mutations = {
 
   SET_FACILITY_LIST(state: IState, payload: IFacility) {
     state.facilityList.push(payload)
+  },
+
+  RESET_FACILITY(state: IState) {
+    state.facilityList = []
   }
 }
 
@@ -132,7 +136,7 @@ export const actions = {
                   if (!queryPlan.empty) {
                     queryPlan.forEach((docPlan) => {
                       const plan = docPlan.data()
-
+                      console.log('search!!!!')
                       const facilityName = facility.name
                       const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
                       const facilityImg = facility.slider
