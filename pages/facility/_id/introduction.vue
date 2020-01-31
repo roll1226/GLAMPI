@@ -60,6 +60,7 @@
           :pay="planCard.pay"
           :url="planCard.pay"
           :details="planCard.details"
+          :max-guests="planCard.maxGuests"
         />
       </v-col>
     </v-row>
@@ -133,6 +134,7 @@ export default class introduction extends Vue {
 
   created() {
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
+    this.chackLike()
   }
 
   @Watch('userUid')

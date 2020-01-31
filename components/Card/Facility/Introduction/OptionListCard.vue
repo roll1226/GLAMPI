@@ -28,7 +28,7 @@
                 </v-img>
 
                 <v-card-subtitle class="pb-0">
-                  {{ option.pay.toLocaleString() }}円
+                  金額: {{ option.pay.toLocaleString() }}円
                 </v-card-subtitle>
 
                 <v-card-text class="text--primary">

@@ -21,6 +21,7 @@ export interface IPlan {
   pay: number
   planImage: string
   planTitle: string
+  maxGuests: string
 }
 
 export interface IOption {
@@ -195,6 +196,7 @@ export const actions = {
       if (likeFacility.exists) {
         dispatch.commit('SET_LIKE', true)
       } else {
+        dispatch.commit('SET_LIKE', false)
         console.log('no')
       }
     })
