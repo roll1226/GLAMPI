@@ -88,7 +88,7 @@ export const mutations = {
   },
 
   SET_COMMENT(state: IState, payload: IComment) {
-    state.comments.push(payload)
+    state.comments.unshift(payload)
   },
 
   SET_COMMENT_NOW(state: IState, payload: IComment) {
@@ -280,10 +280,9 @@ export const actions = {
         snap.forEach(async (doc: any) => {
           const facilityId = doc.id
           const comment = facility.doc(facilityId).collection('comments')
-          dispatch.dispatch('changeCommentData', { facilityId })
 
           await comment
-            .orderBy('createdAt', 'desc')
+            .orderBy('createdAt', 'asc')
             .get()
             .then((commentSnapshot) => {
               if (!commentSnapshot.empty) {
@@ -306,31 +305,31 @@ export const actions = {
       })
   },
 
-  async changeCommentData(dispatch: ICommit, payload: { facilityId: string }) {
-    const facility = firestore.collection('facilities')
-    await facility
-      .doc(payload.facilityId)
-      .collection('comments')
-      .orderBy('createdAt', 'desc')
-      .limit(1)
-      .onSnapshot((commentSnapshot: any) => {
-        if (!commentSnapshot.empty) {
-          commentSnapshot.forEach((commentDoc: any) => {
-            const comment = commentDoc.data()
-            const commentList = {
-              star: comment.star,
-              text: comment.text,
-              date: moment(comment.date).format('YYYY年MM月DD日')
-            }
-            dispatch.dispatch('getUser', {
-              userUid: comment.userId,
-              commentBox: commentList,
-              nowChange: true
-            })
-          })
-        }
-      })
-  },
+  // async changeCommentData(dispatch: ICommit, payload: { facilityId: string }) {
+  //   const facility = firestore.collection('facilities')
+  //   await facility
+  //     .doc(payload.facilityId)
+  //     .collection('comments')
+  //     .orderBy('createdAt', 'desc')
+  //     .limit(1)
+  //     .onSnapshot((commentSnapshot: any) => {
+  //       if (!commentSnapshot.empty) {
+  //         commentSnapshot.forEach((commentDoc: any) => {
+  //           const comment = commentDoc.data()
+  //           const commentList = {
+  //             star: comment.star,
+  //             text: comment.text,
+  //             date: moment(comment.date).format('YYYY年MM月DD日')
+  //           }
+  //           dispatch.dispatch('getUser', {
+  //             userUid: comment.userId,
+  //             commentBox: commentList,
+  //             nowChange: true
+  //           })
+  //         })
+  //       }
+  //     })
+  // },
 
   async postComment(
     dispatch: ICommit,
@@ -361,18 +360,16 @@ export const actions = {
                 userId: payload.uuid
               })
               .then(() => {
-                if (payload.comments.length === 0) {
-                  const commentBox = {
-                    date: moment(date).format('YYYY年MM月DD日'),
-                    star: payload.rating,
-                    text: payload.comment
-                  }
-                  dispatch.dispatch('getUser', {
-                    userUid: payload.uuid,
-                    commentBox,
-                    nowChange: false
-                  })
+                const commentBox = {
+                  date: moment(date).format('YYYY年MM月DD日'),
+                  star: payload.rating,
+                  text: payload.comment
                 }
+                dispatch.dispatch('getUser', {
+                  userUid: payload.uuid,
+                  commentBox,
+                  nowChange: false
+                })
                 dispatch.commit('CLEAR_COMMENT')
               })
           })
