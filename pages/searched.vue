@@ -6,15 +6,11 @@
 
     <v-row>
       <v-col lg="4" md="4" sm="4" xs="12">
-        <v-card class="mx-auto" outlined>
-          <v-card-actions>
-            <v-btn text>Button</v-btn>
-            <v-btn text>Button</v-btn>
-          </v-card-actions>
-        </v-card>
+        <SearchedSideNavigation />
       </v-col>
 
       <v-col lg="8" md="8" sm="8" xs="12" class="search-card">
+        <SearchInput />
         <SearchedFasility
           v-for="(facility, index) in facilityList"
           :key="index"
@@ -36,10 +32,14 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import SearchedFasility from '@/components/Card/Search/SearchedFasility.vue'
 import { IFacility } from '@/store/facility'
+import SearchedSideNavigation from '@/components/Card/Search/SearchedSideNavigation.vue'
+import SearchInput from '@/components/Input/Search/SearchInput.vue'
 
 @Component({
   components: {
-    SearchedFasility
+    SearchedFasility,
+    SearchedSideNavigation,
+    SearchInput
   }
 })
 export default class Searched extends Vue {
