@@ -6,7 +6,7 @@
 
     <v-row>
       <v-col lg="4" md="4" sm="4" xs="12">
-        <SearchedSideNavigation />
+        <SearchedSideNavigation class="mobile-searched-side-navigation" />
       </v-col>
 
       <v-col lg="8" md="8" sm="8" xs="12" class="search-card">
@@ -69,6 +69,10 @@ export default class Searched extends Vue {
   .search-card {
     padding-left: 38px;
     padding-right: 38px;
+  }
+
+  .mobile-searched-side-navigation {
+    display: none;
   }
 }
 </style>
