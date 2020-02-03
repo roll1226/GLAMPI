@@ -19,9 +19,9 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class GlammityNameCreateGlammity extends Vue {
+export default class glammityNameCreateGlammity extends Vue {
   get glammityName(): string {
-    return this.$store.state.registration.GlammityName
+    return this.$store.state.createGlammity.GlammityName
   }
 
   set glammityName(value: string) {

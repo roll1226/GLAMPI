@@ -8,7 +8,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class ScheduleCreateGlammity extends Vue {
   get schedule(): string {
-    return this.$store.state.registration.chedule
+    return this.$store.state.createGlammity.chedule
   }
 
   set schedule(value: string) {

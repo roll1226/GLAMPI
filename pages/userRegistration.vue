@@ -11,7 +11,7 @@
       <password></password>
       <tel></tel>
       <username></username>
-      <v-row justify="end" class="mr-12 mt-6 mb-n10">
+      <v-row justify="end" class="mr-12 mt-6 mb-10">
         <v-btn
           color="success"
           width="200"
