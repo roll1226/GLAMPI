@@ -1,24 +1,22 @@
 <template>
-  <div>
-    <div class="d-flex justify-center mb-10">
-      <v-card outlined class="input-wrap px-3 pt-1 pb-0" style="width: 600px;">
-        <v-text-field
-          ref="searchInput"
-          v-model="query"
-          append-icon="fas fa-search"
-          label="地域、施設名を入力して下さい。"
-          single-line
-          persistent-hint
-          dense
-          background-color="white"
-          @input="search"
-          @click:append="facilitySearch"
-          @keydown.enter="onKeydownEnter($event.keyCode)"
-        ></v-text-field>
+  <div class="d-flex justify-center mb-10">
+    <v-card outlined class="input-wrap px-3 pt-1 pb-0" style="width: 600px;">
+      <v-text-field
+        ref="searchInput"
+        v-model="query"
+        append-icon="fas fa-search"
+        label="地域、施設名を入力して下さい。"
+        single-line
+        persistent-hint
+        dense
+        background-color="white"
+        @input="search"
+        @click:append="facilitySearch"
+        @keydown.enter="onKeydownEnter($event.keyCode)"
+      ></v-text-field>
 
-        <SearchList @focus="focus" />
-      </v-card>
-    </div>
+      <SearchList @focus="focus" />
+    </v-card>
   </div>
 </template>
 

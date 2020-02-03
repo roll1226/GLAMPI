@@ -10,7 +10,7 @@
       </v-col>
 
       <v-col lg="8" md="8" sm="8" xs="12" class="search-card">
-        <SearchInput />
+        <SearchInput class="searched-input-components" />
         <SearchedFasility
           v-for="(facility, index) in facilityList"
           :key="index"
@@ -58,6 +58,13 @@ export default class Searched extends Vue {
 </script>
 
 <style lang="scss">
+.search-card {
+  .searched-input-components {
+    .theme--light.v-card.v-card--outlined {
+      border: none;
+    }
+  }
+}
 @media screen and(max-width: 770px) {
   .search-card {
     padding-left: 38px;
