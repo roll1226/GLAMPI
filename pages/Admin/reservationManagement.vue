@@ -60,38 +60,38 @@ import { Component, Vue } from 'nuxt-property-decorator'
       desserts: [
         {
           id: '1',
-          peopleNumber: 159,
-          plan: 6.0,
-          option: 24,
-          status: 4.0
+          peopleNumber: 5,
+          plan: 'プランA',
+          option: 'BBQ',
+          status: '宿泊中'
         },
         {
           id: '1',
-          peopleNumber: 159,
-          plan: 6.0,
-          option: 24,
-          status: 4.0
+          peopleNumber: 5,
+          plan: 'プランA',
+          option: 'BBQ',
+          status: '宿泊中'
         },
         {
           id: '1',
-          peopleNumber: 159,
-          plan: 6.0,
-          option: 24,
-          status: 4.0
+          peopleNumber: 5,
+          plan: 'プランA',
+          option: 'BBQ',
+          status: '宿泊中'
         },
         {
           id: '1',
-          peopleNumber: 159,
-          plan: 6.0,
-          option: 24,
-          status: 4.0
+          peopleNumber: 5,
+          plan: 'プランA',
+          option: 'BBQ',
+          status: '宿泊中'
         },
         {
           id: '1',
-          peopleNumber: 159,
-          plan: 6.0,
-          option: 24,
-          status: 4.0
+          peopleNumber: 5,
+          plan: 'プランA',
+          option: 'BBQ',
+          status: '宿泊中'
         }
       ]
     }
