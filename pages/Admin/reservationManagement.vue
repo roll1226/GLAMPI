@@ -26,15 +26,23 @@
           <v-col cols="12">
             <v-card>
               <v-data-table
-                hide-default-footer
                 :headers="headers"
                 :items="list"
+                :page.sync="page"
+                hide-default-footer
+                class="elevation-1"
+                @page-count="pageCount = $event"
               ></v-data-table>
             </v-card>
           </v-col>
         </v-row>
-        <v-row class="mt-2">
-          <v-pagination v-model="page" :length="6"></v-pagination>
+        <v-row class="text-center pt-2">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            :value="itemsPerPage"
+            @input="itemsPerPage = parseInt($event, 10)"
+          ></v-pagination>
         </v-row>
       </v-col>
     </v-row>
@@ -47,8 +55,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component({
   data() {
     return {
-      search: '',
       page: 1,
+      pageCount: 0,
+      itemsPerPage: 10,
       headers: [
         { text: 'ID', value: 'id' },
         { text: '人数', value: 'peopleNumber' },
@@ -59,72 +68,212 @@ import { Component, Vue } from 'nuxt-property-decorator'
       list: [
         {
           id: '1',
-          peopleNumber: '6',
-          plan: 'プランA',
+          peopleNumber: '8',
+          plan: 'プランC',
           option: 'BBQ',
           status: '宿泊後'
         },
         {
           id: '2',
-          peopleNumber: '5',
+          peopleNumber: '7',
           plan: 'プランB',
           option: 'BBQ',
           status: '宿泊後'
         },
         {
           id: '3',
-          peopleNumber: '3',
+          peopleNumber: '6',
           plan: 'プランA',
           option: 'BBQ',
           status: 'キャンセル待ち'
         },
         {
           id: '4',
-          peopleNumber: '7',
-          plan: 'プランB',
+          peopleNumber: '5',
+          plan: 'プランC',
           option: 'なし',
           status: '予約申請中'
         },
         {
           id: '5',
-          peopleNumber: '7',
+          peopleNumber: '4',
           plan: 'プランB',
           option: 'なし',
           status: '予約申請中'
         },
         {
           id: '6',
-          peopleNumber: '7',
-          plan: 'プランB',
+          peopleNumber: '3',
+          plan: 'プランA',
           option: 'なし',
           status: '予約申請中'
         },
         {
           id: '7',
-          peopleNumber: '7',
-          plan: 'プランB',
+          peopleNumber: '2',
+          plan: 'プランC',
           option: 'なし',
-          status: '予約申請中'
+          status: 'キャンセル待ち'
         },
         {
           id: '8',
-          peopleNumber: '7',
+          peopleNumber: '1',
           plan: 'プランB',
           option: 'なし',
           status: '予約申請中'
         },
         {
           id: '9',
-          peopleNumber: '7',
-          plan: 'プランB',
+          peopleNumber: '8',
+          plan: 'プランA',
           option: 'なし',
           status: '予約申請中'
         },
         {
           id: '10',
+          peopleNumber: '7',
+          plan: 'プランC',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '11',
+          peopleNumber: '6',
+          plan: 'プランB',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '12',
+          peopleNumber: '5',
+          plan: 'プランA',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '13',
+          peopleNumber: '4',
+          plan: 'プランC',
+          option: 'なし',
+          status: 'キャンセル待ち'
+        },
+        {
+          id: '14',
+          peopleNumber: '3',
+          plan: 'プランB',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '15',
           peopleNumber: '2',
           plan: 'プランA',
-          option: 'BBQ',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '16',
+          peopleNumber: '1',
+          plan: 'プランC',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '17',
+          peopleNumber: '8',
+          plan: 'プランB',
+          option: 'なし',
+          status: 'キャンセル待ち'
+        },
+        {
+          id: '18',
+          peopleNumber: '7',
+          plan: 'プランA',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '19',
+          peopleNumber: '6',
+          plan: 'プランC',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '20',
+          peopleNumber: '5',
+          plan: 'プランB',
+          option: 'なし',
+          status: 'キャンセル待ち'
+        },
+        {
+          id: '21',
+          peopleNumber: '4',
+          plan: 'プランA',
+          option: 'なし',
+          status: '予約申請中'
+        },
+        {
+          id: '22',
+          peopleNumber: '3',
+          plan: 'プランC',
+          option: 'なし',
+          status: 'キャンセル待ち'
+        },
+        {
+          id: '23',
+          peopleNumber: '2',
+          plan: 'プランB',
+          option: 'なし',
+          status: '宿泊前'
+        },
+        {
+          id: '24',
+          peopleNumber: '1',
+          plan: 'プランA',
+          option: 'なし',
+          status: '宿泊前'
+        },
+        {
+          id: '25',
+          peopleNumber: '8',
+          plan: 'プランC',
+          option: 'なし',
+          status: '宿泊前'
+        },
+        {
+          id: '26',
+          peopleNumber: '7',
+          plan: 'プランB',
+          option: 'なし',
+          status: '宿泊前'
+        },
+        {
+          id: '27',
+          peopleNumber: '6',
+          plan: 'プランA',
+          option: 'なし',
+          status: '宿泊前'
+        },
+        {
+          id: '28',
+          peopleNumber: '5',
+          plan: 'プランC',
+          option: 'なし',
+          status: '宿泊前'
+        },
+        {
+          id: '29',
+          peopleNumber: '4',
+          plan: 'プランB',
+          option: 'なし',
+          status: '宿泊前'
+        },
+        {
+          id: '30',
+          peopleNumber: '3',
+          plan: 'プランA',
+          option: 'なし',
           status: '宿泊前'
         }
       ]
