@@ -4,9 +4,9 @@
       <v-col cols="auto" class="mt-12">
         <v-tabs
           active-class="font-weight-bold grey lighten-3"
-          hide-slider="true"
-          optional="true"
-          vertical="true"
+          hide-slider
+          optional
+          vertical
         >
           <!--optional:アクティブなアイテムなし
           初期状態では選択なし-->
