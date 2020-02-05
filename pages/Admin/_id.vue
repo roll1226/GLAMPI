@@ -4,12 +4,14 @@
     <v-row class="pa-0 ma-0">
       <v-col class="pa-0 ma-0" cols="auto">
         <v-tabs
-          class="pa-0 ma-0 tabs"
-          background-color="rgb(244,244,244)"
+          class="pa-0 ma-0"
+          background-color="grey lighten-4"
           active-class="font-weight-bold grey lighten-2"
           hide-slider
           vertical
         >
+          <!-- background-color="grey lighten-2"
+          active-class="font-weight-bold grey" -->
           <v-tab class="black--text tab" @click="tab = 0">トップ</v-tab>
           <v-tab class="black--text tab" @click="tab = 1">予約一覧</v-tab>
           <v-tab class="black--text tab" @click="tab = 2">収益</v-tab>
@@ -17,14 +19,12 @@
           <v-tab class="black--text tab" @click="tab = 4">問い合わせ</v-tab>
         </v-tabs>
       </v-col>
-      <v-col class="pa-0 ma-0" cols="10">
-        <v-tabs-items class="item">
-          <div v-if="tab == 0"><FacilityTop /></div>
-          <div v-else-if="tab == 1"><ReserveManage /></div>
-          <div v-else-if="tab == 2">収益中身</div>
-          <div v-else-if="tab == 3">情報登録中身</div>
-          <div v-else-if="tab == 4"><inquiry /></div>
-        </v-tabs-items>
+      <v-col class="pa-0 ma-0" cols="auto">
+        <div v-if="tab == 0"><FacilityTop class="contents" /></div>
+        <div v-else-if="tab == 1"><ReserveManage class="contents" /></div>
+        <div v-else-if="tab == 2">収益中身</div>
+        <div v-else-if="tab == 3">情報登録中身</div>
+        <div v-else-if="tab == 4"><inquiry class="contents" /></div>
       </v-col>
     </v-row>
   </div>
@@ -49,26 +49,29 @@ export default class FacilityIndex extends Vue {
 </script>
 <style lang="scss">
 .facility-wrapp {
-  margin: 50px 0 0 35px;
-  //
+  display: block;
+  width: 1300px;
+  //background-color: bisque;
+  margin: 50px 0 0 50px;
   padding: 0;
-  background-color: aquamarine;
 }
 
-.tabs {
-  width: 100%;
-  height: 100%;
+.v-tabs {
+  //width: 100%;
+  //height: 100%;
+  height: 400px;
 }
 
-.tab {
+.v-tab {
   width: 150px;
   //padding*2=height
   padding: 30px;
 }
 
-.item {
+.contents {
   width: 1000px;
   height: max-content;
+  margin: 0 0 0 40px;
 }
 
 /*.facility-tabs {
