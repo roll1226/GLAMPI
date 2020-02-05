@@ -2,9 +2,13 @@
   <div>
     <v-row justify="center">
       <v-col cols="auto" class="mt-12">
-
-          <!--optional:アクティブなアイテムなし
-          初期状態では選択なし-->
+        <v-tabs
+          class="pa-0 ma-0"
+          background-color="rgb(244,244,244)"
+          active-class="font-weight-bold grey lighten-2"
+          hide-slider
+          vertical
+        >
           <v-tab class="black--text title">予約一覧</v-tab>
           <v-tab class="black--text title">収益</v-tab>
           <v-tab class="black--text title">情報登録</v-tab>
