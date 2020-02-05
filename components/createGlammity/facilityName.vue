@@ -20,9 +20,9 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class FacilityNameCreateGlammity extends Vue {
+export default class facilityNameCreateGlammity extends Vue {
   get facilityName(): string {
-    return this.$store.state.registration.facilityName
+    return this.$store.state.createGlammity.facilityName
   }
 
   set facilityName(value: string) {
