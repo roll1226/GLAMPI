@@ -28,7 +28,37 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class FacilityTop extends Vue {}
+export default class FacilityTop extends Vue {
+  public reservation: number = 5
+  public cancel: number = 4
+  data() {
+    return {
+      headers: [
+        {
+          text: 'お客様名',
+          align: 'left',
+          sortable: false,
+          value: 'name'
+        },
+        { text: '部屋番号', value: 'rooms' }
+      ],
+      guests: [
+        {
+          name: 'Guest1',
+          rooms: 1
+        },
+        {
+          name: 'Guest2',
+          rooms: 2
+        },
+        {
+          name: 'Guest3',
+          rooms: 3
+        }
+      ]
+    }
+  }
+}
 </script>
 <style lang="scss">
 .cols {

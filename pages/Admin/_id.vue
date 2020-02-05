@@ -2,12 +2,12 @@
   <!-- デバッグ -->
   <div class="facility-wrapp">
     <v-row class="pa-0 ma-0">
-      <v-col class="pa-0 ma-0">
+      <v-col class="pa-0 ma-0" cols="auto">
         <v-tabs
-          classs="pa-0 ma-0 tabs"
+          class="pa-0 ma-0 tabs"
           background-color="rgb(244,244,244)"
           active-class="font-weight-bold grey lighten-2"
-          hide-slider="true"
+          hide-slider
           vertical
         >
           <v-tab class="black--text tab" @click="tab = 0">トップ</v-tab>
@@ -19,11 +19,11 @@
       </v-col>
       <v-col class="pa-0 ma-0" cols="10">
         <v-tabs-items class="item">
-          <v-tabs-item v-if="tab == 0"><FacilityTop /></v-tabs-item>
-          <v-tabs-item v-else-if="tab == 1"><ReserveManage /></v-tabs-item>
-          <v-tabs-item v-else-if="tab == 2">収益中身</v-tabs-item>
-          <v-tabs-item v-else-if="tab == 3">情報登録中身</v-tabs-item>
-          <v-tabs-item v-else-if="tab == 4">問い合わせ中身</v-tabs-item>
+          <div v-if="tab == 0"><FacilityTop /></div>
+          <div v-else-if="tab == 1"><ReserveManage /></div>
+          <div v-else-if="tab == 2">収益中身</div>
+          <div v-else-if="tab == 3">情報登録中身</div>
+          <div v-else-if="tab == 4"><inquiry /></div>
         </v-tabs-items>
       </v-col>
     </v-row>
@@ -34,45 +34,17 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityTop from '@/components/Admin/FacilityTop.vue'
 import ReserveManage from '@/components/Admin/ReserveManage.vue'
+import inquiry from '@/components/Admin/inquiry.vue'
 
 @Component({
   components: {
     FacilityTop,
-    ReserveManage
+    ReserveManage,
+    inquiry
   }
 })
 export default class FacilityIndex extends Vue {
-  public reservation: number = 5
-  public cancel: number = 4
   public tab: number = 0
-
-  data() {
-    return {
-      headers: [
-        {
-          text: 'お客様名',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: '部屋番号', value: 'rooms' }
-      ],
-      guests: [
-        {
-          name: 'Guest1',
-          rooms: 1
-        },
-        {
-          name: 'Guest2',
-          rooms: 2
-        },
-        {
-          name: 'Guest3',
-          rooms: 3
-        }
-      ]
-    }
-  }
 }
 </script>
 <style lang="scss">
