@@ -1,4 +1,5 @@
 <template>
+  <!-- デバッグ -->
   <div class="facility-wrapp">
     <v-row>
       <v-col cols="auto">
