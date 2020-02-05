@@ -108,6 +108,7 @@ export default class GlampiHead extends Vue {
   &.theme--light.v-btn {
     color: $site_color_2;
     caret-color: $site_color_2;
+    background-color: rgba(255, 255, 255, 0.3);
   }
 }
 </style>
