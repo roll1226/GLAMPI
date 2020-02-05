@@ -15,16 +15,6 @@
           </v-row>
         </v-container>
       </v-form>
-      <v-btn outlined="black" @click.stop="dialog = true">
-        変更
-      </v-btn>
-      <div justify="center">
-        <v-dialog v-model="dialog" max-width="470">
-          <v-card>
-            <v-card-text><p>パスワードを変更しました。</p></v-card-text>
-          </v-card>
-        </v-dialog>
-      </div>
     </v-card>
   </div>
 </template>
@@ -38,7 +28,5 @@ import password from '@/components/UserRegistration/password.vue'
     password
   }
 })
-export default class PasswordMypage extends Vue {
-  dialog: boolean = false
-}
+export default class PasswordMypage extends Vue {}
 </script>

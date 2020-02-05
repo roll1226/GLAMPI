@@ -1,5 +1,5 @@
 <template>
-<!--いややのせい-->
+  <!--いややのせい-->
   <div>
     <v-row>
       <v-card><v-card-title>予約一覧</v-card-title> </v-card>

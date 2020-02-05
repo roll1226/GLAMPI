@@ -49,16 +49,6 @@
         </v-row>
       </v-container>
     </v-form>
-    <v-btn outlined="black" @click.stop="dialog = true">
-      変更
-    </v-btn>
-    <div justify="center">
-      <v-dialog v-model="dialog" max-width="470">
-        <v-card>
-          <v-card-text><p>カード情報を変更しました。</p></v-card-text>
-        </v-card>
-      </v-dialog>
-    </div>
   </v-card>
 </template>
 
@@ -67,7 +57,6 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class Payment extends Vue {
-  dialog: boolean = false
   public paymentCardID: string = ''
   public paymentCardMonth: string = ''
   public paymentCardYear: string = ''

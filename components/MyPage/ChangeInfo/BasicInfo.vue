@@ -43,27 +43,20 @@
           <v-text-field label="プロフィールコメント"></v-text-field>
         </v-col>
       </v-row>
-      <v-row>
-        <v-btn outlined="black" @click.stop="dialog = true">
-          保存
-        </v-btn>
-        <div justify="center">
-          <v-dialog v-model="dialog" max-width="470">
-            <v-card>
-              <v-card-text><p>保存しました。</p></v-card-text>
-            </v-card>
-          </v-dialog>
-        </div>
-      </v-row>
     </v-container>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import email from '@/components/UserRegistration/email.vue'
+import username from '@/components/UserRegistration/username.vue'
 
-@Component
-export default class BasicInfo extends Vue {
-  dialog: boolean = false
-}
+@Component({
+  components: {
+    email,
+    username
+  }
+})
+export default class BasicInfo extends Vue {}
 </script>
