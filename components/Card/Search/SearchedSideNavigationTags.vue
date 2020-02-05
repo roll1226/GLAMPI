@@ -2,7 +2,11 @@
   <v-card>
     <v-card-text>
       <v-chip-group column>
-        <v-chip v-for="(tag, index) in tags" :key="index">
+        <v-chip
+          v-for="(tag, index) in tags"
+          :key="index"
+          @click="searchTag(tag.tag)"
+        >
           <v-icon left class="px-1">
             {{ tag.icon }}
           </v-icon>
@@ -62,5 +66,9 @@ export default class SearchedSideNavigationTags extends Vue {
       icon: 'fas fa-bread-slice'
     }
   ]
+
+  searchTag(tag: string) {
+    this.$router.push(`/searched?facilityKeyWord=&prefectures=&tag=${tag}`)
+  }
 }
 </script>

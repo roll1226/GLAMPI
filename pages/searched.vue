@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import SearchedFasility from '@/components/Card/Search/SearchedFasility.vue'
 import { IFacility } from '@/store/facility'
 import SearchedSideNavigation from '@/components/Card/Search/SearchedSideNavigation.vue'
@@ -48,6 +48,67 @@ import SearchedSideNavigationTags from '@/components/Card/Search/SearchedSideNav
 export default class Searched extends Vue {
   get facilityList(): IFacility[] {
     return this.$store.state.search.facilityList
+  }
+
+  get query(): string {
+    return this.$store.state.search.queryText
+  }
+
+  @Watch('$route')
+  SearchedSearcg() {
+    if (
+      this.$route.query.facilityKeyWord === '' &&
+      this.$route.query.prefectures === '' &&
+      this.$route.query.tag === ''
+    ) {
+      this.changeUrlFunc()
+    } else if (
+      this.$route.query.facilityKeyWord !== '' &&
+      this.$route.query.prefectures === '' &&
+      this.$route.query.tag === ''
+    ) {
+      this.changeUrlFunc()
+    } else if (
+      this.$route.query.facilityKeyWord === '' &&
+      this.$route.query.prefectures !== '' &&
+      this.$route.query.tag === ''
+    ) {
+      console.log(this.$route.query.prefectures)
+
+      this.$store.commit('search/SET_SEARCH_LIST', [])
+      this.$store.commit('search/CLEAR_QUERY')
+      this.$store.commit('facility/RESET_FACILITY_INFO')
+      this.$store.commit('search/RESET_FACILITY')
+
+      const prefecture = decodeURI(this.$route.query.prefectures as string)
+      this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', prefecture)
+    } else if (
+      this.$route.query.facilityKeyWord === '' &&
+      this.$route.query.prefectures === '' &&
+      this.$route.query.tag !== ''
+    ) {
+      this.$store.commit('search/SET_SEARCH_LIST', [])
+      this.$store.commit('search/CLEAR_QUERY')
+      this.$store.commit('facility/RESET_FACILITY_INFO')
+      this.$store.commit('search/RESET_FACILITY')
+
+      const tag = decodeURI(this.$route.query.tag as string)
+      this.$store.dispatch('search/SEARCH_FACILITY_TAG', tag)
+    }
+  }
+
+  changeUrlFunc() {
+    this.$router.push(
+      `/searched?facilityKeyWord=${this.query}&prefectures=&tag=`
+    )
+
+    this.$store.commit('search/SET_SEARCH_LIST', [])
+    this.$store.commit('search/CLEAR_QUERY')
+    this.$store.commit('facility/RESET_FACILITY_INFO')
+    this.$store.commit('search/RESET_FACILITY')
+
+    const searchQuery = decodeURI(this.$route.query.facilityKeyWord as string)
+    this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
   }
 
   async created() {
