@@ -1,16 +1,6 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="2" class="ml-6">
-        <v-tabs optional="true" vertical="true">
-          <!--optional:アクティブなアイテムなし
-          初期状態では選択なし-->
-          <v-tab>予約一覧</v-tab>
-          <v-tab>収益</v-tab>
-          <v-tab>情報登録</v-tab>
-          <v-tab>お問い合わせ</v-tab>
-        </v-tabs>
-      </v-col>
       <v-col>
         <v-row cols="2" class="">
           <v-cord>
