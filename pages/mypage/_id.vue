@@ -9,7 +9,7 @@
 
       <v-col>
         <v-tabs background-color="transparent" color="rgb(87, 95, 69)">
-          <v-tabs-slider></v-tabs-slider>
+          <v-tabs-slider> </v-tabs-slider>
           <v-tab @click="toMyTop">トップ</v-tab>
           <v-divider inset vertical></v-divider>
           <v-tab @click="toChangeInfo">情報変更</v-tab>
