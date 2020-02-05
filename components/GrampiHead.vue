@@ -9,14 +9,19 @@
       </v-icon>
     </v-snackbar>
 
-    <v-toolbar dense width="100%" style="background: rgba(255,255,255, .5)">
+    <v-toolbar
+      :elevation="elevationHead"
+      dense
+      width="100%"
+      style="background: none;"
+    >
       <v-btn text style="position: relative;" width="132px" to="/">
         <v-img :src="require('@/assets/svg/logo.svg')" width="132px"></v-img>
       </v-btn>
 
       <v-spacer></v-spacer>
       <template v-if="!isLogin">
-        <LoginModal />
+        <LoginModal :login-btn-class="loginBtnClass" />
 
         <v-divider class="mx-2" inset vertical></v-divider>
 
@@ -41,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import Logo from '@/components/imgFile/Logo.vue'
 import LoginModal from '@/components/Btn/LoginModal.vue'
 import { auth } from '@/plugins/firebase'
@@ -67,6 +72,12 @@ import { auth } from '@/plugins/firebase'
   }
 })
 export default class GlampiHead extends Vue {
+  @Prop({ required: true, default: '' })
+  loginBtnClass!: string
+
+  @Prop({ required: true, default: '' })
+  elevationHead!: string
+
   async logout() {
     await auth.signOut().then(() => {
       this.$store.commit('login/IS_LOGIN', false)

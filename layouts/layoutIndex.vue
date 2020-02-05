@@ -1,6 +1,10 @@
 <template>
-  <v-app>
-    <grampi-head />
+  <v-app style="position: relative;">
+    <grampi-head
+      :login-btn-class="'login-btn-index'"
+      :elevation-head="0"
+      style="position: absolute; top: 0; z-index: 5; width: 100%;"
+    />
     <nuxt style="overflow: hidden;" />
     <grampi-foot />
   </v-app>

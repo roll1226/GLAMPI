@@ -8,7 +8,7 @@
       style="display: flex; flex-flow: row nowrap; justify-content: center; align-items: center;"
       gradient="rgba(255,255,255,.4), rgba(255,255,255,.4)"
     >
-      <SearchInput class="mx-3 px-2"
+      <SearchInput class="mx-3 px-2" style="margin-top: 10px;"
     /></v-img>
 
     <GlammityIndexWrap />
@@ -30,14 +30,14 @@ import NewArrivalIndexCard from '@/components/IndexContentWrap/NewArrivalIndexCa
 import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
 
 @Component({
+  layout: 'layoutIndex',
   components: {
     SearchInput,
     GlammityIndexWrap,
     RecommendationIndexWrap,
     NewArrivalIndexCard,
     TagIndexWrap
-  },
-  layout: 'layoutIndex'
+  }
 })
 export default class IndexPage extends Vue {}
 </script>

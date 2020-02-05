@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn text small class="login-btn" @click.stop="openCard">
+    <v-btn text small :class="loginBtnClass" @click.stop="openCard">
       ログイン
     </v-btn>
 
@@ -105,7 +105,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Vue, Watch, Prop } from 'nuxt-property-decorator'
 import Twitter from '@/components/Btn/Twitter.vue'
 import Facebook from '@/components/Btn/Facebook.vue'
 import ChangePasswordBtn from '@/components/Btn/ChangePasswordBtn.vue'
@@ -118,6 +118,9 @@ import ChangePasswordBtn from '@/components/Btn/ChangePasswordBtn.vue'
   }
 })
 export default class LoginModal extends Vue {
+  @Prop({ required: true, default: '' })
+  loginBtnClass!: string
+
   show1: boolean = false
   // dialog: boolean = false
   user: string = ''
@@ -190,6 +193,14 @@ export default class LoginModal extends Vue {
     caret-color: $site_color_2;
   }
 }
+
+.login-btn-index {
+  &.theme--light.v-btn {
+    color: $site_color_8;
+    caret-color: $site_color_8;
+  }
+}
+
 .login-click-btn {
   &.theme--light.v-btn {
     color: $site_color_8;
