@@ -1,8 +1,10 @@
 import * as Vuex from 'vuex'
+import moment from 'moment'
 import { firestore, fieldValue } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
+  dispatch: Vuex.Dispatch
 }
 
 export interface IFacility {
@@ -19,6 +21,7 @@ export interface IPlan {
   pay: number
   planImage: string
   planTitle: string
+  maxGuests: string
 }
 
 export interface IOption {
@@ -30,11 +33,17 @@ export interface IOption {
 }
 
 export interface IComment {
-  date: string
+  date: string | undefined
   star: number
   text: string
   userName: string
   userImg: string
+}
+
+export interface ICommentBox {
+  date: string | undefined
+  star: number
+  text: string
 }
 
 interface IState {
@@ -44,6 +53,9 @@ interface IState {
   options: IOption[]
   uuid: string
   like: boolean
+  rating: number
+  comment: string
+  loading: boolean
 }
 
 export const state = (): IState => ({
@@ -57,14 +69,14 @@ export const state = (): IState => ({
   },
 
   uuid: '',
-
   plan: [],
-
   comments: [],
-
   options: [],
+  like: false,
 
-  like: false
+  rating: 0,
+  comment: '',
+  loading: false
 })
 
 export const mutations = {
@@ -77,7 +89,11 @@ export const mutations = {
   },
 
   SET_COMMENT(state: IState, payload: IComment) {
-    state.comments.push(payload)
+    state.comments.unshift(payload)
+  },
+
+  SET_COMMENT_NOW(state: IState, payload: IComment) {
+    if (state.comments.length !== 0) state.comments.unshift(payload)
   },
 
   SET_COMMENT_NEW(state: IState, payload: IComment) {
@@ -103,6 +119,35 @@ export const mutations = {
 
   SET_LIKE(state: IState, payload: boolean) {
     state.like = payload
+  },
+
+  SET_LOADING(state: IState, payload: boolean) {
+    state.loading = payload
+  },
+
+  SET_RATING(state: IState, payload: number) {
+    state.rating = payload
+  },
+
+  SET_COMMENTS(state: IState, payload: string) {
+    state.comment = payload
+  },
+
+  RESET_FACILITY_INFO(state: IState) {
+    state.facility = {
+      info: [],
+      email: '',
+      phoneNumber: '',
+      name: '',
+      slider: [],
+      streetAddress: []
+    }
+  },
+
+  CLEAR_COMMENT(state: IState) {
+    state.comment = ''
+    state.rating = 0
+    state.loading = false
   }
 }
 
@@ -151,6 +196,7 @@ export const actions = {
       if (likeFacility.exists) {
         dispatch.commit('SET_LIKE', true)
       } else {
+        dispatch.commit('SET_LIKE', false)
         console.log('no')
       }
     })
@@ -206,5 +252,141 @@ export const actions = {
           dispatch.commit('SET_LIKE', false)
         })
     })
+  },
+
+  async getUser(
+    dispatch: ICommit,
+    payload: { userUid: string; commentBox: ICommentBox; nowChange: boolean }
+  ) {
+    await firestore
+      .collection('users')
+      .doc(payload.userUid)
+      .get()
+      .then((user: any) => {
+        let userName = user.data().nickname
+        const userUserImg = user.data().userImg
+        if (userName === '')
+          userName = user.data().lastName + user.data().firstName
+
+        const commentList = {
+          date: payload.commentBox.date,
+          star: payload.commentBox.star,
+          text: payload.commentBox.text,
+          userName,
+          userImg: userUserImg
+        }
+        if (payload.nowChange) {
+          dispatch.commit('SET_COMMENT_NOW', commentList)
+        } else {
+          dispatch.commit('SET_COMMENT', commentList)
+        }
+      })
+  },
+
+  async getComment(dispatch: ICommit, payload: { displayName: string }) {
+    const facility = firestore.collection('facilities')
+    dispatch.commit('RESET_COMMENT')
+    await facility
+      .where('displayName', '==', payload.displayName)
+      .get()
+      .then((snap: any) => {
+        snap.forEach(async (doc: any) => {
+          const facilityId = doc.id
+          const comment = facility.doc(facilityId).collection('comments')
+
+          await comment
+            .orderBy('createdAt', 'asc')
+            .get()
+            .then((commentSnapshot) => {
+              if (!commentSnapshot.empty) {
+                commentSnapshot.forEach((commentDoc) => {
+                  const comment = commentDoc.data()
+                  const commentList = {
+                    star: comment.star,
+                    text: comment.text,
+                    date: moment(comment.date).format('YYYY年MM月DD日')
+                  }
+                  dispatch.dispatch('getUser', {
+                    userUid: comment.userId,
+                    commentBox: commentList,
+                    nowChange: false
+                  })
+                })
+              }
+            })
+        })
+      })
+  },
+
+  // async changeCommentData(dispatch: ICommit, payload: { facilityId: string }) {
+  //   const facility = firestore.collection('facilities')
+  //   await facility
+  //     .doc(payload.facilityId)
+  //     .collection('comments')
+  //     .orderBy('createdAt', 'desc')
+  //     .limit(1)
+  //     .onSnapshot((commentSnapshot: any) => {
+  //       if (!commentSnapshot.empty) {
+  //         commentSnapshot.forEach((commentDoc: any) => {
+  //           const comment = commentDoc.data()
+  //           const commentList = {
+  //             star: comment.star,
+  //             text: comment.text,
+  //             date: moment(comment.date).format('YYYY年MM月DD日')
+  //           }
+  //           dispatch.dispatch('getUser', {
+  //             userUid: comment.userId,
+  //             commentBox: commentList,
+  //             nowChange: true
+  //           })
+  //         })
+  //       }
+  //     })
+  // },
+
+  async postComment(
+    dispatch: ICommit,
+    payload: {
+      displayName: string
+      rating: number
+      comment: string
+      uuid: string
+      comments: IComment[]
+    }
+  ) {
+    const date = new Date()
+    await firestore
+      .collection('facilities')
+      .where('displayName', '==', payload.displayName)
+      .get()
+      .then((snapshot) => {
+        if (!snapshot.empty) {
+          snapshot.forEach(async (doc) => {
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('comments')
+              .add({
+                createdAt: date,
+                star: payload.rating,
+                text: payload.comment,
+                userId: payload.uuid
+              })
+              .then(() => {
+                const commentBox = {
+                  date: moment(date).format('YYYY年MM月DD日'),
+                  star: payload.rating,
+                  text: payload.comment
+                }
+                dispatch.dispatch('getUser', {
+                  userUid: payload.uuid,
+                  commentBox,
+                  nowChange: false
+                })
+                dispatch.commit('CLEAR_COMMENT')
+              })
+          })
+        }
+      })
   }
 }

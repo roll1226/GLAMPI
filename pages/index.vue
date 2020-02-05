@@ -8,7 +8,7 @@
       style="display: flex; flex-flow: row nowrap; justify-content: center; align-items: center;"
       gradient="rgba(255,255,255,.4), rgba(255,255,255,.4)"
     >
-      <SearchInput
+      <SearchInput class="mx-3 px-2"
     /></v-img>
 
     <GlammityIndexWrap />

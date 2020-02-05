@@ -10,7 +10,9 @@
     </v-img>
 
     <v-card-subtitle class="pb-0">
-      {{ pay.toLocaleString() }}円
+      金額: {{ pay.toLocaleString() }}円
+      <br />
+      宿泊上限: {{ maxGuests }}人
     </v-card-subtitle>
 
     <v-card-text class="text--primary">
@@ -52,6 +54,9 @@ export default class PlanCard extends Vue {
 
   @Prop({ required: true, default: [] })
   details!: [...string[]]
+
+  @Prop({ required: true, default: '' })
+  maxGuests!: string
 
   setPay(pay: number, planTitle: string) {
     // `/facility/${$route.params.id}/reservation/${url}`
