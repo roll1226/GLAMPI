@@ -9,7 +9,7 @@
       </v-icon>
     </v-snackbar>
 
-    <v-toolbar dense>
+    <v-toolbar dense width="100%" style="background: rgba(255,255,255, .5)">
       <v-btn text style="position: relative;" width="132px" to="/">
         <v-img :src="require('@/assets/svg/logo.svg')" width="132px"></v-img>
       </v-btn>
@@ -20,20 +20,20 @@
 
         <v-divider class="mx-2" inset vertical></v-divider>
 
-        <v-btn text small color="green">
+        <v-btn text small color="black">
           会員登録
         </v-btn>
       </template>
 
       <template v-else>
-        <v-btn text small color="red" @click="logout">
-          ログアウト
+        <v-btn text small class="mypage-btn" to="/mypage">
+          マイページ
         </v-btn>
 
         <v-divider class="mx-2" inset vertical></v-divider>
 
-        <v-btn text small color="primary" to="/mypage">
-          マイページ
+        <v-btn text small color="black" @click="logout">
+          ログアウト
         </v-btn>
       </template>
     </v-toolbar>
@@ -91,5 +91,12 @@ export default class GlampiHead extends Vue {
 
 .theme--light.v-btn:hover::before {
   opacity: 0;
+}
+
+.mypage-btn {
+  &.theme--light.v-btn {
+    color: $site_color_2;
+    caret-color: $site_color_2;
+  }
 }
 </style>

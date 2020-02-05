@@ -14,6 +14,7 @@
           persistent-hint
           dense
           background-color="white"
+          color="rgb(87, 95, 69)"
           @input="search"
           @click:append="facilitySearch"
           @keydown.enter="onKeydownEnter($event.keyCode)"

@@ -4,7 +4,7 @@
       src="https://firebasestorage.googleapis.com/v0/b/j4k1-b789f.appspot.com/o/glampy%2Ftop.jpg?alt=media&token=01d75370-7f04-4932-b3dd-c9d286798a01"
       aspect-ratio="1"
       class="grey lighten-2"
-      max-height="540"
+      max-height="650"
       style="display: flex; flex-flow: row nowrap; justify-content: center; align-items: center;"
       gradient="rgba(255,255,255,.4), rgba(255,255,255,.4)"
     >
@@ -36,7 +36,8 @@ import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
     RecommendationIndexWrap,
     NewArrivalIndexCard,
     TagIndexWrap
-  }
+  },
+  layout: 'layoutIndex'
 })
 export default class IndexPage extends Vue {}
 </script>

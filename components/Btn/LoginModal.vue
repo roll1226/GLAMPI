@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn text small color="primary" @click.stop="openCard">
+    <v-btn text small class="login-btn" @click.stop="openCard">
       ログイン
     </v-btn>
 
@@ -34,6 +34,7 @@
                         emailRules.emailLength,
                         emailRules.emailFormat
                       ]"
+                      color="rgb(87, 95, 69)"
                       label="メールアドレス"
                     ></v-text-field>
                   </v-col>
@@ -45,6 +46,7 @@
                       :type="show1 ? 'text' : 'password'"
                       :rules="[rules.required, rules.min, rules.max]"
                       name="input-10-1"
+                      color="rgb(87, 95, 69)"
                       label="パスワード"
                       hint="6文字以上、20文字以内で入力してください"
                       counter
@@ -56,7 +58,11 @@
               </v-container>
 
               <v-card-actions class="d-flex justify-center">
-                <v-btn color="primary" :disabled="!formIsValid" type="submit">
+                <v-btn
+                  class="login-click-btn"
+                  :disabled="!formIsValid"
+                  type="submit"
+                >
                   ログイン
                 </v-btn>
               </v-card-actions>
@@ -64,7 +70,7 @@
               <v-card-actions class="pb-0">
                 <v-spacer></v-spacer>
                 <v-btn
-                  color="green"
+                  color="black"
                   text
                   small
                   class="caption"
@@ -176,3 +182,21 @@ export default class LoginModal extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.login-btn {
+  &.theme--light.v-btn {
+    color: $site_color_2;
+    caret-color: $site_color_2;
+  }
+}
+.login-click-btn {
+  &.theme--light.v-btn {
+    color: $site_color_8;
+    caret-color: $site_color_8;
+  }
+  &.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background: $site_color_2;
+  }
+}
+</style>
