@@ -73,67 +73,67 @@ import { Component, Vue } from 'nuxt-property-decorator'
       itemsPerPage: 10,
       isColor: 'grey lighten-2',
       headers: [
-        { text: 'ID', value: 'id' },
-        { text: '人数', value: 'peopleNumber' },
-        { text: 'プラン', value: 'plan' }
+        { text: '日付', value: 'date' },
+        { text: '要件', value: 'Requirements' },
+        { text: 'ユーザ名', value: 'user' }
       ],
       list: [
         {
-          id: '1',
-          peopleNumber: '3',
-          plan: 'プランA'
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
         },
         {
-          id: '2',
-          peopleNumber: '6',
-          plan: 'プランB'
+          date: '12/23',
+          Requirements: 'かきくけこー！！',
+          user: 'iwaya'
         },
         {
-          id: '3',
-          peopleNumber: '9',
-          plan: 'プランC'
+          date: '12/18',
+          Requirements: 'さしすせそー！！',
+          user: 'iwaya'
         },
         {
-          id: '4',
-          peopleNumber: '12',
-          plan: 'プランD'
+          date: '12/12',
+          Requirements: 'たちつてとー！！',
+          user: 'iwaya'
         },
         {
-          id: '5',
-          peopleNumber: '15',
-          plan: 'プランE'
+          date: '12/9',
+          Requirements: 'なにぬねのー！！',
+          user: 'iwaya'
         }
       ],
       headers2: [
-        { text: 'ID', value: 'id' },
-        { text: '人数', value: 'peopleNumber' },
-        { text: 'プラン', value: 'plan' }
+        { text: '日付', value: 'date' },
+        { text: '要件', value: 'Requirements' },
+        { text: 'ユーザ名', value: 'user' }
       ],
       list2: [
         {
-          id: '6',
-          peopleNumber: '4',
-          plan: 'プランXX'
+          date: '10/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
         },
         {
-          id: '7',
-          peopleNumber: '8',
-          plan: 'プランXP'
+          date: '10/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
         },
         {
-          id: '8',
-          peopleNumber: '12',
-          plan: 'プランDX'
+          date: '10/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
         },
         {
-          id: '9',
-          peopleNumber: '16',
-          plan: 'プランSX'
+          date: '10/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
         },
         {
-          id: '10',
-          peopleNumber: '20',
-          plan: 'プランCV'
+          date: '10/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
         }
       ]
     }
