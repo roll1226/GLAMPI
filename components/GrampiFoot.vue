@@ -62,12 +62,15 @@ export default class GlampiFoot extends Vue {
 .glampi-footer-wrap {
   margin-top: 100px;
   .glampi-footer {
-    background-color: $site_color_2;
-    color: $site_color_8;
+    .theme--light.v-btn:hover::before {
+      background-color: $site_color_2;
+    }
+    background-color: $site_color_8;
+    //color: $site_color_8;
     .glampi-footer-btn {
       &.theme--light.v-btn {
-        color: $site_color_8;
-        caret-color: $site_color_8;
+        //color: $site_color_8;
+        //caret-color: $site_color_8;
         border-radius: 50px 50px 50px 50px;
       }
     }
