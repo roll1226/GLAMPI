@@ -133,145 +133,137 @@ export const actions = {
   },
 
   async CREATE_SEARCHED_FACILITY(dispatch: ICommit, payload: string) {
-    if (payload === '') {
-      await firestore
-        .collection('facilities')
-        .get()
-        .then((querySnapshot) => {
-          if (!querySnapshot.empty) {
-            querySnapshot.forEach(async (doc) => {
-              console.log(doc.data())
-              console.log(doc.id)
-              const facility = await doc.data()
+    await firestore
+      .collection('facilities')
+      .where('searchQuery', 'array-contains', payload)
+      .get()
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach(async (doc) => {
+            console.log(doc.data())
+            console.log(doc.id)
+            const facility = doc.data()
 
-              await firestore
-                .collection('facilities')
-                .doc(doc.id)
-                .collection('plans')
-                .orderBy('pay', 'asc')
-                .limit(1)
-                .get()
-                .then((queryPlan) => {
-                  if (!queryPlan.empty) {
-                    queryPlan.forEach(async (docPlan) => {
-                      const plan = docPlan.data()
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('plans')
+              .orderBy('pay', 'asc')
+              .limit(1)
+              .get()
+              .then((queryPlan) => {
+                if (!queryPlan.empty) {
+                  queryPlan.forEach(async (docPlan) => {
+                    const plan = docPlan.data()
+                    console.log('search!!!!')
+                    const facilityName = facility.name
+                    const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                    const facilityImg = facility.slider
+                    const planName = plan.planTitle
+                    const planPay = plan.pay
+                    const introduction = facility.displayName
+                    const glammity = introduction
+                    const tagsList = []
 
-                      const facilityName = facility.name
-                      const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
-                      const facilityImg = facility.slider
-                      const planName = plan.planTitle
-                      const planPay = plan.pay
-                      const introduction = facility.displayName
-                      const glammity = introduction
-                      const tagsList = []
-
-                      for (
-                        let index = 0;
-                        index < facility.tags.length;
-                        index++
-                      ) {
-                        const tag = await firestore
-                          .collection('tags')
-                          .where('tag', '==', facility.tags[index])
-                          .get()
-
-                        for (
-                          let tagIndex = 0;
-                          tagIndex < tag.docs.length;
-                          tagIndex++
-                        ) {
-                          console.log(tag.docs[tagIndex].data())
-                          tagsList.push(tag.docs[tagIndex].data())
-                        }
-                      }
-
-                      const facilityArray = {
-                        facilityName,
-                        facilityImg,
-                        address,
-                        planName,
-                        planPay,
-                        introduction,
-                        glammity,
-                        tagsList
-                      }
-                      dispatch.commit('SET_FACILITY_LIST', facilityArray)
-                    })
-                  }
-                })
-            })
-          }
-        })
-    } else {
-      await firestore
-        .collection('facilities')
-        .where('searchQuery', 'array-contains', payload)
-        .get()
-        .then((querySnapshot) => {
-          if (!querySnapshot.empty) {
-            querySnapshot.forEach(async (doc) => {
-              console.log(doc.data())
-              console.log(doc.id)
-              const facility = doc.data()
-
-              await firestore
-                .collection('facilities')
-                .doc(doc.id)
-                .collection('plans')
-                .orderBy('pay', 'asc')
-                .limit(1)
-                .get()
-                .then((queryPlan) => {
-                  if (!queryPlan.empty) {
-                    queryPlan.forEach(async (docPlan) => {
-                      const plan = docPlan.data()
-                      console.log('search!!!!')
-                      const facilityName = facility.name
-                      const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
-                      const facilityImg = facility.slider
-                      const planName = plan.planTitle
-                      const planPay = plan.pay
-                      const introduction = facility.displayName
-                      const glammity = introduction
-                      const tagsList = []
+                    for (let index = 0; index < facility.tags.length; index++) {
+                      const tag = await firestore
+                        .collection('tags')
+                        .where('tag', '==', facility.tags[index])
+                        .get()
 
                       for (
-                        let index = 0;
-                        index < facility.tags.length;
-                        index++
+                        let tagIndex = 0;
+                        tagIndex < tag.docs.length;
+                        tagIndex++
                       ) {
-                        const tag = await firestore
-                          .collection('tags')
-                          .where('tag', '==', facility.tags[index])
-                          .get()
-
-                        for (
-                          let tagIndex = 0;
-                          tagIndex < tag.docs.length;
-                          tagIndex++
-                        ) {
-                          console.log(tag.docs[tagIndex].data())
-                          tagsList.push(tag.docs[tagIndex].data())
-                        }
+                        console.log(tag.docs[tagIndex].data())
+                        tagsList.push(tag.docs[tagIndex].data())
                       }
+                    }
 
-                      const facilityArray = {
-                        facilityName,
-                        facilityImg,
-                        address,
-                        planName,
-                        planPay,
-                        introduction,
-                        glammity,
-                        tagsList
+                    const facilityArray = {
+                      facilityName,
+                      facilityImg,
+                      address,
+                      planName,
+                      planPay,
+                      introduction,
+                      glammity,
+                      tagsList
+                    }
+                    dispatch.commit('SET_FACILITY_LIST', facilityArray)
+                  })
+                }
+              })
+          })
+        }
+      })
+  },
+
+  async CREATE_SEARCHED_FACILITY_EMPTY(dispatch: ICommit) {
+    await firestore
+      .collection('facilities')
+      .get()
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach(async (doc) => {
+            console.log(doc.data())
+            console.log(doc.id)
+            const facility = await doc.data()
+
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('plans')
+              .orderBy('pay', 'asc')
+              .limit(1)
+              .get()
+              .then((queryPlan) => {
+                if (!queryPlan.empty) {
+                  queryPlan.forEach(async (docPlan) => {
+                    const plan = docPlan.data()
+
+                    const facilityName = facility.name
+                    const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                    const facilityImg = facility.slider
+                    const planName = plan.planTitle
+                    const planPay = plan.pay
+                    const introduction = facility.displayName
+                    const glammity = introduction
+                    const tagsList = []
+
+                    for (let index = 0; index < facility.tags.length; index++) {
+                      const tag = await firestore
+                        .collection('tags')
+                        .where('tag', '==', facility.tags[index])
+                        .get()
+
+                      for (
+                        let tagIndex = 0;
+                        tagIndex < tag.docs.length;
+                        tagIndex++
+                      ) {
+                        console.log(tag.docs[tagIndex].data())
+                        tagsList.push(tag.docs[tagIndex].data())
                       }
-                      dispatch.commit('SET_FACILITY_LIST', facilityArray)
-                    })
-                  }
-                })
-            })
-          }
-        })
-    }
+                    }
+
+                    const facilityArray = {
+                      facilityName,
+                      facilityImg,
+                      address,
+                      planName,
+                      planPay,
+                      introduction,
+                      glammity,
+                      tagsList
+                    }
+                    dispatch.commit('SET_FACILITY_LIST', facilityArray)
+                  })
+                }
+              })
+          })
+        }
+      })
   }
 }

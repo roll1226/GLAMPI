@@ -50,7 +50,7 @@
               :key="index"
               class="mx-1 mt-1"
             >
-              <v-icon left>
+              <v-icon left class="px-1">
                 {{ tag.icon }}
               </v-icon>
               {{ tag.tag }}

@@ -4,7 +4,7 @@
       v-for="(prefecture, prefecturesIndex) in prefectures"
       :key="prefecturesIndex"
     >
-      <v-expansion-panel-header>
+      <v-expansion-panel-header expand-icon="mdi-menu-down">
         {{ prefecture.prefectures }}
       </v-expansion-panel-header>
 

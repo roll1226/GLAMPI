@@ -51,10 +51,6 @@ export default class Searched extends Vue {
     return this.$store.state.search.facilityList
   }
 
-  get query(): string {
-    return this.$store.state.search.queryText
-  }
-
   @Watch('$route')
   SearchedSearcg() {
     if (
@@ -62,7 +58,7 @@ export default class Searched extends Vue {
       this.$route.query.prefectures === '' &&
       this.$route.query.tag === ''
     ) {
-      this.changeUrlFunc()
+      this.changeUrlFuncEmpty()
     } else if (
       this.$route.query.facilityKeyWord !== '' &&
       this.$route.query.prefectures === '' &&
@@ -98,18 +94,22 @@ export default class Searched extends Vue {
     }
   }
 
-  changeUrlFunc() {
-    this.$router.push(
-      `/searched?facilityKeyWord=${this.query}&prefectures=&tag=`
-    )
-
+  clearSearch() {
     this.$store.commit('search/SET_SEARCH_LIST', [])
     this.$store.commit('search/CLEAR_QUERY')
     this.$store.commit('facility/RESET_FACILITY_INFO')
     this.$store.commit('search/RESET_FACILITY')
+  }
 
+  changeUrlFunc() {
+    this.clearSearch()
     const searchQuery = decodeURI(this.$route.query.facilityKeyWord as string)
     this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
+  }
+
+  changeUrlFuncEmpty() {
+    this.clearSearch()
+    this.$store.dispatch('search/CREATE_SEARCHED_FACILITY_EMPTY')
   }
 
   created() {
