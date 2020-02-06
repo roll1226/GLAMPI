@@ -22,6 +22,7 @@ export interface IFacility {
   planPay: number
   introduction: string
   glammity: string
+  tags: [...string[]]
 }
 
 interface IState {
@@ -78,7 +79,7 @@ export const actions = {
           .get()
           .then((queryPlan) => {
             if (!queryPlan.empty) {
-              queryPlan.forEach((docPlan) => {
+              queryPlan.forEach(async (docPlan) => {
                 const plan = docPlan.data()
                 console.log('search!!!!')
                 const facilityName = facility.name
@@ -88,6 +89,23 @@ export const actions = {
                 const planPay = plan.pay
                 const introduction = facility.displayName
                 const glammity = introduction
+                const tagsList = []
+
+                for (let index = 0; index < facility.tags.length; index++) {
+                  const tag = await firestore
+                    .collection('tags')
+                    .where('tag', '==', facility.tags[index])
+                    .get()
+
+                  for (
+                    let tagIndex = 0;
+                    tagIndex < tag.docs.length;
+                    tagIndex++
+                  ) {
+                    console.log(tag.docs[tagIndex].data())
+                    tagsList.push(tag.docs[tagIndex].data())
+                  }
+                }
 
                 const facilityArray = {
                   facilityName,
@@ -96,7 +114,8 @@ export const actions = {
                   planName,
                   planPay,
                   introduction,
-                  glammity
+                  glammity,
+                  tagsList
                 }
                 dispatch.commit('SET_FACILITY_LIST', facilityArray)
               })
@@ -123,7 +142,7 @@ export const actions = {
             querySnapshot.forEach(async (doc) => {
               console.log(doc.data())
               console.log(doc.id)
-              const facility = doc.data()
+              const facility = await doc.data()
 
               await firestore
                 .collection('facilities')
@@ -134,7 +153,7 @@ export const actions = {
                 .get()
                 .then((queryPlan) => {
                   if (!queryPlan.empty) {
-                    queryPlan.forEach((docPlan) => {
+                    queryPlan.forEach(async (docPlan) => {
                       const plan = docPlan.data()
 
                       const facilityName = facility.name
@@ -144,6 +163,27 @@ export const actions = {
                       const planPay = plan.pay
                       const introduction = facility.displayName
                       const glammity = introduction
+                      const tagsList = []
+
+                      for (
+                        let index = 0;
+                        index < facility.tags.length;
+                        index++
+                      ) {
+                        const tag = await firestore
+                          .collection('tags')
+                          .where('tag', '==', facility.tags[index])
+                          .get()
+
+                        for (
+                          let tagIndex = 0;
+                          tagIndex < tag.docs.length;
+                          tagIndex++
+                        ) {
+                          console.log(tag.docs[tagIndex].data())
+                          tagsList.push(tag.docs[tagIndex].data())
+                        }
+                      }
 
                       const facilityArray = {
                         facilityName,
@@ -152,7 +192,8 @@ export const actions = {
                         planName,
                         planPay,
                         introduction,
-                        glammity
+                        glammity,
+                        tagsList
                       }
                       dispatch.commit('SET_FACILITY_LIST', facilityArray)
                     })
@@ -182,7 +223,7 @@ export const actions = {
                 .get()
                 .then((queryPlan) => {
                   if (!queryPlan.empty) {
-                    queryPlan.forEach((docPlan) => {
+                    queryPlan.forEach(async (docPlan) => {
                       const plan = docPlan.data()
                       console.log('search!!!!')
                       const facilityName = facility.name
@@ -192,6 +233,27 @@ export const actions = {
                       const planPay = plan.pay
                       const introduction = facility.displayName
                       const glammity = introduction
+                      const tagsList = []
+
+                      for (
+                        let index = 0;
+                        index < facility.tags.length;
+                        index++
+                      ) {
+                        const tag = await firestore
+                          .collection('tags')
+                          .where('tag', '==', facility.tags[index])
+                          .get()
+
+                        for (
+                          let tagIndex = 0;
+                          tagIndex < tag.docs.length;
+                          tagIndex++
+                        ) {
+                          console.log(tag.docs[tagIndex].data())
+                          tagsList.push(tag.docs[tagIndex].data())
+                        }
+                      }
 
                       const facilityArray = {
                         facilityName,
@@ -200,7 +262,8 @@ export const actions = {
                         planName,
                         planPay,
                         introduction,
-                        glammity
+                        glammity,
+                        tagsList
                       }
                       dispatch.commit('SET_FACILITY_LIST', facilityArray)
                     })

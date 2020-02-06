@@ -22,6 +22,7 @@
           :introduction-url="facility.introduction"
           :glammity-url="facility.glammity"
           :facility-img="facility.facilityImg[0]"
+          :facility-tags="facility.tagsList"
           class="mb-2"
         />
       </v-col>
@@ -111,12 +112,8 @@ export default class Searched extends Vue {
     this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
   }
 
-  async created() {
-    this.$store.commit('search/CLEAR_QUERY')
-    this.$store.commit('facility/RESET_FACILITY_INFO')
-    this.$store.commit('search/RESET_FACILITY')
-    const searchQuery = decodeURI(this.$route.query.facilityKeyWord as string)
-    await this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
+  created() {
+    this.SearchedSearcg()
   }
 }
 </script>

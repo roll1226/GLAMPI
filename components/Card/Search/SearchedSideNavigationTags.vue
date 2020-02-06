@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { firestore } from '@/plugins/firebase'
 
 export interface ITags {
   tag: string
@@ -28,44 +29,23 @@ export interface ITags {
 
 @Component
 export default class SearchedSideNavigationTags extends Vue {
-  tags: ITags[] = [
-    {
-      tag: '駅近',
-      icon: 'fas fa-train'
-    },
-    {
-      tag: 'プール完備',
-      icon: 'fas fa-swimmer'
-    },
-    {
-      tag: 'ペット同伴OK!',
-      icon: 'fas fa-paw'
-    },
-    {
-      tag: ' 車OK!',
-      icon: 'fas fa-car'
-    },
-    {
-      tag: '海近',
-      icon: 'fas fa-water'
-    },
-    {
-      tag: 'コンセントプラグあり',
-      icon: 'fas fa-plug'
-    },
-    {
-      tag: '手ぶら',
-      icon: 'fas fa-sign-language'
-    },
-    {
-      tag: '夜空が見える',
-      icon: 'fas fa-star-and-crescent'
-    },
-    {
-      tag: '朝食付き',
-      icon: 'fas fa-bread-slice'
+  tags: ITags[] = []
+
+  async created() {
+    const tags = await firestore.collection('tags').get()
+    console.log(tags.docs.length)
+    for (let index = 0; index < tags.docs.length; index++) {
+      const tag = tags.docs[index].data().tag
+      const icon = tags.docs[index].data().icon
+
+      const tagList = {
+        tag,
+        icon
+      }
+
+      this.tags.push(tagList)
     }
-  ]
+  }
 
   searchTag(tag: string) {
     this.$router.push(`/searched?facilityKeyWord=&prefectures=&tag=${tag}`)

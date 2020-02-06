@@ -45,17 +45,15 @@
           <v-divider class="mt-4 mx-4"></v-divider>
 
           <v-card-text class="pb-3">
-            <v-chip class="mx-1 mt-1">
-              <v-icon left>mdi-brightness-5</v-icon>
-              Turn on Lights
-            </v-chip>
-            <v-chip class="mx-1 mt-1">
-              <v-icon left>mdi-alarm-check</v-icon>
-              Set alarm
-            </v-chip>
-            <v-chip class="mx-1 mt-1">
-              <v-icon left>mdi-blinds</v-icon>
-              Close blinds
+            <v-chip
+              v-for="(tag, index) in facilityTags"
+              :key="index"
+              class="mx-1 mt-1"
+            >
+              <v-icon left>
+                {{ tag.icon }}
+              </v-icon>
+              {{ tag.tag }}
             </v-chip>
           </v-card-text>
         </v-col>
@@ -66,6 +64,11 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+
+export interface ITags {
+  tag: string
+  icon: string
+}
 
 @Component
 export default class SearchedFasility extends Vue {
@@ -89,5 +92,8 @@ export default class SearchedFasility extends Vue {
 
   @Prop({ required: true, default: '' })
   glammityUrl!: string
+
+  @Prop({ required: true, default: '' })
+  facilityTags!: Array<ITags>
 }
 </script>
