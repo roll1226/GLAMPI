@@ -12,6 +12,7 @@
           </v-col>
         </v-row>
       </v-col>
+
       <v-col>
         <v-row>
           <v-col
@@ -23,7 +24,7 @@
             xs="12"
           >
             <v-card>
-              <div class="d-flex flex-no-wrap justify-start">
+              <div class="d-flex justify-start">
                 <v-avatar class="ma-3" size="125" tile>
                   <v-img
                     src="https://pbs.twimg.com/profile_images/1063562329155989505/f3HAhG-8.jpg"
@@ -42,28 +43,40 @@
                       募集期間: 2020/01/23~2020/02/10
                     </div>
                   </v-card-text>
-
-                  <v-card-actions>
-                    <v-row>
-                      <v-col cols="6" class="pb-0">
-                        <v-btn block text>
-                          施設紹介
-                        </v-btn>
-                      </v-col>
-                      <v-col cols="6" class="pb-0">
-                        <v-btn block text>
-                          紹介ページ
-                        </v-btn>
-                      </v-col>
-                      <v-col cols="12" class="pb-1 pt-2">
-                        <v-btn block text>
-                          参加する
-                        </v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card-actions>
                 </div>
               </div>
+
+              <v-card-actions class="pt-0">
+                <v-row>
+                  <v-col cols="6" class="py-0">
+                    <v-btn block text>
+                      施設紹介
+
+                      <v-icon class="ml-2">
+                        fas fa-angle-right
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="6" class="py-0">
+                    <v-btn block text>
+                      紹介ページ
+
+                      <v-icon class="ml-2">
+                        fas fa-angle-right
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" class="pb-1 pt-2">
+                    <v-btn block text>
+                      <v-icon class="mr-2">
+                        fas fa-campground
+                      </v-icon>
+
+                      参加する
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
