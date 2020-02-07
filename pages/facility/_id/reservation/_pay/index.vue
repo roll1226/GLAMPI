@@ -142,14 +142,6 @@ export default class reservation extends Vue {
   displayLists?: options[] = []
 
   get dateRangeText(): string {
-    if (this.dates[1]) {
-      if (this.dates[0] > this.dates[1]) {
-        const checkOut = this.dates[0]
-        const checkIn = this.dates[1]
-
-        this.$store.commit('reservation/SET_DATE_RE', { checkIn, checkOut })
-      }
-    }
     return this.dates.join(' ~ ')
   }
 
@@ -159,6 +151,15 @@ export default class reservation extends Vue {
 
   set dates(selectdates: [...string[]]) {
     this.$store.commit('reservation/SET_DATES', selectdates)
+    if (selectdates[1]) {
+      this.$store.commit('reservation/SET_DATES', selectdates)
+      if (selectdates[0] > selectdates[1]) {
+        const checkOut = selectdates[0]
+        const checkIn = selectdates[1]
+
+        this.$store.commit('reservation/SET_DATE_RE', { checkIn, checkOut })
+      }
+    }
   }
 
   mounted() {
