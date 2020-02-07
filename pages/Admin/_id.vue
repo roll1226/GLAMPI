@@ -5,7 +5,7 @@
       <v-col class="pa-0 ma-0" cols="auto">
         <v-tabs
           class="pa-0 ma-0"
-          active-class="font-weight-bold grey lighten-2"
+          active-class="font-weight-bold tab-active"
           hide-slider
           vertical
         >
@@ -65,6 +65,10 @@ export default class FacilityIndex extends Vue {
   width: 150px;
   //padding*2=height
   padding: 30px;
+}
+
+.tab-active {
+  background-color: $site_color_9;
 }
 
 .contents {
