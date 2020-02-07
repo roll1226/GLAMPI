@@ -34,8 +34,6 @@
                 </v-btn>
               </v-col>
 
-              <v-spacer></v-spacer>
-
               <v-col cols="5">
                 <v-btn block :to="glammityUrl">
                   GLAMMITY
@@ -43,6 +41,23 @@
               </v-col>
             </v-row>
           </v-card-actions>
+
+          <v-divider class="mt-4 mx-4"></v-divider>
+
+          <v-card-text class="pb-3">
+            <v-chip class="mx-1 mt-1">
+              <v-icon left>mdi-brightness-5</v-icon>
+              Turn on Lights
+            </v-chip>
+            <v-chip class="mx-1 mt-1">
+              <v-icon left>mdi-alarm-check</v-icon>
+              Set alarm
+            </v-chip>
+            <v-chip class="mx-1 mt-1">
+              <v-icon left>mdi-blinds</v-icon>
+              Close blinds
+            </v-chip>
+          </v-card-text>
         </v-col>
       </v-row>
     </v-container>
