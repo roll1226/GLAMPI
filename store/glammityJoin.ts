@@ -1,5 +1,5 @@
 import * as Vuex from 'vuex'
-import { firestore } from '@/plugins/firebase'
+// import { firestore } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
