@@ -2,14 +2,16 @@
   <!-- デバッグ -->
   <div class="facility-wrapp">
     <v-row class="pa-0 ma-0">
-      <v-col class="pa-0 ma-0">
+      <v-col class="pa-0 ma-0" cols="auto">
         <v-tabs
-          classs="pa-0 ma-0 tabs"
-          background-color="rgb(244,244,244)"
+          class="pa-0 ma-0"
+          background-color="grey lighten-4"
           active-class="font-weight-bold grey lighten-2"
-          hide-slider="true"
+          hide-slider
           vertical
         >
+          <!-- background-color="grey lighten-2"
+          active-class="font-weight-bold grey" -->
           <v-tab class="black--text tab" @click="tab = 0">トップ</v-tab>
           <v-tab class="black--text tab" @click="tab = 1">予約一覧</v-tab>
           <v-tab class="black--text tab" @click="tab = 2">収益</v-tab>
@@ -36,71 +38,50 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityTop from '@/components/Admin/FacilityTop.vue'
 import ReserveManage from '@/components/Admin/ReserveManage.vue'
+import inquiry from '@/components/Admin/inquiry.vue'
+import revenue from '@/components/Admin/revenue.vue'
+import index from '@/components/Admin/index.vue'
 import ReservationInfoEdit from '@/components/Admin/ReservationInfoEdit.vue'
 
 @Component({
   components: {
     FacilityTop,
     ReserveManage,
+    inquiry,
+    revenue,
+    index,
     ReservationInfoEdit
   }
 })
 export default class FacilityIndex extends Vue {
-  public reservation: number = 5
-  public cancel: number = 4
   public tab: number = 0
-
-  data() {
-    return {
-      headers: [
-        {
-          text: 'お客様名',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: '部屋番号', value: 'rooms' }
-      ],
-      guests: [
-        {
-          name: 'Guest1',
-          rooms: 1
-        },
-        {
-          name: 'Guest2',
-          rooms: 2
-        },
-        {
-          name: 'Guest3',
-          rooms: 3
-        }
-      ]
-    }
-  }
 }
 </script>
 <style lang="scss">
 .facility-wrapp {
-  margin: 50px 0 0 35px;
-  //
+  display: block;
+  width: 1300px;
+  //background-color: bisque;
+  margin: 50px 0 0 50px;
   padding: 0;
-  background-color: aquamarine;
 }
 
-.tabs {
-  width: 100%;
-  height: 100%;
+.v-tabs {
+  //width: 100%;
+  //height: 100%;
+  height: 400px;
 }
 
-.tab {
+.v-tab {
   width: 150px;
   //padding*2=height
   padding: 30px;
 }
 
-.item {
+.contents {
   width: 1000px;
   height: max-content;
+  margin: 0 0 0 40px;
 }
 
 /*.facility-tabs {
