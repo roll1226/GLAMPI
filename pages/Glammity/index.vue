@@ -58,7 +58,7 @@
                     </v-btn>
                   </v-col>
                   <v-col cols="6" class="py-0">
-                    <v-btn block text>
+                    <v-btn block text :to="`${url}/glammityIntroduction`">
                       紹介ページ
 
                       <v-icon class="ml-2">
@@ -84,3 +84,12 @@
     </v-row>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class glammityIndex extends Vue {
+  url: string = 'どこここ'
+}
+</script>
