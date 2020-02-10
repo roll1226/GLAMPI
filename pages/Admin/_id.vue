@@ -22,7 +22,9 @@
           <v-tabs-item v-if="tab == 0"><FacilityTop /></v-tabs-item>
           <v-tabs-item v-else-if="tab == 1"><ReserveManage /></v-tabs-item>
           <v-tabs-item v-else-if="tab == 2">収益中身</v-tabs-item>
-          <v-tabs-item v-else-if="tab == 3">情報登録中身</v-tabs-item>
+          <v-tabs-item v-else-if="tab == 3"
+            ><ReservationInfoEdit
+          /></v-tabs-item>
           <v-tabs-item v-else-if="tab == 4">問い合わせ中身</v-tabs-item>
         </v-tabs-items>
       </v-col>
@@ -34,11 +36,13 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityTop from '@/components/Admin/FacilityTop.vue'
 import ReserveManage from '@/components/Admin/ReserveManage.vue'
+import ReservationInfoEdit from '@/components/Admin/ReservationInfoEdit.vue'
 
 @Component({
   components: {
     FacilityTop,
-    ReserveManage
+    ReserveManage,
+    ReservationInfoEdit
   }
 })
 export default class FacilityIndex extends Vue {
