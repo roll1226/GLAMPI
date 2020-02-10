@@ -10,7 +10,6 @@ import { auth } from '@/plugins/firebase'
 const middleware: Middleware = ({ route, store, redirect }) => {
   auth.onAuthStateChanged((user: any) => {
     console.log(route.name)
-    console.log(user.uid)
     if (user) {
       store.commit('login/IS_LOGIN', true)
       store.commit('login/SET_USER_UID', user.uid)
