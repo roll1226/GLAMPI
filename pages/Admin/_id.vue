@@ -23,7 +23,7 @@
         <div v-if="tab == 0"><FacilityTop class="contents" /></div>
         <div v-else-if="tab == 1"><ReserveManage class="contents" /></div>
         <div v-else-if="tab == 2"><revenue class="contents" /></div>
-        <div v-else-if="tab == 3">情報登録中身</div>
+        <div v-else-if="tab == 3"><index /></div>
         <div v-else-if="tab == 4"><inquiry class="contents" /></div>
       </v-col>
     </v-row>
@@ -36,12 +36,15 @@ import FacilityTop from '@/components/Admin/FacilityTop.vue'
 import ReserveManage from '@/components/Admin/ReserveManage.vue'
 import inquiry from '@/components/Admin/inquiry.vue'
 import revenue from '@/components/Admin/revenue.vue'
+import index from '@/components/Admin/index.vue'
+
 @Component({
   components: {
     FacilityTop,
     ReserveManage,
     inquiry,
-    revenue
+    revenue,
+    index
   }
 })
 export default class FacilityIndex extends Vue {
