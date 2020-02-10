@@ -20,5 +20,13 @@ export const state = (): IState => ({
 export const mutations = {
   SET_JOIN_BTN_DIALOG(state: IState, payload: boolean) {
     state.joinBtnDialog = payload
+  },
+
+  SET_JOINED_BTN_DIALOG(state: IState, payload: boolean) {
+    state.joinedBtnDialog = payload
+  },
+
+  SET_LOADING(state: IState, payload: boolean) {
+    state.loading = payload
   }
 }
