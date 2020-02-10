@@ -22,7 +22,7 @@
       <v-col class="pa-0 ma-0" cols="auto">
         <div v-if="tab == 0"><FacilityTop class="contents" /></div>
         <div v-else-if="tab == 1"><ReserveManage class="contents" /></div>
-        <div v-else-if="tab == 2">収益中身</div>
+        <div v-else-if="tab == 2"><revenue class="contents" /></div>
         <div v-else-if="tab == 3">情報登録中身</div>
         <div v-else-if="tab == 4"><inquiry class="contents" /></div>
       </v-col>
@@ -35,12 +35,13 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityTop from '@/components/Admin/FacilityTop.vue'
 import ReserveManage from '@/components/Admin/ReserveManage.vue'
 import inquiry from '@/components/Admin/inquiry.vue'
-
+import revenue from '@/components/Admin/revenue.vue'
 @Component({
   components: {
     FacilityTop,
     ReserveManage,
-    inquiry
+    inquiry,
+    revenue
   }
 })
 export default class FacilityIndex extends Vue {
