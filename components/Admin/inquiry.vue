@@ -67,6 +67,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({
   data() {
+    return {
       isColor: 'grey lighten-2',
       headers: [
         { text: '日付', value: 'date' },
