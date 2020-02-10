@@ -22,7 +22,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class PlanCreateGlammity extends Vue {
   get plan(): string {
-    return this.$store.state.registration.plan
+    return this.$store.state.createGlammity.plan
   }
 
   set plan(value: string) {
