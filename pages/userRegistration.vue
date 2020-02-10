@@ -99,6 +99,7 @@ export default class UserRegistration extends Vue {
   get nickname(): string {
     return this.$store.state.registration.nickname
   }
+
   async regist() {
     await auth
       .createUserWithEmailAndPassword(this.email, this.password)
@@ -111,6 +112,7 @@ export default class UserRegistration extends Vue {
           body: JSON.stringify({
             uid: user.user.uid,
             user: {
+              email: this.email,
               lastName: this.lastName,
               firstName: this.firstName,
               lastNameKana: this.lastNameKana,

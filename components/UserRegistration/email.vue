@@ -8,11 +8,15 @@
       :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
       hint="「XX@XX.XX」の形式で入力してください"
     ></v-text-field>
+
+    <v-btn @click="sendTestMail">
+      確認メールを送る
+    </v-btn>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-
+const url = 'https://us-central1-j4k1-b789f.cloudfunctions.net/sendTextMail'
 @Component
 export default class emailUserRegistration extends Vue {
   // public email: string = ''
@@ -34,6 +38,20 @@ export default class emailUserRegistration extends Vue {
         'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
       )
     }
+  }
+
+  async sendTestMail() {
+    await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.email
+      })
+    }).then((result) => {
+      console.log(result)
+    })
   }
 }
 </script>
