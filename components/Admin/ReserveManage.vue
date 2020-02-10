@@ -37,9 +37,6 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component({
   data() {
     return {
-      page: 1,
-      pageCount: 0,
-      itemsPerPage: 10,
       headers: [
         { text: 'ID', value: 'id' },
         { text: '人数', value: 'peopleNumber' },
@@ -227,5 +224,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
     }
   }
 })
-export default class FacilityIndex extends Vue {}
+export default class ReserveManageFacility extends Vue {
+  public page: number = 1
+  public pageCount: number = 0
+  public itemsPerPage: number = 10
+}
 </script>

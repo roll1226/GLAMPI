@@ -31,14 +31,11 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class FacilityTop extends Vue {
+export default class RevenueFacility extends Vue {
   public revenue: number = 240000
   public guests: number = 32
   public revenue2: number = 520000
   public guests2: number = 67
-  data() {
-    return {}
-  }
 }
 </script>
 <style lang="scss">
