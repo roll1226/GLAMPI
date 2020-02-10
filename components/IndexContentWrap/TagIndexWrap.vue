@@ -8,7 +8,7 @@
       </v-col>
     </v-row>
 
-    <div class="index-tag-mobile">
+    <div class="index-tag-mobile top-page-introduction-lists">
       <v-expansion-panels>
         <v-expansion-panel>
           <v-expansion-panel-header>
@@ -37,27 +37,31 @@
       </v-expansion-panels>
     </div>
 
-    <v-card class="top-page-introduction-lists index-tag-pc">
-      <v-card-text>
-        <v-row>
-          <v-col
-            v-for="n of 18"
-            :key="n"
-            lg="2"
-            md="2"
-            sm="4"
-            class="text-center"
-          >
-            <v-btn rounded depressed>
-              <v-icon class="mr-2">
-                fas fa-train
-              </v-icon>
-              都心に近い
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <v-row class="top-page-introduction-lists">
+      <v-col>
+        <v-card class="index-tag-pc" elevation="0">
+          <v-card-text>
+            <v-row>
+              <v-col
+                v-for="n of 18"
+                :key="n"
+                lg="2"
+                md="2"
+                sm="4"
+                class="text-center"
+              >
+                <v-btn rounded depressed>
+                  <v-icon class="mr-2">
+                    fas fa-train
+                  </v-icon>
+                  都心に近い
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -69,22 +73,22 @@ export default class TagIndexWrap extends Vue {}
 </script>
 
 <style lang="scss">
-.index-tag-mobile {
-  display: block;
+// .index-tag-mobile {
+//   display: block;
 
-  max-width: 300px;
-  margin: 0 auto;
-}
+//   max-width: 300px;
+//   margin: 0 auto;
+// }
 
 .index-tag-pc {
   display: none;
 }
 
 @media screen and (min-width: 770px) {
-  .index-wrap-tag {
-    margin-left: 14px;
-    margin-right: 14px;
-  }
+  // .index-wrap-tag {
+  //   margin-left: 14px;
+  //   margin-right: 14px;
+  // }
 
   .index-tag-mobile {
     display: none;

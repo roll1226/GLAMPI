@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn color="red" text small class="caption" @click.stop="openCard">
+    <v-btn text small class="caption pw-change-btn" @click.stop="openCard">
       パスワードを忘れた方はこちら
     </v-btn>
 
@@ -107,3 +107,12 @@ export default class ChangePasswordBtn extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.caption {
+  &.pw-change-btn {
+    color: $site_color_2;
+    caret-color: $site_color_2;
+  }
+}
+</style>

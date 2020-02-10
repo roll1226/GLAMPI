@@ -1,32 +1,29 @@
 <template>
-  <div>
-    <div
-      class="d-flex mx-3 justify-center mb-10 px-2"
-      style="margin-top: -70px"
-    >
-      <v-card outlined class="input-wrap px-3 pt-1 pb-0" style="width: 600px;">
-        <v-text-field
-          ref="searchInput"
-          v-model="query"
-          append-icon="fas fa-search"
-          label="地域、施設名を入力して下さい。"
-          single-line
-          persistent-hint
-          dense
-          background-color="white"
-          @input="search"
-          @click:append="facilitySearch"
-          @keydown.enter="onKeydownEnter($event.keyCode)"
-        ></v-text-field>
+  <div class="d-flex justify-center mb-10">
+    <v-card outlined class="input-wrap px-3 pt-1 pb-0" style="width: 600px;">
+      <v-text-field
+        ref="searchInput"
+        v-model="query"
+        append-icon="fas fa-search"
+        label="地域、施設名を入力して下さい。"
+        single-line
+        persistent-hint
+        dense
+        background-color="white"
+        color="rgb(87, 95, 69)"
+        @input="search"
+        @click:append="facilitySearch"
+        @keydown.enter="onKeydownEnter($event.keyCode)"
+      ></v-text-field>
 
-        <SearchList @focus="focus" />
-      </v-card>
-    </div>
+      <SearchList @focus="focus" />
+    </v-card>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
+// import VueRouter from 'vue-router'
 import SearchList from '@/components/Card/Search/SearchList.vue'
 
 @Component({
@@ -36,9 +33,23 @@ import SearchList from '@/components/Card/Search/SearchList.vue'
 })
 export default class algolie extends Vue {
   search() {
-    if (this.query === '') return
+    if (this.query === '') {
+      this.$store.commit('search/SET_SEARCH_LIST', [])
+      return
+    }
 
     this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
+  }
+
+  @Watch('$route')
+  SearchedSearcg() {
+    this.$router.push(`/searched?facilityKeyWord=${this.query}`)
+    this.$store.commit('search/SET_SEARCH_LIST', [])
+    this.$store.commit('search/CLEAR_QUERY')
+    this.$store.commit('facility/RESET_FACILITY_INFO')
+    this.$store.commit('search/RESET_FACILITY')
+    const searchQuery = decodeURI(this.$route.query.facilityKeyWord as string)
+    this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
   }
 
   facilitySearch() {
