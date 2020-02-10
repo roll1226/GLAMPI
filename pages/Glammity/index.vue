@@ -1,0 +1,95 @@
+<template>
+  <div>
+    <v-row>
+      <v-col lg="3" md="3" sm="3" xs="12">
+        <v-row>
+          <v-col>
+            <v-card>
+              <v-card-title>
+                glammity検索
+              </v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+
+      <v-col>
+        <v-row>
+          <v-col
+            v-for="(inte, index) in 10"
+            :key="index"
+            lg="6"
+            md="6"
+            sm="6"
+            xs="12"
+          >
+            <v-card>
+              <div class="d-flex justify-start">
+                <v-avatar class="ma-3" size="125" tile>
+                  <v-img
+                    src="https://pbs.twimg.com/profile_images/1063562329155989505/f3HAhG-8.jpg"
+                  ></v-img>
+                </v-avatar>
+                <div>
+                  <v-card-text>
+                    <p>
+                      施設名: hogehoge
+                    </p>
+
+                    <div>
+                      主催者: 俺
+                    </div>
+                    <div>
+                      募集期間: 2020/01/23~2020/02/10
+                    </div>
+                  </v-card-text>
+                </div>
+              </div>
+
+              <v-card-actions class="pt-0">
+                <v-row>
+                  <v-col cols="6" class="py-0">
+                    <v-btn block text>
+                      施設紹介
+
+                      <v-icon class="ml-2">
+                        fas fa-angle-right
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="6" class="py-0">
+                    <v-btn block text :to="`${url}/glammityIntroduction`">
+                      紹介ページ
+
+                      <v-icon class="ml-2">
+                        fas fa-angle-right
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" class="pb-1 pt-2">
+                    <v-btn block text>
+                      <v-icon class="mr-2">
+                        fas fa-campground
+                      </v-icon>
+
+                      参加する
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class glammityIndex extends Vue {
+  url: string = 'どこここ'
+}
+</script>
