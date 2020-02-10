@@ -22,6 +22,7 @@
           :introduction-url="facility.introduction"
           :glammity-url="facility.glammity"
           :facility-img="facility.facilityImg[0]"
+          :facility-tags="facility.tagsList"
           class="mb-2"
         />
       </v-col>
@@ -30,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import SearchedFasility from '@/components/Card/Search/SearchedFasility.vue'
 import { IFacility } from '@/store/facility'
 import SearchedSideNavigation from '@/components/Card/Search/SearchedSideNavigation.vue'
@@ -50,12 +51,69 @@ export default class Searched extends Vue {
     return this.$store.state.search.facilityList
   }
 
-  async created() {
+  @Watch('$route')
+  SearchedSearcg() {
+    if (
+      this.$route.query.facilityKeyWord === '' &&
+      this.$route.query.prefectures === '' &&
+      this.$route.query.tag === ''
+    ) {
+      this.changeUrlFuncEmpty()
+    } else if (
+      this.$route.query.facilityKeyWord !== '' &&
+      this.$route.query.prefectures === '' &&
+      this.$route.query.tag === ''
+    ) {
+      this.changeUrlFunc()
+    } else if (
+      this.$route.query.facilityKeyWord === '' &&
+      this.$route.query.prefectures !== '' &&
+      this.$route.query.tag === ''
+    ) {
+      console.log(this.$route.query.prefectures)
+
+      this.$store.commit('search/SET_SEARCH_LIST', [])
+      this.$store.commit('search/CLEAR_QUERY')
+      this.$store.commit('facility/RESET_FACILITY_INFO')
+      this.$store.commit('search/RESET_FACILITY')
+
+      const prefecture = decodeURI(this.$route.query.prefectures as string)
+      this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', prefecture)
+    } else if (
+      this.$route.query.facilityKeyWord === '' &&
+      this.$route.query.prefectures === '' &&
+      this.$route.query.tag !== ''
+    ) {
+      this.$store.commit('search/SET_SEARCH_LIST', [])
+      this.$store.commit('search/CLEAR_QUERY')
+      this.$store.commit('facility/RESET_FACILITY_INFO')
+      this.$store.commit('search/RESET_FACILITY')
+
+      const tag = decodeURI(this.$route.query.tag as string)
+      this.$store.dispatch('search/SEARCH_FACILITY_TAG', tag)
+    }
+  }
+
+  clearSearch() {
+    this.$store.commit('search/SET_SEARCH_LIST', [])
     this.$store.commit('search/CLEAR_QUERY')
     this.$store.commit('facility/RESET_FACILITY_INFO')
     this.$store.commit('search/RESET_FACILITY')
+  }
+
+  changeUrlFunc() {
+    this.clearSearch()
     const searchQuery = decodeURI(this.$route.query.facilityKeyWord as string)
-    await this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
+    this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
+  }
+
+  changeUrlFuncEmpty() {
+    this.clearSearch()
+    this.$store.dispatch('search/CREATE_SEARCHED_FACILITY_EMPTY')
+  }
+
+  created() {
+    this.SearchedSearcg()
   }
 }
 </script>

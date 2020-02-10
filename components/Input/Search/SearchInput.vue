@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 // import VueRouter from 'vue-router'
 import SearchList from '@/components/Card/Search/SearchList.vue'
 
@@ -41,20 +41,11 @@ export default class algolie extends Vue {
     this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
   }
 
-  @Watch('$route')
-  SearchedSearcg() {
-    this.$router.push(`/searched?facilityKeyWord=${this.query}`)
-    this.$store.commit('search/SET_SEARCH_LIST', [])
-    this.$store.commit('search/CLEAR_QUERY')
-    this.$store.commit('facility/RESET_FACILITY_INFO')
-    this.$store.commit('search/RESET_FACILITY')
-    const searchQuery = decodeURI(this.$route.query.facilityKeyWord as string)
-    this.$store.dispatch('search/CREATE_SEARCHED_FACILITY', searchQuery)
-  }
-
   facilitySearch() {
     this.$store.commit('search/SET_SEARCH_LIST', [])
-    this.$router.push(`/searched?facilityKeyWord=${this.query}`)
+    this.$router.push(
+      `/searched?facilityKeyWord=${this.query}&prefectures=&tag=`
+    )
   }
 
   onKeydownEnter(keyCode: number) {

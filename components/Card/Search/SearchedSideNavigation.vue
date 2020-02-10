@@ -4,7 +4,7 @@
       v-for="(prefecture, prefecturesIndex) in prefectures"
       :key="prefecturesIndex"
     >
-      <v-expansion-panel-header>
+      <v-expansion-panel-header expand-icon="mdi-menu-down">
         {{ prefecture.prefectures }}
       </v-expansion-panel-header>
 
@@ -12,6 +12,7 @@
         <v-card-actions
           v-for="(prefectureName, prefectureIndex) in prefecture.prefecture"
           :key="prefectureIndex"
+          @click="searchTag(prefectureName)"
         >
           <v-btn text block>
             {{ prefectureName }}
@@ -101,5 +102,12 @@ export default class SearchedSideNavigation extends Vue {
       ]
     }
   ]
+
+  searchTag(prefecture: string) {
+    console.log(prefecture)
+    this.$router.push(
+      `/searched?facilityKeyWord=&prefectures=${prefecture}&tag=`
+    )
+  }
 }
 </script>

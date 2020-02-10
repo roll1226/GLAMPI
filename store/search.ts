@@ -22,6 +22,7 @@ export interface IFacility {
   planPay: number
   introduction: string
   glammity: string
+  tags: [...string[]]
 }
 
 interface IState {
@@ -60,107 +61,209 @@ export const mutations = {
 }
 
 export const actions = {
+  async SEARCH_FACILITY_TAG(dispatch: ICommit, payload: string) {
+    try {
+      const tag = await firestore
+        .collection('facilities')
+        .where('tags', 'array-contains', payload)
+        .get()
+      console.log(tag.docs.length)
+      for (let index = 0; index < tag.docs.length; index++) {
+        const facility = tag.docs[index].data()
+        await firestore
+          .collection('facilities')
+          .doc(tag.docs[index].id)
+          .collection('plans')
+          .orderBy('pay', 'asc')
+          .limit(1)
+          .get()
+          .then((queryPlan) => {
+            if (!queryPlan.empty) {
+              queryPlan.forEach(async (docPlan) => {
+                const plan = docPlan.data()
+                console.log('search!!!!')
+                const facilityName = facility.name
+                const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                const facilityImg = facility.slider
+                const planName = plan.planTitle
+                const planPay = plan.pay
+                const introduction = facility.displayName
+                const glammity = introduction
+                const tagsList = []
+
+                for (let index = 0; index < facility.tags.length; index++) {
+                  const tag = await firestore
+                    .collection('tags')
+                    .where('tag', '==', facility.tags[index])
+                    .get()
+
+                  for (
+                    let tagIndex = 0;
+                    tagIndex < tag.docs.length;
+                    tagIndex++
+                  ) {
+                    console.log(tag.docs[tagIndex].data())
+                    tagsList.push(tag.docs[tagIndex].data())
+                  }
+                }
+
+                const facilityArray = {
+                  facilityName,
+                  facilityImg,
+                  address,
+                  planName,
+                  planPay,
+                  introduction,
+                  glammity,
+                  tagsList
+                }
+                dispatch.commit('SET_FACILITY_LIST', facilityArray)
+              })
+            }
+          })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
   async SEARCH_ALGOLIA(dispatch: ICommit, payload: string) {
     const searchResult = await index.search({ query: payload })
     dispatch.commit('SET_SEARCH_LIST', searchResult.hits)
   },
 
   async CREATE_SEARCHED_FACILITY(dispatch: ICommit, payload: string) {
-    if (payload === '') {
-      await firestore
-        .collection('facilities')
-        .get()
-        .then((querySnapshot) => {
-          if (!querySnapshot.empty) {
-            querySnapshot.forEach(async (doc) => {
-              console.log(doc.data())
-              console.log(doc.id)
-              const facility = doc.data()
+    await firestore
+      .collection('facilities')
+      .where('searchQuery', 'array-contains', payload)
+      .get()
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach(async (doc) => {
+            console.log(doc.data())
+            console.log(doc.id)
+            const facility = doc.data()
 
-              await firestore
-                .collection('facilities')
-                .doc(doc.id)
-                .collection('plans')
-                .orderBy('pay', 'asc')
-                .limit(1)
-                .get()
-                .then((queryPlan) => {
-                  if (!queryPlan.empty) {
-                    queryPlan.forEach((docPlan) => {
-                      const plan = docPlan.data()
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('plans')
+              .orderBy('pay', 'asc')
+              .limit(1)
+              .get()
+              .then((queryPlan) => {
+                if (!queryPlan.empty) {
+                  queryPlan.forEach(async (docPlan) => {
+                    const plan = docPlan.data()
+                    console.log('search!!!!')
+                    const facilityName = facility.name
+                    const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                    const facilityImg = facility.slider
+                    const planName = plan.planTitle
+                    const planPay = plan.pay
+                    const introduction = facility.displayName
+                    const glammity = introduction
+                    const tagsList = []
 
-                      const facilityName = facility.name
-                      const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
-                      const facilityImg = facility.slider
-                      const planName = plan.planTitle
-                      const planPay = plan.pay
-                      const introduction = facility.displayName
-                      const glammity = introduction
+                    for (let index = 0; index < facility.tags.length; index++) {
+                      const tag = await firestore
+                        .collection('tags')
+                        .where('tag', '==', facility.tags[index])
+                        .get()
 
-                      const facilityArray = {
-                        facilityName,
-                        facilityImg,
-                        address,
-                        planName,
-                        planPay,
-                        introduction,
-                        glammity
+                      for (
+                        let tagIndex = 0;
+                        tagIndex < tag.docs.length;
+                        tagIndex++
+                      ) {
+                        console.log(tag.docs[tagIndex].data())
+                        tagsList.push(tag.docs[tagIndex].data())
                       }
-                      dispatch.commit('SET_FACILITY_LIST', facilityArray)
-                    })
-                  }
-                })
-            })
-          }
-        })
-    } else {
-      await firestore
-        .collection('facilities')
-        .where('searchQuery', 'array-contains', payload)
-        .get()
-        .then((querySnapshot) => {
-          if (!querySnapshot.empty) {
-            querySnapshot.forEach(async (doc) => {
-              console.log(doc.data())
-              console.log(doc.id)
-              const facility = doc.data()
+                    }
 
-              await firestore
-                .collection('facilities')
-                .doc(doc.id)
-                .collection('plans')
-                .orderBy('pay', 'asc')
-                .limit(1)
-                .get()
-                .then((queryPlan) => {
-                  if (!queryPlan.empty) {
-                    queryPlan.forEach((docPlan) => {
-                      const plan = docPlan.data()
-                      console.log('search!!!!')
-                      const facilityName = facility.name
-                      const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
-                      const facilityImg = facility.slider
-                      const planName = plan.planTitle
-                      const planPay = plan.pay
-                      const introduction = facility.displayName
-                      const glammity = introduction
+                    const facilityArray = {
+                      facilityName,
+                      facilityImg,
+                      address,
+                      planName,
+                      planPay,
+                      introduction,
+                      glammity,
+                      tagsList
+                    }
+                    dispatch.commit('SET_FACILITY_LIST', facilityArray)
+                  })
+                }
+              })
+          })
+        }
+      })
+  },
 
-                      const facilityArray = {
-                        facilityName,
-                        facilityImg,
-                        address,
-                        planName,
-                        planPay,
-                        introduction,
-                        glammity
+  async CREATE_SEARCHED_FACILITY_EMPTY(dispatch: ICommit) {
+    await firestore
+      .collection('facilities')
+      .get()
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach(async (doc) => {
+            console.log(doc.data())
+            console.log(doc.id)
+            const facility = await doc.data()
+
+            await firestore
+              .collection('facilities')
+              .doc(doc.id)
+              .collection('plans')
+              .orderBy('pay', 'asc')
+              .limit(1)
+              .get()
+              .then((queryPlan) => {
+                if (!queryPlan.empty) {
+                  queryPlan.forEach(async (docPlan) => {
+                    const plan = docPlan.data()
+
+                    const facilityName = facility.name
+                    const address = `${facility.streetAddress[0]}${facility.streetAddress[1]}`
+                    const facilityImg = facility.slider
+                    const planName = plan.planTitle
+                    const planPay = plan.pay
+                    const introduction = facility.displayName
+                    const glammity = introduction
+                    const tagsList = []
+
+                    for (let index = 0; index < facility.tags.length; index++) {
+                      const tag = await firestore
+                        .collection('tags')
+                        .where('tag', '==', facility.tags[index])
+                        .get()
+
+                      for (
+                        let tagIndex = 0;
+                        tagIndex < tag.docs.length;
+                        tagIndex++
+                      ) {
+                        console.log(tag.docs[tagIndex].data())
+                        tagsList.push(tag.docs[tagIndex].data())
                       }
-                      dispatch.commit('SET_FACILITY_LIST', facilityArray)
-                    })
-                  }
-                })
-            })
-          }
-        })
-    }
+                    }
+
+                    const facilityArray = {
+                      facilityName,
+                      facilityImg,
+                      address,
+                      planName,
+                      planPay,
+                      introduction,
+                      glammity,
+                      tagsList
+                    }
+                    dispatch.commit('SET_FACILITY_LIST', facilityArray)
+                  })
+                }
+              })
+          })
+        }
+      })
   }
 }
