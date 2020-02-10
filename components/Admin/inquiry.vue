@@ -67,10 +67,6 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({
   data() {
-    return {
-      page: 1,
-      pageCount: 0,
-      itemsPerPage: 10,
       isColor: 'grey lighten-2',
       headers: [
         { text: '日付', value: 'date' },
@@ -139,7 +135,10 @@ import { Component, Vue } from 'nuxt-property-decorator'
     }
   }
 })
-export default class FacilityIndex extends Vue {
+export default class InquiryFacility extends Vue {
   public tab: number = 0
+  public page: number = 1
+  public pageCount: number = 0
+  public itemsPerPage: number = 10
 }
 </script>

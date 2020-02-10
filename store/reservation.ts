@@ -13,6 +13,7 @@ interface IState {
   optionPay: number
   totalPay: number
   dates: [...string[]]
+  totalDate: number
 }
 
 interface IReservation {
@@ -34,7 +35,8 @@ export const state = (): IState => ({
   optionTitle: '',
   optionPay: 0,
   totalPay: 0,
-  dates: []
+  dates: [],
+  totalDate: 0
 })
 
 export const mutations = {
@@ -52,11 +54,13 @@ export const mutations = {
   },
 
   ADDITION(state: IState) {
-    state.totalPay = state.planPay + state.optionPay
+    state.totalPay = state.planPay * state.totalDate + state.optionPay
   },
 
-  SET_DATES(state: IState, payload: []) {
+  SET_DATES(state: IState, payload: [...string[]]) {
     state.dates = payload
+    const totalDate = getDiff(payload[0], payload[1])
+    state.totalDate = totalDate
   },
 
   SET_PAY(state: IState, payload: number) {
@@ -70,5 +74,21 @@ export const mutations = {
   SET_DATE_RE(state: IState, payload: { checkIn: string; checkOut: string }) {
     state.dates[0] = payload.checkIn
     state.dates[1] = payload.checkOut
+    const totalDate = getDiff(payload.checkIn, payload.checkOut)
+    state.totalDate = totalDate
   }
+}
+
+const getDiff = (date1Str: string, date2Str: string) => {
+  const date1 = new Date(date1Str)
+  const date2 = new Date(date2Str)
+
+  // getTimeメソッドで経過ミリ秒を取得し、２つの日付の差を求める
+  const msDiff = date2.getTime() - date1.getTime()
+
+  // 求めた差分（ミリ秒）を日付へ変換します（経過ミリ秒÷(1000ミリ秒×60秒×60分×24時間)。端数切り捨て）
+  let daysDiff = Math.floor(msDiff / (1000 * 60 * 60 * 24))
+
+  // 差分へ1日分加算して返却します
+  return ++daysDiff
 }

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>
-      支払い完了
-    </h1>
+    <h2>
+      支払い完了しました。
+    </h2>
   </div>
 </template>
 
