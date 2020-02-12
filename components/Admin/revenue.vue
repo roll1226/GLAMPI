@@ -25,7 +25,7 @@
       </v-card>
       <v-row justify="center">
         <v-col cols="8">
-          <Chart style="width:100%;"></Chart>
+          <Chart></Chart>
         </v-col>
       </v-row>
     </v-row>

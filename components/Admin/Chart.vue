@@ -9,60 +9,73 @@ import { Bar } from 'vue-chartjs'
     return {
       data: {
         labels: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'
+          '1月',
+          '2月',
+          '3月',
+          '4月',
+          '5月',
+          '6月',
+          '7月',
+          '8月',
+          '9月',
+          '10月',
+          '11月',
+          '12月'
         ],
         datasets: [
+          // {
+          //   label: 'Bar Dataset',
+          //   data: [10, 20, 30, 40, 50, 30, 20, 90, 40, 70, 10, 80],
+          //   backgroundColor: [
+          //     'rgba(255, 99, 132, 0.2)',
+          //     'rgba(54, 162, 235, 0.2)',
+          //     'rgba(255, 206, 86, 0.2)',
+          //     'rgba(75, 192, 192, 0.2)',
+          //     'rgba(153, 102, 255, 0.2)',
+          //     'rgba(255, 159, 64, 0.2)',
+          //     'rgba(255, 99, 132, 0.2)',
+          //     'rgba(54, 162, 235, 0.2)',
+          //     'rgba(255, 206, 86, 0.2)',
+          //     'rgba(75, 192, 192, 0.2)',
+          //     'rgba(153, 102, 255, 0.2)',
+          //     'rgba(255, 159, 64, 0.2)'
+          //   ],
+          //   borderColor: [
+          //     'rgba(255, 99, 132, 1)',
+          //     'rgba(54, 162, 235, 1)',
+          //     'rgba(255, 206, 86, 1)',
+          //     'rgba(75, 192, 192, 1)',
+          //     'rgba(153, 102, 255, 1)',
+          //     'rgba(255, 159, 64, 1)',
+          //     'rgba(255, 99, 132, 1)',
+          //     'rgba(54, 162, 235, 1)',
+          //     'rgba(255, 206, 86, 1)',
+          //     'rgba(75, 192, 192, 1)',
+          //     'rgba(153, 102, 255, 1)',
+          //     'rgba(255, 159, 64, 1)'
+          //   ],
+          //   borderWidth: 1
+          // },
           {
-            label: 'Bar Dataset',
-            data: [10, 20, 30, 40, 50, 30],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
+            label: '今月',
+            data: [
+              230000,
+              370000,
+              320000,
+              290000,
+              400000,
+              340000,
+              210000,
+              280000,
+              350000,
+              320000,
+              460000,
+              390000
             ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-          },
-          {
-            label: 'Line Dataset',
-            data: [10, 50, 20, 30, 30, 40, 20, 90, 40, 70, 10, 80],
-            borderColor: '#CFD8DC',
+            borderColor: '#ff4444',
             fill: false,
             type: 'line',
-            lineTension: 0.3
+            lineTension: 0.05
           }
         ]
       },
@@ -72,15 +85,22 @@ import { Bar } from 'vue-chartjs'
             {
               scaleLabel: {
                 display: true,
-                labelString: 'Month'
+                labelString: '今月',
+                fontSize: 18
               }
             }
           ],
           yAxes: [
             {
+              scaleLabel: {
+                display: true,
+                labelString: '収益',
+                fontSize: 18
+              },
               ticks: {
                 beginAtZero: true,
-                stepSize: 10
+                stepSize: 100000,
+                fontSize: 18
               }
             }
           ]
@@ -95,3 +115,4 @@ export default class kFacility extends Vue {
   }
 }
 </script>
+<style></style>
