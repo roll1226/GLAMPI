@@ -20,13 +20,11 @@
       </v-col>
       <v-col class="pa-0 ma-0" cols="10">
         <v-tabs-items class="item">
-          <v-tabs-item v-if="tab == 0"><FacilityTop /></v-tabs-item>
-          <v-tabs-item v-else-if="tab == 1"><ReserveManage /></v-tabs-item>
-          <v-tabs-item v-else-if="tab == 2">収益中身</v-tabs-item>
-          <v-tabs-item v-else-if="tab == 3"
-            ><ReservationInfoEdit
-          /></v-tabs-item>
-          <v-tabs-item v-else-if="tab == 4">問い合わせ中身</v-tabs-item>
+          <div v-if="tab == 0"><FacilityTop /></div>
+          <div v-else-if="tab == 1"><ReserveManage /></div>
+          <div v-else-if="tab == 2"><revenue /></div>
+          <div v-else-if="tab == 3"><ReservationInfoEdit /></div>
+          <div v-else-if="tab == 4"><inquiry /></div>
         </v-tabs-items>
       </v-col>
     </v-row>
@@ -37,19 +35,17 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityTop from '@/components/Admin/FacilityTop.vue'
 import ReserveManage from '@/components/Admin/ReserveManage.vue'
-import inquiry from '@/components/Admin/inquiry.vue'
 import revenue from '@/components/Admin/revenue.vue'
-import index from '@/components/Admin/index.vue'
 import ReservationInfoEdit from '@/components/Admin/ReservationInfoEdit.vue'
+import inquiry from '@/components/Admin/inquiry.vue'
 
 @Component({
   components: {
     FacilityTop,
     ReserveManage,
-    inquiry,
     revenue,
-    index,
-    ReservationInfoEdit
+    ReservationInfoEdit,
+    inquiry
   }
 })
 export default class FacilityIndex extends Vue {
