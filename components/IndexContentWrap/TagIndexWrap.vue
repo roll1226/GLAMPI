@@ -1,5 +1,5 @@
 <template>
-  <div class="top-page-introduction-wrap mb-1 index-wrap-tag">
+  <div class="top-page-introduction-wrap index-wrap-tag">
     <v-row no-gutters>
       <v-col>
         <h3 class="top-page-titles">

@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col>
         <h3 class="top-page-titles">
-          GLAMMITY
+          G L A M M I T Y
         </h3>
       </v-col>
     </v-row>
