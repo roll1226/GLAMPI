@@ -69,6 +69,7 @@ export const actions = {
       .collection('glammity')
       .doc(payload)
       .collection('messages')
+      .orderBy('createdAt', 'asc')
       .get()
 
     // const items = message.docs.map((doc) => doc.data())
