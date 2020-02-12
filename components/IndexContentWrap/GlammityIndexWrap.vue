@@ -1,13 +1,13 @@
 <template>
   <div class="top-page-introduction-wrap">
-    <v-row>
+    <v-row no-gutters>
       <v-col>
-        <h3 class="ml-10 top-page-glammity-title headline font-weight-bold">
+        <h3 class="top-page-titles">
           GLAMMITY
         </h3>
       </v-col>
     </v-row>
-    <v-row class="top-page-introduction-lists">
+    <v-row class="top-page-cards">
       <v-col
         v-for="(glammity, cardIndex) in cards"
         :key="cardIndex"
