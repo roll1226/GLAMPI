@@ -1,5 +1,5 @@
 <template>
-  <div class="mypage-bg">
+  <div class="mypage-wrap">
     <v-row no-gutters class="mypage-navi">
       <v-col>
         <h2>
@@ -29,28 +29,30 @@
 
     <!--とりあえずここより上部分から修正-->
 
-    <v-row>
-      <v-col lg="2" md="2" sm="2" xs="12" class="text-center">
-        <v-avatar class="promg" size="180">
-          <v-icon size="160" dark>mdi-account-circle</v-icon>
-        </v-avatar>
-        <p class=".body-1 text-center">username</p>
-      </v-col>
+    <v-card>
+      <v-row no-gutters>
+        <v-col lg="2" md="2" sm="2" xs="12" class="text-center">
+          <v-avatar class="promg" size="180">
+            <v-icon size="160" dark>mdi-account-circle</v-icon>
+          </v-avatar>
+          <p class=".body-1 text-center">username</p>
+        </v-col>
 
-      <v-col>
-        <MyTop v-if="screen1 == 0" />
+        <v-col>
+          <MyTop v-if="screen1 == 0" />
 
-        <ChangeInfo v-else-if="screen1 == 1" />
+          <ChangeInfo v-else-if="screen1 == 1" />
 
-        <BookingList v-else-if="screen1 == 2" />
+          <BookingList v-else-if="screen1 == 2" />
 
-        <Glammity v-else-if="screen1 == 3" />
+          <Glammity v-else-if="screen1 == 3" />
 
-        <Favorites v-else-if="screen1 == 4" />
+          <Favorites v-else-if="screen1 == 4" />
 
-        <Reviews v-else />
-      </v-col>
-    </v-row>
+          <Reviews v-else />
+        </v-col>
+      </v-row>
+    </v-card>
   </div>
 </template>
 
@@ -89,8 +91,12 @@ export default class mypage extends Vue {
   background-color: $site_color_2;
 }
 
-.mypage-navi {
-  width: max-content;
-  margin: 28px auto;
+.mypage-wrap {
+  //mypage全体
+  background-color: aqua;
+  margin: 28px auto 100px;
+  .mypage-navi {
+    //h2のvcolとv-tabsのvcolを含む
+  }
 }
 </style>
