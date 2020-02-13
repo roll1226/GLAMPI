@@ -1,14 +1,15 @@
 <template>
   <div class="mypage-bg">
-    <v-row>
-      <v-col lg="2" md="2" sm="2" xs="12">
-        <h2 class="mt-2">
+    <v-row no-gutters class="mypage-navi">
+      <v-col>
+        <h2>
           マイページ
         </h2>
       </v-col>
-
       <v-col>
-        <v-tabs background-color="transparent" color="rgb(87, 95, 69)">
+        <!-- background-color="transparent"
+        color="rgb(87, 95, 69)"-->
+        <v-tabs>
           <v-tabs-slider> </v-tabs-slider>
           <v-tab @click="screen1 = 0">トップ</v-tab>
           <v-divider inset vertical></v-divider>
@@ -25,6 +26,8 @@
         </v-tabs>
       </v-col>
     </v-row>
+
+    <!--とりあえずここより上部分から修正-->
 
     <v-row>
       <v-col lg="2" md="2" sm="2" xs="12" class="text-center">
@@ -76,14 +79,18 @@ export default class mypage extends Vue {
 </script>
 
 <style lang="scss">
-.mypage-bg {
-  margin: 0 20px;
-}
-.mypage-wrapp {
-  width: 100%;
-}
-
+// .mypage-bg {
+//   margin: 0 20px;
+// }
+// .mypage-wrapp {
+//   width: 100%;
+// }
 .promg {
   background-color: $site_color_2;
+}
+
+.mypage-navi {
+  width: max-content;
+  margin: 28px auto;
 }
 </style>
