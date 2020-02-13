@@ -14,16 +14,30 @@ export interface IMessage {
   message: string
 }
 
+interface IUserInfo {
+  userImg: string
+  firstName: string
+  lastName: string
+  nickname: string
+}
+
+export interface IAvatar {
+  userName: string
+  img: string
+}
+
 interface IState {
   tabNumber: number
   userStates: userStates
   message: IMessage[]
+  avatar: IAvatar[]
 }
 
 export const state = (): IState => ({
   tabNumber: 0,
   userStates: 'host',
-  message: []
+  message: [],
+  avatar: []
 })
 
 export const mutations = {
@@ -38,12 +52,7 @@ export const mutations = {
   SET_MESSAGE(
     state: IState,
     payload: {
-      user: {
-        userImg: string
-        firstName: string
-        lastName: string
-        nickname: string
-      }
+      user: IUserInfo
       message: string
     }
   ) {
@@ -60,6 +69,22 @@ export const mutations = {
 
   RESET_MESSAGE(state: IState) {
     state.message = []
+  },
+
+  RESET_AVATAR(state: IState) {
+    state.avatar = []
+  },
+
+  SET_AVATAR(state: IState, payload: IUserInfo) {
+    const user = {
+      userName:
+        payload.nickname !== ''
+          ? payload.nickname
+          : payload.lastName + payload.firstName,
+      img: payload.userImg
+    }
+
+    state.avatar.push(user)
   }
 }
 
@@ -92,5 +117,21 @@ export const actions = {
       user: user.data(),
       message: payload.message
     })
+  },
+
+  async getMember(dispatch: ICommit, payload: string) {
+    const member = await firestore
+      .collection('glammity')
+      .doc(payload)
+      .collection('member')
+      .get()
+
+    for (const user of member.docs) {
+      const userInfo = await firestore
+        .collection('users')
+        .doc(user.id)
+        .get()
+      dispatch.commit('SET_AVATAR', userInfo.data())
+    }
   }
 }
