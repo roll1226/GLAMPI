@@ -10,17 +10,17 @@
       <v-col>
         <v-tabs background-color="transparent" color="rgb(87, 95, 69)">
           <v-tabs-slider> </v-tabs-slider>
-          <v-tab @click="toMyTop">トップ</v-tab>
+          <v-tab @click="screen1 = 0">トップ</v-tab>
           <v-divider inset vertical></v-divider>
-          <v-tab @click="toChangeInfo">情報変更</v-tab>
+          <v-tab @click="screen1 = 1">情報変更</v-tab>
           <v-divider inset vertical></v-divider>
-          <v-tab @click="toBookingList">予約履歴</v-tab>
+          <v-tab @click="screen1 = 2">予約履歴</v-tab>
           <v-divider inset vertical></v-divider>
-          <v-tab @click="toGlammity">GLAMMITY</v-tab>
+          <v-tab @click="screen1 = 3">GLAMMITY</v-tab>
           <v-divider inset vertical></v-divider>
-          <v-tab @click="toFavorites">お気に入り</v-tab>
+          <v-tab @click="screen1 = 4">お気に入り</v-tab>
           <v-divider inset vertical></v-divider>
-          <v-tab @click="toReviews">口コミ</v-tab>
+          <v-tab @click="screen1 = 5">口コミ</v-tab>
           <v-divider inset vertical></v-divider>
         </v-tabs>
       </v-col>
@@ -72,25 +72,6 @@ import Reviews from '@/components/MyPage/Reviews.vue'
 })
 export default class mypage extends Vue {
   public screen1: number = 0
-
-  public toMyTop() {
-    this.screen1 = 0
-  }
-  public toChangeInfo() {
-    this.screen1 = 1
-  }
-  public toBookingList() {
-    this.screen1 = 2
-  }
-  public toGlammity() {
-    this.screen1 = 3
-  }
-  public toFavorites() {
-    this.screen1 = 4
-  }
-  public toReviews() {
-    this.screen1 = 5
-  }
 }
 </script>
 
