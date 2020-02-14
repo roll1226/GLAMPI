@@ -24,6 +24,13 @@ import { IAvatar } from '@/store/glammityGroup'
 
 @Component
 export default class MemberListCard extends Vue {
+  created() {
+    this.$store.commit('glammityGroup/RESET_AVATAR')
+    const url = this.$route.params.Glammity
+
+    this.$store.dispatch('glammityGroup/getMember', url)
+  }
+
   get avater(): IAvatar {
     return this.$store.state.glammityGroup.avatar
   }

@@ -35,7 +35,7 @@ interface IState {
 
 export const state = (): IState => ({
   tabNumber: 0,
-  userStates: 'host',
+  userStates: 'guest',
   message: [],
   avatar: []
 })

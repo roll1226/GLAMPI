@@ -17,12 +17,5 @@ import MemberListCard from '@/components/Card/Glammity/Group/MemberListCard.vue'
     MemberListCard
   }
 })
-export default class MemberCard extends Vue {
-  created() {
-    this.$store.commit('glammityGroup/RESET_AVATAR')
-    const url = this.$route.params.Glammity
-
-    this.$store.dispatch('glammityGroup/getMember', url)
-  }
-}
+export default class MemberCard extends Vue {}
 </script>
