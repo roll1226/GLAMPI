@@ -34,6 +34,8 @@ interface IState {
   boxId: [...number[]]
   message: IMessage[]
   avatar: IAvatar[]
+  messageText: string
+  loading: boolean
 }
 
 export const state = (): IState => ({
@@ -42,7 +44,9 @@ export const state = (): IState => ({
   id: 0,
   message: [],
   boxId: [],
-  avatar: []
+  avatar: [],
+  messageText: '',
+  loading: false
 })
 
 export const mutations = {
@@ -103,6 +107,14 @@ export const mutations = {
     }
 
     state.avatar.push(user)
+  },
+
+  SET_MESSAGE_TEXT(state: IState, payload: string) {
+    state.messageText = payload
+  },
+
+  SET_LOADING(state: IState, payload: boolean) {
+    state.loading = payload
   }
 }
 
@@ -114,7 +126,6 @@ export const actions = {
       .collection('messages')
       .orderBy('createdAt', 'asc')
       .onSnapshot(async (messages) => {
-        console.log(messages.docs.length)
         dispatch.commit('SET_ID', messages.docs.length)
 
         for (const message of messages.docs) {
@@ -160,5 +171,25 @@ export const actions = {
         .get()
       dispatch.commit('SET_AVATAR', userInfo.data())
     }
+  },
+
+  async sendMessage(
+    dispatch: ICommit,
+    payload: { url: string; userId: string }
+  ) {
+    await firestore
+      .collection('glammity')
+      .doc(payload.url)
+      .collection('messages')
+      .add({
+        id: dispatch.state.id,
+        message: dispatch.state.messageText,
+        userId: payload.userId,
+        createdAt: new Date()
+      })
+      .then(() => {
+        dispatch.commit('SET_MESSAGE_TEXT', '')
+        dispatch.commit('SET_LOADING', false)
+      })
   }
 }

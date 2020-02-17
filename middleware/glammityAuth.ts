@@ -17,6 +17,8 @@ const middleware: Middleware = ({ route, store, redirect }) => {
         redirect('/')
       }
       store.commit('glammityGroup/SET_USER_STATES', isUser.data())
+    } else {
+      redirect('/')
     }
   })
 }

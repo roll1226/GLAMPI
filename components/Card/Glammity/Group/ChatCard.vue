@@ -28,12 +28,16 @@
           </v-list-item>
         </v-card-actions>
 
-        <v-card-text class="ml-3 body-1" v-text="message.message"></v-card-text>
+        <v-card-text
+          class="ml-3 body-1"
+          style="white-space: pre;"
+          v-text="message.message"
+        ></v-card-text>
       </v-card>
     </v-card-text>
 
     <v-card-text>
-      <v-card>
+      <v-card :loading="chatSendLoading">
         <v-card outlined>
           <v-card-text>
             <v-textarea
@@ -58,12 +62,9 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { IMessage } from '@/store/glammityGroup'
-import { firestore } from '@/plugins/firebase'
 
 @Component
 export default class ChatCard extends Vue {
-  message: string = ''
-
   created() {
     this.$store.commit('glammityGroup/RESET_MESSAGE')
     this.$store.commit('glammityGroup/RESET_BOX_ID')
@@ -79,23 +80,25 @@ export default class ChatCard extends Vue {
     return this.$store.state.login.userUid
   }
 
-  get messageId(): number {
-    return this.$store.state.glammityGroup.id
+  get message(): string {
+    return this.$store.state.glammityGroup.messageText
+  }
+
+  get chatSendLoading(): boolean {
+    return this.$store.state.glammityGroup.loading
+  }
+
+  set message(text: string) {
+    this.$store.commit('glammityGroup/SET_MESSAGE_TEXT', text)
   }
 
   createMessage() {
+    this.$store.commit('glammityGroup/SET_LOADING', true)
     const url = this.$route.params.Glammity
-
-    firestore
-      .collection('glammity')
-      .doc(url)
-      .collection('messages')
-      .add({
-        id: this.messageId,
-        message: this.message,
-        userId: this.userId,
-        createdAt: new Date()
-      })
+    this.$store.dispatch('glammityGroup/sendMessage', {
+      url,
+      userId: this.userId
+    })
   }
 }
 </script>
