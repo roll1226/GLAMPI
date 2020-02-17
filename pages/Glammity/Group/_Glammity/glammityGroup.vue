@@ -45,8 +45,8 @@ import GlammityTabsCard from '@/components/Card/Glammity/Group/GlammityTabsCard.
     ApplicationConditionsChangeCard,
     DetailsCard,
     PaymentCard
-  },
-  middleware: 'glammityAuth'
+  }
+  // middleware: 'glammityAuth'
 })
 export default class glammityChat extends Vue {
   get tabNumber(): number {
