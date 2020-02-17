@@ -2,21 +2,24 @@
   <div>
     <h1>会員登録</h1>
     <div class="mx-12">
-      <seimei></seimei>
-      <seimeiKana></seimeiKana>
-      <sex></sex>
-      <birthValue></birthValue>
-      <address1></address1>
-      <email></email>
-      <password></password>
-      <tel></tel>
-      <username></username>
+      <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+        <seimei></seimei>
+        <seimeiKana></seimeiKana>
+        <sex></sex>
+        <birthValue></birthValue>
+        <address1></address1>
+        <email></email>
+        <password></password>
+        <tel></tel>
+        <username></username>
+      </v-form>
       <v-row justify="end" class="mr-12 mt-6 mb-10">
         <v-btn
           color="success"
           width="200"
           height="60"
           class="title"
+          :disabled="!valid"
           @click="regist"
         >
           会員登録
@@ -50,6 +53,17 @@ import username from '@/components/UserRegistration/username.vue'
     password,
     tel,
     username
+  },
+  data: () => ({
+    valid: true,
+    lazy: false
+  }),
+  methods: {
+    // regist() {
+    //   if (this.$refs.form.regist()) {
+    //     this.snackbar = true
+    //   }
+    // }
   }
 })
 export default class UserRegistration extends Vue {
