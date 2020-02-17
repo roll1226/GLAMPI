@@ -1,7 +1,7 @@
 <template>
   <div class="mypage-wrap">
-    <v-row no-gutters class="mypage-navi">
-      <v-col>
+    <v-row no-gutters justify="center" align="center" class="mypage-navi">
+      <v-col xs="12" cols="auto">
         <h2>
           マイページ
         </h2>
@@ -93,10 +93,20 @@ export default class mypage extends Vue {
 
 .mypage-wrap {
   //mypage全体
+  max-width: 100%;
   background-color: aqua;
   margin: 28px auto 100px;
   .mypage-navi {
+    background-color: bisque;
     //h2のvcolとv-tabsのvcolを含む
+    margin-bottom: 28px;
+    h2 {
+      background-color: blue;
+    }
   }
+}
+
+//パソコンサイズの時のCSS記述
+@media screen and (min-width: 770px) {
 }
 </style>
