@@ -30,30 +30,37 @@
       </v-col>
     </v-row>
 
-    <v-card>
-      <v-row no-gutters>
-        <v-col lg="2" md="2" sm="2" xs="12" class="text-center">
-          <v-avatar class="promg" size="180">
-            <v-icon size="160" dark>mdi-account-circle</v-icon>
-          </v-avatar>
-          <p class=".body-1 text-center">username</p>
-        </v-col>
+    <!--ここより下部分の修正-->
 
-        <v-col>
-          <MyTop v-if="screen1 == 0" />
+    <v-row no-gutters>
+      <v-card>
+        <v-row no-gutters>
+          <!-- アイコンサイズの半分程度の左右margin -->
+          <v-col cols="auto">
+            <div class="mypage-user">
+              <v-avatar class="promg" size="180">
+                <v-icon size="160" dark>mdi-account-circle</v-icon>
+              </v-avatar>
+              <p>ユーザ名</p>
+            </div>
+          </v-col>
 
-          <ChangeInfo v-else-if="screen1 == 1" />
+          <v-col>
+            <MyTop v-if="screen1 == 0" />
 
-          <BookingList v-else-if="screen1 == 2" />
+            <ChangeInfo v-else-if="screen1 == 1" />
 
-          <Glammity v-else-if="screen1 == 3" />
+            <BookingList v-else-if="screen1 == 2" />
 
-          <Favorites v-else-if="screen1 == 4" />
+            <Glammity v-else-if="screen1 == 3" />
 
-          <Reviews v-else />
-        </v-col>
-      </v-row>
-    </v-card>
+            <Favorites v-else-if="screen1 == 4" />
+
+            <Reviews v-else />
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-row>
   </div>
 </template>
 
@@ -104,6 +111,26 @@ export default class mypage extends Vue {
     .v-tabs {
       .v-tab {
         width: 130px;
+      }
+    }
+  }
+
+  //今こっから下ー
+  .v-card {
+    background-color: bisque;
+    //card内padding左右
+    padding: 0 60px;
+    .mypage-user {
+      //avatarとicon,usernameを含む
+      width: 180px;
+      background-color: whitesmoke;
+      //avatar上と右
+      margin: 70px 60px 100px 0;
+      p {
+        font-size: 22px;
+        text-align: center;
+        //アイコンとusernameの間の余白
+        margin: 15px 0 0 0;
       }
     }
   }
