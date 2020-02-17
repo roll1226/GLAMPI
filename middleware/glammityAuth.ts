@@ -1,7 +1,7 @@
 import { Middleware } from '@nuxt/types'
 import { auth, firestore } from '@/plugins/firebase'
 
-const middleware: Middleware = ({ route, redirect }) => {
+const middleware: Middleware = ({ route, store, redirect }) => {
   auth.onAuthStateChanged(async (user: any) => {
     console.log(route.params.Glammity)
     if (user) {
@@ -16,6 +16,7 @@ const middleware: Middleware = ({ route, redirect }) => {
       if (!isUser.data()) {
         redirect('/')
       }
+      store.commit('glammityGroup/SET_USER_STATES', isUser.data())
     }
   })
 }

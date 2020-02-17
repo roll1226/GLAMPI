@@ -45,8 +45,8 @@ export const mutations = {
     state.tabNumber = payload
   },
 
-  SET_USER_STATES(state: IState, payload: userStates) {
-    state.userStates = payload
+  SET_USER_STATES(state: IState, payload: { userStates: userStates }) {
+    state.userStates = payload.userStates
   },
 
   SET_MESSAGE(
