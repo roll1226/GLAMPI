@@ -23,14 +23,17 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title v-text="message.userName"></v-list-item-title>
+              <v-list-item-title
+                style="color: rgba(0, 0, 0, 0.6);"
+                v-text="message.userName"
+              ></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-card-actions>
 
         <v-card-text
-          class="ml-3 body-1"
-          style="white-space: pre;"
+          class="ml-3 body-1 text--grey darken-4"
+          style="white-space: pre; color:rgba(0, 0, 0, 0.87);"
           v-text="message.message"
         ></v-card-text>
       </v-card>
@@ -49,7 +52,12 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn @click="createMessage">
+            <v-btn
+              v-shortkey="{ mac: ['meta', 'enter'], win: ['ctrl', 'enter'] }"
+              :disabled="!formIsValid"
+              @click="createMessage"
+              @shortkey="chooseMethod"
+            >
               投稿
             </v-btn>
           </v-card-actions>
@@ -92,7 +100,23 @@ export default class ChatCard extends Vue {
     this.$store.commit('glammityGroup/SET_MESSAGE_TEXT', text)
   }
 
+  get formIsValid(): string {
+    return this.message
+  }
+
+  chooseMethod(event: any) {
+    switch (event.srcKey) {
+      case 'mac':
+        this.createMessage()
+        break
+      case 'win':
+        this.createMessage()
+        break
+    }
+  }
+
   createMessage() {
+    if (!this.formIsValid) return
     this.$store.commit('glammityGroup/SET_LOADING', true)
     const url = this.$route.params.Glammity
     this.$store.dispatch('glammityGroup/sendMessage', {
