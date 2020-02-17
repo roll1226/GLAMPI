@@ -7,10 +7,13 @@
         </h2>
       </v-col>
       <v-col>
-        <!-- background-color="transparent"
-        color="rgb(87, 95, 69)"-->
-        <v-tabs>
+        <v-tabs
+          show-arrows="true"
+          active-class="font-weight-bold"
+          color="rgb(87,95,69)"
+        >
           <v-tabs-slider> </v-tabs-slider>
+          <v-divider inset vertical></v-divider>
           <v-tab @click="screen1 = 0">トップ</v-tab>
           <v-divider inset vertical></v-divider>
           <v-tab @click="screen1 = 1">情報変更</v-tab>
@@ -26,8 +29,6 @@
         </v-tabs>
       </v-col>
     </v-row>
-
-    <!--とりあえずここより上部分から修正-->
 
     <v-card>
       <v-row no-gutters>
@@ -81,12 +82,6 @@ export default class mypage extends Vue {
 </script>
 
 <style lang="scss">
-// .mypage-bg {
-//   margin: 0 20px;
-// }
-// .mypage-wrapp {
-//   width: 100%;
-// }
 .promg {
   background-color: $site_color_2;
 }
@@ -94,14 +89,22 @@ export default class mypage extends Vue {
 .mypage-wrap {
   //mypage全体
   max-width: 100%;
-  background-color: aqua;
+  //background-color: aqua;
   margin: 28px auto 100px;
   .mypage-navi {
-    background-color: bisque;
+    //background-color: bisque;
     //h2のvcolとv-tabsのvcolを含む
     margin-bottom: 28px;
     h2 {
-      background-color: blue;
+      //color: $site_color_2;
+      width: max-content;
+      margin-right: 45px;
+      font-size: 20px;
+    }
+    .v-tabs {
+      .v-tab {
+        width: 130px;
+      }
     }
   }
 }
