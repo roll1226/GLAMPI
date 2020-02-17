@@ -47,7 +47,7 @@
           <v-card-actions>
             <v-btn @click="createMessage">
               投稿
-            v-btn>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-card>
