@@ -53,20 +53,11 @@ import username from '@/components/UserRegistration/username.vue'
     password,
     tel,
     username
-  },
-  data: () => ({
-    valid: true,
-    lazy: false
-  }),
-  methods: {
-    // regist() {
-    //   if (this.$refs.form.regist()) {
-    //     this.snackbar = true
-    //   }
-    // }
   }
 })
 export default class UserRegistration extends Vue {
+  public valid: boolean = true
+  public lazy: boolean = false
   public url = 'https://us-central1-j4k1-b789f.cloudfunctions.net/regist'
   get email(): string {
     return this.$store.state.registration.email
