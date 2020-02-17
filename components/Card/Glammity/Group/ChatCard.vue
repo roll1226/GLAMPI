@@ -31,23 +31,71 @@
         <v-card-text class="ml-3 body-1" v-text="message.message"></v-card-text>
       </v-card>
     </v-card-text>
+
+    <v-card-text>
+      <v-card>
+        <v-card outlined>
+          <v-card-text>
+            <v-textarea
+              v-model="message"
+              clearable
+              clear-icon="fas fa-times-circle"
+              label="メッセージ"
+            ></v-textarea>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn @click="createMessage">
+              投稿
+            v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-card-text>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { IMessage } from '@/store/glammityGroup'
+import { firestore } from '@/plugins/firebase'
 
 @Component
 export default class ChatCard extends Vue {
+  message: string = ''
+
   created() {
     this.$store.commit('glammityGroup/RESET_MESSAGE')
+    this.$store.commit('glammityGroup/RESET_BOX_ID')
     const url = this.$route.params.Glammity
     this.$store.dispatch('glammityGroup/getMessage', url)
   }
 
   get glammityMessage(): IMessage[] {
     return this.$store.state.glammityGroup.message
+  }
+
+  get userId(): string {
+    return this.$store.state.login.userUid
+  }
+
+  get messageId(): number {
+    return this.$store.state.glammityGroup.id
+  }
+
+  createMessage() {
+    const url = this.$route.params.Glammity
+
+    firestore
+      .collection('glammity')
+      .doc(url)
+      .collection('messages')
+      .add({
+        id: this.messageId,
+        message: this.message,
+        userId: this.userId,
+        createdAt: new Date()
+      })
   }
 }
 </script>

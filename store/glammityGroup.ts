@@ -6,6 +6,7 @@ export type userStates = 'host' | 'guest'
 interface ICommit {
   commit: Vuex.Commit
   dispatch: Vuex.Dispatch
+  state: IState
 }
 
 export interface IMessage {
@@ -29,6 +30,8 @@ export interface IAvatar {
 interface IState {
   tabNumber: number
   userStates: userStates
+  id: number
+  boxId: [...number[]]
   message: IMessage[]
   avatar: IAvatar[]
 }
@@ -36,7 +39,9 @@ interface IState {
 export const state = (): IState => ({
   tabNumber: 0,
   userStates: 'guest',
+  id: 0,
   message: [],
+  boxId: [],
   avatar: []
 })
 
@@ -47,6 +52,10 @@ export const mutations = {
 
   SET_USER_STATES(state: IState, payload: { userStates: userStates }) {
     state.userStates = payload.userStates
+  },
+
+  SET_BOX_ID(state: IState, payload: number) {
+    state.boxId.push(payload)
   },
 
   SET_MESSAGE(
@@ -64,7 +73,12 @@ export const mutations = {
       userImg: payload.user.userImg,
       message: payload.message
     }
+
     state.message.push(message)
+  },
+
+  RESET_BOX_ID(state: IState) {
+    state.boxId = []
   },
 
   RESET_MESSAGE(state: IState) {
@@ -73,6 +87,10 @@ export const mutations = {
 
   RESET_AVATAR(state: IState) {
     state.avatar = []
+  },
+
+  SET_ID(state: IState, payload: number) {
+    state.id = payload
   },
 
   SET_AVATAR(state: IState, payload: IUserInfo) {
@@ -90,32 +108,41 @@ export const mutations = {
 
 export const actions = {
   async getMessage(dispatch: ICommit, payload: string) {
-    const messages = await firestore
+    await firestore
       .collection('glammity')
       .doc(payload)
       .collection('messages')
       .orderBy('createdAt', 'asc')
-      .get()
+      .onSnapshot(async (messages) => {
+        console.log(messages.docs.length)
+        dispatch.commit('SET_ID', messages.docs.length)
+
+        for (const message of messages.docs) {
+          await dispatch.dispatch('getUser', message.data())
+        }
+      })
 
     // const items = message.docs.map((doc) => doc.data())
     // console.log(items)
-    for (const message of messages.docs) {
-      dispatch.dispatch('getUser', message.data())
-    }
   },
 
   async getUser(
     dispatch: ICommit,
-    payload: { message: string; userId: string }
+    payload: { message: string; userId: string; id: number }
   ) {
     const user = await firestore
       .collection('users')
       .doc(payload.userId)
       .get()
 
+    if (dispatch.state.boxId.includes(payload.id)) return
+
+    dispatch.commit('SET_BOX_ID', payload.id)
+
     dispatch.commit('SET_MESSAGE', {
       user: user.data(),
-      message: payload.message
+      message: payload.message,
+      id: payload.id
     })
   },
 
