@@ -24,6 +24,8 @@ import Password from '@/components/MyPage/ChangeInfo/Password.vue'
   }
 })
 export default class ChangeInfo extends Vue {
-  public screen2: number = 0
+  get screen2(): number {
+    return this.$store.state.mypage.screen2
+  }
 }
 </script>
