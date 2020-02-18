@@ -69,10 +69,10 @@
     <v-card class="mx-3">
       <v-card-text>
         <div>
-          施設名
+          主査者からのコメント
         </div>
         <p class="display-1 text--primary text-center">
-          沖縄那覇ステーション
+          aaaaaaaaa
         </p>
       </v-card-text>
     </v-card>
@@ -154,5 +154,10 @@ export default class glammityIndex extends Vue {
         'https://rr.img.naver.jp/mig?src=http%3A%2F%2Fi0.wp.com%2Fkaola.jp%2Fwp-content%2Fuploads%2F2015%2F02%2F1d266a2ed938e5b3878bb54751ccd4ea.jpg&twidth=1200&theight=1200&qlt=80&res_format=jpg&op=r'
     }
   ]
+
+  created() {
+    const url = this.$route.params.id
+    this.$store.dispatch('glammityJoin/getGlammity', url)
+  }
 }
 </script>
