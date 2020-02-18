@@ -1,6 +1,6 @@
 <template>
   <div class="pb-2">
-    <h2>{{ name }} | 詳細ページ</h2>
+    <h2>{{ glammityData.name }} | 詳細ページ</h2>
 
     <v-carousel
       cycle
