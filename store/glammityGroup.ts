@@ -15,7 +15,7 @@ export interface IMessage {
   message: string
 }
 
-interface IUserInfo {
+export interface IUserInfo {
   userImg: string
   firstName: string
   lastName: string
