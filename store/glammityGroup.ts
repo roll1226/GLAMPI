@@ -81,14 +81,6 @@ export const mutations = {
     state.message.push(message)
   },
 
-  RESET_BOX_ID(state: IState) {
-    state.boxId = []
-  },
-
-  RESET_MESSAGE(state: IState) {
-    state.message = []
-  },
-
   RESET_AVATAR(state: IState) {
     state.avatar = []
   },

@@ -74,8 +74,6 @@ import { IMessage } from '@/store/glammityGroup'
 @Component
 export default class ChatCard extends Vue {
   created() {
-    this.$store.commit('glammityGroup/RESET_MESSAGE')
-    this.$store.commit('glammityGroup/RESET_BOX_ID')
     const url = this.$route.params.Glammity
     this.$store.dispatch('glammityGroup/getMessage', url)
   }
