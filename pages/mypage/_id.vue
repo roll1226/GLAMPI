@@ -3,7 +3,7 @@
   containerのmax-width設定:1100px
   v-tabsは領域いっぱい v-tabはwidth:20%(min-width:130px)
 
-  h2右の余白どーすればいいんだ？
+  画面サイズ変わった時の動きよ…
 -->
   <v-container>
     <v-row no-gutters justify="space-around" align="center" class="mypage-navi">
@@ -48,6 +48,7 @@
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
               </v-avatar>
               <p>ユーザ名</p>
+              <ChangeInfoBtn v-if="screen1 == 1" />
             </div>
           </v-col>
 
@@ -72,6 +73,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import ChangeInfoBtn from '@/components/MyPage/Btn/ChangeInfoBtn.vue'
 import MyTop from '@/components/MyPage/MyTop.vue'
 import ChangeInfo from '@/components/MyPage/ChangeInfo/ChangeInfo.vue'
 import BookingList from '@/components/MyPage/BookingList.vue'
@@ -86,11 +88,13 @@ import Reviews from '@/components/MyPage/Reviews.vue'
     BookingList,
     Glammity,
     Favorites,
-    Reviews
+    Reviews,
+    ChangeInfoBtn
   }
 })
 export default class mypage extends Vue {
   public screen1: number = 0
+  public screen2: number = 0
 }
 </script>
 
