@@ -1,26 +1,27 @@
 <template>
-  <div>
-    <v-card-text>
-      <v-row>
-        <v-col lg="6" md="6" sm="6" xs="12">
+  <div class="mytop-wrap">
+    <v-row no-gutters>
+      <v-col xs="12">
+        <v-card-text class="pr-10">
           <v-card-title>基本情報</v-card-title>
-          <v-card-text>
-            <ul>
-              <li>性別: {{ sex }}</li>
-              <li>年齢:{{ age }}</li>
-              <li>住所:{{ address }}</li>
-            </ul>
-          </v-card-text>
-        </v-col>
+          <ul>
+            <li>性別: {{ sex }}</li>
+            <li>年齢:{{ age }}</li>
+            <li>住所:{{ address }}</li>
+          </ul>
+        </v-card-text>
+      </v-col>
 
-        <v-col>
+      <v-divider inset vertical></v-divider>
+      <v-col xs="12">
+        <v-card-text class="pl-10">
           <v-card-title>コメント</v-card-title>
-          <v-card-text>
-            <p>abcdefg</p>
-          </v-card-text>
-        </v-col>
-      </v-row>
-    </v-card-text>
+          <p>
+            {{ comment }}
+          </p>
+        </v-card-text>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -31,6 +32,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
 export default class MyTop extends Vue {
   public sex: number = 1
   public age: number = 20
-  public address: String = '東京都'
+  public address: String =
+    'あああああああああああああああああああああああああああああああああああああああああああああああああああああああ'
+  public comment: String =
+    'あああああああああああああああああああああああああああああああああああああああああああああああああああああああ'
 }
 </script>

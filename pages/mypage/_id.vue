@@ -1,12 +1,18 @@
 <template>
-  <div class="mypage-wrap">
-    <v-row no-gutters justify="center" align="center" class="mypage-navi">
+  <!--
+  containerのmax-width設定:1100px
+  v-tabsは領域いっぱい v-tabはwidth:20%(min-width:130px)
+
+  h2右の余白どーすればいいんだ？
+-->
+  <v-container>
+    <v-row no-gutters justify="space-around" align="center" class="mypage-navi">
       <v-col xs="12" cols="auto">
         <h2>
           マイページ
         </h2>
       </v-col>
-      <v-col>
+      <v-col xs="12">
         <v-tabs
           show-arrows="true"
           active-class="font-weight-bold"
@@ -36,7 +42,7 @@
       <v-card>
         <v-row no-gutters>
           <!-- アイコンサイズの半分程度の左右margin -->
-          <v-col cols="auto">
+          <v-col xs="12" cols="auto">
             <div class="mypage-user">
               <v-avatar class="promg" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
@@ -61,7 +67,7 @@
         </v-row>
       </v-card>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -93,44 +99,61 @@ export default class mypage extends Vue {
   background-color: $site_color_2;
 }
 
-.mypage-wrap {
-  //mypage全体
-  max-width: 100%;
-  //background-color: aqua;
-  margin: 28px auto 100px;
+.container {
+  max-width: 1100px;
+  padding: 28px 0 100px 0;
   .mypage-navi {
-    //background-color: bisque;
-    //h2のvcolとv-tabsのvcolを含む
-    margin-bottom: 28px;
+    width: 100%;
+    margin: 0 0 28px 0;
     h2 {
-      //color: $site_color_2;
-      width: max-content;
-      margin-right: 45px;
+      padding: 0 45px 0 0;
       font-size: 20px;
+      width: max-content;
     }
     .v-tabs {
       .v-tab {
-        width: 130px;
+        flex-basis: 20%;
+        min-width: 130px;
       }
     }
   }
 
-  //今こっから下ー
   .v-card {
-    background-color: bisque;
-    //card内padding左右
+    //background-color: bisque;
+    width: 99.5%;
+    margin: 0 auto;
+    min-height: 400px;
+    //カード内左右
     padding: 0 60px;
     .mypage-user {
-      //avatarとicon,usernameを含む
       width: 180px;
-      background-color: whitesmoke;
+      //background-color: whitesmoke;
       //avatar上と右
-      margin: 70px 60px 100px 0;
+      margin: 70px 60px 0 0;
       p {
         font-size: 22px;
         text-align: center;
         //アイコンとusernameの間の余白
         margin: 15px 0 0 0;
+      }
+    }
+
+    .mytop-wrap {
+      //background-color: aqua;
+      margin: 70px 0 0 0;
+      * {
+        padding: 0px;
+        margin: 0px;
+      }
+      .v-card__text {
+        padding: 0px;
+        .v-card__title {
+          padding: 0px;
+          margin-bottom: 16px;
+        }
+        ul {
+          list-style-type: none;
+        }
       }
     }
   }
