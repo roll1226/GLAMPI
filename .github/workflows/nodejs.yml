@@ -45,7 +45,7 @@ jobs:
       - name: Ready to deploy
         run: |
           cp env-sample .env
-          echo $GLAMPI_API_KEY > .env
+          echo "${{ secrets.GLAMPI_API_KEY }}" > .env
           yarn global add firebase-tools
           yarn
           yarn generate
