@@ -23,7 +23,7 @@
         <v-tabs-items class="item">
           <div v-if="tab == 0"><adminTop /></div>
           <div v-else-if="tab == 1"></div>
-          <div v-else-if="tab == 2"></div>
+          <div v-else-if="tab == 2"><reserveManage /></div>
           <div v-else-if="tab == 3"></div>
           <div v-else-if="tab == 4"></div>
           <div v-else-if="tab == 5"><inquiry /></div>
@@ -36,11 +36,13 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import adminTop from '@/components/Admin_/AdminTop.vue'
+import reserveManage from '@/components/Admin_/reserveManage.vue'
 import inquiry from '@/components/Admin/inquiry.vue'
 
 @Component({
   components: {
     adminTop,
+    reserveManage,
     inquiry
   }
 })
