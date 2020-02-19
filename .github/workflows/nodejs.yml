@@ -45,6 +45,8 @@ jobs:
       - name: Ready to deploy
         run: |
           yarn global add firebase-tools
+          yarn
+          yarn generate
           cd functions
           npm install
       - name: Deploy to Firebase
