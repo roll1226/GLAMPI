@@ -16,8 +16,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import passwordBefore from '@/components/mypage/Form/passwordBefore.vue'
-import passwordAfter from '@/components/mypage/Form/passwordAfter.vue'
+import passwordBefore from '@/components/Mypage/Form/passwordBefore.vue'
+import passwordAfter from '@/components/Mypage/Form/passwordAfter.vue'
 
 @Component({
   components: {

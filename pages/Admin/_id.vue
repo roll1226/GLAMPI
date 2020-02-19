@@ -32,7 +32,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityTop from '@/components/Admin/FacilityTop.vue'
-import reserveManage from '@/components/Admin/reserveManage.vue'
+import reserveManage from '@/components/Admin/ReserveManage.vue'
 import revenue from '@/components/Admin/revenue.vue'
 import ReservationInfoEdit from '@/components/Admin/reservationInfoEdit.vue'
 import inquiry from '@/components/Admin/inquiry.vue'
