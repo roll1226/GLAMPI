@@ -4,13 +4,10 @@
     <v-form>
       <v-container>
         <v-row>
-          <v-col><password></password></v-col>
+          <v-col><passwordBefore /></v-col>
         </v-row>
         <v-row>
-          <v-col><password></password></v-col>
-        </v-row>
-        <v-row>
-          <v-col><passwordCheck></passwordCheck></v-col>
+          <v-col><passwordAfter /></v-col>
         </v-row>
       </v-container>
     </v-form>
@@ -19,11 +16,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import password from '@/components/UserRegistration/password.vue'
+import passwordBefore from '@/components/mypage/Form/passwordBefore.vue'
+import passwordAfter from '@/components/mypage/Form/passwordAfter.vue'
 
 @Component({
   components: {
-    password
+    passwordBefore,
+    passwordAfter
   }
 })
 export default class PasswordMypage extends Vue {}
