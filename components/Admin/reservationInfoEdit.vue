@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card max-width="900" class="mx-auto">
+    <v-card>
       <v-container>
         情報登録
         <v-textarea label="施設紹介" name=""></v-textarea>
@@ -46,7 +46,6 @@
           max-width="250"
           max-height="200"
         ></v-img>
-        <canvas id="canvas"></canvas>
       </v-container>
     </v-card>
   </div>
@@ -69,30 +68,30 @@ import ReservationPlan from '@/components/Admin/ReservationPlan.vue'
   }
 })
 export default class reservationInfoEdit extends Vue {
-  // test?: string = ''
-  // file?: object[] = []
-  // uploadedImage: string =
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5s_Eb1IVAun_V4M-QW_6VrE5xYSSluHdb-F5Hp4Qv5FgeEZee&s'
-  // getFileName(e: any) {
-  //   this.createImage(this.file)
-  //   storage
-  //     .ref()
-  //     .child(`images/${e.name}`)
-  //     .put(e)
-  //     .then(() => {
-  //       console.log('Uploaded a blob or file!')
-  //     })
-  //     .catch((e: any) => {
-  //       console.log(e)
-  //     })
-  //   this.test = e
-  // }
-  // createImage(file: any) {
-  //   const reader = new FileReader()
-  //   reader.onload = (e: any) => {
-  //     this.uploadedImage = e.target.result
+  //   test?: string = ''
+  //   file?: object[] = []
+  //   uploadedImage: string =
+  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5s_Eb1IVAun_V4M-QW_6VrE5xYSSluHdb-F5Hp4Qv5FgeEZee&s'
+  //   getFileName(e: any) {
+  //     this.createImage(this.file)
+  //     storage
+  //       .ref()
+  //       .child(`images/${e.name}`)
+  //       .put(e)
+  //       .then(() => {
+  //         console.log('Uploaded a blob or file!')
+  //       })
+  //       .catch((e: any) => {
+  //         console.log(e)
+  //       })
+  //     this.test = e
   //   }
-  //   reader.readAsDataURL(file)
-  // }
+  //   createImage(file: any) {
+  //     const reader = new FileReader()
+  //     reader.onload = (e: any) => {
+  //       this.uploadedImage = e.target.result
+  //     }
+  //     reader.readAsDataURL(file)
+  //   }
 }
 </script>
