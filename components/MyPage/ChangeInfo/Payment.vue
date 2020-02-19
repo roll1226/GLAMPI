@@ -1,5 +1,5 @@
 <template>
-  <v-card width="850">
+  <div>
     <v-card-title>支払い方法変更</v-card-title>
     <v-form>
       <v-container>
@@ -49,7 +49,7 @@
         </v-row>
       </v-container>
     </v-form>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -76,7 +76,7 @@ export default class Payment extends Vue {
       !!v || '有効期限：月は必ず入力してください。',
     isPaymentCardYear: (v: string) =>
       !!v || '有効期限：年は必ず入力してください。',
-    isPaymentCardSecuritynumber: (v: string) =>
+    isPaymentCardSecurityNumber: (v: string) =>
       !!v || 'セキュリティ番号は必ず入力してください。',
     paymentCardSecurityNumberLength: (v: string) =>
       (v && v.length === 3) || 'セキュリティ番号は3桁にて入力してください',

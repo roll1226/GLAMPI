@@ -1,25 +1,23 @@
 <template>
   <div>
-    <v-card>
-      <v-card-title>Glammity </v-card-title>
-      <v-row class="ma-3">
-        <v-col
-          v-for="(glammity, cardIndex) in cards"
-          :key="cardIndex"
-          lg="12"
-          md="12"
-          sm="12"
-          xs="6"
-        >
-          <MypageGlammityCard
-            :glammity-image="glammity.src"
-            :glammity-name="glammity.title"
-            :introduction="glammity.text"
-            :glammity-url="glammity.text"
-          />
-        </v-col>
-      </v-row>
-    </v-card>
+    <v-card-title>Glammity </v-card-title>
+    <v-row class="ma-3">
+      <v-col
+        v-for="(glammity, cardIndex) in cards"
+        :key="cardIndex"
+        lg="12"
+        md="12"
+        sm="12"
+        xs="6"
+      >
+        <MypageGlammityCard
+          :glammity-image="glammity.src"
+          :glammity-name="glammity.title"
+          :introduction="glammity.text"
+          :glammity-url="glammity.text"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script lang="ts">
