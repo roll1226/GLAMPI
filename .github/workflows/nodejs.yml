@@ -51,11 +51,9 @@ jobs:
           yarn generate
           cd functions
           npm install
-        env:
-          GLAMPI_API_KEY: ${{ secrets.GLAMPI_API_KEY }}
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --token $FIREBASE_TOKEN
+          firebase deploy --only hosting:glampy --token $FIREBASE_TOKEN
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
