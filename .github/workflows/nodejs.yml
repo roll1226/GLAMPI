@@ -15,6 +15,12 @@ jobs:
     - uses: nuxt/actions-yarn@master
       with:
         args: install
+
+    - name: functions install
+      run: |
+        cd ./functions
+        npm install
+
     - uses: nuxt/actions-yarn@master
       with:
         args: generate
