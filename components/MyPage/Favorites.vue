@@ -1,25 +1,23 @@
 <template>
   <div>
-    <v-card>
-      <v-card-title>お気に入り</v-card-title>
-      <v-row class="ma-3">
-        <v-col
-          v-for="(facility, facilityIndex) in facilityList"
-          :key="facilityIndex"
-          lg="4"
-          md="4"
-          sm="4"
-          xs="4"
-        >
-          <FavoriteFacility
-            :facility-name="facility.facilityName"
-            :introduction="facility.introduction"
-            :introduction-url="facility.introduction"
-            :facility-img="facility.facilityImg"
-          />
-        </v-col>
-      </v-row>
-    </v-card>
+    <v-card-title>お気に入り</v-card-title>
+    <v-row class="ma-3">
+      <v-col
+        v-for="(facility, facilityIndex) in facilityList"
+        :key="facilityIndex"
+        lg="4"
+        md="4"
+        sm="4"
+        xs="4"
+      >
+        <FavoriteFacility
+          :facility-name="facility.facilityName"
+          :introduction="facility.introduction"
+          :introduction-url="facility.introduction"
+          :facility-img="facility.facilityImg"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script lang="ts">

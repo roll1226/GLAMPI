@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <div>
     <v-card-title>基本情報変更</v-card-title>
     <!--基本情報変更ページは入力欄に初期値で現在の情報を表示する。-->
     <!--コンポーネントは登録の時のだけどどうするのか？-->
@@ -44,7 +44,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <v-card width="850">
+  <div>
     <v-card-title>支払い方法変更</v-card-title>
     <v-form>
       <v-container>
@@ -49,7 +49,7 @@
         </v-row>
       </v-container>
     </v-form>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
