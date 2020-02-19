@@ -31,8 +31,15 @@ export default class JoinedBtn extends Vue {
   @Prop({ required: true, default: '' })
   glammityName!: string
 
+  @Prop({ required: true, default: '' })
+  glammityId!: string
+
   get dialog(): boolean {
     return this.$store.state.glammityJoin.joinedBtnDialog
+  }
+
+  get userId(): string {
+    return this.$store.state.login.userUid
   }
 
   set dialog(dialog: boolean) {
@@ -45,15 +52,16 @@ export default class JoinedBtn extends Vue {
 
   Joining() {
     this.$store.commit('glammityJoin/SET_LOADING', true)
-    setTimeout(() => {
-      this.$store.commit('glammityJoin/SET_LOADING', false)
-      this.$store.commit('glammityJoin/SET_JOINED_BTN_DIALOG', true)
-    }, 3000)
+    this.$store.dispatch('glammityJoin/joinGlammity', {
+      glammityId: this.glammityId,
+      userId: this.userId
+    })
   }
 
   closeAll() {
     this.$store.commit('glammityJoin/SET_JOINED_BTN_DIALOG', false)
     this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
+    this.$router.push(`/glammity/Group/${this.glammityId}/glammityGroup`)
   }
 }
 </script>

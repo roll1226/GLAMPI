@@ -6,6 +6,7 @@ interface ICommit {
 }
 
 export interface IGlammitys {
+  glammityName: string
   facilityName: string
   facilityUrl: string
   organizer: string
@@ -51,6 +52,7 @@ export const actions = {
       const user: any = userData.data()
 
       const glammityList = {
+        glammityName: glammity.data().name,
         facilityName: facility.docs[0].data().name,
         facilityUrl: glammity.data().facilityUrl,
         organizer:

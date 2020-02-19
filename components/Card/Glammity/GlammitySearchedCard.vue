@@ -56,13 +56,11 @@
               </v-btn>
             </v-col>
             <v-col cols="12" class="pb-1 pt-2">
-              <v-btn block text>
-                <v-icon class="mr-2">
-                  fas fa-campground
-                </v-icon>
-
-                参加する
-              </v-btn>
+              <JoinBtn
+                :is-block="true"
+                :glammity-name="glammity.glammityName"
+                :glammity-id="glammity.glammityId"
+              />
             </v-col>
           </v-row>
         </v-card-actions>
@@ -74,8 +72,13 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { IGlammitys } from '@/store/glammitySearched'
+import JoinBtn from '@/components/Btn/Glammity/JoinBtn.vue'
 
-@Component
+@Component({
+  components: {
+    JoinBtn
+  }
+})
 export default class GlammitySearchedCard extends Vue {
   get glammitys(): IGlammitys {
     return this.$store.state.glammitySearched.glammitys

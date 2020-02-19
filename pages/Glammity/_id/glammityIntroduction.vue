@@ -1,6 +1,6 @@
 <template>
   <div class="pb-2">
-    <h2>{{ glammityData.name }} | 詳細ページ</h2>
+    <h2>{{ glammityData.glammityName }} | 詳細ページ</h2>
 
     <v-carousel
       cycle
@@ -103,13 +103,18 @@
       </v-slide-group>
     </v-card>
 
-    <JoinBtn :glammity-name="`Glammity名`" />
+    <JoinBtn
+      :is-block="false"
+      :glammity-name="glammityData.glammityName"
+      :glammity-id="this.$route.params.id"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import JoinBtn from '@/components/Btn/Glammity/JoinBtn.vue'
+
 import { IGlammity } from '@/store/glammityJoin'
 
 interface IAvater {
