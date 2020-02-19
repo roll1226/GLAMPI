@@ -12,11 +12,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - uses: nuxt/actions-yarn@master
+
+    - name: yarn install
+      uses: nuxt/actions-yarn@master
       with:
         args: install
         
-    - uses: nuxt/actions-yarn@master
+    - name: install firebase-tools
+      uses: nuxt/actions-yarn@master
       with:
         args: global add firebase-tools
 
@@ -25,9 +28,21 @@ jobs:
         cd ./functions
         npm install
 
-    - uses: nuxt/actions-yarn@master
+    - name: nuxt generate
+      uses: nuxt/actions-yarn@master
       with:
         args: generate
+      env:
+        FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+        FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+        FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
+        FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+        FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+        FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+        FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+        ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+        ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+        STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
 
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@master
