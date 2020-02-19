@@ -1,0 +1,13 @@
+<template>
+  <div>
+    <v-card>
+      <v-card-title>口コミ</v-card-title>
+    </v-card>
+  </div>
+</template>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class Reviews extends Vue {}
+</script>

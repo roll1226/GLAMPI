@@ -1,0 +1,42 @@
+<v-footer class="glampi-footer-wrap" padless>
+    <v-row justify="center" class="glampi-footer" no-gutters>
+      <v-toolbar-items v-for="(link, index) in links" :key="index">
+        <v-btn
+          text
+          class="my-2 px-10 block caption glampi-footer-btn"
+          active-class="font-weight-bold active-btn"
+          :to="link.displayName"
+        >
+          {{ link.name }}
+        </v-btn>
+        <v-divider
+          v-if="index !== 4"
+          vertical
+          class="my-2 mx-4"
+          style="background: white;"
+        ></v-divider>
+      </v-toolbar-items>
+
+      <v-col class="text-center py-4 overline" cols="12">
+        &copy;2019-2020 J4K1 GLAMPI.All right reserved
+      </v-col>
+    </v-row>
+  </v-footer>
+
+.glampi-footer-wrap {
+  margin-top: 100px;
+  .glampi-footer {
+    background-color: $site_color_8;
+
+    .theme--light.v-btn:hover::before {
+      background-color: $site_color_2;
+    }
+    //color: $site_color_8;
+    .glampi-footer-btn {
+      &.theme--light.v-btn {
+        color: $site_color_2;
+        caret-color: $site_color_2;
+      }
+    }
+  }
+}

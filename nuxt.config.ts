@@ -3,8 +3,12 @@ export default {
   /*
    ** Headers of the page
    */
+  server: {
+    host: '0.0.0.0'
+  },
   head: {
     title: process.env.npm_package_name || '',
+    script: [{ src: 'https://js.stripe.com/v3/' }],
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -28,11 +32,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@fortawesome/fontawesome-free/css/all.css'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['@/plugins/v-calender.ts'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -49,8 +53,12 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/style-resources'
   ],
+  styleResources: {
+    scss: ['@/assets/scss/_variable.scss']
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -61,8 +69,17 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss']
+    customVariables: ['~/assets/variables.scss'],
+    theme: {
+      themes: {
+        dark: {
+          twitter: '#00acee',
+          facebook: '#3b5998'
+        }
+      }
+    }
   },
+
   /*
    ** Build configuration
    */
@@ -70,6 +87,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config: any, ctx: any) {}
+    extend(config: any, ctx: any) { // eslint-disable-line
+    }
   }
 }
