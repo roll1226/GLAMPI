@@ -1,10 +1,4 @@
 <template>
-  <!--
-  containerのmax-width設定:1100px
-  v-tabsは領域いっぱい v-tabはwidth:20%(min-width:130px)
-
-  画面サイズ変わった時の動きよ…
--->
   <v-container>
     <v-row no-gutters justify="space-around" align="center" class="mypage-navi">
       <v-col xs="12" cols="auto">
@@ -14,7 +8,7 @@
       </v-col>
       <v-col xs="12">
         <v-tabs
-          show-arrows="true"
+          show-arrows
           active-class="font-weight-bold"
           color="rgb(87,95,69)"
         >
@@ -36,15 +30,12 @@
       </v-col>
     </v-row>
 
-    <!--ここより下部分の修正-->
-
     <v-row no-gutters>
       <v-card>
-        <v-row no-gutters>
-          <!-- アイコンサイズの半分程度の左右margin -->
+        <v-row no-gutters justify="space-around">
           <v-col xs="12" cols="auto">
             <div class="mypage-user">
-              <v-avatar class="promg" size="180">
+              <v-avatar color="rgb(87,95,69)" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
               </v-avatar>
               <p>ユーザ名</p>
@@ -52,7 +43,7 @@
             </div>
           </v-col>
 
-          <v-col>
+          <v-col xs="12">
             <MyTop v-if="screen1 == 0" />
 
             <ChangeInfo v-else-if="screen1 == 1" />
@@ -99,11 +90,8 @@ export default class mypage extends Vue {
 </script>
 
 <style lang="scss">
-.promg {
-  background-color: $site_color_2;
-}
-
 .container {
+  overflow: visible !important;
   max-width: 1100px;
   padding: 28px 0 100px 0;
   .mypage-navi {
@@ -117,40 +105,37 @@ export default class mypage extends Vue {
     .v-tabs {
       .v-tab {
         flex-basis: 20%;
+        padding: 0px;
         min-width: 130px;
       }
     }
   }
 
   .v-card {
-    //background-color: bisque;
-    width: 99.5%;
+    width: 100%;
+    box-sizing: border-box;
     margin: 0 auto;
     min-height: 400px;
-    //カード内左右
     padding: 0 60px;
     .mypage-user {
       width: 180px;
-      //background-color: whitesmoke;
-      //avatar上と右
       margin: 70px 60px 0 0;
       p {
         font-size: 22px;
         text-align: center;
-        //アイコンとusernameの間の余白
         margin: 15px 0 0 0;
       }
     }
-
     .mytop-wrap {
-      //background-color: aqua;
+      max-width: 740px;
       margin: 70px 0 0 0;
       * {
         padding: 0px;
         margin: 0px;
       }
       .v-card__text {
-        padding: 0px;
+        padding: 0 0 32px 0;
+        min-width: 200px;
         .v-card__title {
           padding: 0px;
           margin-bottom: 16px;
@@ -163,7 +148,45 @@ export default class mypage extends Vue {
   }
 }
 
-//パソコンサイズの時のCSS記述
-@media screen and (min-width: 770px) {
+@media screen and (max-width: 770px) {
+  .container {
+    padding: 28px 5px 28px;
+    .mypage-navi {
+      h2 {
+        //スマホサイズの時中央
+        padding: 0 0 0 0;
+      }
+    }
+
+    .v-card {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 50px;
+      .mypage-user {
+        margin: 30px 0 0 0;
+      }
+
+      .mytop-wrap {
+        margin: 30px 0 20px 0;
+        .v-divider {
+          display: none;
+        }
+        .v-card__text {
+          font-size: 14px;
+          padding: 0 0 30px 0;
+          .v-card__title {
+            font-size: 18px;
+            margin-bottom: 8px;
+          }
+          ul {
+            list-style-type: none;
+            li {
+              margin-bottom: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 </style>
