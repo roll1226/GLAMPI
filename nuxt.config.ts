@@ -36,7 +36,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/v-calender.ts'],
+  plugins: ['@/plugins/v-calender.ts', '@/plugins/vue-shortkey.ts'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -87,7 +87,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config: any, ctx: any) { // eslint-disable-line
+    extend(config: any, ctx: any) {// eslint-disable-line
     }
   }
 }
