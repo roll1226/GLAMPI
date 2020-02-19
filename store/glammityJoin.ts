@@ -104,6 +104,20 @@ export const mutations = {
     state.glammity.allPay = payload.allPay
     state.glammity.checkIn = payload.checkIn
     state.glammity.comment = payload.comment
+  },
+
+  RESET_GLAMMITY(state: IState) {
+    state.glammity = {
+      glammityName: '',
+      facilityName: '',
+      planName: '',
+      numberOfApplicants: 0,
+      allPay: 0,
+      checkIn: '',
+      comment: '',
+      slider: [],
+      users: []
+    }
   }
 }
 

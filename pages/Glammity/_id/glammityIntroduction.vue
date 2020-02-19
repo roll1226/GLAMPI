@@ -128,6 +128,7 @@ export default class glammityIndex extends Vue {
   }
 
   created() {
+    this.$store.commit('glammityJoin/RESET_GLAMMITY')
     const url = this.$route.params.id
     this.$store.dispatch('glammityJoin/getGlammity', url)
   }

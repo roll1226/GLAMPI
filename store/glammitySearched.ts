@@ -25,6 +25,10 @@ export const state = (): IState => ({
 export const mutations = {
   SET_GLAMMITYS(state: IState, payload: IGlammitys) {
     state.glammitys.push(payload)
+  },
+
+  RESET_CARD(state: IState) {
+    state.glammitys = []
   }
 }
 

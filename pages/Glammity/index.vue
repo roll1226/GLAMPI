@@ -31,6 +31,8 @@ import GlammitySearchedCard from '@/components/Card/Glammity/GlammitySearchedCar
 })
 export default class glammityIndex extends Vue {
   created() {
+    this.$store.commit('glammitySearched/RESET_CARD')
+
     this.$store.dispatch('glammitySearched/getGlammitys')
   }
 }
