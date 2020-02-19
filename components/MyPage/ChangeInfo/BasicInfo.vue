@@ -40,11 +40,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import seimei from '@/components/Mypage/Form/seimei.vue'
-import seimeiKana from '@/components/Mypage/Form/seimeiKana.vue'
-import emailCom from '@/components/Mypage/Form/email.vue'
-import addressCom from '@/components/Mypage/Form/address.vue'
-import username from '@/components/Mypage/Form/username.vue'
+import seimei from '@/components/MyPage/Form/seimei.vue'
+import seimeiKana from '@/components/MyPage/Form/seimeiKana.vue'
+import emailCom from '@/components/MyPage/Form/email.vue'
+import addressCom from '@/components/MyPage/Form/address.vue'
+import username from '@/components/MyPage/Form/username.vue'
 
 @Component({
   components: {
