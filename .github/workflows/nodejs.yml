@@ -54,6 +54,6 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --token $FIREBASE_TOKEN
+          firebase deploy --only hosting:glampy --token $FIREBASE_TOKEN
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
