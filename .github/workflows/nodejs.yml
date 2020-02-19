@@ -29,8 +29,8 @@ jobs:
       with:
         args: generate
 
-    - name: deploy
-      run: |
-        firebase deploy --token $FIREBASE_TOKEN
+    - uses: nuxt/actions-yarn@master
+      with:
+        args: firebase deploy --token $FIREBASE_TOKEN
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
