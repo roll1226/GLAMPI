@@ -43,6 +43,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
         { text: 'ID', value: 'id' },
         { text: '人数', value: 'peopleNumber' },
         { text: 'プラン', value: 'plan' },
+        { text: '施設名', value: 'facilityName' },
         { text: 'オプション', value: 'option' },
         { text: '状態', value: 'status' }
       ],
@@ -51,6 +52,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '1',
           peopleNumber: '8',
           plan: 'プランC',
+          facilityName: '施設A',
           option: 'BBQ',
           status: '宿泊後'
         },
@@ -58,6 +60,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '2',
           peopleNumber: '7',
           plan: 'プランB',
+          facilityName: '施設B',
           option: 'BBQ',
           status: '宿泊後'
         },
@@ -65,6 +68,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '3',
           peopleNumber: '6',
           plan: 'プランA',
+          facilityName: '施設C',
           option: 'BBQ',
           status: 'キャンセル待ち'
         },
@@ -72,6 +76,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '4',
           peopleNumber: '5',
           plan: 'プランC',
+          facilityName: '施設A',
           option: 'なし',
           status: '予約申請中'
         },
@@ -79,6 +84,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '5',
           peopleNumber: '4',
           plan: 'プランB',
+          facilityName: '施設B',
           option: 'なし',
           status: '予約申請中'
         },
@@ -86,6 +92,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '6',
           peopleNumber: '3',
           plan: 'プランA',
+          facilityName: '施設C',
           option: 'なし',
           status: '予約申請中'
         },
@@ -93,6 +100,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '7',
           peopleNumber: '2',
           plan: 'プランC',
+          facilityName: '施設A',
           option: 'なし',
           status: 'キャンセル待ち'
         },
@@ -100,6 +108,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '8',
           peopleNumber: '1',
           plan: 'プランB',
+          facilityName: '施設B',
           option: 'なし',
           status: '予約申請中'
         },
@@ -107,6 +116,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
           id: '9',
           peopleNumber: '8',
           plan: 'プランA',
+          facilityName: '施設C',
           option: 'なし',
           status: '予約申請中'
         },

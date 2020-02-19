@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card max-width="900" class="mx-auto">
+    <v-card>
       <v-container>
         情報登録
         <v-textarea label="施設紹介" name=""></v-textarea>
