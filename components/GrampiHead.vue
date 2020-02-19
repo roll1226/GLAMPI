@@ -47,14 +47,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import Logo from '@/components/imgFile/Logo.vue'
 import LoginModal from '@/components/Btn/LoginModal.vue'
 import { auth } from '@/plugins/firebase'
 
 @Component({
   components: {
-    LoginModal,
-    Logo
+    LoginModal
   },
   computed: {
     isLogin(): boolean {

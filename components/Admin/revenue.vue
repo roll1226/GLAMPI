@@ -25,10 +25,10 @@
       </v-card>
       <v-row justify="center">
         <v-col cols="auto">
-          <Chart height="400" width="800"></Chart>
+          <Chart :height="400" :width="800"></Chart>
         </v-col>
         <v-col cols="auto">
-          <Chart height="400px" width="800px"></Chart>
+          <Chart :height="400" :width="800"></Chart>
         </v-col>
       </v-row>
     </v-row>

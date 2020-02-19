@@ -9,9 +9,6 @@
         <v-row>
           <v-col><password></password></v-col>
         </v-row>
-        <v-row>
-          <v-col><passwordCheck></passwordCheck></v-col>
-        </v-row>
       </v-container>
     </v-form>
   </div>

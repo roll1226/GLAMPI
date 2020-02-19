@@ -93,5 +93,8 @@ export default class reservationInfoEdit extends Vue {
   //     }
   //     reader.readAsDataURL(file)
   //   }
+  file?: object[] = []
+  uploadedImage: string = ''
+  getFileName() {}
 }
 </script>
