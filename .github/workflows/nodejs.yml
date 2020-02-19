@@ -23,7 +23,7 @@ jobs:
 
     - name: yarn install, build
       run: |
-        yarn install
+        yarn
         yarn generate
 
     - name: deploy to Firebase Hosting
