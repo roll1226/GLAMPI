@@ -16,14 +16,16 @@ jobs:
       with:
         args: install
 
-    - name: functions install
+    - name: functions install install firebase-tools
       run: |
+        yarn global add firebase-tools
         cd ./functions
         npm install
 
     - uses: nuxt/actions-yarn@master
       with:
         args: generate
+
     - name: deploy
       run: firebase deploy --token $FIREBASE_TOKEN
       env:
