@@ -1,53 +1,54 @@
 name: Node.js CI
-
-on:
+on: 
   push:
-    branches:
-    - master
+    branches: 
+      - master
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v1
-
-    - name: yarn install
-      uses: nuxt/actions-yarn@master
+    - uses: actions/checkout@master
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@master
       with:
-        args: install
-        
-    - name: install firebase-tools
-      uses: nuxt/actions-yarn@master
-      with:
-        args: global add firebase-tools
-
-    - name: functions install
+        node-version: ${{ matrix.node-version }}
+    - name: yarn install, build
       run: |
         cd ./functions
         npm install
 
-    - name: nuxt generate
-      uses: nuxt/actions-yarn@master
-      with:
-        args: generate
-      env:
-        process.env.FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-        process.env.FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
-        process.env.FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
-        process.env.FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-        process.env.FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
-        process.env.FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
-        process.env.FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-        process.env.ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
-        process.env.ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
-        process.env.STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
+  deploy:
 
-    - name: Deploy to Firebase
-      uses: w9jds/firebase-action@master
-      with:
-        args: deploy
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        PROJECT_ID: "j4k1-b789f"
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    name: Deploy
+    needs: build
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Build each site
+        run: |
+          cd ./functions
+          npm install
+
+      - name: Ready to deploy
+        run: |
+          yarn global add firebase-tools
+          cd functions
+          npm install
+      - name: Deploy to Firebase
+        run: |
+          firebase deploy --token $FIREBASE_TOKEN
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
