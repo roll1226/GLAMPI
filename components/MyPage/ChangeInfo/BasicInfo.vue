@@ -16,12 +16,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <email />
+          <emailCom />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <address1 />
+          <addressCom />
         </v-col>
       </v-row>
       <v-row>
@@ -40,18 +40,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import seimei from '@/components/mypage/Form/seimei.vue'
-import seimeiKana from '@/components/mypage/Form/seimeiKana.vue'
-import email from '@/components/mypage/Form/email.vue'
-import address1 from '@/components/mypage/Form/address.vue'
-import username from '@/components/mypage/Form/username.vue'
+import seimei from '@/components/Mypage/Form/seimei.vue'
+import seimeiKana from '@/components/Mypage/Form/seimeiKana.vue'
+import emailCom from '@/components/Mypage/Form/email.vue'
+import addressCom from '@/components/Mypage/Form/address.vue'
+import username from '@/components/Mypage/Form/username.vue'
 
 @Component({
   components: {
     seimei,
     seimeiKana,
-    email,
-    address1,
+    emailCom,
+    addressCom,
     username
   }
 })
