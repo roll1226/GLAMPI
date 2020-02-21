@@ -63,11 +63,19 @@ export default class JoinBtn extends Vue {
     return this.$store.state.glammityJoin.joinBtnDialog
   }
 
+  get isLogin(): boolean {
+    return this.$store.state.login.isLogin
+  }
+
   set dialog(dialog: boolean) {
     this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', dialog)
   }
 
   openModal() {
+    if (this.isLogin === false) {
+      this.$store.commit('login/SET_LOGIN_DIALOG', true)
+      return
+    }
     this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', true)
   }
 
