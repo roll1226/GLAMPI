@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app style="overflow: hidden;">
     <grampi-head :login-btn-class="'login-btn'" :elevation-head="3" />
-    <nuxt style="overflow: hidden;" />
+    <nuxt />
     <grampi-foot />
   </v-app>
 </template>
