@@ -2,9 +2,11 @@
   <v-col cols="6">
     <v-card outlined>
       <v-card-text>
-        <div>Word of the Day</div>
+        <div>
+          {{ title }}
+        </div>
         <p class="display-1 text--primary mb-0">
-          be•nev•o•lent
+          {{ info }}
         </p>
       </v-card-text>
     </v-card>
@@ -12,8 +14,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
-export default class GlammityInfoCard extends Vue {}
+export default class GlammityInfoCard extends Vue {
+  @Prop({ required: true, default: '' })
+  title!: string
+
+  @Prop({ required: true, default: '' })
+  info!: string
+}
 </script>
