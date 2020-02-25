@@ -58,7 +58,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Slack notification
-      - uses: 8398a7/action-slack@v1
+        uses: 8398a7/action-slack@v1
         with:
           payload: |
             { "text": "Deploy Finish" }
