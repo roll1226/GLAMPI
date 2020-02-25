@@ -60,7 +60,8 @@ jobs:
       - name: Slack notification
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_OVERRIDE_MESSAGE: 'Deploy Finish \n https://glampy.web.app/'
-        uses: Ilshidur/action-slack@fb92a78
+          SLACK_CHANNEL: deploy-glampi # Optional.
+          SLACK_OVERRIDE_MESSAGE: 'Deploy Finish' # Optional.
+        uses: Ilshidur/action-slack@master
         with:
           args: 'A new commit has been pushed.'
