@@ -58,10 +58,9 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Slack notification
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: deploy-glampi # Optional.
-          SLACK_OVERRIDE_MESSAGE: 'Deploy Finish' # Optional.
-        uses: Ilshidur/action-slack@master
+        uses: 8398a7/action-slack@v1
         with:
-          args: 'A new commit has been pushed.'
+          payload: |
+            { "text": "Deploy Finish" }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
