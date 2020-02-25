@@ -63,4 +63,4 @@ jobs:
           # "channel"にSlackチャンネルIDを代入
           args: '{\"channel\":\"CUHRTME8N\", \"text\":\"Deploy Complete \n https://glampy.web.app/ \"}'
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_WEBHOOK }}
