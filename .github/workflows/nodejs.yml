@@ -59,8 +59,8 @@ jobs:
 
       - name: Slack notification
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_WEBHOOK }}
-        uses: pullreminders/slack-action@master
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_OVERRIDE_MESSAGE: 'Deploy Finish \n https://glampy.web.app/'
+        uses: Ilshidur/action-slack@master
         with:
-          # "channel"にSlackチャンネルIDを代入
-          args: '{\"channel\":\"CUHRTME8N\", \"text\":\"Deploy Complete https://glampy.web.app/ \"}'
+          args: 'A new commit has been pushed.'
