@@ -58,10 +58,9 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Slack notification
-        uses: Ilshidur/action-slack@master
+        uses: pullreminders/slack-action@v1
         with:
-          args: 'https://glampy.web.app/'
+          # "channel"にSlackチャンネルIDを代入
+          args: '{\"channel\":\"CUHRTME8N\", \"text\":\"Deploy Complete \n https://glampy.web.app/ \"}'
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: deploy-glampi # Optional.
-          SLACK_OVERRIDE_MESSAGE: 'glampi Deploy' # Optional.
