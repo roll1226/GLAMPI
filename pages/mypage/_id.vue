@@ -116,7 +116,7 @@ export default class mypage extends Vue {
     box-sizing: border-box;
     margin: 0 auto;
     min-height: 400px;
-    padding: 0 60px;
+    padding: 0 60px 40px;
     .mypage-user {
       width: 180px;
       margin: 70px 60px 0 0;
@@ -125,7 +125,23 @@ export default class mypage extends Vue {
         text-align: center;
         margin: 15px 0 0 0;
       }
+      //ChangeInfoBtn位置
+      .change-info-btn {
+        margin: 40px 0 0 0;
+        //background-color: aquamarine;
+        .v-btn {
+          margin: 0 0 20px 0;
+          width: 180px;
+          height: 36px;
+          border-radius: 8px;
+        }
+        .v-item--active {
+          background-color: $site_color_2;
+          color: #fff;
+        }
+      }
     }
+    //mypage,Mytopコンポーネント
     .mytop-wrap {
       max-width: 740px;
       margin: 70px 0 0 0;
@@ -145,6 +161,8 @@ export default class mypage extends Vue {
         }
       }
     }
+
+    //mypage,ChangeInfoコンポーネント
   }
 }
 
