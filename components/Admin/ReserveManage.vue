@@ -6,7 +6,7 @@
           :headers="headers"
           :items="list"
           :page.sync="page"
-          height="521.875px"
+          height="527.3334px"
           hide-default-footer
           class="ma-0 pa-0"
           @page-count="pageCount = $event"
@@ -36,7 +36,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-@Component({
+@Component
+export default class ReserveManageFacility extends Vue {
+  public page: number = 1
+  public pageCount: number = 0
+  public itemsPerPage: number = 10
+
   data() {
     return {
       headers: [
@@ -225,10 +230,5 @@ import { Component, Vue } from 'nuxt-property-decorator'
       ]
     }
   }
-})
-export default class ReserveManageFacility extends Vue {
-  public page: number = 1
-  public pageCount: number = 0
-  public itemsPerPage: number = 10
 }
 </script>
