@@ -58,7 +58,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Slack notification
-        uses: pullreminders/slack-action@v1
+        uses: pullreminders/slack-action@master
         with:
           # "channel"にSlackチャンネルIDを代入
           args: '{\"channel\":\"CUHRTME8N\", \"text\":\"Deploy Complete \n https://glampy.web.app/ \"}'
