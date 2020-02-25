@@ -1,12 +1,11 @@
 name: Node.js CI
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     strategy:
@@ -14,18 +13,17 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@master
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@master
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: yarn install, build
-      run: |
-        cd ./functions
-        npm install
+      - uses: actions/checkout@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: yarn install, build
+        run: |
+          cd ./functions
+          npm install
 
   deploy:
-
     runs-on: macos-latest
 
     strategy:
@@ -57,3 +55,12 @@ jobs:
           firebase deploy --only hosting:glampy --token $FIREBASE_TOKEN
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Slack notification
+        uses: Ilshidur/action-slack@master
+        with:
+          args: 'https://glampy.web.app/'
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: deploy-glampi # Optional.
+          SLACK_OVERRIDE_MESSAGE: 'glampi Deploy' # Optional.
