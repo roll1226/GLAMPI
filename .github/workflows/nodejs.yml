@@ -51,8 +51,9 @@ jobs:
           npm install
 
       - name: Deploy to Firebase
-        run: |
-          firebase deploy --only hosting:glampy --token $FIREBASE_TOKEN
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:glampy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
