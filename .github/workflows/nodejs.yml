@@ -61,6 +61,6 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_OVERRIDE_MESSAGE: 'Deploy Finish \n https://glampy.web.app/'
-        uses: Ilshidur/action-slack@master
+        uses: Ilshidur/action-slack@fb92a78
         with:
           args: 'A new commit has been pushed.'
