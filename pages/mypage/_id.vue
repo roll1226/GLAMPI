@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mypage-wrapp">
     <v-row no-gutters justify="space-around" align="center" class="mypage-navi">
       <v-col xs="12" cols="auto">
         <h2>
@@ -31,7 +31,7 @@
     </v-row>
 
     <v-row no-gutters>
-      <v-card>
+      <v-card class="card">
         <v-row no-gutters justify="space-around">
           <v-col xs="12" cols="auto">
             <div class="mypage-user">
@@ -94,7 +94,7 @@ export default class mypage extends Vue {
 </script>
 
 <style lang="scss">
-.container {
+.mypage-wrapp {
   overflow: visible !important;
   max-width: 1100px;
   padding: 28px 0 100px 0;
@@ -115,16 +115,16 @@ export default class mypage extends Vue {
     }
   }
 
-  .v-card {
+  .card {
     width: 100%;
     box-sizing: border-box;
     margin: 0 auto;
     min-height: 400px;
     //カード内左右と下
-    padding: 0 90px 40px;
+    padding: 0 60px 40px;
     .mypage-user {
       width: 180px;
-      margin: 70px 90px 0 0;
+      margin: 70px 60px 0 0;
       p {
         font-size: 22px;
         text-align: center;

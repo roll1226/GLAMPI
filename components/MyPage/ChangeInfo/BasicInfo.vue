@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-row no-gutters>
       <v-col>
         <seimei />
@@ -27,7 +27,7 @@
     </v-row>
     <v-row no-gutters>
       <v-col>
-        <v-text-field label="プロフィールコメント"></v-text-field>
+        <comment></comment>
       </v-col>
     </v-row>
     <v-row no-gutters>
@@ -38,7 +38,7 @@
         <v-btn>変更</v-btn>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -48,6 +48,7 @@ import seimeiKana from '@/components/mypage/Form/seimeiKana.vue'
 import email from '@/components/mypage/Form/email.vue'
 import address1 from '@/components/mypage/Form/address.vue'
 import username from '@/components/mypage/Form/username.vue'
+import comment from '@/components/mypage/Form/comment.vue'
 
 @Component({
   components: {
@@ -55,7 +56,8 @@ import username from '@/components/mypage/Form/username.vue'
     seimeiKana,
     email,
     address1,
-    username
+    username,
+    comment
   }
 })
 export default class BasicInfo extends Vue {}

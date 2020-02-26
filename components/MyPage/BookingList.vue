@@ -1,26 +1,24 @@
 <template>
-  <div>
-    <v-row class="ma-3">
-      <v-col
-        v-for="(facility, facilityIndex) in facilityList"
-        :key="facilityIndex"
-        lg="12"
-        md="12"
-        sm="12"
-        xs="6"
-      >
-        <BookingFacility
-          :fasility-name="facility.facilityName"
-          :address="facility.address"
-          :plan-name="facility.planName"
-          :plan-pay="facility.planPay"
-          :introduction="facility.introduction"
-          :introduction-url="facility.introduction"
-          :facility-img="facility.facilityImg"
-        />
-      </v-col>
-    </v-row>
-  </div>
+  <v-row no-gutters class="bList-wrapp">
+    <v-col
+      v-for="(facility, facilityIndex) in facilityList"
+      :key="facilityIndex"
+      lg="12"
+      md="12"
+      sm="12"
+      xs="6"
+    >
+      <BookingFacility
+        :fasility-name="facility.facilityName"
+        :address="facility.address"
+        :plan-name="facility.planName"
+        :plan-pay="facility.planPay"
+        :introduction="facility.introduction"
+        :introduction-url="facility.introduction"
+        :facility-img="facility.facilityImg"
+      />
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'

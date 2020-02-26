@@ -13,6 +13,7 @@ interface IUser {
   email: string
   streetAddress: [...string[]]
   nickname: string
+  comment: string
 }
 
 interface IState {
@@ -28,6 +29,7 @@ interface IState {
   passwordAfter: string
   passwordCheck: string
   nickname: string
+  comment: string
 }
 
 export const state = (): IState => ({
@@ -42,7 +44,8 @@ export const state = (): IState => ({
   passwordBefore: '',
   passwordAfter: '',
   passwordCheck: '',
-  nickname: ''
+  nickname: '',
+  comment: ''
 })
 
 export const mutations = {
@@ -84,6 +87,10 @@ export const mutations = {
     state.email = payload
   },
 
+  SET_COMMENT(state: IState, payload: string) {
+    state.comment = payload
+  },
+
   CHECK_PASSWORD_BEFORE(state: IState, payload: string) {
     state.passwordBefore = payload
   },
@@ -109,9 +116,11 @@ export const mutations = {
 
     state.lastNameKana = payload.lastNameKana
 
+    state.email = payload.email
+
     state.nickname = payload.nickname
 
-    state.email = payload.email
+    state.comment = payload.comment
   }
 }
 
