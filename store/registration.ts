@@ -20,6 +20,7 @@ interface IState {
   passwordCheck: string
   phoneNumber: string
   nickname: string
+  postCode: string
 }
 
 export const state = (): IState => ({
@@ -37,7 +38,8 @@ export const state = (): IState => ({
   password: '',
   passwordCheck: '',
   phoneNumber: '',
-  nickname: ''
+  nickname: '',
+  postCode: ''
 })
 
 export const mutations = {
@@ -105,5 +107,9 @@ export const mutations = {
 
   SET_NICKNAME(state: IState, payload: string) {
     state.nickname = payload
+  },
+
+  SET_POST_CODE(state: IState, payload: string) {
+    state.postCode = payload
   }
 }

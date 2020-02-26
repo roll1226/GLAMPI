@@ -21,6 +21,7 @@
             height="60"
             class="title"
             :disabled="!valid"
+            :loading="loading"
             @click="regist"
           >
             会員登録
@@ -58,6 +59,7 @@ import username from '@/components/UserRegistration/username.vue'
   }
 })
 export default class UserRegistration extends Vue {
+  loading: boolean = false
   public valid: boolean = true
   public lazy: boolean = false
   public url = 'https://us-central1-j4k1-b789f.cloudfunctions.net/regist'
@@ -103,8 +105,12 @@ export default class UserRegistration extends Vue {
   get nickname(): string {
     return this.$store.state.registration.nickname
   }
+  get postCode(): string {
+    return this.$store.state.registration.postCode
+  }
 
   async regist() {
+    this.loading = true
     await auth
       .createUserWithEmailAndPassword(this.email, this.password)
       .then(async (user: any) => {
@@ -123,16 +129,19 @@ export default class UserRegistration extends Vue {
               firstNameKana: this.firstNameKana,
               sex: this.sex,
               birthday: `${this.birthdayYear}年${this.birthdayMonth}月${this.birthdayDay}日`,
-              postalCode: `${this.address}`,
+              postalCode: `${this.postCode}`,
               streetAddress: this.streetAddress,
               phoneNumber: this.phoneNumber,
               nickname: this.nickname,
               userImg:
-                'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
+                'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light',
+              comment: 'よろしくお願いします。'
             }
           })
         }).then((result) => {
           console.log(result)
+          this.loading = false
+          this.$router.push('/')
         })
       })
   }
