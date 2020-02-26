@@ -10,7 +10,13 @@
           class="ma-0 pa-0"
           hide-default-footer
           @page-count="pageCount = $event"
-        ></v-data-table>
+        >
+          <template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
       </v-col>
     </v-row>
     <hr />
@@ -50,7 +56,8 @@ export default class ReserveManageAdmin extends Vue {
         { text: 'プラン', value: 'plan' },
         { text: '施設名', value: 'facilityName' },
         { text: 'オプション', value: 'option' },
-        { text: '状態', value: 'status' }
+        { text: '状態', value: 'status' },
+        { text: '', value: 'action', sortable: false }
       ],
       list: [
         {

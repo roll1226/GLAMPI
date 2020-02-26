@@ -10,17 +10,14 @@
               <p class="ma-0 title">
                 今月<br /><span class="revenue"
                   >収益:{{ revenue.toLocaleString() }}円</span
-                ><br /><span class="revenue">宿泊人数:{{ guests }}人</span
-                ><br /><span class="revenue">仲介料:{{ brokerageFee }}円</span>
-              </p></v-col
-            >
-
+                ><br /><span class="revenue">宿泊人数:{{ guests }}人</span>
+              </p>
+            </v-col>
             <v-col class="text-center pa-0">
               <p class="ma-0 title">
                 先月<br /><span class="revenue"
                   >収益:{{ revenue2.toLocaleString() }}円</span
-                ><br /><span class="revenue">宿泊人数:{{ guests2 }}人</span
-                ><br /><span class="revenue">仲介料:{{ brokerageFee2 }}円</span>
+                ><br /><span class="revenue">宿泊人数:{{ guests2 }}人</span>
               </p>
             </v-col>
           </v-row>
@@ -40,20 +37,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Chart from '@/components/Admin/Chart.vue'
+import Chart from '@/components/Admin_/Chart.vue'
 
 @Component({
   components: {
     Chart
   }
 })
-export default class RevenueFacility extends Vue {
+export default class RevenueAdmin extends Vue {
   public revenue: number = 240000
   public guests: number = 32
   public revenue2: number = 520000
   public guests2: number = 67
-  public brokerageFee: number = this.revenue / 10
-  public brokerageFee2: number = this.revenue2 / 10
 }
 </script>
 <style lang="scss">
