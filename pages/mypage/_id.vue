@@ -38,7 +38,7 @@
               <v-avatar color="rgb(87,95,69)" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
               </v-avatar>
-              <p>ユーザ名</p>
+              <p>{{ userName }}</p>
               <ChangeInfoBtn v-if="screen1 == 1" />
             </div>
           </v-col>
@@ -86,6 +86,10 @@ import Reviews from '@/components/MyPage/Reviews.vue'
 export default class mypage extends Vue {
   public screen1: number = 0
   public screen2: number = 0
+
+  created() {
+    this.$store.dispatch('mypage/getUserData', this.$route.params.id)
+  }
 }
 </script>
 
