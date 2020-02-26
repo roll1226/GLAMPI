@@ -36,6 +36,7 @@ interface IState {
   avatar: IAvatar[]
   messageText: string
   loading: boolean
+  verificationDialog: boolean
 }
 
 export const state = (): IState => ({
@@ -46,7 +47,8 @@ export const state = (): IState => ({
   boxId: [],
   avatar: [],
   messageText: '',
-  loading: false
+  loading: false,
+  verificationDialog: false
 })
 
 export const mutations = {
@@ -107,6 +109,10 @@ export const mutations = {
 
   SET_LOADING(state: IState, payload: boolean) {
     state.loading = payload
+  },
+
+  SET_VERIFICATION_DIALOG(state: IState, payload: boolean) {
+    state.verificationDialog = payload
   }
 }
 
