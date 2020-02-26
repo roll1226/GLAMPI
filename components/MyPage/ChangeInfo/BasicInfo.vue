@@ -1,39 +1,36 @@
 <template>
-  <div>
-    <v-card-title>基本情報変更</v-card-title>
-    <v-container>
-      <v-row>
-        <v-col>
-          <seimei />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <seimeiKana />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <email />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <address1 />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <username></username>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-text-field label="プロフィールコメント"></v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+  <v-container>
+    <v-row no-gutters>
+      <v-col>
+        <seimei />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <seimeiKana />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <email />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <address1 />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <username></username>
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <v-text-field label="プロフィールコメント"></v-text-field>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">

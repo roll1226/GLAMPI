@@ -1,55 +1,52 @@
 <template>
-  <div>
-    <v-card-title>支払い方法変更</v-card-title>
+  <v-container>
     <v-form>
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="paymentCardID"
-              label="カード番号"
-              :rules="[
-                rules.isPaymentCardID,
-                rules.paymentCardIDLength,
-                rules.paymentCardIDFormat
-              ]"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="4">
-            <v-overflow-btn
-              v-model="paymentCardMonth"
-              :items="dropdown"
-              label="有効期限：月"
-              :rules="[rules.isPaymentCardMonth]"
-            ></v-overflow-btn>
-          </v-col>
-          <v-col cols="12" sm="4">
-            <v-overflow-btn
-              v-model="paymentCardYear"
-              :items="dropdown1"
-              label="有効期限：年"
-              :rules="[rules.isPaymentCardYear]"
-            ></v-overflow-btn>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col sm="3">
-            <v-text-field
-              v-model="paymentCardSecurityNumber"
-              label="セキュリティ番号"
-              :rules="[
-                rules.isPaymentCardSecurityNumber,
-                rules.paymentCardSecurityNumberLength,
-                rules.paymentCardSecurityNumberFormat
-              ]"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </v-container>
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="paymentCardID"
+            label="カード番号"
+            :rules="[
+              rules.isPaymentCardID,
+              rules.paymentCardIDLength,
+              rules.paymentCardIDFormat
+            ]"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" sm="4">
+          <v-overflow-btn
+            v-model="paymentCardMonth"
+            :items="dropdown"
+            label="有効期限：月"
+            :rules="[rules.isPaymentCardMonth]"
+          ></v-overflow-btn>
+        </v-col>
+        <v-col cols="12" sm="4">
+          <v-overflow-btn
+            v-model="paymentCardYear"
+            :items="dropdown1"
+            label="有効期限：年"
+            :rules="[rules.isPaymentCardYear]"
+          ></v-overflow-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col sm="3">
+          <v-text-field
+            v-model="paymentCardSecurityNumber"
+            label="セキュリティ番号"
+            :rules="[
+              rules.isPaymentCardSecurityNumber,
+              rules.paymentCardSecurityNumberLength,
+              rules.paymentCardSecurityNumberFormat
+            ]"
+          ></v-text-field>
+        </v-col>
+      </v-row>
     </v-form>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">

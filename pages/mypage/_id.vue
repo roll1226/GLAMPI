@@ -116,10 +116,11 @@ export default class mypage extends Vue {
     box-sizing: border-box;
     margin: 0 auto;
     min-height: 400px;
-    padding: 0 60px 40px;
+    //カード内左右と下
+    padding: 0 90px 40px;
     .mypage-user {
       width: 180px;
-      margin: 70px 60px 0 0;
+      margin: 70px 90px 0 0;
       p {
         font-size: 22px;
         text-align: center;
@@ -127,10 +128,10 @@ export default class mypage extends Vue {
       }
       //ChangeInfoBtn位置
       .change-info-btn {
-        margin: 40px 0 0 0;
+        margin: 20px 0 0 0;
         //background-color: aquamarine;
         .v-btn {
-          margin: 0 0 20px 0;
+          margin: 20px 0 0 0;
           width: 180px;
           height: 36px;
           border-radius: 8px;
