@@ -6,11 +6,17 @@
           :headers="headers"
           :items="list"
           :page.sync="page"
-          height="527.3334px"
-          hide-default-footer
+          height="527.5px"
           class="ma-0 pa-0"
+          hide-default-footer
           @page-count="pageCount = $event"
-        ></v-data-table>
+        >
+          <template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
       </v-col>
     </v-row>
     <hr />
@@ -49,7 +55,8 @@ export default class ReserveManageFacility extends Vue {
         { text: '人数', value: 'peopleNumber' },
         { text: 'プラン', value: 'plan' },
         { text: 'オプション', value: 'option' },
-        { text: '状態', value: 'status' }
+        { text: '状態', value: 'status' },
+        { text: '', value: 'action', sortable: false }
       ],
       list: [
         {

@@ -6,7 +6,7 @@
           :headers="headers"
           :items="list"
           :page.sync="page"
-          height="527.3334px"
+          height="527.5px"
           class="ma-0 pa-0"
           hide-default-footer
           @page-count="pageCount = $event"
