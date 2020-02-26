@@ -2,21 +2,24 @@
   <div>
     <v-row no-gutters>
       <v-col no-gutters>
-        <v-data-table
-          :headers="headers"
-          :items="list"
-          :page.sync="page"
-          height="527.5px"
-          class="ma-0 pa-0"
-          hide-default-footer
-          @page-count="pageCount = $event"
-        >
-          <template v-slot:item.action>
-            <v-btn small class="mr-2">
-              詳細
-            </v-btn>
-          </template></v-data-table
-        >
+        <v-card elevation="12" class="black--text">
+          <v-card-title>予約一覧</v-card-title>
+          <v-data-table
+            :headers="headers"
+            :items="list"
+            :page.sync="page"
+            height="527.5px"
+            class="ma-0 pa-0"
+            hide-default-footer
+            @page-count="pageCount = $event"
+          >
+            <template v-slot:item.action>
+              <v-btn small class="mr-2">
+                詳細
+              </v-btn>
+            </template></v-data-table
+          >
+        </v-card>
       </v-col>
     </v-row>
     <hr />

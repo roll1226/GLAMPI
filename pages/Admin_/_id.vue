@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col no-gutters cols="auto">
         <v-tabs
-          class="pa-0 ma-0"
+          class="id pa-0 ma-0"
           active-class="font-weight-bold tab-active"
           hide-slider
           vertical
@@ -37,7 +37,7 @@ import adminTop from '@/components/Admin_/AdminTop.vue'
 import userManage from '@/components/Admin_/userManage.vue'
 import reserveManage from '@/components/Admin_/reserveManage.vue'
 import revenue from '@/components/Admin_/revenue.vue'
-import inquiry from '@/components/Admin/inquiry.vue'
+import inquiry from '@/components/Admin_/inquiry.vue'
 
 @Component({
   components: {
@@ -57,7 +57,7 @@ export default class AdminIndex extends Vue {
   overflow: visible !important;
   margin: 70px auto 100px;
   width: 1300px;
-  .v-tabs {
+  .id {
     .v-tab {
       width: 180px;
       //padding*2=height

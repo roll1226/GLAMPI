@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col no-gutters cols="auto">
         <v-tabs
-          class="pa-0 ma-0"
+          class="id pa-0 ma-0"
           active-class="font-weight-bold tab-active"
           hide-slider
           vertical
@@ -55,7 +55,7 @@ export default class FacilityIndex extends Vue {
   overflow: visible !important;
   margin: 70px auto 100px;
   width: 1300px;
-  .v-tabs {
+  .id {
     .v-tab {
       width: 180px;
       //padding*2=height

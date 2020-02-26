@@ -23,12 +23,12 @@
           </v-row>
         </v-card-text>
       </v-card>
-      <v-row justify="center">
+      <v-row>
         <v-col cols="auto">
-          <Chart :height="400" :width="800"></Chart>
+          <Chart :height="500" :width="1000"></Chart>
         </v-col>
         <v-col cols="auto">
-          <Chart :height="400" :width="800"></Chart>
+          <Chart :height="500" :width="1000"></Chart>
         </v-col>
       </v-row>
     </v-row>

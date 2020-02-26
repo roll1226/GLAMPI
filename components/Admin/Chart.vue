@@ -84,9 +84,7 @@ import { Bar } from 'vue-chartjs'
           xAxes: [
             {
               scaleLabel: {
-                display: true,
-                labelString: '今月',
-                fontSize: 24
+                display: true
               },
               ticks: {
                 beginAtZero: true,

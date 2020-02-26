@@ -21,7 +21,7 @@
       </v-card>
     </v-row>
     <v-row class="pa-0 ma-0">
-      <v-card class="black--text">
+      <v-card elevation="12" class="black--text">
         <v-card-title>登録申請施設</v-card-title>
         <v-data-table
           :headers="headers"

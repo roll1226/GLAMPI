@@ -2,8 +2,6 @@
   <div>
     <v-row class="pa-0 ma-0 mb-10 row1">
       <v-card tile elevation="0" color="grey lighten-4">
-        <!--カード内のpaddingは、v-card-textのクラスで調整
-        初期値(今):16px = "pa-4"-->
         <v-card-text class="black--text">
           <v-row class="ma-0" justify="space-around">
             <v-col class="text-center pa-0">
@@ -21,13 +19,13 @@
       </v-card>
     </v-row>
     <v-row class="pa-0 ma-0">
-      <v-card class="black--text">
+      <v-card elevation="12" class="black--text">
         <v-card-title>不正ユーザ</v-card-title>
         <v-data-table
           :headers="headers"
           :items="username"
           :page.sync="page"
-          height="527.3334px"
+          height="527.5px"
           class="ma-0 pa-0"
           hide-default-footer
           @page-count="pageCount = $event"
@@ -44,13 +42,13 @@
       ></v-pagination>
     </v-row>
     <v-row class="pa-0 ma-0">
-      <v-card class="black--text">
+      <v-card elevation="12" class="black--text">
         <v-card-title>登録ユーザ</v-card-title>
         <v-data-table
           :headers="headers2"
           :items="username2"
           :page.sync="page2"
-          height="527.3334px"
+          height="527.5px"
           class="ma-0 pa-0"
           hide-default-footer
           @page-count="pageCount2 = $event"
