@@ -38,7 +38,7 @@
               <v-avatar color="rgb(87,95,69)" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
               </v-avatar>
-              <p>ユーザ名</p>
+              <p>{{ userName }}</p>
               <ChangeInfoBtn v-if="screen1 == 1" />
             </div>
           </v-col>
@@ -86,6 +86,10 @@ import Reviews from '@/components/MyPage/Reviews.vue'
 export default class mypage extends Vue {
   public screen1: number = 0
   public screen2: number = 0
+
+  created() {
+    this.$store.dispatch('mypage/getUserData', this.$route.params.id)
+  }
 }
 </script>
 
@@ -116,16 +120,33 @@ export default class mypage extends Vue {
     box-sizing: border-box;
     margin: 0 auto;
     min-height: 400px;
-    padding: 0 60px;
+    //カード内左右と下
+    padding: 0 90px 40px;
     .mypage-user {
       width: 180px;
-      margin: 70px 60px 0 0;
+      margin: 70px 90px 0 0;
       p {
         font-size: 22px;
         text-align: center;
         margin: 15px 0 0 0;
       }
+      //ChangeInfoBtn位置
+      .change-info-btn {
+        margin: 20px 0 0 0;
+        //background-color: aquamarine;
+        .v-btn {
+          margin: 20px 0 0 0;
+          width: 180px;
+          height: 36px;
+          border-radius: 8px;
+        }
+        .v-item--active {
+          background-color: $site_color_2;
+          color: #fff;
+        }
+      }
     }
+    //mypage,Mytopコンポーネント
     .mytop-wrap {
       max-width: 740px;
       margin: 70px 0 0 0;
@@ -145,6 +166,8 @@ export default class mypage extends Vue {
         }
       }
     }
+
+    //mypage,ChangeInfoコンポーネント
   }
 }
 

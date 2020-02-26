@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-card-title>予約履歴</v-card-title>
     <v-row class="ma-3">
       <v-col
         v-for="(facility, facilityIndex) in facilityList"

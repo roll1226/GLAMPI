@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     <v-card-title>基本情報変更</v-card-title>
     <!--基本情報変更ページは入力欄に初期値で現在の情報を表示する。-->
@@ -36,6 +37,48 @@
       </v-row>
     </v-container>
   </div>
+=======
+  <v-container>
+    <v-row no-gutters>
+      <v-col>
+        <seimei />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <seimeiKana />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <email />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <address1 />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <username></username>
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <v-text-field label="プロフィールコメント"></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <v-btn>退会</v-btn>
+      </v-col>
+      <v-col>
+        <v-btn>変更</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
+>>>>>>> origin/yoko-mypage
 </template>
 
 <script lang="ts">

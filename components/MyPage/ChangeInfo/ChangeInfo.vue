@@ -1,13 +1,9 @@
 <template>
-  <v-card-text>
-    <v-row>
-      <v-col lg="9" md="9" sm="12" xs="12">
-        <BasicInfo v-if="screen2 == 0" />
-        <Payment v-if="screen2 == 1" />
-        <Password v-if="screen2 == 2" />
-      </v-col>
-    </v-row>
-  </v-card-text>
+  <div>
+    <BasicInfo v-if="screen2 == 0" />
+    <Payment v-if="screen2 == 1" />
+    <Password v-if="screen2 == 2" />
+  </div>
 </template>
 
 <script lang="ts">
