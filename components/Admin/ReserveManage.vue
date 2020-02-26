@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-row class="ma-0 pa-0">
-      <v-col class="ma-0 pa-0">
+    <v-row no-gutters>
+      <v-col no-gutters>
         <v-data-table
           :headers="headers"
           :items="list"
@@ -14,21 +14,23 @@
       </v-col>
     </v-row>
     <hr />
-    <v-row class="text-center pt-2">
-      <v-pagination
-        v-model="page"
-        :length="pageCount"
-        :value="itemsPerPage"
-        @input="itemsPerPage = parseInt($event, 10)"
-      ></v-pagination>
+    <v-row no-gutters>
+      <v-col no-gutters>
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          :value="itemsPerPage"
+          @input="itemsPerPage = parseInt($event, 10)"
+        ></v-pagination>
+      </v-col>
     </v-row>
   </div>
 </template>
 
-<style>
-.v-data-table-header {
-  background-color: #e0e0e0;
-}
+<style lang="scss">
+// .v-data-table-header {
+//   background-color: #e0e0e0;
+// }
 </style>
 
 <script lang="ts">

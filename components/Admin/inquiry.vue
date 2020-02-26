@@ -108,29 +108,29 @@ import { Component, Vue } from 'nuxt-property-decorator'
       ],
       list2: [
         {
-          date: '10/27',
-          Requirements: 'あいうえおー！！',
-          user: 'iwaya'
+          date: '11/27',
+          Requirements: 'はひふへほー！！',
+          user: 'god'
         },
         {
-          date: '10/27',
-          Requirements: 'あいうえおー！！',
-          user: 'iwaya'
+          date: '11/20',
+          Requirements: 'まみむめもー！！',
+          user: 'god'
         },
         {
-          date: '10/27',
-          Requirements: 'あいうえおー！！',
-          user: 'iwaya'
+          date: '11/8',
+          Requirements: 'やゆよー！！',
+          user: 'god'
         },
         {
-          date: '10/27',
-          Requirements: 'あいうえおー！！',
-          user: 'iwaya'
+          date: '10/25',
+          Requirements: 'らりるれろー！！',
+          user: 'god'
         },
         {
-          date: '10/27',
-          Requirements: 'あいうえおー！！',
-          user: 'iwaya'
+          date: '10/2',
+          Requirements: 'わをんー！！',
+          user: 'god'
         }
       ]
     }

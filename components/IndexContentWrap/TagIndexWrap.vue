@@ -1,8 +1,8 @@
 <template>
-  <div class="top-page-introduction-wrap mb-1 index-wrap-tag">
-    <v-row>
+  <div class="top-page-introduction-wrap index-wrap-tag">
+    <v-row no-gutters>
       <v-col>
-        <h3 class="ml-10 top-page-glammity-title headline font-weight-bold">
+        <h3 class="top-page-titles">
           タグ検索
         </h3>
       </v-col>
@@ -37,7 +37,7 @@
       </v-expansion-panels>
     </div>
 
-    <v-row class="top-page-introduction-lists">
+    <v-row class="top-page-cards">
       <v-col>
         <v-card class="index-tag-pc" elevation="0">
           <v-card-text>
