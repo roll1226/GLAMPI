@@ -30,6 +30,14 @@
         <v-text-field label="プロフィールコメント"></v-text-field>
       </v-col>
     </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <v-btn>退会</v-btn>
+      </v-col>
+      <v-col>
+        <v-btn>変更</v-btn>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

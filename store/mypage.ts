@@ -22,7 +22,6 @@ interface IState {
   lastNameKana: string
   firstNameKana: string
   address: string
-  address2: string
   streetAddress: [...string[]]
   email: string
   passwordBefore: string
@@ -38,7 +37,6 @@ export const state = (): IState => ({
   lastNameKana: '',
   firstNameKana: '',
   address: '',
-  address2: '',
   streetAddress: [],
   email: '',
   passwordBefore: '',
@@ -70,10 +68,6 @@ export const mutations = {
 
   SET_ADDRESS(state: IState, payload: string) {
     state.address = payload
-  },
-
-  SET_ADDRESS2(state: IState, payload: string) {
-    state.address2 = payload
   },
 
   SET_STREET_ADDRESS(
