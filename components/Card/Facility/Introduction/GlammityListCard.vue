@@ -20,6 +20,7 @@
                 :glammity-image="glammity.src"
                 :glammity-name="glammity.title"
                 :introduction="glammity.text"
+                :url="glammity.url"
               />
             </v-col>
           </v-row>

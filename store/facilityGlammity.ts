@@ -72,6 +72,11 @@ export const mutations = {
       state.pageSlice * (payload - 1),
       state.pageSlice * payload
     )
+  },
+
+  RESET_GLAMMITY_DATA(state: IState) {
+    state.getGlammityList = []
+    state.displayLists = []
   }
 }
 
@@ -94,15 +99,18 @@ export const actions = {
     dispatch: ICommit,
     payload: { data: IGlammityData; id: string }
   ) {
-    const userImg = await firestore
+    const user = await firestore
       .collection('users')
-      .doc(payload.id)
+      .doc(payload.data.organizer)
       .get()
+
     console.log('aaaaa')
+    console.log(user)
+
     await dispatch.commit('SET_GLAMMITY_DATA', {
       data: payload.data,
       id: payload.id,
-      userImg: userImg.data()
+      userImg: user.data()
     })
 
     dispatch.commit('ORGANIZING_GLAMMITY_DATA')

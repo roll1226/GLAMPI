@@ -133,6 +133,7 @@ export default class introduction extends Vue {
   // ユーザidをログイン時に登録
 
   created() {
+    this.$store.commit('facilityGlammity/RESET_GLAMMITY_DATA')
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
     this.chackLike()
   }
