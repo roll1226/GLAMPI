@@ -26,7 +26,10 @@
         :info="estimatedAmount.info"
       />
     </v-row>
+
     <MemberListCard />
+
+    <WithdrawBtn />
   </v-card>
 </template>
 
@@ -35,11 +38,13 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import MemberListCard from '@/components/Card/Glammity/Group/MemberListCard.vue'
 import GlammityInfoCard from '@/components/Card/Glammity/Group/GlammityInfoCard.vue'
 import { IGlammityInfoList } from '@/store/glammityInfo'
+import WithdrawBtn from '@/components/Btn/Glammity/Group/WithdrawBtn.vue'
 
 @Component({
   components: {
     MemberListCard,
-    GlammityInfoCard
+    GlammityInfoCard,
+    WithdrawBtn
   }
 })
 export default class DetailsCard extends Vue {
