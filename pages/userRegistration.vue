@@ -94,9 +94,6 @@ export default class UserRegistration extends Vue {
   get address(): string {
     return this.$store.state.registration.address
   }
-  get address2(): string {
-    return this.$store.state.registration.address2
-  }
   get streetAddress(): [...string[]] {
     return this.$store.state.registration.streetAddress
   }
@@ -126,7 +123,7 @@ export default class UserRegistration extends Vue {
               firstNameKana: this.firstNameKana,
               sex: this.sex,
               birthday: `${this.birthdayYear}年${this.birthdayMonth}月${this.birthdayDay}日`,
-              postalCode: `${this.address}-${this.address2}`,
+              postalCode: `${this.address}`,
               streetAddress: this.streetAddress,
               phoneNumber: this.phoneNumber,
               nickname: this.nickname,
