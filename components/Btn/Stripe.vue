@@ -255,7 +255,6 @@ export default {
 
     openDialog() {
       this.dialog = true
-      this.$store.commit('reservation/ADDITION')
     }
   }
 }
