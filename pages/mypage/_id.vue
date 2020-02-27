@@ -38,7 +38,7 @@
               <v-avatar color="rgb(87,95,69)" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
               </v-avatar>
-              <p>{{ userName }}</p>
+              <p>{{ nickname }}</p>
               <ChangeInfoBtn v-if="screen1 == 1" />
             </div>
           </v-col>
@@ -89,6 +89,11 @@ export default class mypage extends Vue {
 
   created() {
     this.$store.dispatch('mypage/getUserData', this.$route.params.id)
+  }
+  get nickname(): string {
+    return this.$store.state.mypage.nickname !== ''
+      ? this.$store.state.mypage.nickname
+      : this.$store.state.mypage.firstName + this.$store.state.mypage.lastName
   }
 }
 </script>
