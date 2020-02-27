@@ -17,7 +17,7 @@
     </v-row>
     <v-row no-gutters>
       <v-col>
-        <address1 />
+        <addressForm />
       </v-col>
     </v-row>
     <v-row no-gutters>
@@ -46,7 +46,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import seimei from '@/components/mypage/Form/seimei.vue'
 import seimeiKana from '@/components/mypage/Form/seimeiKana.vue'
 import email from '@/components/mypage/Form/email.vue'
-import address1 from '@/components/mypage/Form/address.vue'
+import addressForm from '@/components/mypage/Form/address.vue'
 import username from '@/components/mypage/Form/username.vue'
 import comment from '@/components/mypage/Form/comment.vue'
 
@@ -55,7 +55,7 @@ import comment from '@/components/mypage/Form/comment.vue'
     seimei,
     seimeiKana,
     email,
-    address1,
+    addressForm,
     username,
     comment
   }

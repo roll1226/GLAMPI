@@ -11,7 +11,8 @@ interface IUser {
   lastNameKana: string
   firstNameKana: string
   email: string
-  streetAddress: [...string[]]
+  postalCode: string
+  streetAddress: string
   nickname: string
   comment: string
 }
@@ -23,7 +24,8 @@ interface IState {
   lastNameKana: string
   firstNameKana: string
   address: string
-  streetAddress: [...string[]]
+  postalCode: string
+  streetAddress: string
   email: string
   passwordBefore: string
   passwordAfter: string
@@ -39,7 +41,8 @@ export const state = (): IState => ({
   lastNameKana: '',
   firstNameKana: '',
   address: '',
-  streetAddress: [],
+  postalCode: '',
+  streetAddress: '',
   email: '',
   passwordBefore: '',
   passwordAfter: '',
@@ -69,22 +72,16 @@ export const mutations = {
     state.firstNameKana = payload
   },
 
-  SET_ADDRESS(state: IState, payload: string) {
-    state.address = payload
-  },
-
-  SET_STREET_ADDRESS(
-    state: IState,
-    payload: { pref: string; city: string; town: string }
-  ) {
-    state.streetAddress = []
-    state.streetAddress.push(payload.pref)
-    state.streetAddress.push(payload.city)
-    state.streetAddress.push(payload.town)
-  },
-
   SET_EMAIL(state: IState, payload: string) {
     state.email = payload
+  },
+
+  SET_STREETADDRESS(state: IState, payload: string) {
+    state.streetAddress = payload
+  },
+
+  SET_POSTAL_CODE(state: IState, payload: string) {
+    state.postalCode = payload
   },
 
   SET_COMMENT(state: IState, payload: string) {
@@ -117,6 +114,10 @@ export const mutations = {
     state.lastNameKana = payload.lastNameKana
 
     state.email = payload.email
+
+    state.postalCode = payload.postalCode
+
+    state.streetAddress = payload.streetAddress
 
     state.nickname = payload.nickname
 
