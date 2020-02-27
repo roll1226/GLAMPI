@@ -73,9 +73,7 @@ export default class CommentCard extends Vue {
   }
 
   created() {
-    this.$store.dispatch('facility/getComment', {
-      displayName: this.$route.params.id
-    })
+    this.$store.dispatch('facility/getComment', this.$route.params.id)
   }
 }
 </script>
