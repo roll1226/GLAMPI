@@ -15,6 +15,8 @@ interface IUser {
   streetAddress: string
   nickname: string
   comment: string
+  sex: string
+  birthday: string
 }
 
 interface IState {
@@ -32,6 +34,8 @@ interface IState {
   passwordCheck: string
   nickname: string
   comment: string
+  sex: string
+  birthday: string
 }
 
 export const state = (): IState => ({
@@ -48,7 +52,9 @@ export const state = (): IState => ({
   passwordAfter: '',
   passwordCheck: '',
   nickname: '',
-  comment: ''
+  comment: '',
+  sex: '',
+  birthday: ''
 })
 
 export const mutations = {
@@ -122,6 +128,10 @@ export const mutations = {
     state.nickname = payload.nickname
 
     state.comment = payload.comment
+
+    state.sex = payload.sex
+
+    state.birthday = payload.birthday
   }
 }
 

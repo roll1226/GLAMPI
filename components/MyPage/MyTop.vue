@@ -6,7 +6,7 @@
         <ul>
           <li>性別: {{ sex }}</li>
           <li>年齢:{{ age }}</li>
-          <li>住所:{{ address }}</li>
+          <li>住所:{{ streetAddress }}</li>
         </ul>
       </v-card-text>
     </v-col>
@@ -28,11 +28,20 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class MyTop extends Vue {
-  public sex: number = 1
-  public age: number = 20
-  public address: String =
-    'あああああああああああああああああああああああああああああああああああああああああああああああああああああああ'
-  public comment: String =
-    'あああああああああああああああああああああああああああああああああああああああああああああああああああああああ'
+  get sex(): string {
+    return this.$store.state.mypage.sex === 'M' ? '男性' : '女性'
+  }
+
+  get age(): string {
+    return this.$store.state.mypage.birthday
+  }
+
+  get streetAddress(): string {
+    return this.$store.state.mypage.streetAddress
+  }
+
+  get comment(): string {
+    return this.$store.state.mypage.comment
+  }
 }
 </script>
