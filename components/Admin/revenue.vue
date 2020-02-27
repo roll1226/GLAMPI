@@ -2,8 +2,6 @@
   <div>
     <v-row class="pa-0 ma-0 mb-10 row1">
       <v-card tile elevation="0" color="grey lighten-4">
-        <!--カード内のpaddingは、v-card-textのクラスで調整
-        初期値(今):16px = "pa-4"-->
         <v-card-text class="black--text pa-0">
           <v-row class="ma-0 pa-0" justify="space-around">
             <v-col class="text-center pa-0">
@@ -28,10 +26,10 @@
       </v-card>
       <v-row justify="center">
         <v-col cols="auto">
-          <Chart :height="400" :width="800"></Chart>
+          <Chart :height="500" :width="1000"></Chart>
         </v-col>
         <v-col cols="auto">
-          <Chart :height="400" :width="800"></Chart>
+          <Chart :height="500" :width="1000"></Chart>
         </v-col>
       </v-row>
     </v-row>

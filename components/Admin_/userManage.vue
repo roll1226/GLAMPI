@@ -19,7 +19,7 @@
       </v-card>
     </v-row>
     <v-row class="pa-0 ma-0">
-      <v-card elevation="12" class="black--text">
+      <v-card elevation="0" class="black--text">
         <v-card-title>不正ユーザ</v-card-title>
         <v-data-table
           :headers="headers"
@@ -30,10 +30,15 @@
           hide-default-footer
           @page-count="pageCount = $event"
         >
-        </v-data-table>
+          <template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
       </v-card>
     </v-row>
-    <v-row class="text-center pt-2">
+    <v-row class="text-center px-0 pt-6 pb-4">
       <v-pagination
         v-model="page"
         :length="pageCount"
@@ -41,8 +46,8 @@
         @input="itemsPerPage = parseInt($event, 10)"
       ></v-pagination>
     </v-row>
-    <v-row class="pa-0 ma-0">
-      <v-card elevation="12" class="black--text">
+    <v-row class="px-0 pt-4 pb-0">
+      <v-card elevation="0" class="black--text">
         <v-card-title>登録ユーザ</v-card-title>
         <v-data-table
           :headers="headers2"
@@ -53,10 +58,15 @@
           hide-default-footer
           @page-count="pageCount2 = $event"
         >
-        </v-data-table>
+          <template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
       </v-card>
     </v-row>
-    <v-row class="text-center pt-2">
+    <v-row class="text-center px-0 pt-6 pb-0">
       <v-pagination
         v-model="page2"
         :length="pageCount2"
@@ -73,14 +83,13 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class UserManageAdmin extends Vue {
   public users: number = 48132
-  public unauthorizedUsers: number = 3
+  public unauthorizedUsers: number = 12
   public tab: number = 0
   public page: number = 1
   public pageCount: number = 0
-  public itemsPerPage: number = 10
   public page2: number = 1
   public pageCount2: number = 0
-  // public itemsPerPage2: number = 10
+  public itemsPerPage: number = 10
   data() {
     return {
       headers: [
@@ -89,11 +98,39 @@ export default class UserManageAdmin extends Vue {
           align: 'left',
           sortable: false,
           value: 'name'
-        }
+        },
+        { text: '', value: 'action', sortable: false }
       ],
       username: [
         {
           name: 'Guest1'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
+        },
+        {
+          name: 'Guest2'
         },
         {
           name: 'Guest2'
@@ -108,7 +145,8 @@ export default class UserManageAdmin extends Vue {
           align: 'left',
           sortable: false,
           value: 'name'
-        }
+        },
+        { text: '', value: 'action', sortable: false }
       ],
       username2: [
         {

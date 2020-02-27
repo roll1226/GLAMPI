@@ -1,37 +1,33 @@
 <template>
   <div>
     <v-row no-gutters>
-      <v-col no-gutters>
-        <v-card elevation="12" class="black--text">
-          <v-card-title>予約一覧</v-card-title>
-          <v-data-table
-            :headers="headers"
-            :items="list"
-            :page.sync="page"
-            height="527.5px"
-            class="ma-0 pa-0"
-            hide-default-footer
-            @page-count="pageCount = $event"
-          >
-            <template v-slot:item.action>
-              <v-btn small class="mr-2">
-                詳細
-              </v-btn>
-            </template></v-data-table
-          >
-        </v-card>
-      </v-col>
+      <v-card elevation="0" class="black--text">
+        <v-card-title>予約一覧</v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="list"
+          :page.sync="page"
+          height="527.5px"
+          class="ma-0 pa-0"
+          hide-default-footer
+          @page-count="pageCount = $event"
+        >
+          <template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
+      </v-card>
     </v-row>
     <hr />
-    <v-row no-gutters>
-      <v-col no-gutters>
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          :value="itemsPerPage"
-          @input="itemsPerPage = parseInt($event, 10)"
-        ></v-pagination>
-      </v-col>
+    <v-row class="text-center px-0 pt-6 pb-0">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        :value="itemsPerPage"
+        @input="itemsPerPage = parseInt($event, 10)"
+      ></v-pagination>
     </v-row>
   </div>
 </template>

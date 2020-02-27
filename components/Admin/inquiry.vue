@@ -18,37 +18,51 @@
       </v-col>
     </v-row>
     <v-row class="ma-0 pa-0">
-      <v-col class="ma-0 pa-0">
-        <v-tabs-items class="item">
-          <div v-if="tab == 0">
-            <v-data-table
-              class="ma-0 pa-0"
-              height="521.875px"
-              :headers="headers"
-              :items="list"
-              :page.sync="page"
-              hide-default-footer
-              @page-count="pageCount = $event"
-            ></v-data-table>
-          </div>
-          <div v-else-if="tab == 1">
-            <v-data-table
-              class="ma-0 pa-0"
-              height="521.875px"
-              :headers="headers2"
-              :items="list2"
-              :page.sync="page"
-              hide-default-footer
-              @page-count="pageCount = $event"
-            ></v-data-table>
-          </div>
-        </v-tabs-items>
-      </v-col>
+      <v-card>
+        <v-data-table
+          v-if="tab == 0"
+          class="ma-0 pa-0"
+          height="527.5px"
+          :headers="headers"
+          :items="list"
+          :page.sync="page"
+          hide-default-footer
+          @page-count="pageCount = $event"
+          ><template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
+        <v-data-table
+          v-else-if="tab == 1"
+          class="ma-0 pa-0"
+          height="527.5px"
+          :headers="headers2"
+          :items="list2"
+          :page.sync="page2"
+          hide-default-footer
+          @page-count="pageCount2 = $event"
+          ><template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
+      </v-card>
     </v-row>
-    <v-row class="text-center pt-2">
+    <v-row v-if="tab == 0" class="text-center px-0 pt-6 pb-0">
       <v-pagination
         v-model="page"
         :length="pageCount"
+        :value="itemsPerPage"
+        @input="itemsPerPage = parseInt($event, 10)"
+      ></v-pagination>
+    </v-row>
+    <v-row v-else-if="tab == 1" class="text-center px-0 pt-6 pb-0">
+      <v-pagination
+        v-model="page2"
+        :length="pageCount2"
         :value="itemsPerPage"
         @input="itemsPerPage = parseInt($event, 10)"
       ></v-pagination>
@@ -65,16 +79,70 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-@Component({
+@Component
+export default class InquiryFacility extends Vue {
+  public tab: number = 0
+  public page: number = 1
+  public pageCount: number = 0
+  public page2: number = 1
+  public pageCount2: number = 0
+  public itemsPerPage: number = 10
+
   data() {
     return {
       isColor: 'grey lighten-2',
       headers: [
         { text: '日付', value: 'date' },
         { text: '要件', value: 'Requirements' },
-        { text: 'ユーザ名', value: 'user' }
+        { text: 'ユーザ名', value: 'user' },
+        { text: '', value: 'action', sortable: false }
       ],
       list: [
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
+        {
+          date: '12/27',
+          Requirements: 'あいうえおー！！',
+          user: 'iwaya'
+        },
         {
           date: '12/27',
           Requirements: 'あいうえおー！！',
@@ -104,7 +172,8 @@ import { Component, Vue } from 'nuxt-property-decorator'
       headers2: [
         { text: '日付', value: 'date' },
         { text: '要件', value: 'Requirements' },
-        { text: 'ユーザ名', value: 'user' }
+        { text: 'ユーザ名', value: 'user' },
+        { text: '', value: 'action', sortable: false }
       ],
       list2: [
         {
@@ -135,11 +204,5 @@ import { Component, Vue } from 'nuxt-property-decorator'
       ]
     }
   }
-})
-export default class InquiryFacility extends Vue {
-  public tab: number = 0
-  public page: number = 1
-  public pageCount: number = 0
-  public itemsPerPage: number = 10
 }
 </script>

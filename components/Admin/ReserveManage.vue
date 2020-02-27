@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row no-gutters>
-      <v-col no-gutters>
+      <v-card elevation="0">
         <v-data-table
           :headers="headers"
           :items="list"
@@ -17,18 +17,15 @@
             </v-btn>
           </template></v-data-table
         >
-      </v-col>
+      </v-card>
     </v-row>
-    <hr />
-    <v-row no-gutters>
-      <v-col no-gutters>
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          :value="itemsPerPage"
-          @input="itemsPerPage = parseInt($event, 10)"
-        ></v-pagination>
-      </v-col>
+    <v-row class="text-center px-0 pt-6 pb-0">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        :value="itemsPerPage"
+        @input="itemsPerPage = parseInt($event, 10)"
+      ></v-pagination>
     </v-row>
   </div>
 </template>

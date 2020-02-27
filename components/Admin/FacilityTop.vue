@@ -19,10 +19,37 @@
       </v-card>
     </v-row>
     <v-row class="pa-0 ma-0">
-      <v-card class="black--text">
+      <v-card elevation="0" class="black--text">
         <v-card-title>本日のお客様</v-card-title>
-        <v-data-table :headers="headers" :items="guests"> </v-data-table>
+        <v-data-table
+          :headers="headers"
+          :items="guests"
+          :page.sync="page"
+          height="527.5px"
+          class="ma-0 pa-0"
+          hide-default-footer
+          @page-count="pageCount = $event"
+        >
+          <template v-slot:item.preview>
+            <v-btn small class="mr-2">
+              プレビュー
+            </v-btn>
+          </template>
+          <template v-slot:item.action>
+            <v-btn small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
       </v-card>
+    </v-row>
+    <v-row class="text-center px-0 pt-6 pb-0">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        :value="itemsPerPage"
+        @input="itemsPerPage = parseInt($event, 10)"
+      ></v-pagination>
     </v-row>
   </div>
 </template>
@@ -34,6 +61,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
 export default class FacilityTop extends Vue {
   public reservation: number = 5
   public cancel: number = 4
+  public page: number = 1
+  public pageCount: number = 0
+  public itemsPerPage: number = 10
   data() {
     return {
       headers: [
@@ -43,7 +73,9 @@ export default class FacilityTop extends Vue {
           sortable: false,
           value: 'name'
         },
-        { text: '部屋番号', value: 'rooms' }
+        { text: '部屋番号', value: 'rooms' },
+        { text: '', value: 'preview', sortable: false },
+        { text: '', value: 'action', sortable: false }
       ],
       guests: [
         {
