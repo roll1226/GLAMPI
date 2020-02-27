@@ -1,18 +1,22 @@
 <template>
-  <div>
-    <v-text-field
-      v-model="email"
-      label="E-mail"
-      prepend-icon="mdi-email"
-      :counter="100"
-      :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
-      hint="「XX@XX.XX」の形式で入力してください"
-    ></v-text-field>
+  <v-row no-gutters>
+    <v-col cols="auto"> <v-icon>mdi-email</v-icon> </v-col>
+    <v-col>
+      <v-text-field
+        v-model="email"
+        label="E-mail"
+        :counter="100"
+        :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
+        hint="「XX@XX.XX」の形式で入力してください"
+      ></v-text-field>
+    </v-col>
 
-    <v-btn @click="sendTestMail">
-      確認メールを送る
-    </v-btn>
-  </div>
+    <v-col>
+      <v-btn @click="sendTestMail">
+        確認メールを送る
+      </v-btn>
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'

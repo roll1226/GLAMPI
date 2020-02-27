@@ -173,6 +173,14 @@ export default class mypage extends Vue {
     }
 
     //mypage,ChangeInfoコンポーネント
+    .changeInfo-wrap {
+      .row {
+        margin: 30px 0 0 0;
+        .v-icon {
+          margin: 20px 10px 0 0;
+        }
+      }
+    }
   }
 }
 
@@ -189,13 +197,13 @@ export default class mypage extends Vue {
     .v-card {
       width: 100%;
       margin: 0 auto;
-      padding: 0 50px;
+      padding: 0 10px 40px;
       .mypage-user {
         margin: 30px 0 0 0;
       }
 
       .mytop-wrap {
-        margin: 30px 0 20px 0;
+        margin: 30px 30px 20px;
         .v-divider {
           display: none;
         }
@@ -213,6 +221,13 @@ export default class mypage extends Vue {
             }
           }
         }
+      }
+
+      .changeInfo-wrap {
+        margin: 30px 15px 20px;
+      }
+
+      .bList-wrap {
       }
     }
   }

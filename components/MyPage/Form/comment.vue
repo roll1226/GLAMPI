@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <v-text-field
-      v-model="comment"
-      label="プロフィールコメント"
-      prepend-icon="mdi-message-processing-outline"
-      :rules="[rules.commentLength]"
-    ></v-text-field>
-  </div>
+  <v-row no-gutters>
+    <v-col cols="auto"> <v-icon>mdi-message-processing-outline</v-icon> </v-col>
+    <v-col>
+      <v-text-field
+        v-model="comment"
+        label="プロフィールコメント"
+        :rules="[rules.commentLength]"
+      ></v-text-field>
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'

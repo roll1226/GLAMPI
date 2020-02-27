@@ -1,19 +1,17 @@
 <template>
   <div>
-    <v-row>
-      <v-col sm="2">
+    <v-row no-gutters>
+      <v-col cols="auto"> <v-icon>mdi-home</v-icon> </v-col>
+      <v-col>
         <v-text-field
           v-model="postalCode1"
           v-mask="POST"
           label="xxx"
-          prepend-icon="mdi-home"
           :rules="[rules.post1]"
         ></v-text-field>
       </v-col>
-      <div class="mt-10">
-        ―
-      </div>
-      <v-col sm="2">
+      <v-col><p>―</p></v-col>
+      <v-col>
         <v-text-field
           v-model="postalCode2"
           v-mask="POST1"
@@ -21,22 +19,26 @@
           :rules="[rules.post2]"
         ></v-text-field>
       </v-col>
+
       <v-col>
-        <v-btn class="mt-3" outlined @click="checkCode()">検索</v-btn>
+        <v-btn outlined @click="checkCode()">検索</v-btn>
       </v-col>
     </v-row>
-    <v-text-field
-      v-model="streetAddress"
-      label="住所"
-      prepend-icon="mdi-"
-      :rules="[
-        rules.isStreetAddress,
-        rules.streetAddressLength,
-        rules.streetAddressFormatSpace,
-        rules.streetAddressFormatFullwidth
-      ]"
-      counter="50"
-    ></v-text-field>
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="streetAddress"
+          label="住所"
+          :rules="[
+            rules.isStreetAddress,
+            rules.streetAddressLength,
+            rules.streetAddressFormatSpace,
+            rules.streetAddressFormatFullwidth
+          ]"
+          counter="50"
+        ></v-text-field>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

@@ -1,36 +1,12 @@
 <template>
   <div>
-    <v-row no-gutters>
-      <v-col>
-        <seimei />
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col>
-        <seimeiKana />
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col>
-        <email />
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col>
-        <addressForm />
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col>
-        <username></username>
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col>
-        <comment></comment>
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
+    <seimei />
+    <seimeiKana />
+    <email />
+    <addressForm />
+    <username></username>
+    <comment></comment>
+    <v-row>
       <v-col>
         <v-btn>退会</v-btn>
       </v-col>
@@ -47,6 +23,7 @@ import seimeiKana from '@/components/mypage/Form/seimeiKana.vue'
 import email from '@/components/mypage/Form/email.vue'
 import addressForm from '@/components/mypage/Form/address.vue'
 import username from '@/components/mypage/Form/username.vue'
+
 import comment from '@/components/mypage/Form/comment.vue'
 
 @Component({

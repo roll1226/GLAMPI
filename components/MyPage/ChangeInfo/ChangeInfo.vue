@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="changeInfo-wrap">
     <BasicInfo v-if="screen2 == 0" />
     <Payment v-if="screen2 == 1" />
     <Password v-if="screen2 == 2" />

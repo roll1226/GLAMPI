@@ -1,12 +1,12 @@
 <template>
-  <v-row no-gutters class="bList-wrapp">
+  <v-row no-gutters class="bList-wrap">
     <v-col
       v-for="(facility, facilityIndex) in facilityList"
       :key="facilityIndex"
       lg="12"
       md="12"
       sm="12"
-      xs="6"
+      xs="12"
     >
       <BookingFacility
         :fasility-name="facility.facilityName"
