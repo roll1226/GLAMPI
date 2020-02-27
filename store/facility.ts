@@ -329,25 +329,44 @@ export const actions = {
       uuid: string
     }
   ) {
-    const facility = await firestore
-      .collection('facilities')
-      .where('displayName', '==', payload.displayName)
-      .get()
+    try {
+      const facility = await firestore
+        .collection('facilities')
+        .where('displayName', '==', payload.displayName)
+        .get()
 
-    const date = new Date()
+      const date = new Date()
 
-    firestore
-      .collection('facilities')
-      .doc(facility.docs[0].id)
-      .collection('comments')
-      .add({
+      const batch = firestore.batch()
+      const facilityComment = firestore
+        .collection('facilities')
+        .doc(facility.docs[0].id)
+        .collection('comments')
+      const facilityCommentId = facilityComment.doc().id
+
+      const userComment = firestore
+        .collection('users')
+        .doc(payload.uuid)
+        .collection('comments')
+      const userCommentId = userComment.doc().id
+
+      batch.set(facilityComment.doc(facilityCommentId), {
         createdAt: date,
         star: payload.rating,
         text: payload.comment,
         userId: payload.uuid
       })
-      .then(() => {
-        dispatch.commit('CLEAR_COMMENT')
+
+      batch.set(userComment.doc(userCommentId), {
+        createdAt: date,
+        star: payload.rating,
+        text: payload.comment,
+        facilityUrl: payload.displayName
       })
+      await batch.commit()
+    } catch (error) {
+      console.log(error)
+    }
+    dispatch.commit('CLEAR_COMMENT')
   }
 }
