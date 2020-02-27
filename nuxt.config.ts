@@ -18,7 +18,10 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    htmlAttrs: {
+      lang: 'ja'
+    }
   },
 
   typescript: {
@@ -36,7 +39,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/v-calender.ts'],
+  plugins: ['@/plugins/v-calender.ts', '@/plugins/vue-shortkey.ts'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -87,7 +90,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config: any, ctx: any) { // eslint-disable-line
+    extend(config: any, ctx: any) {// eslint-disable-line
     }
   }
 }

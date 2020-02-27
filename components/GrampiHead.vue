@@ -15,7 +15,7 @@
       width="100%"
       style="background: none;"
     >
-      <v-btn text style="position: relative;" width="132px" to="/">
+      <v-btn text style="position: relative;" width="132px" class="logo" to="/">
         <v-img :src="require('@/assets/svg/logo.svg')" width="132px"></v-img>
       </v-btn>
 
@@ -47,14 +47,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import Logo from '@/components/imgFile/Logo.vue'
 import LoginModal from '@/components/Btn/LoginModal.vue'
 import { auth } from '@/plugins/firebase'
 
 @Component({
   components: {
-    LoginModal,
-    Logo
+    LoginModal
   },
   computed: {
     isLogin(): boolean {
@@ -95,6 +93,9 @@ export default class GlampiHead extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.logo {
+  margin-left: 12px;
+}
 .theme--light.v-btn--active:hover::before,
 .theme--light.v-btn--active::before {
   opacity: 0;
