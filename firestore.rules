@@ -1,39 +1,7 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /facilities/{facilitiesID} {
-      allow read;
-      allow create:
-              if isAuthenticated()
-              && incomingData().size() == 9
-              && incomingData().displayName is string
-              && incomingData().email is string
-              && incomingData().name is string
-              && incomingData().officerName is string
-              && incomingData().phoneNumber is string
-              && incomingData().ruby is string
-              && incomingData().streetAddress is list
-              && incomingData().uuId == request.auth.uid
-              && incomingData().createdAt == request.time;
-      match /options/{optionsID} {
-        allow read;
-        allow create:
-                if isAuthenticated()
-                && incomingData().size() == 6
-                && incomingData().displayName is string
-                && incomingData().image is string
-                && incomingData().pay is number
-                && incomingData().texts is list
-                && incomingData().title is string
-                && incomingData().createdAt == request.time;
-      }
+    match /{document=**} {
+      allow read, write;
     }
-  }
-
-  function isAuthenticated() {
-    return request.auth != null;
-  }
-
-  function incomingData() {
-    return request.resource.data;
   }
 }

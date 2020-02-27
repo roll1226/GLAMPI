@@ -22,7 +22,9 @@
         ></v-text-field>
       </v-col>
       <v-col>
-        <v-btn class="mt-3" outlined @click="checkCode()">検索</v-btn>
+        <v-btn class="mt-3" outlined :loading="loading" @click="checkCode()"
+          >検索</v-btn
+        >
       </v-col>
     </v-row>
     <v-text-field
@@ -36,17 +38,6 @@
         rules.addressFormatFullwidth
       ]"
       counter="50"
-    ></v-text-field>
-    <v-text-field
-      v-model="address2"
-      label="住所2"
-      prepend-icon="mdi-"
-      :rules="[
-        rules.isAddress,
-        rules.addressLength,
-        rules.addressFormatFullwidth
-      ]"
-      hint="丁、番地やマンションなど"
     ></v-text-field>
   </div>
 </template>
@@ -76,14 +67,7 @@ export default class addressUserRegistration extends Vue {
   set address(value: string) {
     this.$store.commit('registration/SET_ADDRESS', value)
   }
-
-  get address2(): string {
-    return this.$store.state.registration.address2
-  }
-
-  set address2(value: string) {
-    this.$store.commit('registration/SET_ADDRESS2', value)
-  }
+  loading: boolean = false
   code: object[] = []
   addres1: string = ''
   addres2: string = ''
@@ -119,13 +103,20 @@ export default class addressUserRegistration extends Vue {
     }
   }
   async checkCode() {
+    this.loading = true
     // 初期化
     this.code = []
     // axios
     await this.$axios
       .get(`https://api.zipaddress.net/?zipcode=${this.addres1}${this.addres2}`)
       .then((res) => {
+        this.loading = false
+
         if (res.data.code === 200) {
+          this.$store.commit(
+            'registration/SET_POST_CODE',
+            `${this.addres1}-${this.addres2}`
+          )
           // push
           this.code.push(res.data)
           const pref = res.data.data.pref

@@ -1,24 +1,66 @@
 name: Node.js CI
-
 on:
   push:
     branches:
-    - master
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [12.x]
+
     steps:
-    - uses: actions/checkout@v1
-    - uses: nuxt/actions-yarn@master
-      with:
-        args: install
-    - uses: nuxt/actions-yarn@master
-      with:
-        args: generate
-    - name: deploy
-      run: yarn firebase deploy --token $FIREBASE_TOKEN
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: actions/checkout@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: yarn install, build
+        run: |
+          cd ./functions
+          npm install
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    name: Deploy
+    needs: build
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Build each site
+        run: |
+          cd ./functions
+          npm install
+
+      - name: Ready to deploy
+        run: |
+          cp env-sample .env
+          echo "${{ secrets.GLAMPI_API_KEY }}" > .env
+          yarn global add firebase-tools
+          yarn
+          yarn generate
+          cd functions
+          npm install
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:glampy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Slack notification
+        uses: 8398a7/action-slack@v1
+        with:
+          payload: |
+            { "text": "Deploy Finish \n https://glampy.web.app/" }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

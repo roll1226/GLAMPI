@@ -40,7 +40,6 @@
     </v-row>
   </div>
 </template>
-
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import seimei from '@/components/mypage/Form/seimei.vue'

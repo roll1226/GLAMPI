@@ -14,13 +14,13 @@ interface IState {
   birthdayMonth: string
   birthdayDay: string
   address: string
-  address2: string
   streetAddress: [...string[]]
   email: string
   password: string
   passwordCheck: string
   phoneNumber: string
   nickname: string
+  postCode: string
 }
 
 export const state = (): IState => ({
@@ -33,13 +33,13 @@ export const state = (): IState => ({
   birthdayMonth: '',
   birthdayDay: '',
   address: '',
-  address2: '',
   streetAddress: [],
   email: '',
   password: '',
   passwordCheck: '',
   phoneNumber: '',
-  nickname: ''
+  nickname: '',
+  postCode: ''
 })
 
 export const mutations = {
@@ -79,10 +79,6 @@ export const mutations = {
     state.address = payload
   },
 
-  SET_ADDRESS2(state: IState, payload: string) {
-    state.address2 = payload
-  },
-
   SET_STREET_ADDRESS(
     state: IState,
     payload: { pref: string; city: string; town: string }
@@ -111,5 +107,9 @@ export const mutations = {
 
   SET_NICKNAME(state: IState, payload: string) {
     state.nickname = payload
+  },
+
+  SET_POST_CODE(state: IState, payload: string) {
+    state.postCode = payload
   }
 }
