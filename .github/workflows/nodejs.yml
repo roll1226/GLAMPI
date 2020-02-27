@@ -1,32 +1,30 @@
 name: Node.js CI
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
 
 jobs:
   build:
-
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@master
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@master
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: yarn install, build
-      run: |
-        cd ./functions
-        npm install
+      - uses: actions/checkout@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: yarn install, build
+        run: |
+          cd ./functions
+          npm install
 
   deploy:
-
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -53,7 +51,16 @@ jobs:
           npm install
 
       - name: Deploy to Firebase
-        run: |
-          firebase deploy --only hosting:glampy --token $FIREBASE_TOKEN
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:glampy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Slack notification
+        uses: 8398a7/action-slack@v1
+        with:
+          payload: |
+            { "text": "Deploy Finish \n https://glampy.web.app/" }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
