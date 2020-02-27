@@ -37,6 +37,7 @@ interface IState {
   messageText: string
   loading: boolean
   verificationDialog: boolean
+  withdrawDialog: boolean
 }
 
 export const state = (): IState => ({
@@ -48,7 +49,8 @@ export const state = (): IState => ({
   avatar: [],
   messageText: '',
   loading: false,
-  verificationDialog: false
+  verificationDialog: false,
+  withdrawDialog: false
 })
 
 export const mutations = {
@@ -113,6 +115,10 @@ export const mutations = {
 
   SET_VERIFICATION_DIALOG(state: IState, payload: boolean) {
     state.verificationDialog = payload
+  },
+
+  SET_WITHDRAW_DIALOG(state: IState, payload: boolean) {
+    state.withdrawDialog = payload
   }
 }
 
@@ -188,6 +194,18 @@ export const actions = {
       .then(() => {
         dispatch.commit('SET_MESSAGE_TEXT', '')
         dispatch.commit('SET_LOADING', false)
+      })
+  },
+
+  async withdraw(dispatch: ICommit, payload: { userId: string; url: string }) {
+    await firestore
+      .collection('glammity')
+      .doc(payload.url)
+      .collection('member')
+      .doc(payload.userId)
+      .delete()
+      .then(() => {
+        dispatch.commit('SET_WITHDRAW_DIALOG', true)
       })
   }
 }

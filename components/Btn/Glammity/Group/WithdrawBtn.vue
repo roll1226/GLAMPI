@@ -5,7 +5,11 @@
     </v-btn>
 
     <div justify="center">
-      <v-dialog v-model="verificationDialog" max-width="350">
+      <v-dialog
+        v-model="verificationDialog"
+        max-width="350"
+        :persistent="withdrawLoading"
+      >
         <v-card :loading="withdrawLoading">
           <v-card-text class="pt-5">
             <div class="text-center headline">
@@ -20,9 +24,7 @@
               戻る
             </v-btn>
 
-            <v-btn color="error" class="white--text" @click="withdraw">
-              退会
-            </v-btn>
+            <WithdrawedBtn />
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -32,9 +34,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { firestore } from '@/plugins/firebase'
+import WithdrawedBtn from '@/components/Btn/Glammity/Group/WithdrawedBtn.vue'
 
-@Component({})
+@Component({
+  components: {
+    WithdrawedBtn
+  }
+})
 export default class WithdrawBtn extends Vue {
   dialog: boolean = false
 
@@ -60,20 +66,6 @@ export default class WithdrawBtn extends Vue {
 
   closeDialog() {
     this.$store.commit('glammityGroup/SET_VERIFICATION_DIALOG', false)
-  }
-
-  async withdraw() {
-    this.$store.dispatch('glammityGroup/SET_LOADING', true)
-    const url = this.$route.params.Glammity
-    await firestore
-      .collection('glammity')
-      .doc(url)
-      .collection('member')
-      .doc(this.userId)
-      .delete()
-      .then(() => {
-        this.$router.push('/')
-      })
   }
 }
 </script>
