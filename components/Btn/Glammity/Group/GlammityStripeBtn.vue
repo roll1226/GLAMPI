@@ -46,6 +46,7 @@
               <v-btn
                 class="pay-with-stripe light-blue darken-4 white--text"
                 :disabled="!complete || !stripeEmail"
+                @click="checkout"
               >
                 {{ estimatedAmount.info }}、支払う
               </v-btn>
@@ -92,7 +93,6 @@ export default class GlammityStripeBtn extends Vue {
       }
     ]
   }
-  stripeEmail: string = ''
 
   uuid: string = uuid()
     .split('-')
@@ -109,8 +109,28 @@ export default class GlammityStripeBtn extends Vue {
     return this.$store.state.glammityInfo.estimatedAmount
   }
 
+  get stripeEmail(): string {
+    return this.$store.state.glammityStripe.stripeEmail
+  }
+
+  set stripeEmail(value: string) {
+    this.$store.commit('glammityStripe/SET_STRIPE_EMAIL', value)
+  }
+
   openDialog() {
     this.dialog = true
+  }
+
+  checkout() {
+    const pay = Number(
+      this.estimatedAmount.info.replace(',', '').replace('円', '')
+    )
+    const charge = {
+      amount: pay,
+      currency: 'JPY',
+      email: this.stripeEmail
+    }
+    this.$store.dispatch('glammityStripe/stripePay', charge)
   }
 }
 </script>

@@ -1,7 +1,6 @@
 import * as Vuex from 'vuex'
 import { createToken } from 'vue-stripe-elements-plus'
 import { firestore } from '@/plugins/firebase'
-const api = process.env.STRIPE_PUBLIC_KEY
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 
 interface ICommit {
@@ -19,8 +18,6 @@ interface IState {
   dialog: boolean
   loading: boolean
   complete: boolean
-  stripeApiKey: string | undefined
-  stripeOptions: { hidePostalCode: boolean }
   stripeEmail: string
 }
 
@@ -28,8 +25,6 @@ export const state = (): IState => ({
   dialog: false,
   loading: false,
   complete: false,
-  stripeApiKey: api,
-  stripeOptions: { hidePostalCode: true },
   stripeEmail: ''
 })
 
