@@ -7,29 +7,52 @@
 
       参加する
     </v-btn>
-
+    {{ isGroup }}
     <div justify="center">
       <v-dialog v-model="dialog" :persistent="joinBtnLoading" max-width="400">
         <v-card :loading="joinBtnLoading">
-          <v-card-title class="headline">
-            {{ glammityName }}に参加しますか？
-          </v-card-title>
+          <template v-if="isGroup === false">
+            <v-card-title class="headline">
+              {{ glammityName }}に参加しますか？
+            </v-card-title>
 
-          <v-card-text>
-            なんか文章入れたい
-          </v-card-text>
+            <v-card-text>
+              なんか文章入れたい
+            </v-card-text>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <JoinedBtn
-              :glammity-name="glammityName"
-              :glammity-id="glammityId"
-            />
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <JoinedBtn
+                :glammity-name="glammityName"
+                :glammity-id="glammityId"
+              />
 
-            <v-btn color="error" text @click="closeCard">
-              参加しない
-            </v-btn>
-          </v-card-actions>
+              <v-btn color="error" text @click="closeCard">
+                参加しない
+              </v-btn>
+            </v-card-actions>
+          </template>
+
+          <template v-else-if="isGroup === true">
+            <v-card-title class="headline">
+              {{ glammityName }}に戻るよね？
+            </v-card-title>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" text @click="goGroup">
+                戻る
+              </v-btn>
+
+              <v-btn color="error" text @click="closeCard">
+                戻らん
+              </v-btn>
+            </v-card-actions>
+          </template>
+
+          <template v-else-if="isGroup == null">
+            <v-card-text></v-card-text>
+          </template>
         </v-card>
       </v-dialog>
     </div>
@@ -39,6 +62,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import JoinedBtn from '@/components/Btn/Glammity/JoinedBtn.vue'
+import { isGroupStates } from '@/store/glammityJoin'
 
 @Component({
   components: {
@@ -71,16 +95,34 @@ export default class JoinBtn extends Vue {
     this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', dialog)
   }
 
+  get isGroup(): isGroupStates {
+    return this.$store.state.glammityJoin.isGroup
+  }
+
+  get userId(): string {
+    return this.$store.state.login.userUid
+  }
+
   openModal() {
     if (this.isLogin === false) {
       this.$store.commit('login/SET_LOGIN_DIALOG', true)
       return
     }
     this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', true)
+    this.$store.commit('glammityJoin/SET_LOADING', true)
+    this.$store.dispatch('glammityJoin/searchUser', {
+      id: this.glammityId,
+      userId: this.userId
+    })
   }
 
   closeCard() {
     this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
+  }
+
+  goGroup() {
+    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
+    this.$router.push(`/glammity/Group/${this.glammityId}/glammityGroup`)
   }
 }
 </script>
