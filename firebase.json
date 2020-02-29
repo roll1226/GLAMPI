@@ -10,7 +10,7 @@
     ]
   },
   "hosting": {
-    "site": "glampy",
+    "site": "glampi",
     "public": "dist",
     "ignore": [
       "firebase.json",
