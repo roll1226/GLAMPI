@@ -93,8 +93,8 @@ export default class UserRegistration extends Vue {
   get birthdayDay(): string {
     return this.$store.state.registration.birthdayDay
   }
-  get address(): string {
-    return this.$store.state.registration.address
+  get streetAddress(): string {
+    return this.$store.state.registration.streetAddress
   }
   get phoneNumber(): string {
     return this.$store.state.registration.phoneNumber
@@ -127,7 +127,7 @@ export default class UserRegistration extends Vue {
               sex: this.sex,
               birthday: `${this.birthdayYear}年${this.birthdayMonth}月${this.birthdayDay}日`,
               postalCode: `${this.postCode}`,
-              streetAddress: this.address,
+              streetAddress: this.streetAddress,
               phoneNumber: this.phoneNumber,
               nickname: this.nickname,
               userImg:
