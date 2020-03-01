@@ -57,7 +57,7 @@ import { Bar } from 'vue-chartjs'
           //   borderWidth: 1
           // },
           {
-            label: '今月',
+            label: '収益',
             data: [
               230000,
               370000,
@@ -68,9 +68,9 @@ import { Bar } from 'vue-chartjs'
               210000,
               280000,
               350000,
-              320000,
-              460000,
-              390000
+              380000,
+              520000,
+              240000
             ],
             borderColor: '#ff4444',
             fill: false,
@@ -112,7 +112,7 @@ import { Bar } from 'vue-chartjs'
     }
   }
 })
-export default class kFacility extends Vue {
+export default class chartRevenueFacility extends Vue {
   mounted() {
     this.renderChart(this.data, this.options)
   }

@@ -57,22 +57,9 @@ import { Bar } from 'vue-chartjs'
           //   borderWidth: 1
           // },
           {
-            label: '収益',
-            data: [
-              230000,
-              370000,
-              320000,
-              290000,
-              400000,
-              340000,
-              210000,
-              280000,
-              350000,
-              380000,
-              520000,
-              240000
-            ],
-            borderColor: '#ff4444',
+            label: '宿泊人数',
+            data: [29, 43, 38, 35, 47, 40, 28, 34, 40, 44, 67, 32],
+            borderColor: '#4444ff',
             fill: false,
             type: 'line',
             lineTension: 0
@@ -96,13 +83,13 @@ import { Bar } from 'vue-chartjs'
             {
               scaleLabel: {
                 display: true,
-                labelString: '収益',
+                labelString: '宿泊人数',
                 fontSize: 24
               },
               ticks: {
                 beginAtZero: true,
                 min: 0,
-                stepSize: 100000,
+                stepSize: 10,
                 fontSize: 18
               }
             }
@@ -112,7 +99,7 @@ import { Bar } from 'vue-chartjs'
     }
   }
 })
-export default class kAdmin extends Vue {
+export default class chartGuestsFacility extends Vue {
   mounted() {
     this.renderChart(this.data, this.options)
   }

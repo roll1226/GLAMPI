@@ -29,7 +29,7 @@
           <Chart :height="500" :width="1000"></Chart>
         </v-col>
         <v-col cols="auto">
-          <Chart :height="500" :width="1000"></Chart>
+          <Chart2 :height="500" :width="1000"></Chart2>
         </v-col>
       </v-row>
     </v-row>
@@ -39,10 +39,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import Chart from '@/components/Admin/Chart.vue'
+import Chart2 from '@/components/Admin/Chart_.vue'
 
 @Component({
   components: {
-    Chart
+    Chart,
+    Chart2
   }
 })
 export default class RevenueFacility extends Vue {
