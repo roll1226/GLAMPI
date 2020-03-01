@@ -1,7 +1,13 @@
 import * as Vuex from 'vuex'
 import { createToken } from 'vue-stripe-elements-plus'
-import { firestore } from '@/plugins/firebase'
+import { firestore, timestamp } from '@/plugins/firebase'
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
+const uuid = require('uuid/v4')
+
+const reservationUuid = uuid()
+  .split('-')
+  .join('')
+  .slice(0, -12)
 
 interface ICommit {
   commit: Vuex.Commit
@@ -43,7 +49,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async stripePay(dispatch: ICommit, payload: ICharge) {
+  async stripePay(
+    dispatch: ICommit,
+    payload: {
+      charge: ICharge
+      planName: string
+      userId: string
+      glammityId: string
+      facilityId: string
+      date: string
+    }
+  ) {
     await createToken().then(async (data: any) => {
       const token = data.token
       await fetch(checkoutUrl, {
@@ -53,10 +69,52 @@ export const actions = {
         },
         body: JSON.stringify({
           token,
-          charge: payload
+          charge: payload.charge
         })
-      }).then(() => {
+      }).then(async () => {
         console.log('OK')
+        const batch = firestore.batch()
+
+        const reservationList = {
+          checkDates: payload.date,
+          createdAt: timestamp,
+          facilityId: payload.facilityId,
+          glammityId: payload.glammityId,
+          userId: payload.userId,
+          payment: 'クレジットカード',
+          plan: payload.planName,
+          status: '宿泊前',
+          totalPay: payload.charge.amount
+        }
+
+        const userReservation = firestore
+          .collection('users')
+          .doc(payload.userId)
+          .collection('reservations')
+          .doc(reservationUuid)
+
+        const facilityReservation = firestore
+          .collection('facilities')
+          .doc(payload.facilityId)
+          .collection('reservations')
+          .doc(reservationUuid)
+
+        batch.set(userReservation, {})
+        batch.set(facilityReservation, {})
+        await batch.commit().then(async () => {
+          await firestore.runTransaction(async (transaction) => {
+            const [
+              userReservationDoc,
+              facilityReservationDoc
+            ] = await Promise.all([
+              transaction.get(userReservation),
+              transaction.get(facilityReservation)
+            ])
+            console.log(`${userReservationDoc}${facilityReservationDoc}`)
+            transaction.update(userReservation, reservationList)
+            transaction.update(facilityReservation, reservationList)
+          })
+        })
       })
     })
   }

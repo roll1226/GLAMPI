@@ -23,6 +23,8 @@ interface IState {
   numberOfApplicants: IGlammityInfoList
   numberOfParticipants: IGlammityInfoList
   estimatedAmount: IGlammityInfoList
+  facilityId: string
+  date: string
 }
 
 const initialList = {
@@ -36,7 +38,9 @@ export const state = (): IState => ({
   plan: initialList,
   numberOfApplicants: initialList,
   numberOfParticipants: initialList,
-  estimatedAmount: initialList
+  estimatedAmount: initialList,
+  facilityId: '',
+  date: ''
 })
 
 export const mutations = {
@@ -95,6 +99,14 @@ export const mutations = {
       ).toLocaleString()}円`
     }
     state.estimatedAmount = estimatedAmount
+  },
+
+  SET_FACILITY_ID(state: IState, payload: string) {
+    state.facilityId = payload
+  },
+
+  SET_DATE(state: IState, payload: string) {
+    state.date = payload
   }
 }
 
@@ -124,6 +136,8 @@ export const actions = {
       allPay: glammityInfo.data()
     })
 
+    dispatch.commit('SET_DATE', glammityInfo.data())
+
     dispatch.dispatch('getFacility', glammityInfo.data())
   },
 
@@ -137,6 +151,8 @@ export const actions = {
       .get()
 
     dispatch.commit('SET_FACILITY_NAME', facility.docs[0].data())
+
+    dispatch.commit('SET_FACILITY_ID', facility.docs[0].id)
 
     dispatch.dispatch('getPlan', {
       facilityId: facility.docs[0].id,

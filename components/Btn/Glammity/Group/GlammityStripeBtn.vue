@@ -64,7 +64,6 @@ import { Card } from 'vue-stripe-elements-plus'
 import { IGlammityInfoList } from '@/store/glammityInfo'
 // import { firestore, timestamp } from '@/plugins/firebase'
 // const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
-const uuid = require('uuid/v4')
 const api = process.env.STRIPE_PUBLIC_KEY
 
 @Component({
@@ -94,11 +93,6 @@ export default class GlammityStripeBtn extends Vue {
     ]
   }
 
-  uuid: string = uuid()
-    .split('-')
-    .join('')
-    .slice(0, -12)
-
   created() {
     this.$store.commit('glammityInfo/CLEAR_INFO')
     const url = this.$route.params.Glammity
@@ -109,8 +103,24 @@ export default class GlammityStripeBtn extends Vue {
     return this.$store.state.glammityInfo.estimatedAmount
   }
 
+  get planName(): IGlammityInfoList {
+    return this.$store.state.glammityInfo.plan
+  }
+
+  get facilityId(): string {
+    return this.$store.state.glammityInfo.facilityId
+  }
+
+  get date(): string {
+    return this.$store.state.glammityInfo.date.checkIn
+  }
+
   get stripeEmail(): string {
     return this.$store.state.glammityStripe.stripeEmail
+  }
+
+  get userId(): string {
+    return this.$store.state.login.userUid
   }
 
   set stripeEmail(value: string) {
@@ -122,6 +132,7 @@ export default class GlammityStripeBtn extends Vue {
   }
 
   checkout() {
+    const url = this.$route.params.Glammity
     const pay = Number(
       this.estimatedAmount.info.replace(',', '').replace('円', '')
     )
@@ -130,7 +141,14 @@ export default class GlammityStripeBtn extends Vue {
       currency: 'JPY',
       email: this.stripeEmail
     }
-    this.$store.dispatch('glammityStripe/stripePay', charge)
+    this.$store.dispatch('glammityStripe/stripePay', {
+      charge,
+      planName: this.planName.info,
+      userId: this.userId,
+      glammityId: url,
+      facilityId: this.facilityId,
+      date: this.date
+    })
   }
 }
 </script>
