@@ -34,6 +34,7 @@ export default class seimeiMypageForm extends Vue {
   set sei(value: string) {
     this.$store.commit('mypage/SET_FIRST_NAME', value)
   }
+
   // public mei: string = ''
   get mei(): string {
     return this.$store.state.mypage.lastName

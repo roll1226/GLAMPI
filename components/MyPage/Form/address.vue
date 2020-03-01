@@ -37,17 +37,6 @@
       ]"
       counter="50"
     ></v-text-field>
-    <v-text-field
-      v-model="address2"
-      label="住所2"
-      prepend-icon="mdi-"
-      :rules="[
-        rules.isAddress,
-        rules.addressLength,
-        rules.addressFormatFullwidth
-      ]"
-      hint="丁、番地やマンションなど"
-    ></v-text-field>
   </div>
 </template>
 
@@ -77,13 +66,6 @@ export default class addressMypageForm extends Vue {
     this.$store.commit('mypage/SET_ADDRESS', value)
   }
 
-  get address2(): string {
-    return this.$store.state.mypage.address2
-  }
-
-  set address2(value: string) {
-    this.$store.commit('mypage/SET_ADDRESS2', value)
-  }
   code: object[] = []
   addres1: string = ''
   addres2: string = ''

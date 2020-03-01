@@ -1,28 +1,26 @@
 <template>
-  <div class="mytop-wrap">
-    <v-row no-gutters>
-      <v-col xs="12">
-        <v-card-text>
-          <v-card-title>基本情報</v-card-title>
-          <ul>
-            <li>性別: {{ sex }}</li>
-            <li>年齢:{{ age }}</li>
-            <li>住所:{{ address }}</li>
-          </ul>
-        </v-card-text>
-      </v-col>
+  <v-row no-gutters class="mytop-wrap">
+    <v-col xs="12">
+      <v-card-text>
+        <v-card-title>基本情報</v-card-title>
+        <ul>
+          <li>性別: {{ sex }}</li>
+          <li>年齢:{{ age }}</li>
+          <li>住所:{{ address }}</li>
+        </ul>
+      </v-card-text>
+    </v-col>
 
-      <v-divider class="mx-8" inset vertical></v-divider>
-      <v-col xs="12">
-        <v-card-text>
-          <v-card-title>コメント</v-card-title>
-          <p>
-            {{ comment }}
-          </p>
-        </v-card-text>
-      </v-col>
-    </v-row>
-  </div>
+    <v-divider class="mx-8" inset vertical></v-divider>
+    <v-col xs="12">
+      <v-card-text>
+        <v-card-title>コメント</v-card-title>
+        <p>
+          {{ comment }}
+        </p>
+      </v-card-text>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
