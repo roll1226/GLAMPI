@@ -112,7 +112,7 @@ import { Bar } from 'vue-chartjs'
     }
   }
 })
-export default class chartRevenueFacility extends Vue {
+export default class kAdmin extends Vue {
   mounted() {
     this.renderChart(this.data, this.options)
   }
