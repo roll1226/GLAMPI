@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-btn @click="openDialog">
+    <v-btn @click="openStripe">
       します
     </v-btn>
 
     <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="450">
-        <v-card :loading="loading">
+      <v-dialog v-model="hostDialog" max-width="450" :persistent="hostLoading">
+        <v-card :loading="hostLoading">
           <v-toolbar dark class="grey lighten-1">
             <v-toolbar-title>
               クレジット支払い
@@ -66,10 +66,7 @@ const api = process.env.STRIPE_PUBLIC_KEY
   }
 })
 export default class HostReservationStripe extends Vue {
-  dialog: boolean = false
-
   complete: boolean = false
-  loading: boolean = false
   stripeApiKey: string | undefined = api
   stripeOptions: { hidePostalCode: boolean } = {
     hidePostalCode: true
@@ -86,6 +83,10 @@ export default class HostReservationStripe extends Vue {
         )
       }
     ]
+  }
+
+  get hostLoading(): boolean {
+    return this.$store.state.glammityStripe.loading
   }
 
   get estimatedAmount(): IGlammityInfoList {
@@ -116,11 +117,20 @@ export default class HostReservationStripe extends Vue {
     this.$store.commit('glammityStripe/SET_STRIPE_EMAIL', value)
   }
 
-  openDialog() {
-    this.dialog = true
+  get hostDialog(): boolean {
+    return this.$store.state.glammityStripe.hostDialog
+  }
+
+  set hostDialog(value: boolean) {
+    this.$store.commit('glammityStripe/SET_HOST_DIALOG', value)
+  }
+
+  openStripe() {
+    this.$store.commit('glammityStripe/SET_HOST_DIALOG', true)
   }
 
   checkout() {
+    this.$store.commit('glammityStripe/SET_LOADING', true)
     const url = this.$route.params.Glammity
     const pay = Number(
       this.estimatedAmount.info.replace(',', '').replace('円', '')

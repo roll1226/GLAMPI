@@ -1,16 +1,12 @@
 <template>
   <div>
-    <v-btn @click="dialog = true">
+    <v-btn @click="openDialog">
       予約
     </v-btn>
 
     <div justify="center">
-      <v-dialog
-        v-model="dialog"
-        :persistent="HostReservationLoading"
-        max-width="400"
-      >
-        <v-card :loading="HostReservationLoading">
+      <v-dialog v-model="chareDialog" max-width="400">
+        <v-card>
           <v-card-text>
             <div class="text-center headline">
               予約しますか?
@@ -42,15 +38,16 @@ import HostReservationStripe from '@/components/Btn/Glammity/Group/HostReservati
   }
 })
 export default class HostReservationBtn extends Vue {
-  dialog: boolean = false
-  HostReservationLoading: boolean = false
+  get chareDialog(): boolean {
+    return this.$store.state.glammityStripe.dialog
+  }
 
-  glammityReservation() {
-    this.HostReservationLoading = true
-    setTimeout(() => {
-      // this.dialog = false
-      this.HostReservationLoading = false
-    }, 3000)
+  set chareDialog(value: boolean) {
+    this.$store.commit('glammityStripe/SET_DIALOG', value)
+  }
+
+  openDialog() {
+    this.$store.commit('glammityStripe/SET_DIALOG', true)
   }
 }
 </script>
