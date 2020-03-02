@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/functions'
+import 'firebase/storage'
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -17,6 +18,7 @@ export default !firebase.apps.length
   : firebase.app()
 const firestore = firebase.firestore()
 const functions = firebase.functions()
+const storage = firebase.storage()
 const auth = firebase.auth()
 const twitterProvider = new firebase.auth.TwitterAuthProvider()
 const facebookProvider = new firebase.auth.FacebookAuthProvider()
@@ -26,6 +28,7 @@ const fieldValue = firebase.firestore.FieldValue
 export { firestore }
 export { auth }
 export { functions }
+export { storage }
 export { twitterProvider }
 export { facebookProvider }
 export { timestamp }

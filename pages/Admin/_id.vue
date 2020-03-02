@@ -21,7 +21,7 @@
           <div v-if="tab == 0"><FacilityTop /></div>
           <div v-else-if="tab == 1"><reserveManage /></div>
           <div v-else-if="tab == 2"><revenue /></div>
-          <div v-else-if="tab == 3"><ReservationInfoEdit /></div>
+          <div v-else-if="tab == 3"><reservationInfoEdit /></div>
           <div v-else-if="tab == 4"><inquiry /></div>
         </v-tabs-items>
       </v-col>
@@ -34,7 +34,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityTop from '@/components/Admin/FacilityTop.vue'
 import reserveManage from '@/components/Admin/ReserveManage.vue'
 import revenue from '@/components/Admin/revenue.vue'
-import ReservationInfoEdit from '@/components/Admin/reservationInfoEdit.vue'
+import reservationInfoEdit from '@/components/Admin/reservationInfoEdit.vue'
 import inquiry from '@/components/Admin/inquiry.vue'
 
 @Component({
@@ -42,7 +42,7 @@ import inquiry from '@/components/Admin/inquiry.vue'
     FacilityTop,
     reserveManage,
     revenue,
-    ReservationInfoEdit,
+    reservationInfoEdit,
     inquiry
   }
 })
