@@ -1,12 +1,12 @@
 <template>
-  <v-row no-gutters>
+  <v-row no-gutters justify="space-between">
     <v-col>
       <v-row no-gutters class="margin-delete">
         <v-col cols="auto"> <v-icon>mdi-pencil</v-icon> </v-col>
         <v-col>
           <v-text-field
             v-model="seiKana"
-            class="name"
+            class="sei"
             label="セイ"
             :rules="[rules.seiKanaFormat]"
             counter="20"
@@ -17,7 +17,7 @@
     <v-col>
       <v-text-field
         v-model="meiKana"
-        class="name under"
+        class="mei under"
         label="メイ"
         :rules="[rules.meiKanaFormat]"
         counter="20"

@@ -6,7 +6,7 @@
         <v-col>
           <v-text-field
             v-model="sei"
-            class="name"
+            class="sei"
             label="姓"
             :rules="[rules.isSeiLength, rules.seiFormat]"
             counter="20"
@@ -17,7 +17,7 @@
     <v-col>
       <v-text-field
         v-model="mei"
-        class="name under"
+        class="mei under"
         label="名"
         :rules="[rules.isMeiLength, rules.meiFormat]"
         counter="20"

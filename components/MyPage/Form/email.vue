@@ -12,7 +12,7 @@
     </v-col>
 
     <!--メール送信ボタンを上下中央-->
-    <v-col>
+    <v-col cols="auto">
       <v-btn outlined class="mail" @click="sendTestMail">
         確認メールを送る
       </v-btn>

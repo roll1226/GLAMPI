@@ -31,7 +31,7 @@
       </v-col>
     </v-row>
     <v-row no-gutters class="margin-delete">
-      <v-col class="under">
+      <v-col class="under address">
         <v-text-field
           v-model="streetAddress"
           label="住所"

@@ -176,9 +176,12 @@ export default class mypage extends Vue {
     .changeInfo-wrap {
       .row {
         margin: 30px 0 0 0;
+        max-width: 100%;
         .v-icon {
           margin: 20px 10px 0 0;
         }
+
+        //seimeiコンポーネント
 
         //addressコンポーネント
         .postal {
@@ -196,6 +199,9 @@ export default class mypage extends Vue {
         }
         .kensaku {
           margin: 12px 0 0 10px;
+        }
+        .address {
+          margin-left: 36px;
         } //addressコンポーネントここまで
 
         //メール送信btn
