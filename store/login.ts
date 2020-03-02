@@ -6,27 +6,23 @@ interface ICommit {
 }
 
 interface IState {
-  snackbarText: string
-  snackbarIcon: string
-  snackbarColor: string
   userUid: string
   loading: boolean
   loadingChangePassword: boolean
   isLogin: boolean
-  snackbar: boolean
+  snackbarOk: boolean
+  snackbarError: boolean
   loginDialog: boolean
   changePasswordDialog: boolean
 }
 
 export const state = (): IState => ({
-  snackbarText: '',
-  snackbarIcon: '',
-  snackbarColor: '',
   userUid: '',
   loading: false,
   loadingChangePassword: false,
   isLogin: false,
-  snackbar: false,
+  snackbarOk: false,
+  snackbarError: false,
   loginDialog: false,
   changePasswordDialog: false
 })
@@ -44,20 +40,12 @@ export const mutations = {
     state.isLogin = payload
   },
 
-  SET_SNACKBAR(state: IState, payload: boolean) {
-    state.snackbar = payload
+  SET_SNACKBAR_OK(state: IState, payload: boolean) {
+    state.snackbarOk = payload
   },
 
-  SET_SNACKBAR_TEXT(state: IState, payload: string) {
-    state.snackbarText = payload
-  },
-
-  SET_SNACKBAR_ICON(state: IState, payload: string) {
-    state.snackbarIcon = payload
-  },
-
-  SET_SNACKBAR_COLOR(state: IState, payload: string) {
-    state.snackbarColor = payload
+  SET_SNACKBAR_ERROR(state: IState, payload: boolean) {
+    state.snackbarError = payload
   },
 
   SET_USER_UID(state: IState, payload: string) {
@@ -84,22 +72,13 @@ export const actions = {
       .then((res: any) => {
         dispatch.commit('SET_LOADING', false)
         dispatch.commit('IS_LOGIN', true)
-        dispatch.commit('SET_SNACKBAR', true)
-        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
-        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
-        dispatch.commit('SET_SNACKBAR_COLOR', 'success')
+        dispatch.commit('SET_SNACKBAR_OK', true)
         dispatch.commit('SET_USER_UID', res.user.uid)
         dispatch.commit('SET_LOGIN_DIALOG', false)
       })
       .catch(() => {
         dispatch.commit('SET_LOADING', false)
-        dispatch.commit('SET_SNACKBAR', true)
-        dispatch.commit(
-          'SET_SNACKBAR_TEXT',
-          'メールアドレス又は、パスワードが違います。'
-        )
-        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
-        dispatch.commit('SET_SNACKBAR_COLOR', 'error')
+        dispatch.commit('SET_SNACKBAR_ERROR', true)
       })
   },
 
@@ -109,18 +88,12 @@ export const actions = {
       .then((res: any) => {
         console.log(res)
         dispatch.commit('IS_LOGIN', true)
-        dispatch.commit('SET_SNACKBAR', true)
-        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
-        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
-        dispatch.commit('SET_SNACKBAR_COLOR', 'success')
+        dispatch.commit('SET_SNACKBAR_OK', true)
         dispatch.commit('SET_USER_UID', res.user.uid)
         dispatch.commit('SET_LOGIN_DIALOG', false)
       })
       .catch(() => {
-        dispatch.commit('SET_SNACKBAR', true)
-        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインに失敗しました。')
-        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
-        dispatch.commit('SET_SNACKBAR_COLOR', 'error')
+        dispatch.commit('SET_SNACKBAR_ERROR', true)
       })
   },
 
@@ -130,18 +103,12 @@ export const actions = {
       .then((res: any) => {
         console.log(res)
         dispatch.commit('IS_LOGIN', true)
-        dispatch.commit('SET_SNACKBAR', true)
-        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインしました。')
-        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-check')
-        dispatch.commit('SET_SNACKBAR_COLOR', 'success')
+        dispatch.commit('SET_SNACKBAR_OK', true)
         dispatch.commit('SET_USER_UID', res.user.uid)
         dispatch.commit('SET_LOGIN_DIALOG', false)
       })
       .catch(() => {
-        dispatch.commit('SET_SNACKBAR', true)
-        dispatch.commit('SET_SNACKBAR_TEXT', 'ログインに失敗しました。')
-        dispatch.commit('SET_SNACKBAR_ICON', 'fas fa-exclamation')
-        dispatch.commit('SET_SNACKBAR_COLOR', 'error')
+        dispatch.commit('SET_SNACKBAR_ERROR', true)
       })
   },
 

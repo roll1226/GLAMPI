@@ -56,139 +56,114 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import { Card, createToken } from 'vue-stripe-elements-plus'
 import { firestore, timestamp } from '@/plugins/firebase'
+import { IFacility } from '@/store/facility'
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const uuid = require('uuid/v4')
-
 const api = process.env.STRIPE_PUBLIC_KEY
-export default {
+
+@Component({
   components: {
     Card
-  },
+  }
+})
+export default class Stripe extends Vue {
+  complete: boolean = false
+  loading: boolean = false
+  dialog: boolean = false
+  stripeApiKey: string | undefined = api
+  stripeOptions: { hidePostalCode: boolean } = {
+    hidePostalCode: true
+  }
+  emailRules: {} = {
+    email: [
+      (v: string) => !!v || 'メールアドレスは必ず入力してください。',
+      (v: string) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',
+      (v: string) => {
+        const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+        return (
+          pattern.test(v) ||
+          'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
+        )
+      }
+    ]
+  }
+  stripeEmail: string = ''
 
-  data() {
-    return {
-      complete: false,
-      loading: false,
-      dialog: false,
-      stripeApiKey: api,
-      stripeOptions: {
-        hidePostalCode: true
-      },
-      emailRules: {
-        email: [
-          (v) => !!v || 'メールアドレスは必ず入力してください。',
-          (v) => (v && v.length <= 100) || 'メールアドレスが長すぎます。',
-          (v) => {
-            const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
-            return (
-              pattern.test(v) ||
-              'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
-            )
+  uuid: string = uuid()
+    .split('-')
+    .join('')
+    .slice(0, -12)
+
+  get totalPay(): number {
+    return this.$store.state.reservation.totalPay
+  }
+  get dates(): [...string[]] {
+    return this.$store.state.reservation.dates
+  }
+  get optionTitle(): string {
+    return this.$store.state.reservation.optionTitle
+  }
+  get planTitle(): string {
+    return this.$store.state.reservation.planTitle
+  }
+  get facilityId(): string {
+    return this.$store.state.facility.uuid
+  }
+  get facility(): IFacility {
+    return this.$store.state.facility.facility
+  }
+
+  async pay() {
+    this.loading = true
+    await createToken().then(async (data: any) => {
+      const token = data.token
+      console.log(data)
+      await fetch(checkoutUrl, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          token,
+          charge: {
+            amount: this.totalPay,
+            currency: 'JPY',
+            email: this.stripeEmail
           }
-        ]
-      },
-      stripeEmail: '',
-
-      uuid: uuid()
-        .split('-')
-        .join('')
-        .slice(0, -12)
-    }
-  },
-
-  computed: {
-    totalPay() {
-      return this.$store.state.reservation.totalPay
-    },
-
-    dates() {
-      return this.$store.state.reservation.dates
-    },
-
-    optionTitle() {
-      return this.$store.state.reservation.optionTitle
-    },
-
-    planTitle() {
-      return this.$store.state.reservation.planTitle
-    },
-
-    facilityId() {
-      return this.$store.state.facility.uuid
-    },
-
-    facility() {
-      return this.$store.state.facility.facility
-    }
-  },
-
-  created() {
-    console.log(
-      uuid()
-        .split('-')
-        .join('')
-        .slice(0, -12)
-    )
-  },
-
-  methods: {
-    async pay() {
-      this.loading = true
-      await createToken().then(async (data) => {
-        const token = data.token
-        console.log(data)
-
-        await fetch(checkoutUrl, {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify({
-            token,
-            charge: {
-              amount: this.totalPay,
-              currency: 'JPY',
-              email: this.stripeEmail
-            }
-          })
         })
-          .then(async () => {
-            // 成功時firebaseに投げる
-
-            const batch = firestore.batch()
-
-            const reservationList = {
-              checkDates: [this.dates[0], this.dates[1]],
-              createdAt: timestamp,
-              facilityId: this.$route.params.id,
-              option: this.optionTitle,
-              payment: 'クレジットカード',
-              plan: this.planTitle,
-              status: '宿泊前',
-              totalPay: this.totalPay
-            }
-
-            const userReservation = firestore
-              .collection('users')
-              .doc(this.$store.state.login.userUid)
-              .collection('reservations')
-              .doc(this.uuid)
-
-            const facilityReservation = firestore
-              .collection('facilities')
-              .doc(this.facilityId)
-              .collection('reservations')
-              .doc(this.uuid)
-
-            batch.set(userReservation, {})
-
-            batch.set(facilityReservation, {})
-
-            await batch.commit().then(async () => {
-              await firestore.runTransaction(async (transaction) => {
+      })
+        .then(async () => {
+          // 成功時firebaseに投げる
+          const batch = firestore.batch()
+          const reservationList = {
+            checkDates: [this.dates[0], this.dates[1]],
+            createdAt: timestamp,
+            facilityId: this.$route.params.id,
+            option: this.optionTitle,
+            payment: 'クレジットカード',
+            plan: this.planTitle,
+            status: '宿泊前',
+            totalPay: this.totalPay
+          }
+          const userReservation = firestore
+            .collection('users')
+            .doc(this.$store.state.login.userUid)
+            .collection('reservations')
+            .doc(this.uuid)
+          const facilityReservation = firestore
+            .collection('facilities')
+            .doc(this.facilityId)
+            .collection('reservations')
+            .doc(this.uuid)
+          batch.set(userReservation, {})
+          batch.set(facilityReservation, {})
+          await batch.commit().then(async () => {
+            await firestore
+              .runTransaction(async (transaction) => {
                 const [
                   userReservationDoc,
                   facilityReservationDoc
@@ -196,67 +171,30 @@ export default {
                   transaction.get(userReservation),
                   transaction.get(facilityReservation)
                 ])
-
                 console.log(`${userReservationDoc}${facilityReservationDoc}`)
-
-                transaction.update(userReservation, {
-                  reservationList
-                })
-                transaction.update(facilityReservation, {
-                  reservationList
-                })
+                transaction.update(userReservation, reservationList)
+                transaction.update(facilityReservation, reservationList)
               })
-            })
-
-            await fetch(
-              'https://us-central1-j4k1-b789f.cloudfunctions.net/sendReservationMail',
-              {
-                method: 'POST',
-                headers: {
-                  'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                  facilityReser: {
-                    name: 'roll1226',
-                    checkIn: this.dates[0],
-                    checkOut: this.dates[1],
-                    plan: this.planTitle,
-                    option: this.optionTitle,
-                    payment: 'クレジットカード',
-                    facility: this.facility.name,
-                    pay: this.totalPay,
-                    email: this.stripeEmail
-                  }
-                })
-              }
-            )
-              .then((response) => {
-                console.log('response data', response)
+              .then(() => {
                 this.loading = false
                 this.dialog = false
-
                 this.$router.push(
                   `/facility/${this.$route.params.id}/reservation/complete`
                 )
               })
-              .catch((error) => {
-                console.log('response error', error)
-              })
           })
-          .catch((error) => {
-            console.error(error)
-          })
-      })
-    },
-
-    clearCart() {
-      this.complete = false
-    },
-
-    openDialog() {
-      this.dialog = true
-      this.$store.commit('reservation/ADDITION')
-    }
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    })
+  }
+  clearCart() {
+    this.complete = false
+  }
+  openDialog() {
+    this.dialog = true
+    this.$store.commit('reservation/ADDITION')
   }
 }
 </script>

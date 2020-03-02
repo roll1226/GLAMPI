@@ -5,6 +5,7 @@ import { IUserInfo } from '@/store/glammityGroup'
 interface ICommit {
   commit: Vuex.Commit
   dispatch: Vuex.Dispatch
+  state: IState
 }
 
 interface IUser {
@@ -35,7 +36,10 @@ export interface IGlammity {
   slider: [...string[]]
 }
 
+export type isGroupStates = true | false | null
+
 interface IState {
+  isGroup: isGroupStates
   joinBtnDialog: boolean
   joinedBtnDialog: boolean
   loading: boolean
@@ -43,6 +47,7 @@ interface IState {
 }
 
 export const state = (): IState => ({
+  isGroup: null,
   joinBtnDialog: false,
   joinedBtnDialog: false,
   loading: false,
@@ -60,6 +65,10 @@ export const state = (): IState => ({
 })
 
 export const mutations = {
+  SET_IS_GROUP(state: IState, payload: isGroupStates) {
+    state.isGroup = payload
+  },
+
   SET_JOIN_BTN_DIALOG(state: IState, payload: boolean) {
     state.joinBtnDialog = payload
   },
@@ -194,5 +203,20 @@ export const actions = {
     } catch (error) {
       console.log(error)
     }
+  },
+
+  async searchUser(dispatch: ICommit, payload: { id: string; userId: string }) {
+    const result = await firestore
+      .collection('glammity')
+      .doc(payload.id)
+      .collection('member')
+      .doc(payload.userId)
+      .get()
+
+    result.exists
+      ? dispatch.commit('SET_IS_GROUP', true)
+      : dispatch.commit('SET_IS_GROUP', false)
+
+    dispatch.commit('SET_LOADING', false)
   }
 }

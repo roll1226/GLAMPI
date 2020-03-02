@@ -1,23 +1,27 @@
 <template>
-  <div>
-    <v-row>
-      <v-col>
-        <v-text-field
-          v-model="seiKana"
-          label="セイ"
-          :rules="[rules.seiKanaFormat]"
-          prepend-icon="mdi-"
-        ></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field
-          v-model="meiKana"
-          label="メイ"
-          :rules="[rules.meiKanaFormat]"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-  </div>
+  <v-row no-gutters>
+    <v-col>
+      <v-row no-gutters class="margin-delete">
+        <v-col cols="auto"> <v-icon>mdi-pencil</v-icon> </v-col>
+        <v-col>
+          <v-text-field
+            v-model="seiKana"
+            class="name"
+            label="セイ"
+            :rules="[rules.seiKanaFormat]"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-col>
+    <v-col>
+      <v-text-field
+        v-model="meiKana"
+        class="name under"
+        label="メイ"
+        :rules="[rules.meiKanaFormat]"
+      ></v-text-field>
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
