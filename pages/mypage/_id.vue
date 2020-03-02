@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mypage-wrapp">
     <v-row no-gutters justify="space-around" align="center" class="mypage-navi">
       <v-col xs="12" cols="auto">
         <h2>
@@ -31,14 +31,14 @@
     </v-row>
 
     <v-row no-gutters>
-      <v-card>
+      <v-card class="card">
         <v-row no-gutters justify="space-around">
           <v-col xs="12" cols="auto">
             <div class="mypage-user">
               <v-avatar color="rgb(87,95,69)" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
               </v-avatar>
-              <p>ユーザ名</p>
+              <p>{{ nickname }}</p>
               <ChangeInfoBtn v-if="screen1 == 1" />
             </div>
           </v-col>
@@ -86,11 +86,20 @@ import Reviews from '@/components/MyPage/Reviews.vue'
 export default class mypage extends Vue {
   public screen1: number = 0
   public screen2: number = 0
+
+  created() {
+    this.$store.dispatch('mypage/getUserData', this.$route.params.id)
+  }
+  get nickname(): string {
+    return this.$store.state.mypage.nickname !== ''
+      ? this.$store.state.mypage.nickname
+      : this.$store.state.mypage.firstName + this.$store.state.mypage.lastName
+  }
 }
 </script>
 
 <style lang="scss">
-.container {
+.mypage-wrapp {
   overflow: visible !important;
   max-width: 1100px;
   padding: 28px 0 100px 0;
@@ -111,12 +120,13 @@ export default class mypage extends Vue {
     }
   }
 
-  .v-card {
+  .card {
     width: 100%;
     box-sizing: border-box;
     margin: 0 auto;
     min-height: 400px;
-    padding: 0 60px;
+    //カード内左右と下
+    padding: 0 60px 40px;
     .mypage-user {
       width: 180px;
       margin: 70px 60px 0 0;
@@ -125,7 +135,23 @@ export default class mypage extends Vue {
         text-align: center;
         margin: 15px 0 0 0;
       }
+      //ChangeInfoBtn位置
+      .change-info-btn {
+        margin: 20px 0 0 0;
+        //background-color: aquamarine;
+        .v-btn {
+          margin: 20px 0 0 0;
+          width: 180px;
+          height: 36px;
+          border-radius: 8px;
+        }
+        .v-item--active {
+          background-color: $site_color_2;
+          color: #fff;
+        }
+      }
     }
+    //mypage,Mytopコンポーネント
     .mytop-wrap {
       max-width: 740px;
       margin: 70px 0 0 0;
@@ -145,6 +171,27 @@ export default class mypage extends Vue {
         }
       }
     }
+
+    /////////////////imakoko
+    //mypage,ChangeInfoコンポーネント
+    .changeInfo-wrap {
+      .row {
+        //入力フォーム各コンポーネントの上余白
+        margin: 30px 0 0 0;
+        .v-icon {
+          //各アイコンのmargin
+          margin: 20px 10px 0 0;
+        }
+        p {
+          margin: 20px 0 0 0;
+          width: max-content;
+        }
+      }
+      //コンポーネント内で二重になってるv-rowの上余白削除
+      .margin-delete {
+        margin: 0 0 0 0;
+      }
+    }
   }
 }
 
@@ -161,13 +208,13 @@ export default class mypage extends Vue {
     .v-card {
       width: 100%;
       margin: 0 auto;
-      padding: 0 50px;
+      padding: 0 10px 40px;
       .mypage-user {
         margin: 30px 0 0 0;
       }
 
       .mytop-wrap {
-        margin: 30px 0 20px 0;
+        margin: 30px 30px 20px;
         .v-divider {
           display: none;
         }
@@ -185,6 +232,49 @@ export default class mypage extends Vue {
             }
           }
         }
+      }
+
+      .changeInfo-wrap {
+        margin: 30px 15px 20px;
+        .row {
+          .v-input {
+            //全入力フォームのwidth固定
+            width: 266px;
+          }
+
+          //郵便番号「xxx-xxxx」全体
+          .postal {
+            width: 200px;
+            .postal-b {
+              width: 70px;
+              margin: 0 8px 0 0;
+            }
+            p {
+              margin: 20px 8px 0 0;
+            }
+            .postal-a {
+              width: 90px;
+              margin: 0 8px 0 0;
+            }
+          }
+          //検索btn
+          .kensaku {
+            margin: 10px 0 0 0;
+          }
+          //メール送信btn
+          .mail {
+            width: max-content;
+            margin: 0 0 0 143px;
+          }
+
+          .under {
+            //同じコンポーネント内で２行目はアイコン分の左余白
+            margin-left: 34px;
+          }
+        }
+      }
+
+      .bList-wrap {
       }
     }
   }

@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <v-text-field
-      v-model="username"
-      label="ユーザ名"
-      prepend-icon="mdi-account-circle"
-      :rules="[rules.usernameLength]"
-    ></v-text-field>
-  </div>
+  <v-row no-gutters>
+    <v-col cols="auto"> <v-icon>mdi-account-circle</v-icon> </v-col>
+    <v-col>
+      <v-text-field
+        v-model="username"
+        label="ユーザ名"
+        :rules="[rules.usernameLength]"
+      ></v-text-field>
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
