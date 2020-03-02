@@ -43,7 +43,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { IComment } from '@/store/facility'
 
 @Component
 export default class SendCommentCard extends Vue {
@@ -83,17 +82,12 @@ export default class SendCommentCard extends Vue {
     }
   }
 
-  get comments(): IComment[] {
-    return this.$store.state.facility.comments
-  }
-
   sendComment() {
     this.$store.commit('facility/SET_LOADING', true)
     this.$store.dispatch('facility/postComment', {
       displayName: this.$route.params.id,
       rating: this.Rating,
       comment: this.Comment,
-      comments: this.comments,
       uuid: this.userUid
     })
   }

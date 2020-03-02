@@ -1,28 +1,31 @@
 <template>
   <div>
     <v-row no-gutters>
-      <v-col no-gutters>
+      <v-card elevation="0">
         <v-data-table
           :headers="headers"
           :items="list"
           :page.sync="page"
-          height="521.875px"
-          hide-default-footer
+          height="527.5px"
           class="ma-0 pa-0"
+          hide-default-footer
           @page-count="pageCount = $event"
-        ></v-data-table>
-      </v-col>
+        >
+          <template v-slot:item.action>
+            <v-btn elevation="1" small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
+      </v-card>
     </v-row>
-    <hr />
-    <v-row no-gutters>
-      <v-col no-gutters>
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          :value="itemsPerPage"
-          @input="itemsPerPage = parseInt($event, 10)"
-        ></v-pagination>
-      </v-col>
+    <v-row class="text-center px-0 pt-6 pb-0">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        :value="itemsPerPage"
+        @input="itemsPerPage = parseInt($event, 10)"
+      ></v-pagination>
     </v-row>
   </div>
 </template>
@@ -36,7 +39,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-@Component({
+@Component
+export default class ReserveManageFacility extends Vue {
+  public page: number = 1
+  public pageCount: number = 0
+  public itemsPerPage: number = 10
+
   data() {
     return {
       headers: [
@@ -44,7 +52,8 @@ import { Component, Vue } from 'nuxt-property-decorator'
         { text: '人数', value: 'peopleNumber' },
         { text: 'プラン', value: 'plan' },
         { text: 'オプション', value: 'option' },
-        { text: '状態', value: 'status' }
+        { text: '状態', value: 'status' },
+        { text: '', value: 'action', sortable: false }
       ],
       list: [
         {
@@ -225,10 +234,5 @@ import { Component, Vue } from 'nuxt-property-decorator'
       ]
     }
   }
-})
-export default class ReserveManageFacility extends Vue {
-  public page: number = 1
-  public pageCount: number = 0
-  public itemsPerPage: number = 10
 }
 </script>

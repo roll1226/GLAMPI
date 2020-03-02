@@ -1,17 +1,14 @@
 <template>
-  <div>
-    <v-card-title>パスワード変更</v-card-title>
+  <v-container>
     <v-form>
-      <v-container>
-        <v-row>
-          <v-col><passwordBefore /></v-col>
-        </v-row>
-        <v-row>
-          <v-col><passwordAfter /></v-col>
-        </v-row>
-      </v-container>
+      <v-row>
+        <v-col><passwordBefore /></v-col>
+      </v-row>
+      <v-row>
+        <v-col><passwordAfter /></v-col>
+      </v-row>
     </v-form>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
