@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row class="pa-0 ma-0 mb-10 row1">
+    <v-row no-gutters class="mb-10 row1">
       <v-card tile elevation="0" color="grey lighten-4">
         <!--カード内のpaddingは、v-card-textのクラスで調整
         初期値(今):16px = "pa-4"-->
@@ -66,10 +66,6 @@ export default class FacilityTop extends Vue {
 }
 </script>
 <style lang="scss">
-.v-card {
-  width: 100%;
-}
-
 p span {
   display: inline-block;
   padding-top: 10px;

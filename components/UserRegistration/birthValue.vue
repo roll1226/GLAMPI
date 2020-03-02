@@ -2,29 +2,29 @@
   <div>
     <v-row>
       <v-col cols="12" sm="4">
-        <v-overflow-btn
+        <v-select
           v-model="birthValueYear"
           :items="dropdown"
           :rules="[rules.isYear]"
           label="生年"
           prepend-icon="mdi-folder-account"
-        ></v-overflow-btn>
+        ></v-select>
       </v-col>
       <v-col cols="12" sm="4">
-        <v-overflow-btn
+        <v-select
           v-model="birthValueMonth"
           :items="dropdown1"
           :rules="[rules.isMonth]"
           label="生月"
-        ></v-overflow-btn>
+        ></v-select>
       </v-col>
       <v-col cols="12" sm="4">
-        <v-overflow-btn
+        <v-select
           v-model="birthValueDay"
           :items="dropdown2"
           :rules="[rules.isDay]"
           label="生日"
-        ></v-overflow-btn>
+        ></v-select>
       </v-col>
     </v-row>
   </div>

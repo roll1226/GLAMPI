@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-card>
-      <v-card-title>口コミ</v-card-title>
-    </v-card>
+    <v-card-title>口コミ</v-card-title>
   </div>
 </template>
 <script lang="ts">

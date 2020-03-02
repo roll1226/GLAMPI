@@ -1,12 +1,16 @@
 <template>
   <div class="text-center">
-    <v-btn @click.stop="openModal">
-      参加しろ
+    <v-btn :block="isBlock" :text="isBlock" @click.stop="openModal">
+      <v-icon class="mr-2">
+        fas fa-campground
+      </v-icon>
+
+      参加する
     </v-btn>
 
     <div justify="center">
-      <v-dialog v-model="dialog" max-width="400">
-        <v-card>
+      <v-dialog v-model="dialog" :persistent="joinBtnLoading" max-width="400">
+        <v-card :loading="joinBtnLoading">
           <v-card-title class="headline">
             {{ glammityName }}に参加しますか？
           </v-card-title>
@@ -16,11 +20,13 @@
           </v-card-text>
 
           <v-card-actions>
-            <JoinedBtn :glammity-name="glammityName" />
-
             <v-spacer></v-spacer>
+            <JoinedBtn
+              :glammity-name="glammityName"
+              :glammity-id="glammityId"
+            />
 
-            <v-btn color="error" text @click="dialog = false">
+            <v-btn color="error" text @click="closeCard">
               参加しない
             </v-btn>
           </v-card-actions>
@@ -43,8 +49,30 @@ export default class JoinBtn extends Vue {
   @Prop({ required: true, default: '' })
   glammityName!: string
 
+  @Prop({ required: true, default: '' })
+  glammityId!: string
+
+  @Prop({ required: true, default: true })
+  isBlock!: boolean
+
+  get joinBtnLoading(): boolean {
+    return this.$store.state.glammityJoin.loading
+  }
+
   get dialog(): boolean {
     return this.$store.state.glammityJoin.joinBtnDialog
+  }
+
+  set dialog(dialog: boolean) {
+    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', dialog)
+  }
+
+  openModal() {
+    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', true)
+  }
+
+  closeCard() {
+    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
   }
 }
 </script>
