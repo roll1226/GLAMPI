@@ -1,15 +1,11 @@
 <template>
   <div>
-    {{ estimatedAmount.info }}
-
-    <div class="mt-6">
-      <v-btn class="light-blue darken-4 white--text" @click="openDialog">
-        予約する
-      </v-btn>
-    </div>
+    <v-btn @click="openDialog">
+      します
+    </v-btn>
 
     <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="300">
+      <v-dialog v-model="dialog" max-width="450">
         <v-card :loading="loading">
           <v-toolbar dark class="grey lighten-1">
             <v-toolbar-title>
@@ -62,8 +58,6 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { Card } from 'vue-stripe-elements-plus'
 import { IGlammityInfoList } from '@/store/glammityInfo'
-// import { firestore, timestamp } from '@/plugins/firebase'
-// const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const api = process.env.STRIPE_PUBLIC_KEY
 
 @Component({
@@ -71,10 +65,11 @@ const api = process.env.STRIPE_PUBLIC_KEY
     Card
   }
 })
-export default class GlammityStripeBtn extends Vue {
+export default class HostReservationStripe extends Vue {
+  dialog: boolean = false
+
   complete: boolean = false
   loading: boolean = false
-  dialog: boolean = false
   stripeApiKey: string | undefined = api
   stripeOptions: { hidePostalCode: boolean } = {
     hidePostalCode: true
@@ -91,12 +86,6 @@ export default class GlammityStripeBtn extends Vue {
         )
       }
     ]
-  }
-
-  created() {
-    this.$store.commit('glammityInfo/CLEAR_INFO')
-    const url = this.$route.params.Glammity
-    this.$store.dispatch('glammityInfo/getGlammityInfo', url)
   }
 
   get estimatedAmount(): IGlammityInfoList {

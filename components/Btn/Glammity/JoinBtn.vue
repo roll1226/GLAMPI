@@ -7,7 +7,7 @@
 
       参加する
     </v-btn>
-    {{ isGroup }}
+
     <div justify="center">
       <v-dialog v-model="dialog" :persistent="joinBtnLoading" max-width="400">
         <v-card :loading="joinBtnLoading">
