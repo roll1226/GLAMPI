@@ -359,6 +359,7 @@
           accept="image/*"
           @change="getFileName"
         ></v-file-input> -->
+        <!--
     <v-card>
       <v-container>
         情報登録
@@ -406,7 +407,7 @@
           max-height="200"
         ></v-img> -->
         <canvas id="canvas"></canvas>
-        ></v-img>
+        <!-- ></v-img> -->
       </v-container>
     </v-card>
   </div>
@@ -423,8 +424,6 @@ interface imageType {
 }
 
 // import { storage } from '@/plugins/firebase'
-import ReservationPlan from '@/components/Admin/ReservationPlan.vue'
-
 // interface imageType {
 //   file: string
 //   name: string
@@ -548,8 +547,8 @@ export default class reservationInfoEdit extends Vue {
   //     }
   //     reader.readAsDataURL(file)
   //   }
-  file?: object[] = []
-  uploadedImage: string = ''
-  getFileName() {}
+  // file?: object[] = []
+  // uploadedImage: string = ''
+  // getFileName() {}
 }
 </script>
