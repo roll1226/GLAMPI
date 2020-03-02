@@ -18,13 +18,12 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import seimei from '@/components/mypage/Form/seimei.vue'
-import seimeiKana from '@/components/mypage/Form/seimeiKana.vue'
-import email from '@/components/mypage/Form/email.vue'
-import addressForm from '@/components/mypage/Form/address.vue'
-import username from '@/components/mypage/Form/username.vue'
-
-import comment from '@/components/mypage/Form/comment.vue'
+import seimei from '@/components/MyPage/Form/seimei.vue'
+import seimeiKana from '@/components/MyPage/Form/seimeiKana.vue'
+import email from '@/components/MyPage/Form/email.vue'
+import addressForm from '@/components/MyPage/Form/address.vue'
+import username from '@/components/MyPage/Form/username.vue'
+import comment from '@/components/MyPage/Form/comment.vue'
 
 @Component({
   components: {

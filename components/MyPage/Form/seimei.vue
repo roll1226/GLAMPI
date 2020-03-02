@@ -1,17 +1,23 @@
 <template>
   <v-row no-gutters>
-    <v-col cols="auto"> <v-icon>mdi-pencil</v-icon> </v-col>
     <v-col>
-      <v-text-field
-        v-model="sei"
-        label="姓"
-        :rules="[rules.isSeiLength, rules.seiFormat]"
-        counter="20"
-      ></v-text-field>
+      <v-row no-gutters class="margin-delete">
+        <v-col cols="auto"> <v-icon>mdi-pencil</v-icon> </v-col>
+        <v-col>
+          <v-text-field
+            v-model="sei"
+            class="name"
+            label="姓"
+            :rules="[rules.isSeiLength, rules.seiFormat]"
+            counter="20"
+          ></v-text-field>
+        </v-col>
+      </v-row>
     </v-col>
     <v-col>
       <v-text-field
         v-model="mei"
+        class="name under"
         label="名"
         :rules="[rules.isMeiLength, rules.meiFormat]"
         counter="20"

@@ -3,29 +3,35 @@
     <v-row no-gutters>
       <v-col cols="auto"> <v-icon>mdi-home</v-icon> </v-col>
       <v-col>
-        <v-text-field
-          v-model="postalCode1"
-          v-mask="POST"
-          label="xxx"
-          :rules="[rules.post1]"
-        ></v-text-field>
-      </v-col>
-      <v-col><p>―</p></v-col>
-      <v-col>
-        <v-text-field
-          v-model="postalCode2"
-          v-mask="POST1"
-          label="xxxx"
-          :rules="[rules.post2]"
-        ></v-text-field>
+        <v-row no-gutters class="margin-delete postal">
+          <v-col>
+            <v-text-field
+              v-model="postalCode1"
+              v-mask="POST"
+              class="postal-b"
+              label="xxx"
+              :rules="[rules.post1]"
+            ></v-text-field>
+          </v-col>
+          <v-col><p>―</p></v-col>
+          <v-col>
+            <v-text-field
+              v-model="postalCode2"
+              v-mask="POST1"
+              class="postal-a"
+              label="xxxx"
+              :rules="[rules.post2]"
+            ></v-text-field>
+          </v-col>
+        </v-row>
       </v-col>
 
       <v-col>
-        <v-btn outlined @click="checkCode()">検索</v-btn>
+        <v-btn outlined class="kensaku" @click="checkCode()">検索</v-btn>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
+    <v-row no-gutters class="margin-delete">
+      <v-col class="under">
         <v-text-field
           v-model="streetAddress"
           label="住所"

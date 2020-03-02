@@ -11,8 +11,9 @@
       ></v-text-field>
     </v-col>
 
-    <v-col>
-      <v-btn @click="sendTestMail">
+    <!--メール送信ボタンを上下中央-->
+    <v-col align-self="center">
+      <v-btn outlined class="mail" @click="sendTestMail">
         確認メールを送る
       </v-btn>
     </v-col>

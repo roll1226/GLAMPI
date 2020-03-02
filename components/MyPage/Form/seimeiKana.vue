@@ -1,16 +1,22 @@
 <template>
   <v-row no-gutters>
-    <v-col cols="auto"> <v-icon>mdi-pencil</v-icon> </v-col>
     <v-col>
-      <v-text-field
-        v-model="seiKana"
-        label="セイ"
-        :rules="[rules.seiKanaFormat]"
-      ></v-text-field>
+      <v-row no-gutters class="margin-delete">
+        <v-col cols="auto"> <v-icon>mdi-pencil</v-icon> </v-col>
+        <v-col>
+          <v-text-field
+            v-model="seiKana"
+            class="name"
+            label="セイ"
+            :rules="[rules.seiKanaFormat]"
+          ></v-text-field>
+        </v-col>
+      </v-row>
     </v-col>
     <v-col>
       <v-text-field
         v-model="meiKana"
+        class="name under"
         label="メイ"
         :rules="[rules.meiKanaFormat]"
       ></v-text-field>
