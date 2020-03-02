@@ -14,19 +14,8 @@ interface IState {
   totalPay: number
   dates: [...string[]]
   totalDate: number
+  planImg: string
 }
-
-interface IReservation {
-  checkDates: [...string[]]
-  createdAt: Date
-  facilityId: string
-  option: string
-  payment: string
-  plan: string
-  status: string
-  totalPay: string
-}
-
 export const state = (): IState => ({
   planTitle: '',
   isActive: false,
@@ -36,7 +25,8 @@ export const state = (): IState => ({
   optionPay: 0,
   totalPay: 0,
   dates: [],
-  totalDate: 0
+  totalDate: 0,
+  planImg: ''
 })
 
 export const mutations = {
@@ -76,6 +66,10 @@ export const mutations = {
     state.dates[1] = payload.checkOut
     const totalDate = getDiff(payload.checkIn, payload.checkOut)
     state.totalDate = totalDate
+  },
+
+  SET_PLAN_IMG(state: IState, payload: string) {
+    state.planImg = payload
   }
 }
 

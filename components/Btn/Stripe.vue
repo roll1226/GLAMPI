@@ -162,56 +162,27 @@ export default class Stripe extends Vue {
           batch.set(userReservation, {})
           batch.set(facilityReservation, {})
           await batch.commit().then(async () => {
-            await firestore.runTransaction(async (transaction) => {
-              const [
-                userReservationDoc,
-                facilityReservationDoc
-              ] = await Promise.all([
-                transaction.get(userReservation),
-                transaction.get(facilityReservation)
-              ])
-              console.log(`${userReservationDoc}${facilityReservationDoc}`)
-              transaction.update(userReservation, {
-                reservationList
+            await firestore
+              .runTransaction(async (transaction) => {
+                const [
+                  userReservationDoc,
+                  facilityReservationDoc
+                ] = await Promise.all([
+                  transaction.get(userReservation),
+                  transaction.get(facilityReservation)
+                ])
+                console.log(`${userReservationDoc}${facilityReservationDoc}`)
+                transaction.update(userReservation, reservationList)
+                transaction.update(facilityReservation, reservationList)
               })
-              transaction.update(facilityReservation, {
-                reservationList
+              .then(() => {
+                this.loading = false
+                this.dialog = false
+                this.$router.push(
+                  `/facility/${this.$route.params.id}/reservation/complete`
+                )
               })
-            })
           })
-          await fetch(
-            'https://us-central1-j4k1-b789f.cloudfunctions.net/sendReservationMail',
-            {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/json'
-              },
-              body: JSON.stringify({
-                facilityReser: {
-                  name: 'roll1226',
-                  checkIn: this.dates[0],
-                  checkOut: this.dates[1],
-                  plan: this.planTitle,
-                  option: this.optionTitle,
-                  payment: 'クレジットカード',
-                  facility: this.facility.name,
-                  pay: this.totalPay,
-                  email: this.stripeEmail
-                }
-              })
-            }
-          )
-            .then((response) => {
-              console.log('response data', response)
-              this.loading = false
-              this.dialog = false
-              this.$router.push(
-                `/facility/${this.$route.params.id}/reservation/complete`
-              )
-            })
-            .catch((error) => {
-              console.log('response error', error)
-            })
         })
         .catch((error) => {
           console.error(error)
