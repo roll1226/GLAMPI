@@ -63,8 +63,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class
-reservationInfo extends Vue {
+export default class reservationInfo extends Vue {
   dropdown: [...string[]] = []
   created() {
     for (let index1 = 0; index1 < 99; index1++) {

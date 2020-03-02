@@ -8,11 +8,15 @@
         <v-row>
           <v-col sm="4" class="px-5">
             <v-file-input
-              v-model="file"
+              v-if="file == 1"
+              style="display: none"
+              type="file"
               accept="image/*"
               @change="getFileName"
             ></v-file-input>
-            <v-btn></v-btn>
+            <v-btn icon text @click="btnclick">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
             <v-img
               v-show="uploadedImage"
               :src="uploadedImage"
@@ -57,7 +61,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden1" icon @click="click1()" text>
+              <v-btn v-show="!hidden1" icon text @click="click1()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -86,7 +90,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden2" icon @click="click2()" text>
+              <v-btn v-show="!hidden2" icon text @click="click2()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -115,7 +119,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden3" icon @click="click3()" text>
+              <v-btn v-show="!hidden3" icon text @click="click3()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -144,7 +148,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden4" icon @click="click4()" text>
+              <v-btn v-show="!hidden4" icon text @click="click4()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -173,7 +177,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden5" icon @click="click5()" text>
+              <v-btn v-show="!hidden5" icon text @click="click5()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -202,7 +206,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden6" icon @click="click6()" text>
+              <v-btn v-show="!hidden6" icon text @click="click6()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -231,7 +235,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden7" icon @click="click7()" text>
+              <v-btn v-show="!hidden7" icon text @click="click7()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -260,7 +264,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden8" icon @click="click8()" text>
+              <v-btn v-show="!hidden8" icon text @click="click8()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -289,7 +293,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden9" icon @click="click9()" text>
+              <v-btn v-show="!hidden9" icon text @click="click9()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
@@ -318,7 +322,7 @@
               <v-text-field label="プランタイトル" single-line></v-text-field>
               <v-text-field label="サブタイトル" single-line></v-text-field>
               <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden10" icon @click="click10()" text>
+              <v-btn v-show="!hidden10" icon text @click="click10()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-col>
