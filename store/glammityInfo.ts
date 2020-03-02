@@ -14,6 +14,8 @@ export interface IGlammityInfoList {
 interface IGlammityData {
   name: string
   numberOfApplicants: number
+  checkIn: string
+  checkOut: string
 }
 
 interface IState {
@@ -23,6 +25,8 @@ interface IState {
   numberOfApplicants: IGlammityInfoList
   numberOfParticipants: IGlammityInfoList
   estimatedAmount: IGlammityInfoList
+  checkIn: IGlammityInfoList
+  checkOut: IGlammityInfoList
   facilityId: string
   date: string
 }
@@ -39,6 +43,8 @@ export const state = (): IState => ({
   numberOfApplicants: initialList,
   numberOfParticipants: initialList,
   estimatedAmount: initialList,
+  checkIn: initialList,
+  checkOut: initialList,
   facilityId: '',
   date: ''
 })
@@ -51,6 +57,8 @@ export const mutations = {
     state.numberOfApplicants = initialList
     state.numberOfParticipants = initialList
     state.estimatedAmount = initialList
+    state.checkIn = initialList
+    state.checkOut = initialList
   },
 
   SET_GLAMMITY_INFO(state: IState, payload: IGlammityData) {
@@ -64,8 +72,21 @@ export const mutations = {
       info: `${payload.numberOfApplicants}人`
     }
 
+    const checkIn = {
+      title: 'チェックイン',
+      info: payload.checkIn
+    }
+
+    const checkOut = {
+      title: 'チェックアウト',
+      info: payload.checkOut
+    }
+
     state.glammityName = glammityName
     state.numberOfApplicants = numberOfApplicants
+    state.checkIn = checkIn
+    state.checkOut = checkOut
+    console.log(checkIn)
   },
 
   SET_FACILITY_NAME(state: IState, payload: { name: string }) {

@@ -25,6 +25,10 @@
         :title="estimatedAmount.title"
         :info="estimatedAmount.info"
       />
+
+      <GlammityInfoCard :title="checkIn.title" :info="checkIn.info" />
+
+      <GlammityInfoCard :title="checkOut.title" :info="checkOut.info" />
     </v-row>
 
     <MemberListCard />
@@ -76,6 +80,14 @@ export default class DetailsCard extends Vue {
 
   get estimatedAmount(): IGlammityInfoList {
     return this.$store.state.glammityInfo.estimatedAmount
+  }
+
+  get checkIn(): IGlammityInfoList {
+    return this.$store.state.glammityInfo.checkIn
+  }
+
+  get checkOut(): IGlammityInfoList {
+    return this.$store.state.glammityInfo.checkOut
   }
 }
 </script>
