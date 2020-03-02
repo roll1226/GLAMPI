@@ -11,7 +11,7 @@
             </v-col>
             <v-col class="text-center pa-0">
               <p class="ma-0 title">
-                施設登録申請数<br /><span>{{ registFacilities }}件</span>
+                施設登録申請数<br /><span>{{ registFacility }}件</span>
               </p>
             </v-col>
           </v-row>
@@ -31,7 +31,7 @@
           @page-count="pageCount = $event"
         >
           <template v-slot:item.preview>
-            <v-btn small class="mr-2">
+            <v-btn elevation="1" small class="mr-2">
               プレビュー
             </v-btn>
           </template></v-data-table
@@ -59,12 +59,12 @@
           @page-count="pageCount2 = $event"
         >
           <template v-slot:item.preview>
-            <v-btn small class="mr-2">
+            <v-btn elevation="1" small class="mr-2">
               プレビュー
             </v-btn>
           </template>
           <template v-slot:item.regist>
-            <v-btn small class="mr-2">
+            <v-btn elevation="1" small class="mr-2">
               登録
             </v-btn>
           </template></v-data-table
