@@ -172,19 +172,35 @@ export default class mypage extends Vue {
       }
     }
 
-    /////////////////imakoko
     //mypage,ChangeInfoコンポーネント
     .changeInfo-wrap {
       .row {
-        //入力フォーム各コンポーネントの上余白
         margin: 30px 0 0 0;
         .v-icon {
-          //各アイコンのmargin
           margin: 20px 10px 0 0;
         }
-        p {
-          margin: 20px 0 0 0;
-          width: max-content;
+
+        //addressコンポーネント
+        .postal {
+          width: 250px;
+          .postal-b {
+            width: 80px;
+          }
+          p {
+            width: max-content;
+            margin: 20px 0px 0 0;
+          }
+          .postal-a {
+            width: 100px;
+          }
+        }
+        .kensaku {
+          margin: 12px 0 0 10px;
+        } //addressコンポーネントここまで
+
+        //メール送信btn
+        .mail {
+          margin: 12px 0 0 10px;
         }
       }
       //コンポーネント内で二重になってるv-rowの上余白削除
@@ -263,7 +279,6 @@ export default class mypage extends Vue {
           }
           //メール送信btn
           .mail {
-            width: max-content;
             margin: 0 0 0 143px;
           }
 

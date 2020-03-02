@@ -6,6 +6,7 @@
         v-model="comment"
         label="プロフィールコメント"
         :rules="[rules.commentLength]"
+        counter="280"
       ></v-text-field>
     </v-col>
   </v-row>

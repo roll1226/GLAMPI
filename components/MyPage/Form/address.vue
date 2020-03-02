@@ -2,9 +2,9 @@
   <div>
     <v-row no-gutters>
       <v-col cols="auto"> <v-icon>mdi-home</v-icon> </v-col>
-      <v-col>
-        <v-row no-gutters class="margin-delete postal">
-          <v-col>
+      <v-col cols="auto">
+        <v-row no-gutters class="margin-delete postal" justify="space-between">
+          <v-col cols="auto">
             <v-text-field
               v-model="postalCode1"
               v-mask="POST"
@@ -13,8 +13,8 @@
               :rules="[rules.post1]"
             ></v-text-field>
           </v-col>
-          <v-col><p>―</p></v-col>
-          <v-col>
+          <v-col cols="auto"><p>―</p></v-col>
+          <v-col cols="auto">
             <v-text-field
               v-model="postalCode2"
               v-mask="POST1"

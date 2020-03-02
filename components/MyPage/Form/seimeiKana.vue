@@ -9,6 +9,7 @@
             class="name"
             label="セイ"
             :rules="[rules.seiKanaFormat]"
+            counter="20"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -19,6 +20,7 @@
         class="name under"
         label="メイ"
         :rules="[rules.meiKanaFormat]"
+        counter="20"
       ></v-text-field>
     </v-col>
   </v-row>

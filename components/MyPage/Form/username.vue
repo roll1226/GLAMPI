@@ -6,6 +6,7 @@
         v-model="username"
         label="ユーザ名"
         :rules="[rules.usernameLength]"
+        counter="20"
       ></v-text-field>
     </v-col>
   </v-row>
