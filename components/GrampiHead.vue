@@ -1,11 +1,11 @@
 <template>
   <div>
-    <v-snackbar v-model="snackbar" top left :color="snackbarColor">
+    <v-snackbar v-model="snackbar" :timeout="2000" top left color="success">
       <span>
-        {{ snackbarText }}
+        ログインしました。
       </span>
       <v-icon class="pl-2" style="color: white;">
-        {{ snackbarIcon }}
+        fas fa-check
       </v-icon>
     </v-snackbar>
 
@@ -53,20 +53,6 @@ import { auth } from '@/plugins/firebase'
 @Component({
   components: {
     LoginModal
-  },
-  computed: {
-    isLogin(): boolean {
-      return this.$store.state.login.isLogin
-    },
-    snackbarText(): string {
-      return this.$store.state.login.snackbarText
-    },
-    snackbarIcon(): string {
-      return this.$store.state.login.snackbarIcon
-    },
-    snackbarColor(): string {
-      return this.$store.state.login.snackbarColor
-    }
   }
 })
 export default class GlampiHead extends Vue {
@@ -83,11 +69,15 @@ export default class GlampiHead extends Vue {
   }
 
   get snackbar(): boolean {
-    return this.$store.state.login.snackbar
+    return this.$store.state.login.snackbarOk
+  }
+
+  get isLogin(): boolean {
+    return this.$store.state.login.isLogin
   }
 
   set snackbar(isSnackbar: boolean) {
-    this.$store.commit('login/SET_SNACKBAR', isSnackbar)
+    this.$store.commit('login/SET_SNACKBAR_OK', isSnackbar)
   }
 }
 </script>
