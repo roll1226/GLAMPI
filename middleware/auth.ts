@@ -14,7 +14,7 @@ const middleware: Middleware = ({ route, store, redirect }) => {
       store.commit('login/IS_LOGIN', true)
       store.commit('login/SET_USER_UID', user.uid)
 
-      if (route.name === 'glammity-Group-Glammity-glammityGroup') {
+      if (route.name === 'Glammity-Group-Glammity-glammityGroup') {
         const isUser = await firestore
           .collection('glammity')
           .doc(route.params.Glammity)
@@ -31,7 +31,7 @@ const middleware: Middleware = ({ route, store, redirect }) => {
     }
     if (
       (!user && route.name === 'mypage-id') ||
-      (!user && route.name === 'glammity-Group-Glammity-glammityGroup')
+      (!user && route.name === 'Glammity-Group-Glammity-glammityGroup')
     )
       redirect('/')
   })
