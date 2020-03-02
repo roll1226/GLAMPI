@@ -9,8 +9,12 @@
     </div>
 
     <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="300">
-        <v-card :loading="loading">
+      <v-dialog
+        v-model="chareDialog"
+        max-width="300"
+        :persistent="guestLoading"
+      >
+        <v-card :loading="guestLoading">
           <v-toolbar dark class="grey lighten-1">
             <v-toolbar-title>
               クレジット支払い
@@ -73,8 +77,6 @@ const api = process.env.STRIPE_PUBLIC_KEY
 })
 export default class GlammityStripeBtn extends Vue {
   complete: boolean = false
-  loading: boolean = false
-  dialog: boolean = false
   stripeApiKey: string | undefined = api
   stripeOptions: { hidePostalCode: boolean } = {
     hidePostalCode: true
@@ -97,6 +99,17 @@ export default class GlammityStripeBtn extends Vue {
     this.$store.commit('glammityInfo/CLEAR_INFO')
     const url = this.$route.params.Glammity
     this.$store.dispatch('glammityInfo/getGlammityInfo', url)
+  }
+
+  get guestLoading(): boolean {
+    return this.$store.state.glammityStripe.loading
+  }
+  get chareDialog(): boolean {
+    return this.$store.state.glammityStripe.dialog
+  }
+
+  set chareDialog(value: boolean) {
+    this.$store.commit('glammityStripe/SET_DIALOG', value)
   }
 
   get estimatedAmount(): IGlammityInfoList {
@@ -128,10 +141,11 @@ export default class GlammityStripeBtn extends Vue {
   }
 
   openDialog() {
-    this.dialog = true
+    this.$store.commit('glammityStripe/SET_DIALOG', true)
   }
 
   checkout() {
+    this.$store.commit('glammityStripe/SET_LOADING', true)
     const url = this.$route.params.Glammity
     const pay = Number(
       this.estimatedAmount.info.replace(',', '').replace('円', '')
