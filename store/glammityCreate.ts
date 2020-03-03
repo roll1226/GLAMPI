@@ -17,10 +17,15 @@ interface IState {
   facilityName: string
   facilityId: string
   planId: string
+  planTitle: string
   planList: IList[]
   optionId: string
+  optionTitle: string
   optionList: IList[]
   guestNumber: number
+  recruitmentDates: [...string[]]
+  dates: [...string[]]
+  totalDate: number
 }
 
 export const state = (): IState => ({
@@ -28,10 +33,15 @@ export const state = (): IState => ({
   facilityName: '',
   facilityId: '',
   planId: '',
+  planTitle: '',
   planList: [],
   optionId: '',
+  optionTitle: '',
   optionList: [],
-  guestNumber: 0
+  guestNumber: 0,
+  dates: [],
+  recruitmentDates: [],
+  totalDate: 0
 })
 
 export const mutations = {
@@ -65,6 +75,31 @@ export const mutations = {
 
   SET_OPTION_LIST(state: IState, payload: IList) {
     state.optionList.push(payload)
+  },
+
+  SET_DATE_RE(state: IState, payload: { checkIn: string; checkOut: string }) {
+    state.dates[0] = payload.checkIn
+    state.dates[1] = payload.checkOut
+    const totalDate = getDiff(payload.checkIn, payload.checkOut)
+    state.totalDate = totalDate
+  },
+
+  SET_DATES(state: IState, payload: [...string[]]) {
+    state.dates = payload
+    const totalDate = getDiff(payload[0], payload[1])
+    state.totalDate = totalDate
+  },
+
+  SET_RECRUITMENT_DATE_RE(
+    state: IState,
+    payload: { checkIn: string; checkOut: string }
+  ) {
+    state.recruitmentDates[0] = payload.checkIn
+    state.recruitmentDates[1] = payload.checkOut
+  },
+
+  SET_RECRUITMENT_DATES(state: IState, payload: [...string[]]) {
+    state.recruitmentDates = payload
   }
 }
 
@@ -106,4 +141,18 @@ export const actions = {
       })
     }
   }
+}
+
+const getDiff = (date1Str: string, date2Str: string) => {
+  const date1 = new Date(date1Str)
+  const date2 = new Date(date2Str)
+
+  // getTimeメソッドで経過ミリ秒を取得し、２つの日付の差を求める
+  const msDiff = date2.getTime() - date1.getTime()
+
+  // 求めた差分（ミリ秒）を日付へ変換します（経過ミリ秒÷(1000ミリ秒×60秒×60分×24時間)。端数切り捨て）
+  let daysDiff = Math.floor(msDiff / (1000 * 60 * 60 * 24))
+
+  // 差分へ1日分加算して返却します
+  return ++daysDiff
 }

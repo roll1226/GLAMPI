@@ -24,9 +24,13 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { IList } from '@/store/glammityCreate'
 
 @Component
-export default class PlanCreateGlammity extends Vue {
+export default class OptionCreateGlammity extends Vue {
   get dropdown(): IList[] {
     return this.$store.state.glammityCreate.optionList
+  }
+
+  get option(): string {
+    return this.$store.state.glammityCreate.planTitle
   }
 
   set option(value: string) {

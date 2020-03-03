@@ -27,6 +27,10 @@ export default class PlanCreateGlammity extends Vue {
     return this.$store.state.glammityCreate.planList
   }
 
+  get plan(): string {
+    return this.$store.state.glammityCreate.planTitle
+  }
+
   set plan(value: string) {
     const target = this.dropdown.find((city: IList) => {
       return city.text === value

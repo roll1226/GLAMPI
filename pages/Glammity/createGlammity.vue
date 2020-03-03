@@ -8,6 +8,7 @@
       <GlammityOption />
       <GuestNumber />
       <Schedule />
+      <Recruitment />
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@ import Plan from '@/components/CreateGlammity/Plan.vue'
 import GuestNumber from '@/components/CreateGlammity/GuestNumber.vue'
 import Schedule from '@/components/CreateGlammity/Schedule.vue'
 import GlammityOption from '@/components/CreateGlammity/GlammityOption.vue'
+import Recruitment from '@/components/CreateGlammity/Recruitment.vue'
 
 @Component({
   components: {
@@ -28,7 +30,8 @@ import GlammityOption from '@/components/CreateGlammity/GlammityOption.vue'
     Plan,
     GuestNumber,
     Schedule,
-    GlammityOption
+    GlammityOption,
+    Recruitment
   }
 })
 export default class CreateGlammity extends Vue {}
