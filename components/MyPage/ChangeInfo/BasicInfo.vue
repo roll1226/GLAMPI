@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <v-row class="flex-column">
     <seimei />
     <seimeiKana />
     <email />
     <addressForm />
-    <username></username>
-    <comment></comment>
+    <username />
+    <comment />
     <v-row>
       <v-col>
         <v-btn>退会</v-btn>
@@ -14,7 +14,7 @@
         <v-btn>変更</v-btn>
       </v-col>
     </v-row>
-  </div>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'

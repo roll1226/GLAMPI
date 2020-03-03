@@ -135,10 +135,8 @@ export default class mypage extends Vue {
         text-align: center;
         margin: 15px 0 0 0;
       }
-      //ChangeInfoBtn位置
       .change-info-btn {
         margin: 20px 0 0 0;
-        //background-color: aquamarine;
         .v-btn {
           margin: 20px 0 0 0;
           width: 180px;
@@ -175,43 +173,13 @@ export default class mypage extends Vue {
     //mypage,ChangeInfoコンポーネント
     .changeInfo-wrap {
       .row {
-        margin: 30px 0 0 0;
-        max-width: 100%;
-        .v-icon {
-          margin: 20px 10px 0 0;
-        }
-
-        //seimeiコンポーネント
-
-        //addressコンポーネント
-        .postal {
-          width: 250px;
-          .postal-b {
-            width: 80px;
-          }
-          p {
-            width: max-content;
-            margin: 20px 0px 0 0;
-          }
-          .postal-a {
-            width: 100px;
+        margin: 20px 0 0 0;
+        .row {
+          margin: 30px 0 0 0;
+          .row {
+            margin: 0 0 0 0;
           }
         }
-        .kensaku {
-          margin: 12px 0 0 10px;
-        }
-        .address {
-          margin-left: 36px;
-        } //addressコンポーネントここまで
-
-        //メール送信btn
-        .mail {
-          margin: 12px 0 0 10px;
-        }
-      }
-      //コンポーネント内で二重になってるv-rowの上余白削除
-      .margin-delete {
-        margin: 0 0 0 0;
       }
     }
   }
@@ -257,45 +225,9 @@ export default class mypage extends Vue {
       }
 
       .changeInfo-wrap {
-        margin: 30px 15px 20px;
+        margin: 30px 10px 20px;
         .row {
-          .v-input {
-            //全入力フォームのwidth固定
-            width: 266px;
-          }
-
-          //郵便番号「xxx-xxxx」全体
-          .postal {
-            width: 200px;
-            .postal-b {
-              width: 70px;
-              margin: 0 8px 0 0;
-            }
-            p {
-              margin: 20px 8px 0 0;
-            }
-            .postal-a {
-              width: 90px;
-              margin: 0 8px 0 0;
-            }
-          }
-          //検索btn
-          .kensaku {
-            margin: 10px 0 0 0;
-          }
-          //メール送信btn
-          .mail {
-            margin: 0 0 0 143px;
-          }
-
-          .under {
-            //同じコンポーネント内で２行目はアイコン分の左余白
-            margin-left: 34px;
-          }
         }
-      }
-
-      .bList-wrap {
       }
     }
   }

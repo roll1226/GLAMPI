@@ -1,51 +1,49 @@
 <template>
-  <div>
-    <v-row no-gutters>
-      <v-col cols="auto"> <v-icon>mdi-home</v-icon> </v-col>
-      <v-col cols="auto">
-        <v-row no-gutters class="margin-delete postal" justify="space-between">
-          <v-col cols="auto">
+  <v-row no-gutters>
+    <v-col cols="12">
+      <v-row no-gutters class="align-baseline">
+        <v-col cols="auto"> <v-icon>mdi-home</v-icon> </v-col>
+        <v-col class="d-flex flex-wrap">
+          <v-col cols="3" sm="2" class="py-0 pr-0">
             <v-text-field
               v-model="postalCode1"
               v-mask="POST"
-              class="postal-b"
               label="xxx"
               :rules="[rules.post1]"
             ></v-text-field>
           </v-col>
-          <v-col cols="auto"><p>―</p></v-col>
-          <v-col cols="auto">
+          <v-col cols="auto" class="py-0 pr-0">
+            <p class="ma-0 mt-5">―</p>
+          </v-col>
+          <v-col cols="4" sm="2" class="py-0 pr-0">
             <v-text-field
               v-model="postalCode2"
               v-mask="POST1"
-              class="postal-a"
               label="xxxx"
               :rules="[rules.post2]"
             ></v-text-field>
           </v-col>
-        </v-row>
-      </v-col>
+          <v-col class="pr-0">
+            <v-btn outlined @click="checkCode()">検索</v-btn>
+          </v-col>
+        </v-col>
+      </v-row>
+    </v-col>
 
-      <v-col>
-        <v-btn outlined class="kensaku" @click="checkCode()">検索</v-btn>
-      </v-col>
-    </v-row>
-    <v-row no-gutters class="margin-delete">
-      <v-col class="under address">
-        <v-text-field
-          v-model="streetAddress"
-          label="住所"
-          :rules="[
-            rules.isStreetAddress,
-            rules.streetAddressLength,
-            rules.streetAddressFormatSpace,
-            rules.streetAddressFormatFullwidth
-          ]"
-          counter="50"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-  </div>
+    <v-col class="pl-9">
+      <v-text-field
+        v-model="streetAddress"
+        label="住所"
+        :rules="[
+          rules.isStreetAddress,
+          rules.streetAddressLength,
+          rules.streetAddressFormatSpace,
+          rules.streetAddressFormatFullwidth
+        ]"
+        counter="50"
+      ></v-text-field>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
