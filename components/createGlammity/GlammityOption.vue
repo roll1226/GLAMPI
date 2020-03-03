@@ -2,12 +2,14 @@
   <div>
     <v-row>
       <v-col sm="2">
-        <h2>プラン名</h2>
+        <h2>
+          オプション
+        </h2>
       </v-col>
       <v-col sm="9">
         <v-overflow-btn
-          v-model="plan"
-          label="プラン名"
+          v-model="option"
+          label="オプション"
           :items="dropdown"
           :rules="[rules.isPlanName]"
           item-value="text"
@@ -24,14 +26,15 @@ import { IList } from '@/store/glammityCreate'
 @Component
 export default class PlanCreateGlammity extends Vue {
   get dropdown(): IList[] {
-    return this.$store.state.glammityCreate.planList
+    return this.$store.state.glammityCreate.optionList
   }
 
-  set plan(value: string) {
+  set option(value: string) {
     const target = this.dropdown.find((city: IList) => {
       return city.text === value
     })
-    this.$store.commit('glammityCreate/SET_PLAN_ID', target)
+    console.log(target)
+    this.$store.commit('glammityCreate/SET_OPTION_ID', target)
   }
 
   public rules: {} = {

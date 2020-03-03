@@ -4,13 +4,21 @@
       <v-col sm="2">
         <h2>施設名</h2>
       </v-col>
-      <v-col sm="9">
-        <v-overflow-btn
-          v-model="facilityName"
-          label="施設名"
-          :items="dropdown"
-          :rules="[rules.isFacilityName]"
-        ></v-overflow-btn>
+      <v-col sm="9" class="input-wrap">
+        <v-text-field
+          ref="searchInput"
+          v-model="query"
+          label="地域、施設名を入力して下さい。"
+          single-line
+          persistent-hint
+          dense
+          background-color="white"
+          color="rgb(87, 95, 69)"
+          @input="search"
+          @keydown.enter="onKeydownEnter($event.keyCode)"
+        ></v-text-field>
+
+        <SearchList @focus="focus" />
       </v-col>
     </v-row>
   </div>
@@ -18,25 +26,52 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import SearchList from '@/components/Card/Search/SearchList.vue'
 
-@Component
+@Component({
+  components: {
+    SearchList
+  }
+})
 export default class facilityNameCreateGlammity extends Vue {
-  get facilityName(): string {
-    return this.$store.state.createGlammity.facilityName
+  search() {
+    if (this.query === '') {
+      this.$store.commit('search/SET_SEARCH_LIST', [])
+      return
+    }
+
+    this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
   }
 
-  set facilityName(value: string) {
-    this.$store.commit('createGlammity/SET_FACILITY_NAME', value)
+  facilitySearch() {
+    this.$store.dispatch('glammityCreate/getPlan', this.query)
+    this.$store.commit('search/SET_SEARCH_LIST', [])
   }
-  dropdown: [...string[]] = []
-  created() {
-    for (let index = 0; index < 1000; index++) {
-      const x = 0
-      this.dropdown.push(String(x + index))
-    }
+
+  onKeydownEnter(keyCode: number) {
+    if (keyCode !== 13) return
+    // 実行したい処理
+    this.facilitySearch()
   }
-  public rules: {} = {
-    isFacilityName: (v: string) => !!v || '施設名は必ず選択してください。'
+
+  focus() {
+    this.$store.dispatch('glammityCreate/getPlan', this.query)
+    const searchInput: any = this.$refs.searchInput
+    searchInput.focus()
+  }
+
+  get query(): string {
+    return this.$store.state.search.queryText
+  }
+
+  set query(val: string) {
+    this.$store.commit('search/SET_QUERY_TEXT', val)
   }
 }
 </script>
+
+<style lang="scss">
+.input-wrap {
+  position: relative;
+}
+</style>

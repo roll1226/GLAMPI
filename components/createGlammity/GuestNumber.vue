@@ -6,7 +6,7 @@
       </v-col>
       <v-col sm="9">
         <v-overflow-btn
-          v-model="people"
+          v-model="guestNumber"
           label="募集人数"
           :items="dropdown"
           :rules="[rules.isPeople]"
@@ -21,17 +21,17 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class PeopleCreateGlammity extends Vue {
-  get people(): string {
-    return this.$store.state.createGlammity.recruitmentNumbers
+  get guestNumber(): string {
+    return this.$store.state.glammityCreate.guestNumber
   }
 
-  set people(value: string) {
-    this.$store.commit('createGlammity/SET_RECRUITMENT_NUMBERS', value)
+  set guestNumber(value: string) {
+    this.$store.commit('glammityCreate/SET_GUEST_NUMBER', value)
   }
   dropdown: [...string[]] = []
   created() {
-    for (let index = 0; index < 10; index++) {
-      const x = 1
+    for (let index = 0; index < 9; index++) {
+      const x = 2
       this.dropdown.push(String(x + index))
     }
   }
