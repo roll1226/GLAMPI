@@ -32,6 +32,10 @@ import SearchList from '@/components/Card/Search/SearchList.vue'
   }
 })
 export default class algolie extends Vue {
+  created() {
+    this.$store.commit('search/RESET_FACILITY_QUERY')
+  }
+
   search() {
     if (this.query === '') {
       this.$store.commit('search/SET_SEARCH_LIST', [])

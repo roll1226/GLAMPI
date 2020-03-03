@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-3">
     <h1>GLAMMITY作成ページ</h1>
     <div class="mx-12">
       <GlammityName />
@@ -7,8 +7,11 @@
       <Plan />
       <GlammityOption />
       <GuestNumber />
-      <Schedule />
       <Recruitment />
+      <Schedule />
+      <CommentGlammityCreate />
+
+      <CreateBtn />
     </div>
   </div>
 </template>
@@ -22,6 +25,8 @@ import GuestNumber from '@/components/CreateGlammity/GuestNumber.vue'
 import Schedule from '@/components/CreateGlammity/Schedule.vue'
 import GlammityOption from '@/components/CreateGlammity/GlammityOption.vue'
 import Recruitment from '@/components/CreateGlammity/Recruitment.vue'
+import CommentGlammityCreate from '@/components/CreateGlammity/Comment.vue'
+import CreateBtn from '@/components/Btn/Glammity/Create/CreateBtn.vue'
 
 @Component({
   components: {
@@ -31,8 +36,14 @@ import Recruitment from '@/components/CreateGlammity/Recruitment.vue'
     GuestNumber,
     Schedule,
     GlammityOption,
-    Recruitment
+    Recruitment,
+    CommentGlammityCreate,
+    CreateBtn
   }
 })
-export default class CreateGlammity extends Vue {}
+export default class CreateGlammity extends Vue {
+  created() {
+    this.$store.commit('search/RESET_FACILITY_QUERY')
+  }
+}
 </script>

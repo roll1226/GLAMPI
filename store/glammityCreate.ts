@@ -10,6 +10,7 @@ interface ICommit {
 export interface IList {
   id: string
   text: string
+  pay: number
 }
 
 interface IState {
@@ -26,6 +27,9 @@ interface IState {
   recruitmentDates: [...string[]]
   dates: [...string[]]
   totalDate: number
+  comment: string
+  planPay: number
+  optionPay: number
 }
 
 export const state = (): IState => ({
@@ -34,14 +38,17 @@ export const state = (): IState => ({
   facilityId: '',
   planId: '',
   planTitle: '',
+  planPay: 0,
   planList: [],
   optionId: '',
   optionTitle: '',
+  optionPay: 0,
   optionList: [],
   guestNumber: 0,
   dates: [],
   recruitmentDates: [],
-  totalDate: 0
+  totalDate: 0,
+  comment: ''
 })
 
 export const mutations = {
@@ -59,10 +66,14 @@ export const mutations = {
 
   SET_PLAN_ID(state: IState, payload: IList) {
     state.planId = payload.id
+    state.planTitle = payload.text
+    state.planPay = payload.pay
   },
 
   SET_OPTION_ID(state: IState, payload: IList) {
     state.optionId = payload.id
+    state.optionTitle = payload.text
+    state.optionPay = payload.pay
   },
 
   SET_FACILITY_ID(state: IState, payload: string) {
@@ -100,11 +111,28 @@ export const mutations = {
 
   SET_RECRUITMENT_DATES(state: IState, payload: [...string[]]) {
     state.recruitmentDates = payload
+  },
+
+  SET_COMMENT(state: IState, payload: string) {
+    state.comment = payload
+  },
+
+  RESET_DATA(state: IState) {
+    state.planId = ''
+    state.planList = []
+    state.optionId = ''
+    state.optionList = []
+    state.totalDate = 0
+    state.planPay = 0
+    state.optionPay = 0
+    state.dates = []
+    state.recruitmentDates = []
   }
 }
 
 export const actions = {
   async getPlan(dispatch: ICommit, payload: string) {
+    dispatch.commit('RESET_DATA')
     const facility = await firestore
       .collection('facilities')
       .where('name', '==', payload)
@@ -113,7 +141,7 @@ export const actions = {
 
     console.log(facility.docs[0].id)
     dispatch.commit('SET_FACILITY_NAME', payload)
-    dispatch.commit('SET_FACILITY_ID', facility.docs[0].id)
+    dispatch.commit('SET_FACILITY_ID', facility.docs[0].data().displayName)
 
     const plans = await firestore
       .collection('facilities')
@@ -124,7 +152,8 @@ export const actions = {
     for (let index = 0; index < plans.size; index++) {
       dispatch.commit('SET_PLAN_LIST', {
         id: plans.docs[index].id,
-        text: plans.docs[index].data().planTitle
+        text: plans.docs[index].data().planTitle,
+        pay: plans.docs[index].data().pay
       })
     }
 
@@ -137,7 +166,8 @@ export const actions = {
     for (let index = 0; index < options.size; index++) {
       dispatch.commit('SET_OPTION_LIST', {
         id: options.docs[index].id,
-        text: options.docs[index].data().title
+        text: options.docs[index].data().title,
+        pay: options.docs[index].data().pay
       })
     }
   }

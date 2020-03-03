@@ -122,7 +122,7 @@ export default class JoinBtn extends Vue {
 
   goGroup() {
     this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
-    this.$router.push(`/glammity/Group/${this.glammityId}/glammityGroup`)
+    this.$router.push(`/Glammity/Group/${this.glammityId}/glammityGroup`)
   }
 }
 </script>

@@ -15,7 +15,6 @@
           background-color="white"
           color="rgb(87, 95, 69)"
           @input="search"
-          @keydown.enter="onKeydownEnter($event.keyCode)"
         ></v-text-field>
 
         <SearchList @focus="focus" />
@@ -41,17 +40,6 @@ export default class facilityNameCreateGlammity extends Vue {
     }
 
     this.$store.dispatch('search/SEARCH_ALGOLIA', this.query)
-  }
-
-  facilitySearch() {
-    this.$store.dispatch('glammityCreate/getPlan', this.query)
-    this.$store.commit('search/SET_SEARCH_LIST', [])
-  }
-
-  onKeydownEnter(keyCode: number) {
-    if (keyCode !== 13) return
-    // 実行したい処理
-    this.facilitySearch()
   }
 
   focus() {

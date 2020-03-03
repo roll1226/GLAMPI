@@ -23,22 +23,29 @@
       <v-btn
         outlined
         class="glammity-btn"
-        :to="`/glammity/${url}/glammityIntroduction`"
+        :to="`/Glammity/${url}/glammityIntroduction`"
       >
         詳細
       </v-btn>
       <!-- 参加する -->
-      <v-btn outlined class="glammity-btn" to="">
-        参加
-      </v-btn>
+      <JoinBtn
+        :is-block="true"
+        :glammity-name="glammityName"
+        :glammity-id="url"
+      />
     </v-card-actions>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import JoinBtn from '@/components/Btn/Glammity/JoinBtn.vue'
 
-@Component
+@Component({
+  components: {
+    JoinBtn
+  }
+})
 export default class GlammityCard extends Vue {
   @Prop({ required: true, default: '' })
   glammityImage!: string

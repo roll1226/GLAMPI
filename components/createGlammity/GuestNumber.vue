@@ -22,12 +22,13 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class PeopleCreateGlammity extends Vue {
   get guestNumber(): string {
-    return this.$store.state.glammityCreate.guestNumber
+    return String(this.$store.state.glammityCreate.guestNumber)
   }
 
   set guestNumber(value: string) {
     this.$store.commit('glammityCreate/SET_GUEST_NUMBER', value)
   }
+
   dropdown: [...string[]] = []
   created() {
     for (let index = 0; index < 9; index++) {
