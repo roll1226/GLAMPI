@@ -328,69 +328,9 @@
             </v-col>
           </v-row>
         </v-row>
-        <div id="app">
-          <h2>スライド画像</h2>
-          <!-- <input
-            v-if="!isSelected && !mustReset"
-            :name="uploadFieldName"
-            accept="image/*"
-            type="file"
-            class="input-file"
-            @change="getFileName"
-          />
-          <div v-else>
-            <div class="preview">
-              <img
-                v-show="uploadedImage"
-                v-if="imageUrl"
-                :src="imageUrl"
-                alt="preview"
-              />
-            </div>
-            <div class="buttons">
-              <a class="button" @click="reset">cancel </a>
-              <a class="button" @click="upload">upload</a>
-            </div>
-          </div>-->
-        </div>
-
-        <!-- <v-file-input
-          v-model="file"
-          accept="image/*"
-          @change="getFileName"
-        ></v-file-input> -->
-        <!--
-    <v-card>
+        <div id="app"></div>
+      </v-container>
       <v-container>
-        情報登録
-        <v-textarea label="施設紹介" name=""></v-textarea>
-        予約プラン
-        <v-layout row>
-          <v-flex xs4>
-            <v-flex xs11>
-              <v-file-input
-                v-model="file"
-                accept="image/*"
-                label="File input"
-                @change="getFileName"
-              ></v-file-input>
-              <v-img
-                v-show="uploadedImage"
-                :src="uploadedImage"
-                aspect-ratio="1"
-                class="grey lighten-2"
-                max-width="250"
-                max-height="200"
-              ></v-img>
-              <canvas id="canvas"></canvas>
-            </v-flex>
-          </v-flex>
-          <v-flex xs7>
-            <v-text-field label="プランタイトル" single-line></v-text-field>
-            <v-text-field label="サブタイトル" single-line></v-text-field>
-            <v-text-field label="値段" single-line></v-text-field>
-          </v-flex>
-        </v-layout>
         スライド画像
         <v-file-input
           v-model="file"
@@ -405,9 +345,8 @@
           class="grey lighten-2"
           max-width="250"
           max-height="200"
-        ></v-img> -->
+        ></v-img>
         <canvas id="canvas"></canvas>
-        <!-- ></v-img> -->
       </v-container>
     </v-card>
   </div>
@@ -422,14 +361,6 @@ interface imageType {
   name: string
   type: string
 }
-
-// import { storage } from '@/plugins/firebase'
-// interface imageType {
-//   file: string
-//   name: string
-//   type: string
-// }
-
 @Component({
   components: {
     ReservationPlan
@@ -501,6 +432,9 @@ export default class reservationInfoEdit extends Vue {
     this.add9 = 1
     this.hidden9 = !this.hidden9
   }
+  // btnclick(){
+
+  // }
   getFileName(e: any) {
     this.createImage(this.file)
     storage
@@ -522,33 +456,5 @@ export default class reservationInfoEdit extends Vue {
     }
     reader.readAsDataURL(file)
   }
-  //   test?: string = ''
-  //   file?: object[] = []
-  //   uploadedImage: string =
-  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5s_Eb1IVAun_V4M-QW_6VrE5xYSSluHdb-F5Hp4Qv5FgeEZee&s'
-  //   getFileName(e: any) {
-  //     this.createImage(this.file)
-  //     storage
-  //       .ref()
-  //       .child(`images/${e.name}`)
-  //       .put(e)
-  //       .then(() => {
-  //         console.log('Uploaded a blob or file!')
-  //       })
-  //       .catch((e: any) => {
-  //         console.log(e)
-  //       })
-  //     this.test = e
-  //   }
-  //   createImage(file: any) {
-  //     const reader = new FileReader()
-  //     reader.onload = (e: any) => {
-  //       this.uploadedImage = e.target.result
-  //     }
-  //     reader.readAsDataURL(file)
-  //   }
-  // file?: object[] = []
-  // uploadedImage: string = ''
-  // getFileName() {}
 }
 </script>
