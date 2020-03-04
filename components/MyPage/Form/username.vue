@@ -1,11 +1,14 @@
 <template>
-  <v-row no-gutters>
-    <v-col cols="auto"> <v-icon>mdi-account-circle</v-icon> </v-col>
-    <v-col>
+  <v-row no-gutters class="align-baseline">
+    <v-col cols="auto">
+      <v-icon>mdi-account-circle</v-icon>
+    </v-col>
+    <v-col class="pl-3">
       <v-text-field
         v-model="username"
         label="ユーザ名"
         :rules="[rules.usernameLength]"
+        counter="20"
       ></v-text-field>
     </v-col>
   </v-row>

@@ -9,7 +9,7 @@ interface ICommit {
 }
 
 export interface IFacility {
-  info: [...string[]]
+  info: ''
   email: string
   phoneNumber: string
   name: string
@@ -76,7 +76,7 @@ interface IState {
 
 export const state = (): IState => ({
   facility: {
-    info: [],
+    info: '',
     email: '',
     phoneNumber: '',
     name: '',
@@ -155,7 +155,7 @@ export const mutations = {
 
   RESET_FACILITY_INFO(state: IState) {
     state.facility = {
-      info: [],
+      info: '',
       email: '',
       phoneNumber: '',
       name: '',
