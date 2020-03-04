@@ -30,7 +30,11 @@
             readonly
           ></v-text-field>
           <div class="text-center">
-            <v-date-picker locale="ja-jp"></v-date-picker>
+            <v-date-picker
+              locale="ja-jp"
+              :show-current="false"
+              :day-format="(date) => new Date(date).getDate()"
+            ></v-date-picker>
           </div>
         </template>
       </v-card-text>
