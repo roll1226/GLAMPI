@@ -11,8 +11,27 @@
           </v-btn>
         </div>
 
-        <template v-if="isInput === 'input'">
+        <template v-if="isInput === 'fields'">
           <v-text-field :label="info" single-line></v-text-field>
+        </template>
+
+        <template v-else-if="isInput === 'areas'">
+          <v-textarea :label="info"></v-textarea>
+        </template>
+
+        <template v-else-if="isInput === 'overflow'">
+          <v-overflow-btn></v-overflow-btn>
+        </template>
+
+        <template v-else-if="isInput === 'date'">
+          <v-text-field
+            label="募集日程"
+            prepend-icon="mdi-calendar"
+            readonly
+          ></v-text-field>
+          <div class="text-center">
+            <v-date-picker locale="ja-jp"></v-date-picker>
+          </div>
         </template>
       </v-card-text>
     </v-card>
@@ -21,6 +40,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import moment from 'moment'
 
 @Component
 export default class ChangeInfo extends Vue {
@@ -31,6 +51,12 @@ export default class ChangeInfo extends Vue {
   info!: string
 
   @Prop({ required: true, default: '' })
-  isInput!: 'input' | 'overflow' | 'date'
+  isInput!: 'fields' | 'areas' | 'overflow' | 'date'
+
+  nowDate: string = ''
+
+  created() {
+    this.nowDate = moment(new Date()).format('YYYY-MM-DD')
+  }
 }
 </script>

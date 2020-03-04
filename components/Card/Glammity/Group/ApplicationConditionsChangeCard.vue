@@ -8,15 +8,16 @@
       <ChangeInfo
         title="Glammity名"
         :info="`テストGlammity`"
-        is-input="input"
+        is-input="fields"
       />
+
       <ChangeInfo
         title="募集人数"
         :info="`テストGlammity`"
         is-input="overflow"
       />
 
-      <ChangeInfo title="コメント" :info="`テストGlammity`" is-input="input" />
+      <ChangeInfo title="コメント" :info="`テストGlammity`" is-input="areas" />
 
       <ChangeInfo title="募集日程" :info="`テストGlammity`" is-input="date" />
     </v-row>
