@@ -12,7 +12,7 @@
         ></v-img>
       </v-col>
 
-      <v-col>
+      <v-col cols="7">
         <v-file-input
           v-model="inputImage"
           class="imageInput"
@@ -47,12 +47,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 const uuid = require('uuid/v4')
-
-interface imageType {
-  file: string
-  name: string
-  type: string
-}
 
 @Component
 export default class FacilityOptionEdit extends Vue {
@@ -93,6 +87,13 @@ export default class FacilityOptionEdit extends Vue {
   set details(value: string) {
     this.$store.commit('facilityEdit/SET_OPTION_EDIT_DETAILS', {
       value,
+      cnt: this.indexCnt
+    })
+  }
+
+  created() {
+    this.$store.commit('facilityEdit/SET_OPTION_EDIT_UID', {
+      value: this.optionUuid,
       cnt: this.indexCnt
     })
   }

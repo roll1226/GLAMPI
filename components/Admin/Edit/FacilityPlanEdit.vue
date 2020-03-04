@@ -12,7 +12,7 @@
         ></v-img>
       </v-col>
 
-      <v-col class="pt-0">
+      <v-col class="pt-0" cols="7">
         <v-file-input
           v-model="inputImage"
           class="imageInput"
