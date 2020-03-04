@@ -111,7 +111,7 @@ export default class JoinBtn extends Vue {
   }
 
   closeCard() {
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
+    this.dialog = false
   }
 
   goGroup() {
