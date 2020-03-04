@@ -7,6 +7,8 @@
         </h3>
       </v-col>
     </v-row>
+
+    {{ glammitys }}
     <v-row class="top-page-cards">
       <v-col
         v-for="(glammity, cardIndex) in glammitys"
