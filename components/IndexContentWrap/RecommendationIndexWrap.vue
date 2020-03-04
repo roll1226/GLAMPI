@@ -9,7 +9,7 @@
     </v-row>
     <v-row class="top-page-cards">
       <v-col
-        v-for="(facility, facilityIndex) in facilityCard"
+        v-for="(facility, facilityIndex) in facilities"
         :key="facilityIndex"
         lg="3"
         md="3"
@@ -20,6 +20,7 @@
           :facility-image="facility.src"
           :facility-name="facility.title"
           :introduction="facility.text"
+          :url="facility.url"
         />
       </v-col>
     </v-row>
@@ -29,12 +30,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import FacilityCard from '@/components/Card/Facility/FacilityCard.vue'
-
-interface ICard {
-  title: string
-  text: string
-  src: string
-}
+import { IFacility } from '@/store'
 
 @Component({
   components: {
@@ -42,27 +38,8 @@ interface ICard {
   }
 })
 export default class RecommendationIndexWrap extends Vue {
-  facilityCard: ICard[] = [
-    {
-      title: '施設1',
-      text: '凄い',
-      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
-    },
-    {
-      title: '施設2',
-      text: 'やばい',
-      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
-    },
-    {
-      title: '施設3',
-      text: '博俊',
-      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
-    },
-    {
-      title: '施設4',
-      text: '優人',
-      src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
-    }
-  ]
+  get facilities(): IFacility[] {
+    return this.$store.state.getFacilityList
+  }
 }
 </script>
