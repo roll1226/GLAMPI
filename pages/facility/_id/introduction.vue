@@ -38,10 +38,11 @@
     </v-carousel>
 
     <v-card>
-      <v-card-text class="text-left mt-5" max-width="300">
-        <div v-for="(info, index) in facility.info" :key="index">
-          {{ info }}
-        </div>
+      <v-card-text
+        class="text-left mt-5 white-space: pre;"
+        max-width="300"
+        v-text="facility.info"
+      >
       </v-card-text>
     </v-card>
 
