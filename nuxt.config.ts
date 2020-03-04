@@ -16,6 +16,10 @@ export default {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
+      },
+      {
+        name: 'robots',
+        content: 'noindex'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -90,7 +94,8 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config: any, ctx: any) {// eslint-disable-line
+    extend(config: any, ctx: any) {
+      // eslint-disable-line
     }
   }
 }
