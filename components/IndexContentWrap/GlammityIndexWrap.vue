@@ -9,7 +9,7 @@
     </v-row>
     <v-row class="top-page-cards">
       <v-col
-        v-for="(glammity, cardIndex) in cards"
+        v-for="(glammity, cardIndex) in glammitys"
         :key="cardIndex"
         lg="3"
         md="3"
@@ -20,6 +20,7 @@
           :glammity-image="glammity.src"
           :glammity-name="glammity.title"
           :introduction="glammity.text"
+          :url="glammity.url"
         />
       </v-col>
     </v-row>
@@ -29,12 +30,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
-
-interface ICard {
-  title: string
-  text: string
-  src: string
-}
+import { IGlammity } from '@/store'
 
 @Component({
   components: {
@@ -42,27 +38,8 @@ interface ICard {
   }
 })
 export default class GlammityIndexWrap extends Vue {
-  cards: ICard[] = [
-    {
-      title: 'GLAMMITY1',
-      text: '凄い',
-      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
-    },
-    {
-      title: 'GLAMMITY2',
-      text: 'やばい',
-      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
-    },
-    {
-      title: 'GLAMMITY3',
-      text: '博俊',
-      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
-    },
-    {
-      title: 'GLAMMITY4',
-      text: '優人',
-      src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
-    }
-  ]
+  get glammitys(): IGlammity {
+    return this.$store.state.getGlammityList
+  }
 }
 </script>

@@ -39,7 +39,13 @@ import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
     TagIndexWrap
   }
 })
-export default class IndexPage extends Vue {}
+export default class IndexPage extends Vue {
+  created() {
+    this.$store.commit('RESET_GLAMMITY_DATA')
+    this.$store.dispatch('getGlammity')
+    this.$store.dispatch('getFacility')
+  }
+}
 </script>
 
 <style lang="scss">
