@@ -182,6 +182,14 @@ export default class mypage extends Vue {
         }
       }
     }
+
+    //mypage,BookingListコンポーネント
+    .bList-wrap {
+      //各カード間のmargin(margin-bottom)
+      .v-card {
+        margin: 0 0 35px 0;
+      }
+    }
   }
 }
 
@@ -226,7 +234,12 @@ export default class mypage extends Vue {
 
       .changeInfo-wrap {
         margin: 30px 10px 20px;
-        .row {
+      }
+
+      .bList-wrap {
+        .v-card {
+          margin: 0 0 30px 0;
+          padding: 0;
         }
       }
     }

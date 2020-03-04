@@ -1,22 +1,22 @@
 <template>
   <v-card outlined>
     <v-container>
-      <v-row justify="space-between" no-gutters>
-        <v-col cols="auto" class="image">
-          <v-img height="200" max-width="340" :src="facilityImg"></v-img>
+      <v-row justify="center" no-gutters>
+        <v-col cols="12" sm="auto">
+          <v-img height="220" width="300" :src="facilityImg"></v-img>
         </v-col>
 
-        <v-col class="text">
-          <v-row no-gutters>
+        <v-col cols="12" sm="" md="" lg="" class="facility-content">
+          <v-row no-gutters class="flex-column">
             <v-col>
-              <v-list-item-content class="pt-0 pb-5">
-                <v-list-item-title class="headline">
+              <v-card-text class="pa-0">
+                <v-card-title class="pl-0 pt-sm-0">
                   {{ fasilityName }}
-                </v-list-item-title>
-                <v-list-item-subtitle>
+                </v-card-title>
+                <v-card-subtitle class="pl-0">
                   {{ address }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
+                </v-card-subtitle>
+              </v-card-text>
             </v-col>
           </v-row>
 
@@ -38,21 +38,20 @@
               {{ planPay }}
             </v-col>
           </v-row>
-
-          <v-card-actions class="pa-0">
-            <v-row no-gutters>
-              <v-col>
+          <v-row no-gutters>
+            <v-card-actions class="pa-0">
+              <v-col class="pa-0">
                 <v-btn class="status">
                   {{ status }}
                 </v-btn>
               </v-col>
-              <v-col>
-                <v-btn class="action-btn">
+              <v-col class="pa-0">
+                <v-btn>
                   {{ cancel }}
                 </v-btn>
               </v-col>
-            </v-row>
-          </v-card-actions>
+            </v-card-actions>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -93,21 +92,33 @@ export default class BookingFasility extends Vue {
 <style lang="scss">
 .v-card {
   .container {
-    padding: 40px 20px;
-    .image {
+    //各カード内余白
+    padding: 40px 25px;
+
+    .row {
+      //background-color: antiquewhite;
+      .col {
+        .row {
+          .col {
+          }
+        }
+      }
     }
-    .text {
-      margin: 0 0 0 16px;
-      //写真の右
-      .v-listitem__content {
-      }
-      .v-btn {
-        height: 46px;
-        border-radius: 8px;
-      }
-      .status {
-        width: 120px;
-        background-color: $site_color_6;
+  }
+}
+@media screen and (max-width: 770px) {
+  .v-card {
+    .container {
+      //各カード内余白
+      padding: 30px 20px;
+
+      .row {
+        .col {
+          .row {
+            .col {
+            }
+          }
+        }
       }
     }
   }
