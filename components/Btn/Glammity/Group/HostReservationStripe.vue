@@ -1,20 +1,12 @@
 <template>
   <div>
-    {{ estimatedAmount.info }}
-
-    <div class="mt-6">
-      <v-btn class="light-blue darken-4 white--text" @click="openDialog">
-        予約する
-      </v-btn>
-    </div>
+    <v-btn @click="openStripe">
+      します
+    </v-btn>
 
     <v-row justify="center">
-      <v-dialog
-        v-model="chareDialog"
-        max-width="300"
-        :persistent="guestLoading"
-      >
-        <v-card :loading="guestLoading">
+      <v-dialog v-model="hostDialog" max-width="450" :persistent="hostLoading">
+        <v-card :loading="hostLoading">
           <v-toolbar dark class="grey lighten-1">
             <v-toolbar-title>
               クレジット支払い
@@ -66,10 +58,6 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { Card } from 'vue-stripe-elements-plus'
 import { IGlammityInfoList } from '@/store/glammityInfo'
-import { userStates } from '@/store/glammityGroup'
-
-// import { firestore, timestamp } from '@/plugins/firebase'
-// const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const api = process.env.STRIPE_PUBLIC_KEY
 
 @Component({
@@ -77,7 +65,7 @@ const api = process.env.STRIPE_PUBLIC_KEY
     Card
   }
 })
-export default class GlammityStripeBtn extends Vue {
+export default class HostReservationStripe extends Vue {
   complete: boolean = false
   stripeApiKey: string | undefined = api
   stripeOptions: { hidePostalCode: boolean } = {
@@ -97,21 +85,8 @@ export default class GlammityStripeBtn extends Vue {
     ]
   }
 
-  created() {
-    this.$store.commit('glammityInfo/CLEAR_INFO')
-    const url = this.$route.params.Glammity
-    this.$store.dispatch('glammityInfo/getGlammityInfo', url)
-  }
-
-  get guestLoading(): boolean {
+  get hostLoading(): boolean {
     return this.$store.state.glammityStripe.loading
-  }
-  get chareDialog(): boolean {
-    return this.$store.state.glammityStripe.dialog
-  }
-
-  set chareDialog(value: boolean) {
-    this.$store.commit('glammityStripe/SET_DIALOG', value)
   }
 
   get estimatedAmount(): IGlammityInfoList {
@@ -126,12 +101,8 @@ export default class GlammityStripeBtn extends Vue {
     return this.$store.state.glammityInfo.facilityId
   }
 
-  get checkIn(): string {
+  get date(): string {
     return this.$store.state.glammityInfo.date.checkIn
-  }
-
-  get checkOut(): string {
-    return this.$store.state.glammityInfo.date.checkOut
   }
 
   get stripeEmail(): string {
@@ -142,16 +113,20 @@ export default class GlammityStripeBtn extends Vue {
     return this.$store.state.login.userUid
   }
 
-  get userStates(): userStates {
-    return this.$store.state.glammityGroup.userStates
-  }
-
   set stripeEmail(value: string) {
     this.$store.commit('glammityStripe/SET_STRIPE_EMAIL', value)
   }
 
-  openDialog() {
-    this.$store.commit('glammityStripe/SET_DIALOG', true)
+  get hostDialog(): boolean {
+    return this.$store.state.glammityStripe.hostDialog
+  }
+
+  set hostDialog(value: boolean) {
+    this.$store.commit('glammityStripe/SET_HOST_DIALOG', value)
+  }
+
+  openStripe() {
+    this.$store.commit('glammityStripe/SET_HOST_DIALOG', true)
   }
 
   checkout() {
@@ -171,9 +146,7 @@ export default class GlammityStripeBtn extends Vue {
       userId: this.userId,
       glammityId: url,
       facilityId: this.facilityId,
-      checkIn: this.checkIn,
-      checkOut: this.checkOut,
-      userStates: this.userStates
+      date: this.date
     })
   }
 }

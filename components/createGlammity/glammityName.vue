@@ -21,11 +21,11 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class glammityNameCreateGlammity extends Vue {
   get glammityName(): string {
-    return this.$store.state.createGlammity.GlammityName
+    return this.$store.state.glammityCreate.glammityName
   }
 
   set glammityName(value: string) {
-    this.$store.commit('/createGlammitySET_GLAMMITY_NAME', value)
+    this.$store.commit('glammityCreate/SET_GLAMMITY_NAME', value)
   }
 
   public rules: {} = {

@@ -1,12 +1,12 @@
 <template>
   <div class="body-2 mb-1">
-    <h2>日程</h2>
+    <h2>募集日程</h2>
     <v-list-item three-line>
       <v-list-item-content>
         <v-list-item-title class="headline mb-1 text-center">
           <v-text-field
             v-model="schedule"
-            label="日程"
+            label="募集日程"
             prepend-icon="mdi-calendar"
             readonly
           ></v-text-field>
@@ -42,7 +42,7 @@ interface options {
     Options
   }
 })
-export default class ScheduleCreateGlammity extends Vue {
+export default class RecruitmentCreateGlammity extends Vue {
   nowDate: string = ''
 
   created() {
@@ -54,18 +54,21 @@ export default class ScheduleCreateGlammity extends Vue {
   }
 
   get dates(): [...string[]] {
-    return this.$store.state.glammityCreate.dates
+    return this.$store.state.glammityCreate.recruitmentDates
   }
 
   set dates(selectdates: [...string[]]) {
-    this.$store.commit('glammityCreate/SET_DATES', selectdates)
+    this.$store.commit('glammityCreate/SET_RECRUITMENT_DATES', selectdates)
     if (selectdates[1]) {
-      this.$store.commit('glammityCreate/SET_DATES', selectdates)
+      this.$store.commit('glammityCreate/SET_RECRUITMENT_DATES', selectdates)
       if (selectdates[0] > selectdates[1]) {
         const checkOut = selectdates[0]
         const checkIn = selectdates[1]
 
-        this.$store.commit('glammityCreate/SET_DATE_RE', { checkIn, checkOut })
+        this.$store.commit('glammityCreate/SET_RECRUITMENT_DATE_RE', {
+          checkIn,
+          checkOut
+        })
       }
     }
   }

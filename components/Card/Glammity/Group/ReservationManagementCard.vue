@@ -20,6 +20,10 @@
 
       <GlammityInfoCard :title="checkOut.title" :info="checkOut.info" />
     </v-row>
+
+    <v-card-actions>
+      <HostReservationBtn />
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -27,10 +31,12 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import GlammityInfoCard from '@/components/Card/Glammity/Group/GlammityInfoCard.vue'
 import { IGlammityInfoList } from '@/store/glammityInfo'
+import HostReservationBtn from '@/components//Btn/Glammity/Group/HostReservationBtn.vue'
 
 @Component({
   components: {
-    GlammityInfoCard
+    GlammityInfoCard,
+    HostReservationBtn
   }
 })
 export default class ReservationManagementCard extends Vue {

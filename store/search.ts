@@ -57,6 +57,10 @@ export const mutations = {
 
   RESET_FACILITY(state: IState) {
     state.facilityList = []
+  },
+
+  RESET_FACILITY_QUERY(state: IState) {
+    state.queryText = ''
   }
 }
 
