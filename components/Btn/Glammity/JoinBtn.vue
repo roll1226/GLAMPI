@@ -83,16 +83,10 @@ export default class JoinBtn extends Vue {
     return this.$store.state.glammityJoin.loading
   }
 
-  get dialog(): boolean {
-    return this.$store.state.glammityJoin.joinBtnDialog
-  }
+  dialog: boolean = false
 
   get isLogin(): boolean {
     return this.$store.state.login.isLogin
-  }
-
-  set dialog(dialog: boolean) {
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', dialog)
   }
 
   get isGroup(): isGroupStates {
@@ -108,7 +102,7 @@ export default class JoinBtn extends Vue {
       this.$store.commit('login/SET_LOGIN_DIALOG', true)
       return
     }
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', true)
+    this.dialog = true
     this.$store.commit('glammityJoin/SET_LOADING', true)
     this.$store.dispatch('glammityJoin/searchUser', {
       id: this.glammityId,
@@ -121,7 +115,6 @@ export default class JoinBtn extends Vue {
   }
 
   goGroup() {
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
     this.$router.push(`/Glammity/Group/${this.glammityId}/glammityGroup`)
   }
 }

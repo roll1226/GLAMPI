@@ -185,26 +185,6 @@ export const actions = {
     dispatch.commit('SET_GLAMMITY_FACILITY_NAME', facilityName)
   },
 
-  async joinGlammity(
-    dispatch: ICommit,
-    payload: { glammityId: string; userId: string }
-  ) {
-    console.log(payload)
-    try {
-      await firestore
-        .collection('glammity')
-        .doc(payload.glammityId)
-        .collection('member')
-        .doc(payload.userId)
-        .set({ userStates: 'guest' })
-
-      dispatch.commit('SET_LOADING', false)
-      dispatch.commit('SET_JOINED_BTN_DIALOG', true)
-    } catch (error) {
-      console.log(error)
-    }
-  },
-
   async searchUser(dispatch: ICommit, payload: { id: string; userId: string }) {
     const result = await firestore
       .collection('glammity')

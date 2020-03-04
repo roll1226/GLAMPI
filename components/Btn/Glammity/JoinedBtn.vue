@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { firestore } from '@/plugins/firebase'
 
 @Component
 export default class JoinedBtn extends Vue {
@@ -50,12 +51,17 @@ export default class JoinedBtn extends Vue {
     }
   }
 
-  Joining() {
+  async Joining() {
     this.$store.commit('glammityJoin/SET_LOADING', true)
-    this.$store.dispatch('glammityJoin/joinGlammity', {
-      glammityId: this.glammityId,
-      userId: this.userId
-    })
+    await firestore
+      .collection('glammity')
+      .doc(this.glammityId)
+      .collection('member')
+      .doc(this.userId)
+      .set({ userStates: 'guest' })
+
+    this.$store.commit('glammityJoin/SET_LOADING', false)
+    this.$store.commit('glammityJoin/SET_JOINED_BTN_DIALOG', true)
   }
 
   closeAll() {
