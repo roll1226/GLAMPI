@@ -66,6 +66,8 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { Card } from 'vue-stripe-elements-plus'
 import { IGlammityInfoList } from '@/store/glammityInfo'
+import { userStates } from '@/store/glammityGroup'
+
 // import { firestore, timestamp } from '@/plugins/firebase'
 // const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const api = process.env.STRIPE_PUBLIC_KEY
@@ -124,8 +126,12 @@ export default class GlammityStripeBtn extends Vue {
     return this.$store.state.glammityInfo.facilityId
   }
 
-  get date(): string {
+  get checkIn(): string {
     return this.$store.state.glammityInfo.date.checkIn
+  }
+
+  get checkOut(): string {
+    return this.$store.state.glammityInfo.date.checkOut
   }
 
   get stripeEmail(): string {
@@ -134,6 +140,10 @@ export default class GlammityStripeBtn extends Vue {
 
   get userId(): string {
     return this.$store.state.login.userUid
+  }
+
+  get userStates(): userStates {
+    return this.$store.state.glammityGroup.userStates
   }
 
   set stripeEmail(value: string) {
@@ -161,7 +171,9 @@ export default class GlammityStripeBtn extends Vue {
       userId: this.userId,
       glammityId: url,
       facilityId: this.facilityId,
-      date: this.date
+      checkIn: this.checkIn,
+      checkOut: this.checkOut,
+      userStates: this.userStates
     })
   }
 }

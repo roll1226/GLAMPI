@@ -10,10 +10,11 @@
       GLAMMITY紹介文
     </v-card-subtitle>
 
-    <v-card-text class="text--primary">
-      <div>
-        {{ introduction }}
-      </div>
+    <v-card-text
+      class="text--primary"
+      style="white-space: pre;"
+      v-text="introduction"
+    >
     </v-card-text>
 
     <v-card-actions>
