@@ -20,6 +20,7 @@
                 :glammity-image="glammity.src"
                 :glammity-name="glammity.title"
                 :introduction="glammity.text"
+                :url="glammity.url"
               />
             </v-col>
           </v-row>
@@ -39,12 +40,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
-
-interface IGlammity {
-  title: string
-  text: string
-  src: string
-}
+import { IGlammity } from '@/store/facilityGlammity'
 
 @Component({
   components: {
@@ -52,52 +48,56 @@ interface IGlammity {
   }
 })
 export default class GlammityListCard extends Vue {
-  pageSlice: number = 0
-  length: number = 0
-  page: number = 1
-
-  list: IGlammity[] = [
-    {
-      title: 'GLAMMITY1',
-      text: '凄い',
-      src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
-    },
-    {
-      title: 'GLAMMITY2',
-      text: 'やばい',
-      src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
-    },
-    {
-      title: 'GLAMMITY3',
-      text: '博俊',
-      src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
-    },
-    {
-      title: 'GLAMMITY4',
-      text: '優人',
-      src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
-    }
-  ]
-  displayLists?: IGlammity[] = []
-
-  created() {
-    if (window.parent.screen.width <= 420) {
-      this.pageSlice = 1
-    } else {
-      this.pageSlice = 3
-    }
+  get pageSlice(): number {
+    return this.$store.state.facilityGlammity.pageSlice
   }
 
-  mounted() {
-    this.length = Math.ceil(this.list.length / this.pageSlice)
-    this.displayLists = this.list.slice(0, this.pageSlice)
+  get length(): number {
+    return this.$store.state.facilityGlammity.length
+  }
+
+  get page(): number {
+    return this.$store.state.facilityGlammity.page
+  }
+
+  get displayLists(): IGlammity[] {
+    return this.$store.state.facilityGlammity.displayLists
+  }
+
+  // list: IGlammity[] = [
+  //   {
+  //     title: 'GLAMMITY1',
+  //     text: '凄い',
+  //     src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
+  //   },
+  //   {
+  //     title: 'GLAMMITY2',
+  //     text: 'やばい',
+  //     src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
+  //   },
+  //   {
+  //     title: 'GLAMMITY3',
+  //     text: '博俊',
+  //     src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
+  //   },
+  //   {
+  //     title: 'GLAMMITY4',
+  //     text: '優人',
+  //     src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
+  //   }
+  // ]
+  // displayLists?: IGlammity[] = []
+
+  created() {
+    this.$store.commit(
+      'facilityGlammity/SET_PAGE_SLICE',
+      window.parent.screen.width
+    )
+    this.$store.dispatch('facilityGlammity/getFaclity', this.$route.params.id)
   }
 
   pageChange(pageNumber: number) {
-    this.displayLists = this.list.slice(
-      this.pageSlice * (pageNumber - 1),
-      this.pageSlice * pageNumber
-    )
+    this.$store.commit('facilityGlammity/CHANGE_PAGE', pageNumber)
   }
 }
 </script>

@@ -18,37 +18,51 @@
       </v-col>
     </v-row>
     <v-row class="ma-0 pa-0">
-      <v-col class="ma-0 pa-0">
-        <v-tabs-items class="item">
-          <div v-if="tab == 0">
-            <v-data-table
-              class="ma-0 pa-0"
-              height="521.875px"
-              :headers="headers"
-              :items="list"
-              :page.sync="page"
-              hide-default-footer
-              @page-count="pageCount = $event"
-            ></v-data-table>
-          </div>
-          <div v-else-if="tab == 1">
-            <v-data-table
-              class="ma-0 pa-0"
-              height="521.875px"
-              :headers="headers2"
-              :items="list2"
-              :page.sync="page"
-              hide-default-footer
-              @page-count="pageCount = $event"
-            ></v-data-table>
-          </div>
-        </v-tabs-items>
-      </v-col>
+      <v-card>
+        <v-data-table
+          v-if="tab == 0"
+          class="ma-0 pa-0"
+          height="527.5px"
+          :headers="headers"
+          :items="list"
+          :page.sync="page"
+          hide-default-footer
+          @page-count="pageCount = $event"
+          ><template v-slot:item.action>
+            <v-btn elevation="1" small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
+        <v-data-table
+          v-else-if="tab == 1"
+          class="ma-0 pa-0"
+          height="527.5px"
+          :headers="headers2"
+          :items="list2"
+          :page.sync="page2"
+          hide-default-footer
+          @page-count="pageCount2 = $event"
+          ><template v-slot:item.action>
+            <v-btn elevation="1" small class="mr-2">
+              詳細
+            </v-btn>
+          </template></v-data-table
+        >
+      </v-card>
     </v-row>
-    <v-row class="text-center pt-2">
+    <v-row v-if="tab == 0" class="text-center px-0 pt-6 pb-0">
       <v-pagination
         v-model="page"
         :length="pageCount"
+        :value="itemsPerPage"
+        @input="itemsPerPage = parseInt($event, 10)"
+      ></v-pagination>
+    </v-row>
+    <v-row v-else-if="tab == 1" class="text-center px-0 pt-6 pb-0">
+      <v-pagination
+        v-model="page2"
+        :length="pageCount2"
         :value="itemsPerPage"
         @input="itemsPerPage = parseInt($event, 10)"
       ></v-pagination>
@@ -65,81 +79,160 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-@Component({
+@Component
+export default class InquiryFacility extends Vue {
+  public tab: number = 0
+  public page: number = 1
+  public pageCount: number = 0
+  public page2: number = 1
+  public pageCount2: number = 0
+  public itemsPerPage: number = 10
+
   data() {
     return {
       isColor: 'grey lighten-2',
       headers: [
         { text: '日付', value: 'date' },
         { text: '要件', value: 'Requirements' },
-        { text: 'ユーザ名', value: 'user' }
+        { text: 'ユーザ名', value: 'user' },
+        { text: '', value: 'action', sortable: false }
       ],
       list: [
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/1/15',
+          Requirements: 'なぜ俺はこんなにも神なんすか？',
           user: 'iwaya'
         },
         {
-          date: '12/23',
-          Requirements: 'かきくけこー！！',
+          date: '2020/1/16',
+          Requirements: 'もう身長伸びないの、どうして？',
           user: 'iwaya'
         },
         {
-          date: '12/18',
-          Requirements: 'さしすせそー！！',
+          date: '2020/1/18',
+          Requirements: '昨日UFOを見ました。',
           user: 'iwaya'
         },
         {
-          date: '12/12',
-          Requirements: 'たちつてとー！！',
+          date: '2020/1/20',
+          Requirements: '丸亀製麵はうまいす。',
           user: 'iwaya'
         },
         {
-          date: '12/9',
-          Requirements: 'なにぬねのー！！',
+          date: '2020/1/21',
+          Requirements: 'いーいーなーいーいーなー',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'にーーーんげんっていーいーなー',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'おいしいおやつに',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'ほかほかおかゆ～～～～～',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'あったかーいーふーとーんでー',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/2/29',
+          Requirements: '昏睡状態。',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
+          user: 'iwaya'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         }
       ],
       headers2: [
         { text: '日付', value: 'date' },
         { text: '要件', value: 'Requirements' },
-        { text: 'ユーザ名', value: 'user' }
+        { text: 'ユーザ名', value: 'user' },
+        { text: '', value: 'action', sortable: false }
       ],
       list2: [
         {
-          date: '11/27',
-          Requirements: 'はひふへほー！！',
+          date: '2019/12/27',
+          Requirements: 'オレハコノヒ、カミニナッタ',
           user: 'god'
         },
         {
-          date: '11/20',
-          Requirements: 'まみむめもー！！',
+          date: '2019/12/21',
+          Requirements: 'いわや製麺',
+          user: 'iwaya'
+        },
+        {
+          date: '2019/12/14',
+          Requirements: 'ワレコソガ、ユイイツシン',
           user: 'god'
         },
         {
-          date: '11/8',
-          Requirements: 'やゆよー！！',
-          user: 'god'
+          date: '2019/11/20',
+          Requirements: 'ふ',
+          user: 'iwaya'
         },
         {
-          date: '10/25',
-          Requirements: 'らりるれろー！！',
-          user: 'god'
-        },
-        {
-          date: '10/2',
-          Requirements: 'わをんー！！',
-          user: 'god'
+          date: '2019/9/7',
+          Requirements: 'かくれんぼなうw',
+          user: 'くまのこ'
         }
       ]
     }
   }
-})
-export default class InquiryFacility extends Vue {
-  public tab: number = 0
-  public page: number = 1
-  public pageCount: number = 0
-  public itemsPerPage: number = 10
 }
 </script>

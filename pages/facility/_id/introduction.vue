@@ -38,10 +38,11 @@
     </v-carousel>
 
     <v-card>
-      <v-card-text class="text-left mt-5" max-width="300">
-        <div v-for="(info, index) in facility.info" :key="index">
-          {{ info }}
-        </div>
+      <v-card-text
+        class="text-left mt-5 white-space: pre;"
+        max-width="300"
+        v-text="facility.info"
+      >
       </v-card-text>
     </v-card>
 
@@ -133,6 +134,7 @@ export default class introduction extends Vue {
   // ユーザidをログイン時に登録
 
   created() {
+    this.$store.commit('facilityGlammity/RESET_GLAMMITY_DATA')
     this.$store.dispatch('facility/catchFacility', this.$route.params.id)
     this.chackLike()
   }

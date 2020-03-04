@@ -1,25 +1,29 @@
 <template>
-  <div>
-    <v-row>
-      <v-col>
+  <v-row no-gutters class="align-baseline">
+    <v-col cols="auto">
+      <v-icon>mdi-pencil</v-icon>
+    </v-col>
+    <v-col class="d-flex flex-wrap">
+      <v-col cols="12" sm="6" class="py-0 pr-0">
         <v-text-field
           v-model="sei"
+          class="sei"
           label="姓"
           :rules="[rules.isSeiLength, rules.seiFormat]"
-          prepend-icon="mdi-pencil"
           counter="20"
         ></v-text-field>
       </v-col>
-      <v-col>
+      <v-col cols="12" sm="6" class="py-0 pr-0">
         <v-text-field
           v-model="mei"
+          class="mei under"
           label="名"
           :rules="[rules.isMeiLength, rules.meiFormat]"
           counter="20"
         ></v-text-field>
       </v-col>
-    </v-row>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
@@ -34,6 +38,7 @@ export default class seimeiMypageForm extends Vue {
   set sei(value: string) {
     this.$store.commit('mypage/SET_FIRST_NAME', value)
   }
+
   // public mei: string = ''
   get mei(): string {
     return this.$store.state.mypage.lastName
@@ -60,3 +65,7 @@ export default class seimeiMypageForm extends Vue {
   }
 }
 </script>
+<style lang="scss">
+@media screen and (max-width: 770px) {
+}
+</style>

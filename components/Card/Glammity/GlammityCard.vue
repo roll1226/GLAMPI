@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="300" elevation="4">
     <v-img class="white--text align-end" height="200px" :src="glammityImage">
-      <v-card-title>
+      <v-card-title style="text-shadow: 1px 2px 3px #000; ">
         {{ glammityName }}
       </v-card-title>
     </v-img>
@@ -20,11 +20,15 @@
       <v-spacer></v-spacer>
 
       <!-- 詳細飛ぶ -->
-      <v-btn outlined class="glammity-btn">
+      <v-btn
+        outlined
+        class="glammity-btn"
+        :to="`/glammity/${url}/glammityIntroduction`"
+      >
         詳細
       </v-btn>
       <!-- 参加する -->
-      <v-btn outlined class="glammity-btn">
+      <v-btn outlined class="glammity-btn" to="">
         参加
       </v-btn>
     </v-card-actions>
@@ -44,6 +48,9 @@ export default class GlammityCard extends Vue {
 
   @Prop({ required: true, default: '' })
   introduction!: string
+
+  @Prop({ required: true, default: '' })
+  url!: string
 }
 </script>
 

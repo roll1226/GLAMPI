@@ -1,23 +1,29 @@
 <template>
-  <div>
-    <v-row>
-      <v-col>
+  <v-row no-gutters class="align-baseline">
+    <v-col cols="auto">
+      <v-icon>mdi-pencil</v-icon>
+    </v-col>
+    <v-col class="d-flex flex-wrap">
+      <v-col cols="12" sm="6" class="py-0 pr-0">
         <v-text-field
           v-model="seiKana"
+          class="sei"
           label="セイ"
           :rules="[rules.seiKanaFormat]"
-          prepend-icon="mdi-"
+          counter="20"
         ></v-text-field>
       </v-col>
-      <v-col>
+      <v-col cols="12" sm="6" class="py-0 pr-0">
         <v-text-field
           v-model="meiKana"
+          class="mei under"
           label="メイ"
           :rules="[rules.meiKanaFormat]"
+          counter="20"
         ></v-text-field>
       </v-col>
-    </v-row>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'

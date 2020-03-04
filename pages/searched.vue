@@ -5,7 +5,7 @@
     </h1>
 
     <v-row>
-      <v-col lg="4" md="4" sm="4" xs="12">
+      <v-col lg="3" md="3" sm="3" xs="12">
         <SearchedSideNavigation class="mobile-searched-side-navigation" />
         <SearchedSideNavigationTags />
       </v-col>

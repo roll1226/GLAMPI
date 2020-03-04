@@ -1,14 +1,13 @@
 <template>
   <div>
-    <v-card-title>予約履歴</v-card-title>
-    <v-row class="ma-3">
+    <v-row no-gutters class="bList-wrap">
       <v-col
         v-for="(facility, facilityIndex) in facilityList"
         :key="facilityIndex"
         lg="12"
         md="12"
         sm="12"
-        xs="6"
+        xs="12"
       >
         <BookingFacility
           :fasility-name="facility.facilityName"
@@ -20,6 +19,13 @@
           :facility-img="facility.facilityImg"
         />
       </v-col>
+    </v-row>
+    <v-row>
+      <v-pagination
+        v-model="page"
+        :length="length"
+        @input="pageChange"
+      ></v-pagination>
     </v-row>
   </div>
 </template>
@@ -46,6 +52,14 @@ export default class BookingList extends Vue {
     {
       facilityName: '施設名1',
       facilityImg: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
+      address: '日本のどこか',
+      planName: 'プラン名',
+      planPay: 1200,
+      introduction: '紹介文'
+    },
+    {
+      facilityName: '施設名2',
+      facilityImg: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
       address: '日本のどこか',
       planName: 'プラン名',
       planPay: 1200,

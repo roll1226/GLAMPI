@@ -1,48 +1,57 @@
 <template>
-  <v-card class="mx-auto" outlined>
+  <v-card outlined>
     <v-container>
-      <v-row justify="space-between">
-        <v-col cols="auto">
-          <v-img height="200" max-width="340" :src="facilityImg"></v-img>
+      <v-row justify="center" no-gutters>
+        <v-col cols="12" sm="auto">
+          <v-img height="220" width="300" :src="facilityImg"></v-img>
         </v-col>
 
-        <v-col class="pb-0">
-          <v-list-item-content>
-            <v-list-item-title class="headline mb-1">
-              {{ fasilityName }}
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              {{ address }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-
-          <v-card-text class="text--primary">
-            <div>
-              {{ introduction }}
-              最安値のプラン
-              <span class="font-weight-bold">
-                {{ planName }}
-              </span>
-              {{ planPay }}
-            </div>
-          </v-card-text>
-          <v-spacer></v-spacer>
-          <v-card-actions class="pb-0">
-            <v-col cols="5">
-              <!--予約中の時と宿泊済みとでキャンセル/再予約を切替。それに伴ってクリック時の処理も分ける-->
-              <v-btn block>
-                {{ cancel }}
-              </v-btn>
-            </v-col>
-
-            <v-spacer></v-spacer>
+        <v-col cols="12" sm="" md="" lg="" class="facility-content">
+          <v-row no-gutters class="flex-column">
             <v-col>
-              <!-- 参加する -->
-              <v-btn disabled>
-                {{ status }}
-              </v-btn>
+              <v-card-text class="pa-0">
+                <v-card-title class="pl-0 pt-sm-0">
+                  {{ fasilityName }}
+                </v-card-title>
+                <v-card-subtitle class="pl-0">
+                  {{ address }}
+                </v-card-subtitle>
+              </v-card-text>
             </v-col>
-          </v-card-actions>
+          </v-row>
+
+          <v-row no-gutters>
+            <v-col>
+              {{ introduction }}
+            </v-col>
+          </v-row>
+          <v-row no-gutters>
+            <v-col>
+              最安値のプラン
+            </v-col>
+          </v-row>
+          <v-row no-gutters>
+            <v-col>
+              {{ planName }}
+            </v-col>
+            <v-col>
+              {{ planPay }}
+            </v-col>
+          </v-row>
+          <v-row no-gutters>
+            <v-card-actions class="pa-0">
+              <v-col class="pa-0">
+                <v-btn class="status">
+                  {{ status }}
+                </v-btn>
+              </v-col>
+              <v-col class="pa-0">
+                <v-btn>
+                  {{ cancel }}
+                </v-btn>
+              </v-col>
+            </v-card-actions>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -79,3 +88,39 @@ export default class BookingFasility extends Vue {
   introductionUrl!: string
 }
 </script>
+
+<style lang="scss">
+.v-card {
+  .container {
+    //各カード内余白
+    padding: 40px 25px;
+
+    .row {
+      //background-color: antiquewhite;
+      .col {
+        .row {
+          .col {
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 770px) {
+  .v-card {
+    .container {
+      //各カード内余白
+      padding: 30px 20px;
+
+      .row {
+        .col {
+          .row {
+            .col {
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

@@ -6,13 +6,17 @@
 
     <div justify="center">
       <v-dialog v-model="dialog" max-width="470">
+        <v-snackbar v-model="snackbar" :timeout="2000" top left color="error">
+          <span>
+            メールアドレス又は、パスワードが違います。
+          </span>
+          <v-icon class="pl-2" style="color: white;">
+            fas fa-exclamation
+          </v-icon>
+        </v-snackbar>
+
         <v-card :loading="isLoading">
           <v-toolbar-title class="mb-0 pt-5">
-            <!-- <v-img
-              :src="require('@/assets/svg/logoBg.svg')"
-              width="200px"
-              class="mx-auto"
-            ></v-img> -->
             <img
               src="@/assets/svg/logoBg.svg"
               width="200px"
@@ -157,8 +161,16 @@ export default class LoginModal extends Vue {
     return this.$store.state.login.loginDialog
   }
 
+  get snackbar(): boolean {
+    return this.$store.state.login.snackbarError
+  }
+
   set dialog(value: boolean) {
     this.$store.commit('login/SET_LOGIN_DIALOG', value)
+  }
+
+  set snackbar(isSnackbar: boolean) {
+    this.$store.commit('login/SET_SNACKBAR_ERROR', isSnackbar)
   }
 
   openCard() {

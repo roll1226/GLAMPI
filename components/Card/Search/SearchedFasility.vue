@@ -97,3 +97,5 @@ export default class SearchedFasility extends Vue {
   facilityTags!: Array<ITags>
 }
 </script>
+
+<style lang="scss" scoped></style>

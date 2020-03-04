@@ -1,7 +1,22 @@
 import * as Vuex from 'vuex'
+import { firestore } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
+}
+
+interface IUser {
+  lastName: string
+  firstName: string
+  lastNameKana: string
+  firstNameKana: string
+  email: string
+  postalCode: string
+  streetAddress: string
+  nickname: string
+  comment: string
+  sex: string
+  birthday: string
 }
 
 interface IState {
@@ -11,13 +26,16 @@ interface IState {
   lastNameKana: string
   firstNameKana: string
   address: string
-  address2: string
-  streetAddress: [...string[]]
+  postalCode: string
+  streetAddress: string
   email: string
   passwordBefore: string
   passwordAfter: string
   passwordCheck: string
   nickname: string
+  comment: string
+  sex: string
+  birthday: string
 }
 
 export const state = (): IState => ({
@@ -27,13 +45,16 @@ export const state = (): IState => ({
   lastNameKana: '',
   firstNameKana: '',
   address: '',
-  address2: '',
-  streetAddress: [],
+  postalCode: '',
+  streetAddress: '',
   email: '',
   passwordBefore: '',
   passwordAfter: '',
   passwordCheck: '',
-  nickname: ''
+  nickname: '',
+  comment: '',
+  sex: '',
+  birthday: ''
 })
 
 export const mutations = {
@@ -57,26 +78,20 @@ export const mutations = {
     state.firstNameKana = payload
   },
 
-  SET_ADDRESS(state: IState, payload: string) {
-    state.address = payload
-  },
-
-  SET_ADDRESS2(state: IState, payload: string) {
-    state.address2 = payload
-  },
-
-  SET_STREET_ADDRESS(
-    state: IState,
-    payload: { pref: string; city: string; town: string }
-  ) {
-    state.streetAddress = []
-    state.streetAddress.push(payload.pref)
-    state.streetAddress.push(payload.city)
-    state.streetAddress.push(payload.town)
-  },
-
   SET_EMAIL(state: IState, payload: string) {
     state.email = payload
+  },
+
+  SET_STREETADDRESS(state: IState, payload: string) {
+    state.streetAddress = payload
+  },
+
+  SET_POSTAL_CODE(state: IState, payload: string) {
+    state.postalCode = payload
+  },
+
+  SET_COMMENT(state: IState, payload: string) {
+    state.comment = payload
   },
 
   CHECK_PASSWORD_BEFORE(state: IState, payload: string) {
@@ -93,5 +108,42 @@ export const mutations = {
 
   SET_NICKNAME(state: IState, payload: string) {
     state.nickname = payload
+  },
+
+  INITIAL_VALUE(state: IState, payload: IUser) {
+    state.firstName = payload.firstName
+
+    state.lastName = payload.lastName
+
+    state.firstNameKana = payload.lastNameKana
+
+    state.lastNameKana = payload.lastNameKana
+
+    state.email = payload.email
+
+    state.postalCode = payload.postalCode
+
+    state.streetAddress = payload.streetAddress
+
+    state.nickname = payload.nickname
+
+    state.comment = payload.comment
+
+    state.sex = payload.sex
+
+    state.birthday = payload.birthday
+  }
+}
+
+export const actions = {
+  async getUserData(dispatch: ICommit, payload: string) {
+    const user = await firestore
+      .collection('users')
+      .doc(payload)
+      .get()
+
+    console.log(user.data())
+
+    dispatch.commit('INITIAL_VALUE', user.data())
   }
 }

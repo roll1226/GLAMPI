@@ -1,54 +1,49 @@
 <template>
-  <div>
-    <v-row>
-      <v-col sm="2">
-        <v-text-field
-          v-model="addres1"
-          v-mask="POST"
-          label="xxx"
-          prepend-icon="mdi-home"
-          :rules="[rules.post1]"
-        ></v-text-field>
-      </v-col>
-      <div class="mt-10">
-        ー
-      </div>
-      <v-col sm="2">
-        <v-text-field
-          v-model="addres2"
-          v-mask="POST1"
-          label="xxxx"
-          :rules="[rules.post2]"
-        ></v-text-field>
-      </v-col>
-      <v-col>
-        <v-btn class="mt-3" outlined @click="checkCode()">検索</v-btn>
-      </v-col>
-    </v-row>
-    <v-text-field
-      v-model="address"
-      label="住所"
-      prepend-icon="mdi-"
-      :rules="[
-        rules.isAddress,
-        rules.addressLength,
-        rules.addressFormatSpace,
-        rules.addressFormatFullwidth
-      ]"
-      counter="50"
-    ></v-text-field>
-    <v-text-field
-      v-model="address2"
-      label="住所2"
-      prepend-icon="mdi-"
-      :rules="[
-        rules.isAddress,
-        rules.addressLength,
-        rules.addressFormatFullwidth
-      ]"
-      hint="丁、番地やマンションなど"
-    ></v-text-field>
-  </div>
+  <v-row no-gutters>
+    <v-col cols="12">
+      <v-row no-gutters class="align-baseline">
+        <v-col cols="auto"> <v-icon>mdi-home</v-icon> </v-col>
+        <v-col class="d-flex flex-wrap">
+          <v-col cols="3" sm="2" class="py-0 pr-0">
+            <v-text-field
+              v-model="postalCode1"
+              v-mask="POST"
+              label="xxx"
+              :rules="[rules.post1]"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="auto" class="py-0 pr-0">
+            <p class="ma-0 mt-5">―</p>
+          </v-col>
+          <v-col cols="4" sm="2" class="py-0 pr-0">
+            <v-text-field
+              v-model="postalCode2"
+              v-mask="POST1"
+              label="xxxx"
+              :rules="[rules.post2]"
+            ></v-text-field>
+          </v-col>
+          <v-col class="pr-0">
+            <v-btn outlined @click="checkCode()">検索</v-btn>
+          </v-col>
+        </v-col>
+      </v-row>
+    </v-col>
+
+    <v-col class="pl-9">
+      <v-text-field
+        v-model="streetAddress"
+        label="住所"
+        :rules="[
+          rules.isStreetAddress,
+          rules.streetAddressLength,
+          rules.streetAddressFormatSpace,
+          rules.streetAddressFormatFullwidth
+        ]"
+        counter="50"
+      ></v-text-field>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
@@ -69,24 +64,31 @@ const uuidv1 = require('uuid/v4')
 })
 export default class addressMypageForm extends Vue {
   // public address: string = ''
-  get address(): string {
-    return this.$store.state.mypage.address
+
+  get postalCode1(): string {
+    return this.$store.state.mypage.postalCode.split('-')[0]
   }
 
-  set address(value: string) {
-    this.$store.commit('mypage/SET_ADDRESS', value)
+  set postalCode1(value: string) {
+    this.$store.commit('mypage/SET_POSTAL_CODE', `${value}-${this.postalCode2}`)
   }
 
-  get address2(): string {
-    return this.$store.state.mypage.address2
+  get postalCode2(): string {
+    return this.$store.state.mypage.postalCode.split('-')[1]
+  }
+  set postalCode2(value: string) {
+    this.$store.commit('mypage/SET_POSTAL_CODE', `${this.postalCode1}-${value}`)
   }
 
-  set address2(value: string) {
-    this.$store.commit('mypage/SET_ADDRESS2', value)
+  get streetAddress(): string {
+    return this.$store.state.mypage.streetAddress
   }
+
+  set streetAddress(value: string) {
+    this.$store.commit('mypage/SET_STREETADDRESS', value)
+  }
+
   code: object[] = []
-  addres1: string = ''
-  addres2: string = ''
   error?: string = ''
   uuid?: string = uuidv1()
     .split('-')
@@ -104,15 +106,17 @@ export default class addressMypageForm extends Vue {
         pattern.test(v) || '郵便番号は半角数字4桁にて必ず入力してください。'
       )
     },
-    isAddress: (v: string) => !!v || '住所は必ず入力してください。',
-    addressLength: (v: string) =>
+
+    isStreetAddress: (v: string) => !!v || '住所は必ず入力してください。',
+    streetAddressLength: (v: string) =>
       (v && v.length <= 50) || '住所は50字以内にて入力してください。',
-    addressFormatSpace: (v: string) => {
+    streetAddressFormatSpace: (v: string) => {
       // eslint-disable-next-line no-irregular-whitespace
       const pattern = /^[^ 　]+$/
       return pattern.test(v) || 'スペースが入力されています。削除してください。'
     },
-    addressFormatFullwidth: (v: string) => {
+
+    streetAddressFormatFullwidth: (v: string) => {
       // eslint-disable-next-line no-control-regex
       const pattern = /^[^\x01-\x7E\xA1-\xDF]+$/
       return pattern.test(v) || '住所は全角にて入力してください。'
@@ -123,22 +127,16 @@ export default class addressMypageForm extends Vue {
     this.code = []
     // axios
     await this.$axios
-      .get(`https://api.zipaddress.net/?zipcode=${this.addres1}${this.addres2}`)
+      .get(
+        `https://api.zipaddress.net/?zipcode=${this.postalCode1}${this.postalCode2}`
+      )
       .then((res) => {
         if (res.data.code === 200) {
           // push
           this.code.push(res.data)
-          const pref = res.data.data.pref
-          const city = res.data.data.city
-          const town = res.data.data.town
-          this.$store.commit('registration/SET_STREET_ADDRESS', {
-            pref,
-            city,
-            town
-          })
-          this.address = res.data.data.fullAddress
+          this.streetAddress = res.data.data.fullAddress
         } else {
-          this.address =
+          this.streetAddress =
             '存在しない郵便番号です。正しい郵便番号を入力してください。'
         }
       })

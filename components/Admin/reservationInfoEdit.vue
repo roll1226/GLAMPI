@@ -361,7 +361,6 @@ interface imageType {
   name: string
   type: string
 }
-
 @Component({
   components: {
     ReservationPlan
