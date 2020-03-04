@@ -5,8 +5,8 @@
     </v-btn>
 
     <div justify="center">
-      <v-dialog v-model="dialog" max-width="400">
-        <v-card>
+      <v-dialog v-model="dialog" max-width="400" :persistent="craeteLoading">
+        <v-card :loading="craeteLoading">
           <template>
             <v-card-title class="headline">
               この内容で登録しますか？
@@ -135,12 +135,17 @@ export default class CreateBtn extends Vue {
     return this.$store.state.login.userUid
   }
 
+  get craeteLoading(): boolean {
+    return this.$store.state.glammityCreate.loading
+  }
+
   closeCard() {
     this.dialog = false
   }
 
   async createGlammity() {
     const totalPay = this.totalDate * this.planPay + this.optionPay
+    this.$store.commit('glammityCreate/SET_LOADING', true)
 
     await firestore
       .collection('glammity')
@@ -176,6 +181,7 @@ export default class CreateBtn extends Vue {
           .doc(glammityId.id)
           .collection('messages')
           .add({})
+        this.$store.commit('glammityCreate/SET_LOADING', false)
         this.$store.commit('glammityCreate/RESET_DATA')
         this.$store.commit('search/RESET_FACILITY')
         this.$store.commit('search/RESET_FACILITY_QUERY')

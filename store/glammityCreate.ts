@@ -30,6 +30,7 @@ interface IState {
   comment: string
   planPay: number
   optionPay: number
+  loading: boolean
 }
 
 export const state = (): IState => ({
@@ -48,7 +49,8 @@ export const state = (): IState => ({
   dates: [],
   recruitmentDates: [],
   totalDate: 0,
-  comment: ''
+  comment: '',
+  loading: false
 })
 
 export const mutations = {
@@ -111,6 +113,10 @@ export const mutations = {
 
   SET_RECRUITMENT_DATES(state: IState, payload: [...string[]]) {
     state.recruitmentDates = payload
+  },
+
+  SET_LOADING(state: IState, payload: boolean) {
+    state.loading = payload
   },
 
   SET_COMMENT(state: IState, payload: string) {
