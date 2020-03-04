@@ -75,7 +75,7 @@ import { Bar } from 'vue-chartjs'
             borderColor: '#ff4444',
             fill: false,
             type: 'line',
-            lineTension: 0.05
+            lineTension: 0
           }
         ]
       },
@@ -86,6 +86,10 @@ import { Bar } from 'vue-chartjs'
               scaleLabel: {
                 display: true,
                 labelString: '今月',
+                fontSize: 24
+              },
+              ticks: {
+                beginAtZero: true,
                 fontSize: 18
               }
             }
@@ -95,10 +99,11 @@ import { Bar } from 'vue-chartjs'
               scaleLabel: {
                 display: true,
                 labelString: '収益',
-                fontSize: 18
+                fontSize: 24
               },
               ticks: {
                 beginAtZero: true,
+                min: 0,
                 stepSize: 100000,
                 fontSize: 18
               }

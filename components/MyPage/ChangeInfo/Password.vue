@@ -1,31 +1,28 @@
 <template>
   <div>
-    <v-card width="850">
-      <v-card-title>パスワード変更</v-card-title>
-      <v-form>
-        <v-container>
-          <v-row>
-            <v-col><password></password></v-col>
-          </v-row>
-          <v-row>
-            <v-col><password></password></v-col>
-          </v-row>
-          <v-row>
-            <v-col><passwordCheck></passwordCheck></v-col>
-          </v-row>
-        </v-container>
-      </v-form>
-    </v-card>
+    <v-card-title>パスワード変更</v-card-title>
+    <v-form>
+      <v-container>
+        <v-row>
+          <v-col><passwordBefore /></v-col>
+        </v-row>
+        <v-row>
+          <v-col><passwordAfter /></v-col>
+        </v-row>
+      </v-container>
+    </v-form>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import password from '@/components/UserRegistration/password.vue'
+import passwordBefore from '@/components/MyPage/Form/passwordBefore.vue'
+import passwordAfter from '@/components/MyPage/Form/passwordAfter.vue'
 
 @Component({
   components: {
-    password
+    passwordBefore,
+    passwordAfter
   }
 })
 export default class PasswordMypage extends Vue {}

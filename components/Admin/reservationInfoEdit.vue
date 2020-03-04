@@ -328,45 +328,24 @@
             </v-col>
           </v-row>
         </v-row>
-        <div id="app">
-          <h2>スライド画像</h2>
-          <!-- <input
-            v-if="!isSelected && !mustReset"
-            :name="uploadFieldName"
-            accept="image/*"
-            type="file"
-            class="input-file"
-            @change="getFileName"
-          />
-          <div v-else>
-            <div class="preview">
-              <img
-                v-show="uploadedImage"
-                v-if="imageUrl"
-                :src="imageUrl"
-                alt="preview"
-              />
-            </div>
-            <div class="buttons">
-              <a class="button" @click="reset">cancel </a>
-              <a class="button" @click="upload">upload</a>
-            </div>
-          </div>-->
-        </div>
-
-        <!-- <v-file-input
+        <div id="app"></div>
+      </v-container>
+      <v-container>
+        スライド画像
+        <v-file-input
           v-model="file"
           accept="image/*"
+          label="File input"
           @change="getFileName"
-        ></v-file-input> -->
-        <!-- <v-img
+        ></v-file-input>
+        <v-img
           v-show="uploadedImage"
           :src="uploadedImage"
           aspect-ratio="1"
           class="grey lighten-2"
           max-width="250"
           max-height="200"
-        ></v-img> -->
+        ></v-img>
         <canvas id="canvas"></canvas>
       </v-container>
     </v-card>
@@ -454,6 +433,9 @@ export default class reservationInfoEdit extends Vue {
     this.add9 = 1
     this.hidden9 = !this.hidden9
   }
+  // btnclick(){
+
+  // }
   getFileName(e: any) {
     this.createImage(this.file)
     storage

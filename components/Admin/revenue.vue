@@ -24,8 +24,11 @@
         </v-card-text>
       </v-card>
       <v-row justify="center">
-        <v-col cols="8">
-          <Chart></Chart>
+        <v-col cols="auto">
+          <Chart :height="400" :width="800"></Chart>
+        </v-col>
+        <v-col cols="auto">
+          <Chart :height="400" :width="800"></Chart>
         </v-col>
       </v-row>
     </v-row>
