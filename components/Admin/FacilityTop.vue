@@ -30,15 +30,6 @@
           hide-default-footer
           @page-count="pageCount = $event"
         >
-          <template v-slot:item.preview>
-            <div class="mr-n4">
-              <v-col cols="auto" class="mr-n12">
-                <v-btn elevation="1" small class="mr-n12">
-                  プレビュー
-                </v-btn>
-              </v-col>
-            </div>
-          </template>
           <template v-slot:item.action>
             <div>
               <v-col cols="auto" class="mx-n12">
@@ -82,21 +73,20 @@ export default class FacilityTop extends Vue {
           value: 'name'
         },
         { text: '部屋番号', value: 'rooms' },
-        { text: '', value: 'preview', sortable: false },
         { text: '', value: 'action', sortable: false }
       ],
       guests: [
         {
-          name: 'Guest1',
-          rooms: 1
+          name: 'iwaya',
+          rooms: '001'
         },
         {
-          name: 'Guest2',
-          rooms: 2
+          name: 'god',
+          rooms: '002'
         },
         {
-          name: 'Guest3',
-          rooms: 3
+          name: 'くまのこ',
+          rooms: '003'
         }
       ]
     }
