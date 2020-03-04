@@ -10,10 +10,9 @@
         >
           <v-tab class="black--text" @click="tab = 0">トップ</v-tab>
           <v-tab class="black--text" @click="tab = 1">会員登録</v-tab>
-          <v-tab class="black--text" @click="tab = 2">予約管理</v-tab>
-          <v-tab class="black--text" @click="tab = 3">施設管理</v-tab>
-          <v-tab class="black--text" @click="tab = 4">収益</v-tab>
-          <v-tab class="black--text" @click="tab = 5">問い合わせ</v-tab>
+          <v-tab class="black--text" @click="tab = 2">施設管理</v-tab>
+          <v-tab class="black--text" @click="tab = 3">収益</v-tab>
+          <v-tab class="black--text" @click="tab = 4">問い合わせ</v-tab>
         </v-tabs>
       </v-col>
       <!--cols="10"-->
@@ -21,10 +20,9 @@
         <v-tabs-items class="item">
           <div v-if="tab == 0"><adminTop /></div>
           <div v-else-if="tab == 1"><userManage /></div>
-          <div v-else-if="tab == 2"><reserveManage /></div>
-          <div v-else-if="tab == 3"><facilityManage /></div>
-          <div v-else-if="tab == 4"><revenue /></div>
-          <div v-else-if="tab == 5"><inquiry /></div>
+          <div v-else-if="tab == 2"><facilityManage /></div>
+          <div v-else-if="tab == 3"><revenue /></div>
+          <div v-else-if="tab == 4"><inquiry /></div>
         </v-tabs-items>
       </v-col>
     </v-row>
@@ -35,7 +33,6 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import adminTop from '@/components/Admin_/AdminTop.vue'
 import userManage from '@/components/Admin_/userManage.vue'
-import reserveManage from '@/components/Admin_/reserveManage.vue'
 import facilityManage from '@/components/Admin_/facilityManage.vue'
 import revenue from '@/components/Admin_/revenue.vue'
 import inquiry from '@/components/Admin_/inquiry.vue'
@@ -44,7 +41,6 @@ import inquiry from '@/components/Admin_/inquiry.vue'
   components: {
     adminTop,
     userManage,
-    reserveManage,
     facilityManage,
     revenue,
     inquiry
