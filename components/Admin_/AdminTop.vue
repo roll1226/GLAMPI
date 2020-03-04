@@ -31,14 +31,22 @@
           @page-count="pageCount = $event"
         >
           <template v-slot:item.preview>
-            <v-btn elevation="1" small class="mr-2">
-              プレビュー
-            </v-btn>
+            <div class="mr-n12">
+              <v-col cols="auto" class="mr-n12">
+                <v-btn elevation="1" small class="mr-n12">
+                  プレビュー
+                </v-btn>
+              </v-col>
+            </div>
           </template>
           <template v-slot:item.action>
-            <v-btn elevation="1" small class="mr-2">
-              詳細
-            </v-btn>
+            <div>
+              <v-col cols="auto" class="mx-n12">
+                <v-btn elevation="1" small class=" mr-n12">
+                  詳細
+                </v-btn>
+              </v-col>
+            </div>
           </template></v-data-table
         >
       </v-card>

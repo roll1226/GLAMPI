@@ -31,9 +31,13 @@
           @page-count="pageCount = $event"
         >
           <template v-slot:item.preview>
-            <v-btn elevation="1" small class="mr-2">
-              プレビュー
-            </v-btn>
+            <div class="mr-n4">
+              <v-col cols="auto" class="mr-n12">
+                <v-btn elevation="1" small class="mr-n12">
+                  プレビュー
+                </v-btn>
+              </v-col>
+            </div>
           </template></v-data-table
         >
       </v-card>
@@ -53,20 +57,28 @@
           :headers="headers2"
           :items="facilities2"
           :page.sync="page2"
-          height="527.5px"
+          height="576.5px"
           class="ma-0 pa-0"
           hide-default-footer
           @page-count="pageCount2 = $event"
         >
           <template v-slot:item.preview>
-            <v-btn elevation="1" small class="mr-2">
-              プレビュー
-            </v-btn>
+            <div class="mr-n4">
+              <v-col cols="auto" class="mr-n12">
+                <v-btn elevation="1" small class="mr-n12">
+                  プレビュー
+                </v-btn>
+              </v-col>
+            </div>
           </template>
           <template v-slot:item.regist>
-            <v-btn elevation="1" small class="mr-2">
-              登録
-            </v-btn>
+            <div>
+              <v-col cols="auto" class="mx-n12">
+                <v-btn elevation="1" small class=" mr-n12">
+                  登録
+                </v-btn>
+              </v-col>
+            </div>
           </template></v-data-table
         >
       </v-card>

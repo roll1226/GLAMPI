@@ -68,7 +68,7 @@ export default class ReserveManageFacility extends Vue {
   created() {
     const url = this.$route.params.id
     console.log(url)
-
+    this.$store.commit('adminReservation/CLEAR_INFO')
     this.$store.dispatch('adminReservation/getReservations', url)
   }
 }

@@ -30,6 +30,9 @@ export const state = (): IState => ({
 })
 
 export const mutations = {
+  CLEAR_INFO(state: IState) {
+    state.reservations = []
+  },
   SET_RESERVATION(state: IState, payload: IReservationDate) {
     const reservationList = {
       id: state.reservations.length + 1,
