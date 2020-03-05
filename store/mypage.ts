@@ -38,9 +38,10 @@ interface IState {
   sex: string
   birthday: string
   reservation: IFacility[]
+  likes: IFacilityLike[]
 }
 
-interface IFacility {
+export interface IFacility {
   facilityName: string
   facilityImg: string
   address: string
@@ -49,6 +50,13 @@ interface IFacility {
   introduction: string
   url: string
   status: string
+}
+
+export interface IFacilityLike {
+  facilityName: string
+  facilityImg: string
+  introduction: string
+  url: string
 }
 
 interface IUserData {
@@ -75,7 +83,8 @@ export const state = (): IState => ({
   comment: '',
   sex: '',
   birthday: '',
-  reservation: []
+  reservation: [],
+  likes: []
 })
 
 export const mutations = {
@@ -189,6 +198,25 @@ export const mutations = {
     }
 
     state.reservation.push(reservationList)
+  },
+  SET_LIKES_FACILITY(
+    state: IState,
+    payload: {
+      facilityData: {
+        name: string
+        displayName: string
+        info: string
+        slider: [...string[]]
+      }
+    }
+  ) {
+    const likesList = {
+      facilityName: payload.facilityData.name,
+      introduction: payload.facilityData.info,
+      facilityImg: payload.facilityData.slider[0],
+      url: payload.facilityData.displayName
+    }
+    state.likes.push(likesList)
   }
 }
 
@@ -233,6 +261,29 @@ export const actions = {
     console.log(facility.docs[0].data())
     dispatch.commit('SET_RESERVATION_FACILITY', {
       userData: payload,
+      facilityData: facility.docs[0].data()
+    })
+  },
+
+  async getLikes(dispatch: ICommit, payload: string) {
+    const user = await firestore
+      .collection('users')
+      .doc(payload)
+      .collection('likes')
+      .get()
+    console.log(user.docs)
+    for (let index = 0; index < user.size; index++) {
+      dispatch.dispatch('getLikesFacility', user.docs[index].id)
+    }
+  },
+  async getLikesFacility(dispatch: ICommit, payload: string) {
+    const facility = await firestore
+      .collection('facilities')
+      .where('displayName', '==', payload)
+      .get()
+
+    console.log(facility.docs[0].data())
+    dispatch.commit('SET_LIKES_FACILITY', {
       facilityData: facility.docs[0].data()
     })
   }

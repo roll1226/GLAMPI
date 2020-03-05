@@ -1,46 +1,40 @@
 <template>
   <v-card class="mx-auto" outlined>
     <v-container>
-      <v-row justify="space-between">
+      <v-row justify="space-between" no-gutters>
         <v-col cols="auto">
-          <v-img height="200" max-width="340" :src="facilityImg"> </v-img>
+          <v-img height="220" max-width="300" :src="facilityImg"> </v-img>
         </v-col>
+      </v-row>
 
-        <v-col class="pb-0">
-          <v-list-item-content>
-            <v-list-item-title class="headline mb-1">
+      <v-row no-gutters>
+        <v-col>
+          <v-card-text class="pa-0">
+            <v-card-title class="pl-0 pt-sm-0">
               {{ facilityName }}
-              <v-btn icon @click="like = !like">
-                <v-icon v-if="!like">mdi-heart</v-icon>
-                <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
-              </v-btn>
-            </v-list-item-title>
-          </v-list-item-content>
-
-          <v-card-text class="text--primary">
-            <div>
-              {{ introduction }}
-            </div>
+            </v-card-title>
           </v-card-text>
-          <v-spacer></v-spacer>
-          <v-card-actions class="pb-0">
-            <v-col>
-              <!-- 詳細飛ぶ -->
-              <v-btn outlined :to="introductionUrl">
-                詳細
-              </v-btn>
-            </v-col>
-
-            <v-spacer></v-spacer>
-            <v-col>
-              <!-- お気に入り解除 -->
-              <!-- ハートアイコンクリックでも解除できるから重複ではあるけど一応 -->
-              <v-btn outlined @click="like = !like">
-                お気に入り解除
-              </v-btn>
-            </v-col>
-          </v-card-actions>
         </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          {{ introduction }}
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+        <v-card-actions class="pa-0">
+          <v-col class="pa-0">
+            <v-btn outlined @click="goFacility">
+              詳細ページへ
+            </v-btn>
+          </v-col>
+          <v-col class="pa-0">
+            <v-btn outlined @click="like = !like">
+              お気に入り解除
+            </v-btn>
+          </v-col>
+        </v-card-actions>
       </v-row>
     </v-container>
   </v-card>
@@ -51,9 +45,6 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class BookingFasility extends Vue {
-  // ハート
-  like: boolean = true
-
   @Prop({ required: true, default: '' })
   facilityName!: string
 
@@ -61,9 +52,13 @@ export default class BookingFasility extends Vue {
   facilityImg!: string
 
   @Prop({ required: true, default: '' })
-  introductionUrl!: string
+  introduction!: string
 
   @Prop({ required: true, default: '' })
-  introduction!: string
+  url!: string
+
+  goFacility() {
+    this.$router.push(`/facility/${this.url}/introduction`)
+  }
 }
 </script>
