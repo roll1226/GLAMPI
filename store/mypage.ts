@@ -3,6 +3,7 @@ import { firestore } from '@/plugins/firebase'
 
 interface ICommit {
   commit: Vuex.Commit
+  dispatch: Vuex.Dispatch
 }
 
 interface IUser {
@@ -36,6 +37,25 @@ interface IState {
   comment: string
   sex: string
   birthday: string
+  reservation: IFacility[]
+}
+
+interface IFacility {
+  facilityName: string
+  facilityImg: string
+  address: string
+  planName: string
+  planPay: number
+  introduction: string
+  url: string
+  status: string
+}
+
+interface IUserData {
+  facilityId: string
+  plan: string
+  totalPay: number
+  status: string
 }
 
 export const state = (): IState => ({
@@ -54,7 +74,8 @@ export const state = (): IState => ({
   nickname: '',
   comment: '',
   sex: '',
-  birthday: ''
+  birthday: '',
+  reservation: []
 })
 
 export const mutations = {
@@ -132,6 +153,42 @@ export const mutations = {
     state.sex = payload.sex
 
     state.birthday = payload.birthday
+  },
+  SET_RESERVATION_FACILITY(
+    state: IState,
+    payload: {
+      userData: IUserData
+      facilityData: {
+        name: string
+        displayName: string
+        info: string
+        slider: [...string[]]
+        streetAddress: [...string[]]
+      }
+    }
+  ) {
+    let address = ''
+
+    for (
+      let index = 0;
+      index < payload.facilityData.streetAddress.length;
+      index++
+    ) {
+      address += payload.facilityData.streetAddress[index]
+    }
+
+    const reservationList = {
+      facilityName: payload.facilityData.name,
+      address,
+      planName: payload.userData.plan,
+      planPay: payload.userData.totalPay,
+      introduction: payload.facilityData.info,
+      facilityImg: payload.facilityData.slider[0],
+      url: payload.facilityData.displayName,
+      status: payload.userData.status
+    }
+
+    state.reservation.push(reservationList)
   }
 }
 
@@ -145,5 +202,38 @@ export const actions = {
     console.log(user.data())
 
     dispatch.commit('INITIAL_VALUE', user.data())
+  },
+
+  async getReservationFacility(dispatch: ICommit, payload: string) {
+    const user = await firestore
+      .collection('users')
+      .doc(payload)
+      .collection('reservations')
+      .get()
+    console.log(user.docs)
+    for (let index = 0; index < user.size; index++) {
+      dispatch.dispatch('getFacility', user.docs[index].data())
+    }
+  },
+
+  async getFacility(
+    dispatch: ICommit,
+    payload: {
+      facilityId: string
+      plan: string
+      totalpay: number
+      status: string
+    }
+  ) {
+    const facility = await firestore
+      .collection('facilities')
+      .where('displayName', '==', payload.facilityId)
+      .get()
+
+    console.log(facility.docs[0].data())
+    dispatch.commit('SET_RESERVATION_FACILITY', {
+      userData: payload,
+      facilityData: facility.docs[0].data()
+    })
   }
 }

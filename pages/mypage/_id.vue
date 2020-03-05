@@ -89,6 +89,7 @@ export default class mypage extends Vue {
 
   created() {
     this.$store.dispatch('mypage/getUserData', this.$route.params.id)
+    this.$store.dispatch('mypage/getReservationFacility', this.$route.params.id)
   }
   get nickname(): string {
     return this.$store.state.mypage.nickname !== ''
