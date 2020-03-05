@@ -39,8 +39,9 @@
 
     <v-card>
       <v-card-text
-        class="text-left mt-5 white-space: pre;"
+        class="text-left mt-5"
         max-width="300"
+        style="white-space: pre;"
         v-text="facility.info"
       >
       </v-card-text>
