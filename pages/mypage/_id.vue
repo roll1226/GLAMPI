@@ -88,6 +88,8 @@ export default class mypage extends Vue {
   public screen2: number = 0
 
   created() {
+    this.$store.commit('mypage/RESET_RESERVATION')
+    this.$store.commit('mypage/RESET_LIKES')
     this.$store.dispatch('mypage/getUserData', this.$route.params.id)
     this.$store.dispatch('mypage/getReservationFacility', this.$route.params.id)
     this.$store.dispatch('mypage/getLikes', this.$route.params.id)

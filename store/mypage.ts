@@ -88,6 +88,14 @@ export const state = (): IState => ({
 })
 
 export const mutations = {
+  RESET_RESERVATION(state: IState) {
+    state.reservation = []
+  },
+
+  RESET_LIKES(state: IState) {
+    state.likes = []
+  },
+
   SET_SCREEN_NUMBER(state: IState, payload: number) {
     state.screen2 = payload
   },
