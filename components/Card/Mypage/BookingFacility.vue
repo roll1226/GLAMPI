@@ -2,7 +2,7 @@
   <v-card outlined>
     <v-container>
       <v-row justify="center" no-gutters>
-        <v-col cols="12" sm="auto">
+        <v-col cols="auto" class="mx-auto">
           <v-img height="220" width="300" :src="facilityImg"></v-img>
         </v-col>
 

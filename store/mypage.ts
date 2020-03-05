@@ -1,4 +1,5 @@
 import * as Vuex from 'vuex'
+import moment from 'moment'
 import { firestore } from '@/plugins/firebase'
 
 interface ICommit {
@@ -39,6 +40,7 @@ interface IState {
   birthday: string
   reservation: IFacility[]
   likes: IFacilityLike[]
+  comments: IComment[]
 }
 
 export interface IFacility {
@@ -59,11 +61,25 @@ export interface IFacilityLike {
   url: string
 }
 
+export interface IComment {
+  facilityName: string
+  star: number
+  date: string | undefined
+  text: string
+  url: string
+}
+
 interface IUserData {
   facilityId: string
   plan: string
   totalPay: number
   status: string
+}
+
+interface ICommentData {
+  star: number
+  text: string
+  createdAt: any
 }
 
 export const state = (): IState => ({
@@ -84,7 +100,8 @@ export const state = (): IState => ({
   sex: '',
   birthday: '',
   reservation: [],
-  likes: []
+  likes: [],
+  comments: []
 })
 
 export const mutations = {
@@ -225,6 +242,29 @@ export const mutations = {
       url: payload.facilityData.displayName
     }
     state.likes.push(likesList)
+  },
+
+  SET_REVIEWS_COMMENT(
+    state: IState,
+    payload: {
+      commentData: ICommentData
+      facilityData: {
+        name: string
+        displayName: string
+      }
+    }
+  ) {
+    const commentList = {
+      facilityName: payload.facilityData.name,
+      url: payload.facilityData.displayName,
+      text: payload.commentData.text,
+      star: payload.commentData.star,
+      date: moment(payload.commentData.createdAt.toDate()).format(
+        'YYYY月M月D日'
+      )
+    }
+
+    state.comments.push(commentList)
   }
 }
 
@@ -251,7 +291,6 @@ export const actions = {
       dispatch.dispatch('getFacility', user.docs[index].data())
     }
   },
-
   async getFacility(
     dispatch: ICommit,
     payload: {
@@ -266,7 +305,6 @@ export const actions = {
       .where('displayName', '==', payload.facilityId)
       .get()
 
-    console.log(facility.docs[0].data())
     dispatch.commit('SET_RESERVATION_FACILITY', {
       userData: payload,
       facilityData: facility.docs[0].data()
@@ -290,8 +328,38 @@ export const actions = {
       .where('displayName', '==', payload)
       .get()
 
-    console.log(facility.docs[0].data())
     dispatch.commit('SET_LIKES_FACILITY', {
+      facilityData: facility.docs[0].data()
+    })
+  },
+
+  async getComments(dispatch: ICommit, payload: string) {
+    const user = await firestore
+      .collection('users')
+      .doc(payload)
+      .collection('comments')
+      .get()
+    console.log(user.docs)
+    for (let index = 0; index < user.size; index++) {
+      dispatch.dispatch('getCommentData', user.docs[index].data())
+    }
+  },
+  async getCommentData(
+    dispatch: ICommit,
+    payload: {
+      facilityUrl: string
+      createdAt: string
+      star: number
+      text: string
+    }
+  ) {
+    const facility = await firestore
+      .collection('facilities')
+      .where('displayName', '==', payload.facilityUrl)
+      .get()
+
+    dispatch.commit('SET_REVIEWS_COMMENT', {
+      commentData: payload,
       facilityData: facility.docs[0].data()
     })
   }

@@ -93,6 +93,7 @@ export default class mypage extends Vue {
     this.$store.dispatch('mypage/getUserData', this.$route.params.id)
     this.$store.dispatch('mypage/getReservationFacility', this.$route.params.id)
     this.$store.dispatch('mypage/getLikes', this.$route.params.id)
+    this.$store.dispatch('mypage/getComments', this.$route.params.id)
   }
   get nickname(): string {
     return this.$store.state.mypage.nickname !== ''
@@ -237,13 +238,20 @@ export default class mypage extends Vue {
       }
 
       .changeInfo-wrap {
-        margin: 30px 10px 20px;
+        margin: 0px 10px 20px;
+        .row {
+          margin-top: 0px;
+        }
       }
 
       .bList-wrap {
+        margin: 20px 0 0;
         .v-card {
           margin: 0 0 30px 0;
           padding: 0;
+          .container {
+            padding: 25px 10px 25px;
+          }
         }
       }
     }
