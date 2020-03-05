@@ -31,7 +31,7 @@
       </template>
 
       <template v-else>
-        <v-btn text small class="mypage-btn" to="/mypage">
+        <v-btn text small class="mypage-btn" :to="`/mypage/${userId}`">
           マイページ
         </v-btn>
 
@@ -66,6 +66,10 @@ export default class GlampiHead extends Vue {
     await auth.signOut().then(() => {
       this.$store.commit('login/IS_LOGIN', false)
     })
+  }
+
+  get userId(): string {
+    return this.$store.state.login.userUid
   }
 
   get snackbar(): boolean {
