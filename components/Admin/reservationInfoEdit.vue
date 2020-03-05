@@ -77,6 +77,8 @@
       </v-card-text>
 
       <CheackEditBtn />
+
+      <FacilityEditEnd />
     </v-card>
   </div>
 </template>
@@ -88,7 +90,8 @@ import FacilityPlanEdit from '@/components/Admin/Edit/FacilityPlanEdit.vue'
 import FacilityOptionEdit from '@/components/Admin/Edit/FacilityOptionEdit.vue'
 import FacilitySliderEdit from '@/components/Admin/Edit/FacilitySliderEdit.vue'
 import FacilityTagsEdit from '@/components/Admin/Edit/FacilityTagsEdit.vue'
-import CheackEditBtn from '@/components//Btn/Admin/CheckEditBtn.vue'
+import CheackEditBtn from '@/components/Btn/Admin/CheckEditBtn.vue'
+import FacilityEditEnd from '@/components/Admin/Edit/FacilityEditEnd.vue'
 
 import { IPlanList, IOptionList, ISliderList } from '@/store/facilityEdit'
 
@@ -98,7 +101,8 @@ import { IPlanList, IOptionList, ISliderList } from '@/store/facilityEdit'
     FacilityOptionEdit,
     FacilitySliderEdit,
     FacilityTagsEdit,
-    CheackEditBtn
+    CheackEditBtn,
+    FacilityEditEnd
   }
 })
 export default class reservationInfoEdit extends Vue {

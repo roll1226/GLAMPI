@@ -47,6 +47,7 @@ export default class CheackEditBtn extends Vue {
   }
 
   update() {
+    this.$store.commit('facilityEdit/SET_LOADING', true)
     this.$store.dispatch(
       'facilityEdit/updateFacilityEdit',
       this.$route.params.id
