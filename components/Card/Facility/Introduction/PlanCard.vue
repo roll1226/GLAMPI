@@ -15,11 +15,7 @@
       宿泊上限: {{ maxGuests }}人
     </v-card-subtitle>
 
-    <v-card-text class="text--primary">
-      <div v-for="(detail, index) in details" :key="index">
-        {{ detail }}
-      </div>
-    </v-card-text>
+    <v-card-text class="text--primary" v-text="details"></v-card-text>
 
     <v-card-actions>
       <v-spacer></v-spacer>
@@ -52,8 +48,8 @@ export default class PlanCard extends Vue {
   @Prop({ required: true, default: '' })
   url!: string
 
-  @Prop({ required: true, default: [] })
-  details!: [...string[]]
+  @Prop({ required: true, default: '' })
+  details!: string
 
   @Prop({ required: true, default: '' })
   maxGuests!: string

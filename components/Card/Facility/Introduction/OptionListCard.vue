@@ -31,14 +31,10 @@
                   金額: {{ option.pay.toLocaleString() }}円
                 </v-card-subtitle>
 
-                <v-card-text class="text--primary">
-                  <div
-                    v-for="(text, textIndex) in option.texts"
-                    :key="textIndex"
-                  >
-                    {{ text }}
-                  </div>
-                </v-card-text>
+                <v-card-text
+                  class="text--primary"
+                  v-text="option.texts"
+                ></v-card-text>
               </v-card>
             </v-col>
           </v-row>
