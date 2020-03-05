@@ -14,7 +14,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
 
-            <v-btn text color="green lighten-2">
+            <v-btn text color="green lighten-2" @click="update">
               更新
             </v-btn>
 
@@ -44,7 +44,13 @@ export default class CheackEditBtn extends Vue {
 
   updateFacilityEdit() {
     this.$store.commit('facilityEdit/SET_EDIT_DIALOG', true)
-    this.$store.dispatch('facilityEdit/updateFacilityEdit')
+  }
+
+  update() {
+    this.$store.dispatch(
+      'facilityEdit/updateFacilityEdit',
+      this.$route.params.id
+    )
   }
 
   closeCard() {

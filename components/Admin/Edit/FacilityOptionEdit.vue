@@ -46,20 +46,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-const uuid = require('uuid/v4')
 
 @Component
 export default class FacilityOptionEdit extends Vue {
-  optionUuid: string = uuid()
-    .split('-')
-    .join('')
-    .slice(0, -12)
-
   inputImage?: null = null
   uploadedImage: string | ArrayBuffer | null =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5s_Eb1IVAun_V4M-QW_6VrE5xYSSluHdb-F5Hp4Qv5FgeEZee&s'
 
-  @Prop({ required: true, default: 0 })
+  @Prop({ required: true })
   indexCnt!: number
 
   get optionTitle(): string {
@@ -87,13 +81,6 @@ export default class FacilityOptionEdit extends Vue {
   set details(value: string) {
     this.$store.commit('facilityEdit/SET_OPTION_EDIT_DETAILS', {
       value,
-      cnt: this.indexCnt
-    })
-  }
-
-  created() {
-    this.$store.commit('facilityEdit/SET_OPTION_EDIT_UID', {
-      value: this.optionUuid,
       cnt: this.indexCnt
     })
   }

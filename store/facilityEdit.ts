@@ -1,4 +1,6 @@
 import * as Vuex from 'vuex'
+import { storage, firestore, timestamp, fieldValue } from '@/plugins/firebase'
+const uuid = require('uuid/v4')
 
 interface ICommit {
   commit: Vuex.Commit
@@ -7,7 +9,7 @@ interface ICommit {
 }
 
 export interface IPlanList {
-  img: File | null
+  img: any
   planTitle: string
   maxGuests: string
   details: string
@@ -15,7 +17,7 @@ export interface IPlanList {
 }
 
 export interface IOptionList {
-  img: File | null
+  img: any
   optionTitle: string
   details: string
   pay: number | string
@@ -23,7 +25,7 @@ export interface IOptionList {
 }
 
 export interface ISliderList {
-  img: File | null
+  img: any
 }
 
 export interface ITagsList {
@@ -54,7 +56,10 @@ const optionList = {
   optionTitle: '',
   details: '',
   pay: '',
-  uid: ''
+  uid: uuid()
+    .split('-')
+    .join('')
+    .slice(0, -12)
 }
 
 const sliderList = {
@@ -89,21 +94,37 @@ export const mutations = {
   },
 
   PLUS_PLAN_EDIT(state: IState) {
-    state.planEdit.push(planList)
+    const setPlanDate = {
+      img: null,
+      planTitle: '',
+      maxGuests: '',
+      details: '',
+      pay: ''
+    }
+
+    state.planEdit.push(setPlanDate)
   },
 
   PLUS_OPTION_EDIT(state: IState) {
-    state.optionEdit.push(optionList)
+    const setOptionDate = {
+      img: null,
+      optionTitle: '',
+      details: '',
+      pay: '',
+      uid: uuid()
+        .split('-')
+        .join('')
+        .slice(0, -12)
+    }
+
+    state.optionEdit.push(setOptionDate)
   },
 
   PLUS_SLIDER_EDIT(state: IState) {
     state.sliderEdit.push(sliderList)
   },
 
-  SET_PLAN_EDIT_IMAGE(
-    state: IState,
-    payload: { img: File | null; cnt: number }
-  ) {
+  SET_PLAN_EDIT_IMAGE(state: IState, payload: { img: any; cnt: number }) {
     state.planEdit[payload.cnt].img = payload.img
   },
 
@@ -129,10 +150,7 @@ export const mutations = {
     state.planEdit[payload.cnt].pay = Number(payload.value)
   },
 
-  SET_OPTION_EDIT_IMAGE(
-    state: IState,
-    payload: { img: File | null; cnt: number }
-  ) {
+  SET_OPTION_EDIT_IMAGE(state: IState, payload: { img: any; cnt: number }) {
     state.optionEdit[payload.cnt].img = payload.img
   },
 
@@ -158,10 +176,7 @@ export const mutations = {
     state.optionEdit[payload.cnt].uid = payload.value
   },
 
-  SET_SLIDER_EDIT_IMAGE(
-    state: IState,
-    payload: { img: File | null; cnt: number }
-  ) {
+  SET_SLIDER_EDIT_IMAGE(state: IState, payload: { img: any; cnt: number }) {
     state.sliderEdit[payload.cnt].img = payload.img
   },
 
@@ -185,5 +200,91 @@ export const mutations = {
 }
 
 export const actions = {
-  async updateFacilityEdit(dispatch: ICommit, payload: string) {}
+  async updateFacilityEdit(dispatch: ICommit, payload: string) {
+    // 施設ID取得
+    const facility = await firestore
+      .collection('facilities')
+      .where('displayName', '==', payload)
+      .get()
+
+    // プラン
+    const planEdit = dispatch.state.planEdit
+    for (let index = 0; index < dispatch.state.planEdit.length; index++) {
+      const planImg = await storage
+        .ref()
+        .child(`facility/${payload}/plans/${planEdit[index].img.name}`)
+        .put(planEdit[index].img)
+
+      const planImgUrl = await planImg.ref.getDownloadURL()
+
+      const planData = {
+        details: planEdit[index].details,
+        maxGuests: planEdit[index].maxGuests,
+        pay: planEdit[index].pay,
+        planTitle: planEdit[index].planTitle,
+        planImage: planImgUrl
+      }
+
+      await firestore
+        .collection('facilities')
+        .doc(facility.docs[0].id)
+        .collection('plans')
+        .add(planData)
+    }
+
+    // オプション
+    const optionEdit = dispatch.state.optionEdit
+    for (let index = 0; index < optionEdit.length; index++) {
+      const optionImg = await storage
+        .ref()
+        .child(`facility/${payload}/options/${optionEdit[index].img.name}`)
+        .put(optionEdit[index].img)
+
+      const optionImgUrl = await optionImg.ref.getDownloadURL()
+
+      const optionData = {
+        createdAt: timestamp,
+        texts: optionEdit[index].details,
+        pay: optionEdit[index].pay,
+        displayName: optionEdit[index].uid,
+        title: optionEdit[index].optionTitle,
+        img: optionImgUrl
+      }
+
+      await firestore
+        .collection('facilities')
+        .doc(facility.docs[0].id)
+        .collection('options')
+        .add(optionData)
+    }
+
+    // スライダー
+    const sliderEdit = dispatch.state.sliderEdit
+    for (let index = 0; index < sliderEdit.length; index++) {
+      const sliderImg = await storage
+        .ref()
+        .child(`facility/${payload}/slider/${sliderEdit[index].img.name}`)
+        .put(sliderEdit[index].img)
+
+      const sliderImgUrl = await sliderImg.ref.getDownloadURL()
+
+      await firestore
+        .collection('facilities')
+        .doc(facility.docs[0].id)
+        .update({
+          slider: fieldValue.arrayUnion(sliderImgUrl)
+        })
+    }
+
+    // タグ
+    const tagEdit = dispatch.state.tagsEdit
+    for (let index = 0; index < tagEdit.length; index++) {
+      await firestore
+        .collection('facilities')
+        .doc(facility.docs[0].id)
+        .update({
+          tags: fieldValue.arrayUnion(tagEdit[index].tag)
+        })
+    }
+  }
 }
