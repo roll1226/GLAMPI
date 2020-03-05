@@ -207,84 +207,92 @@ export const actions = {
       .where('displayName', '==', payload)
       .get()
 
+    // 施設info
+    await firestore
+      .collection('facilities')
+      .doc(facility.docs[0].id)
+      .update({
+        info: dispatch.state.facilityInfo
+      })
+
     // プラン
-    const planEdit = dispatch.state.planEdit
-    for (let index = 0; index < dispatch.state.planEdit.length; index++) {
-      const planImg = await storage
-        .ref()
-        .child(`facility/${payload}/plans/${planEdit[index].img.name}`)
-        .put(planEdit[index].img)
+    // const planEdit = dispatch.state.planEdit
+    // for (let index = 0; index < dispatch.state.planEdit.length; index++) {
+    //   const planImg = await storage
+    //     .ref()
+    //     .child(`facility/${payload}/plans/${planEdit[index].img.name}`)
+    //     .put(planEdit[index].img)
 
-      const planImgUrl = await planImg.ref.getDownloadURL()
+    //   const planImgUrl = await planImg.ref.getDownloadURL()
 
-      const planData = {
-        details: planEdit[index].details,
-        maxGuests: planEdit[index].maxGuests,
-        pay: planEdit[index].pay,
-        planTitle: planEdit[index].planTitle,
-        planImage: planImgUrl
-      }
+    //   const planData = {
+    //     details: planEdit[index].details,
+    //     maxGuests: planEdit[index].maxGuests,
+    //     pay: planEdit[index].pay,
+    //     planTitle: planEdit[index].planTitle,
+    //     planImage: planImgUrl
+    //   }
 
-      await firestore
-        .collection('facilities')
-        .doc(facility.docs[0].id)
-        .collection('plans')
-        .add(planData)
-    }
+    //   await firestore
+    //     .collection('facilities')
+    //     .doc(facility.docs[0].id)
+    //     .collection('plans')
+    //     .add(planData)
+    // }
 
-    // オプション
-    const optionEdit = dispatch.state.optionEdit
-    for (let index = 0; index < optionEdit.length; index++) {
-      const optionImg = await storage
-        .ref()
-        .child(`facility/${payload}/options/${optionEdit[index].img.name}`)
-        .put(optionEdit[index].img)
+    // // オプション
+    // const optionEdit = dispatch.state.optionEdit
+    // for (let index = 0; index < optionEdit.length; index++) {
+    //   const optionImg = await storage
+    //     .ref()
+    //     .child(`facility/${payload}/options/${optionEdit[index].img.name}`)
+    //     .put(optionEdit[index].img)
 
-      const optionImgUrl = await optionImg.ref.getDownloadURL()
+    //   const optionImgUrl = await optionImg.ref.getDownloadURL()
 
-      const optionData = {
-        createdAt: timestamp,
-        texts: optionEdit[index].details,
-        pay: optionEdit[index].pay,
-        displayName: optionEdit[index].uid,
-        title: optionEdit[index].optionTitle,
-        img: optionImgUrl
-      }
+    //   const optionData = {
+    //     createdAt: timestamp,
+    //     texts: optionEdit[index].details,
+    //     pay: optionEdit[index].pay,
+    //     displayName: optionEdit[index].uid,
+    //     title: optionEdit[index].optionTitle,
+    //     img: optionImgUrl
+    //   }
 
-      await firestore
-        .collection('facilities')
-        .doc(facility.docs[0].id)
-        .collection('options')
-        .add(optionData)
-    }
+    //   await firestore
+    //     .collection('facilities')
+    //     .doc(facility.docs[0].id)
+    //     .collection('options')
+    //     .add(optionData)
+    // }
 
-    // スライダー
-    const sliderEdit = dispatch.state.sliderEdit
-    for (let index = 0; index < sliderEdit.length; index++) {
-      const sliderImg = await storage
-        .ref()
-        .child(`facility/${payload}/slider/${sliderEdit[index].img.name}`)
-        .put(sliderEdit[index].img)
+    // // スライダー
+    // const sliderEdit = dispatch.state.sliderEdit
+    // for (let index = 0; index < sliderEdit.length; index++) {
+    //   const sliderImg = await storage
+    //     .ref()
+    //     .child(`facility/${payload}/slider/${sliderEdit[index].img.name}`)
+    //     .put(sliderEdit[index].img)
 
-      const sliderImgUrl = await sliderImg.ref.getDownloadURL()
+    //   const sliderImgUrl = await sliderImg.ref.getDownloadURL()
 
-      await firestore
-        .collection('facilities')
-        .doc(facility.docs[0].id)
-        .update({
-          slider: fieldValue.arrayUnion(sliderImgUrl)
-        })
-    }
+    //   await firestore
+    //     .collection('facilities')
+    //     .doc(facility.docs[0].id)
+    //     .update({
+    //       slider: fieldValue.arrayUnion(sliderImgUrl)
+    //     })
+    // }
 
-    // タグ
-    const tagEdit = dispatch.state.tagsEdit
-    for (let index = 0; index < tagEdit.length; index++) {
-      await firestore
-        .collection('facilities')
-        .doc(facility.docs[0].id)
-        .update({
-          tags: fieldValue.arrayUnion(tagEdit[index].tag)
-        })
-    }
+    // // タグ
+    // const tagEdit = dispatch.state.tagsEdit
+    // for (let index = 0; index < tagEdit.length; index++) {
+    //   await firestore
+    //     .collection('facilities')
+    //     .doc(facility.docs[0].id)
+    //     .update({
+    //       tags: fieldValue.arrayUnion(tagEdit[index].tag)
+    //     })
+    // }
   }
 }
