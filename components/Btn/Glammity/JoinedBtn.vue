@@ -60,6 +60,13 @@ export default class JoinedBtn extends Vue {
       .doc(this.userId)
       .set({ userStates: 'guest' })
 
+    await firestore
+      .collection('users')
+      .doc(this.userId)
+      .collection('glammity')
+      .doc(this.glammityId)
+      .set({})
+
     this.$store.commit('glammityJoin/SET_LOADING', false)
     this.$store.commit('glammityJoin/SET_JOINED_BTN_DIALOG', true)
   }

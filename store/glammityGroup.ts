@@ -204,8 +204,15 @@ export const actions = {
       .collection('member')
       .doc(payload.userId)
       .delete()
-      .then(() => {
-        dispatch.commit('SET_WITHDRAW_DIALOG', true)
-      })
+
+    await firestore
+      .collection('users')
+      .doc(payload.userId)
+      .collection('glammity')
+      .doc(payload.url)
+      .delete()
+
+    dispatch.commit('SET_VERIFICATION_DIALOG', false)
+    dispatch.commit('SET_WITHDRAW_DIALOG', true)
   }
 }
