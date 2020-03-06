@@ -74,7 +74,7 @@
           <template v-slot:item.regist>
             <div>
               <v-col cols="auto" class="mx-n12">
-                <v-btn elevation="1" small class=" mr-n12">
+                <v-btn elevation="1" small class="mr-n12">
                   登録
                 </v-btn>
               </v-col>
@@ -96,11 +96,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { IFacility } from '@/store/adminFacility'
+
+interface IHeader {
+  text: string
+  value: string
+  sortable: boolean | null
+}
 
 @Component
 export default class UserManageAdmin extends Vue {
-  public facility: number = 3
-  public registFacility: number = 13
+  public facility: number = this.$store.state.adminFacility.facilities.length
+  public registFacility: number = 3
   public tab: number = 0
   public page: number = 1
   public pageCount: number = 0
@@ -109,78 +116,41 @@ export default class UserManageAdmin extends Vue {
   public itemsPerPage: number = 10
   data() {
     return {
-      headers: [
-        {
-          text: '施設名',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: '', value: 'preview', sortable: false }
-      ],
-      facilities: [
-        {
-          name: 'Guest1'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest3'
-        }
-      ],
       headers2: [
         {
           text: '施設名',
-          align: 'left',
-          sortable: false,
-          value: 'name'
+          value: 'facility',
+          sortable: false
         },
         { text: '', value: 'preview', sortable: false },
         { text: '', value: 'regist', sortable: false }
       ],
       facilities2: [
         {
-          name: 'Guest4'
+          facility: '野々山温泉'
         },
         {
-          name: 'Guest5'
+          facility: '札幌ビール'
         },
         {
-          name: 'Guest6'
-        },
-        {
-          name: 'Guest7'
-        },
-        {
-          name: 'Guest8'
-        },
-        {
-          name: 'Guest9'
-        },
-        {
-          name: 'Guest10'
-        },
-        {
-          name: 'Guest11'
-        },
-        {
-          name: 'Guest12'
-        },
-        {
-          name: 'Guest13'
-        },
-        {
-          name: 'Guest14'
-        },
-        {
-          name: 'Guest15'
-        },
-        {
-          name: 'Guest16'
+          facility: 'サーターアンダギー'
         }
       ]
     }
+  }
+  headers: IHeader[] = [
+    { text: '施設名', value: 'facility', sortable: null },
+    { text: '', value: 'preview', sortable: false }
+  ]
+
+  get facilities(): IFacility[] {
+    return this.$store.state.adminFacility.facilities
+  }
+  created() {
+    // const url = this.$route.params.id
+    // console.log(url)
+    this.$store.commit('adminFacility/CLEAR_INFO')
+    this.$store.dispatch('adminFacility/getFacilities')
   }
 }
 </script>
