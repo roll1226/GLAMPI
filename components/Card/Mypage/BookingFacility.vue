@@ -2,7 +2,7 @@
   <v-card outlined>
     <v-container>
       <v-row justify="center" no-gutters>
-        <v-col cols="12" sm="auto">
+        <v-col cols="auto" class="mx-auto">
           <v-img height="220" width="300" :src="facilityImg"></v-img>
         </v-col>
 
@@ -10,7 +10,7 @@
           <v-row no-gutters class="flex-column">
             <v-col>
               <v-card-text class="pa-0">
-                <v-card-title class="pl-0 pt-sm-0">
+                <v-card-title class="pl-0 pt-0" @click="goFacility">
                   {{ fasilityName }}
                 </v-card-title>
                 <v-card-subtitle class="pl-0">
@@ -26,18 +26,12 @@
             </v-col>
           </v-row>
           <v-row no-gutters>
-            <v-col>
-              最安値のプラン
-            </v-col>
+            <v-col> 以前予約したプラン:{{ planName }} </v-col>
           </v-row>
           <v-row no-gutters>
-            <v-col>
-              {{ planName }}
-            </v-col>
-            <v-col>
-              {{ planPay }}
-            </v-col>
+            <v-col> 合計金額:{{ planPay }} </v-col>
           </v-row>
+
           <v-row no-gutters>
             <v-card-actions class="pa-0">
               <v-col class="pa-0">
@@ -63,7 +57,6 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class BookingFasility extends Vue {
-  status: string = '予約中'
   cancel: string = '予約キャンセル'
 
   @Prop({ required: true, default: '' })
@@ -85,7 +78,14 @@ export default class BookingFasility extends Vue {
   planPay!: number
 
   @Prop({ required: true, default: '' })
-  introductionUrl!: string
+  url!: string
+
+  @Prop({ required: true, default: '' })
+  status!: string
+
+  goFacility() {
+    this.$router.push(`/facility/${this.url}/introduction`)
+  }
 }
 </script>
 
@@ -94,16 +94,6 @@ export default class BookingFasility extends Vue {
   .container {
     //各カード内余白
     padding: 40px 25px;
-
-    .row {
-      //background-color: antiquewhite;
-      .col {
-        .row {
-          .col {
-          }
-        }
-      }
-    }
   }
 }
 @media screen and (max-width: 770px) {
@@ -111,15 +101,6 @@ export default class BookingFasility extends Vue {
     .container {
       //各カード内余白
       padding: 30px 20px;
-
-      .row {
-        .col {
-          .row {
-            .col {
-            }
-          }
-        }
-      }
     }
   }
 }

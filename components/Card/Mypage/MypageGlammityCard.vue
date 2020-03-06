@@ -1,53 +1,49 @@
 <template>
-  <div>
-    <v-card class="mx-auto" outlined>
-      <v-container>
-        <v-row justify="space-between">
-          <v-col cols="auto">
-            <v-img height="200" max-width="340" :src="glammityImage"></v-img>
-          </v-col>
+  <v-card outlined>
+    <v-container>
+      <v-row justify="center" no-gutters>
+        <v-col cols="auto" class="mx-auto">
+          <v-img height="220" max-width="300" :src="glammityImage"></v-img>
+        </v-col>
 
-          <v-col class="pb-0">
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1">
-                {{ glammityName }}
-              </v-list-item-title>
-            </v-list-item-content>
+        <v-col cols="12" sm="" md="" lg="">
+          <v-row no-gutters>
+            <v-card-title class="headline pl-0 pt-0">
+              {{ glammityName }}
+            </v-card-title>
+          </v-row>
 
-            <v-card-text class="text--primary">
-              <div>
-                {{ introduction }}
-              </div>
-            </v-card-text>
-            <v-spacer></v-spacer>
-            <v-card-actions class="pb-0">
-              <v-col>
-                <!-- 詳細飛ぶ -->
-                <v-btn outlined class="glammity-btn" :to="glammityUrl">
+          <v-row no-gutters>
+            <v-col>
+              {{ introduction }}
+            </v-col>
+          </v-row>
+
+          <v-row no-gutters>
+            <v-col>
+              <v-btn outlined class="pa-0">
+                {{ status }}
+              </v-btn></v-col
+            ></v-row
+          >
+          <v-row no-gutters>
+            <v-card-actions class="pa-0">
+              <v-col class="pa-0">
+                <v-btn outlined :to="glammityUrl">
                   詳細
                 </v-btn>
               </v-col>
-
-              <v-spacer></v-spacer>
-              <v-col>
-                <!-- 参加中/宿泊済み -->
-                <v-btn disabled>
-                  {{ status }}
-                </v-btn>
-              </v-col>
-              <v-spacer></v-spacer>
-              <v-col>
-                <!-- チャットルーム -->
-                <v-btn outlined class="glammity-btn">
+              <v-col class="pa-0">
+                <v-btn outlined>
                   チャットルーム
                 </v-btn>
               </v-col>
             </v-card-actions>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card>
-  </div>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -72,10 +68,24 @@ export default class MypageGlammityCard extends Vue {
 </script>
 
 <style lang="scss">
-.glammity-btn {
-  &.theme--light.v-btn {
-    color: $site_color_2;
-    caret-color: $site_color_2;
+// .glammity-btn {
+//   &.theme--light.v-btn {
+//     color: $site_color_2;
+//     caret-color: $site_color_2;
+//   }
+// }
+.v-card {
+  .container {
+    //各カード内余白
+    padding: 40px 25px;
+  }
+}
+@media screen and (max-width: 770px) {
+  .v-card {
+    .container {
+      //各カード内余白
+      padding: 30px 20px;
+    }
   }
 }
 </style>
