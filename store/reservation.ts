@@ -15,7 +15,10 @@ interface IState {
   dates: [...string[]]
   totalDate: number
   planImg: string
+  maxGuests: string
+  guest: string
 }
+
 export const state = (): IState => ({
   planTitle: '',
   isActive: false,
@@ -26,7 +29,9 @@ export const state = (): IState => ({
   totalPay: 0,
   dates: [],
   totalDate: 0,
-  planImg: ''
+  planImg: '',
+  maxGuests: '',
+  guest: ''
 })
 
 export const mutations = {
@@ -70,6 +75,14 @@ export const mutations = {
 
   SET_PLAN_IMG(state: IState, payload: string) {
     state.planImg = payload
+  },
+
+  SET_MAX_GUESTS(state: IState, payload: string) {
+    state.maxGuests = payload
+  },
+
+  SET_GUEST(state: IState, payload: string) {
+    state.guest = payload
   }
 }
 

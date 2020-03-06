@@ -119,6 +119,9 @@ export default class Stripe extends Vue {
   get userId(): string {
     return this.$store.state.login.userUid
   }
+  get guestNumber(): string {
+    return this.$store.state.reservation.guest
+  }
 
   async pay() {
     this.loading = true
@@ -152,7 +155,8 @@ export default class Stripe extends Vue {
             plan: this.planTitle,
             status: '宿泊前',
             totalPay: this.totalPay,
-            userId: this.userId
+            userId: this.userId,
+            guestNumber: this.guestNumber
           }
           const userReservation = firestore
             .collection('users')

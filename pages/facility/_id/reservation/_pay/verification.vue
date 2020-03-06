@@ -16,16 +16,19 @@
                   チェックイン〜チェックアウト
                 </td>
                 <td>
-                  {{ `${dates[0]}~${dates[1]}` }}
+                  {{
+                    `${dates[0].replace(/-/g, '/')}~${dates[1].replace(
+                      /-/g,
+                      '/'
+                    )}`
+                  }}
                 </td>
               </tr>
               <tr>
                 <td>
                   宿泊人数
                 </td>
-                <td>
-                  3人
-                </td>
+                <td>{{ guestNumber }}人</td>
               </tr>
               <tr>
                 <td>
@@ -93,6 +96,10 @@ export default class reservation extends Vue {
 
   get planImg(): string {
     return this.$store.state.reservation.planImg
+  }
+
+  get guestNumber(): string {
+    return this.$store.state.reservation.guest
   }
 }
 </script>

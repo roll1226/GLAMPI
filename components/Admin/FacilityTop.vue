@@ -46,22 +46,26 @@
 
           <v-card-text class="pb-2">
             <div class="my-4 subtitle-1">
-              プラン: <span class="headline">{{ plan }}</span>
+              プラン: <span class="title">{{ plan }}</span>
             </div>
 
             <div class="my-4 subtitle-1">
-              オプション: <span class="headline">{{ option }}</span>
+              オプション: <span class="title">{{ option }}</span>
             </div>
           </v-card-text>
 
           <v-divider class="mx-4 pb-6"></v-divider>
 
           <v-card-text>
-            <v-chip color="success">チェックイン: {{ checkIn }}</v-chip>
+            <v-chip color="success"
+              >チェックイン: {{ checkIn.replace(/-/g, '/') }}</v-chip
+            >
           </v-card-text>
 
           <v-card-text class="pb-0">
-            <v-chip color="error">チェックアウト: {{ checkOut }}</v-chip>
+            <v-chip color="error"
+              >チェックアウト: {{ checkOut.replace(/-/g, '/') }}</v-chip
+            >
           </v-card-text>
 
           <v-card-actions>
@@ -154,7 +158,10 @@ export default class FacilityTop extends Vue {
     this.dialog = true
     this.userName = guestDate.name
     this.plan = guestDate.planName
-    this.option = guestDate.optionName
+    this.option =
+      guestDate.optionName === ''
+        ? '選択されていません。'
+        : guestDate.optionName
     this.checkIn = guestDate.checkIn
     this.checkOut = guestDate.checkOut
   }

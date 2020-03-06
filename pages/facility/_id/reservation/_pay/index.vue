@@ -10,6 +10,10 @@
       </v-col>
 
       <v-col :cols="10" class="ma-auto">
+        <GuestNumber />
+      </v-col>
+
+      <v-col :cols="10" class="ma-auto">
         <v-card>
           <v-list-item three-line>
             <v-list-item-content>
@@ -80,11 +84,6 @@
       </v-col>
     </v-row>
 
-    <!-- <div class="text-center mb-1" @click="toVerification">
-      <v-btn :disabled="!isReservation">
-        予約確認
-      </v-btn>
-    </div> -->
     <ReservationBtn />
   </div>
 </template>
@@ -95,6 +94,7 @@ import moment from 'moment'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
 import ReservationBtn from '@/components/Btn/ReservationBtn.vue'
+import GuestNumber from '@/components/Card/Reservation/GuestNumber.vue'
 
 interface option {
   slidesPerView: number
@@ -117,7 +117,8 @@ interface options {
   components: {
     Plan,
     Options,
-    ReservationBtn
+    ReservationBtn,
+    GuestNumber
   }
 })
 export default class reservation extends Vue {

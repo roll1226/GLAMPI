@@ -30,12 +30,6 @@
   </div>
 </template>
 
-<style lang="scss">
-// .v-data-table-header {
-//   background-color: #e0e0e0;
-// }
-</style>
-
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
