@@ -116,6 +116,9 @@ export default class Stripe extends Vue {
   get facility(): IFacility {
     return this.$store.state.facility.facility
   }
+  get userId(): string {
+    return this.$store.state.login.userUid
+  }
 
   async pay() {
     this.loading = true
@@ -140,14 +143,16 @@ export default class Stripe extends Vue {
           // 成功時firebaseに投げる
           const batch = firestore.batch()
           const reservationList = {
-            checkDates: [this.dates[0], this.dates[1]],
+            checkIn: this.dates[0],
+            checkOut: this.dates[1],
             createdAt: timestamp,
             facilityId: this.$route.params.id,
             option: this.optionTitle,
             payment: 'クレジットカード',
             plan: this.planTitle,
             status: '宿泊前',
-            totalPay: this.totalPay
+            totalPay: this.totalPay,
+            userId: this.userId
           }
           const userReservation = firestore
             .collection('users')
