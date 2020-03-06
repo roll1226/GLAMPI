@@ -97,8 +97,8 @@ interface IHeader {
 
 @Component
 export default class UserManageAdmin extends Vue {
-  public users: number = 48132
-  public unauthorizedUsers: number = 12
+  public users: number = this.$store.state.adminUser.users.length
+  public unauthorizedUsers: number = 3
   public tab: number = 0
   public page: number = 1
   public pageCount: number = 0
@@ -113,7 +113,13 @@ export default class UserManageAdmin extends Vue {
       ],
       username2: [
         {
-          name: 'Guest4'
+          name: '不正ユーザA'
+        },
+        {
+          name: '不正ユーザB'
+        },
+        {
+          name: '不正ユーザC'
         }
       ]
     }
