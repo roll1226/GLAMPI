@@ -4,7 +4,6 @@ import { firestore, timestamp } from '@/plugins/firebase'
 import { userStates } from '@/store/glammityGroup'
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const uuid = require('uuid/v4')
-
 const reservationUuid = uuid()
   .split('-')
   .join('')

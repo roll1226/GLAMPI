@@ -67,9 +67,6 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { Card } from 'vue-stripe-elements-plus'
 import { IGlammityInfoList } from '@/store/glammityInfo'
 import { userStates } from '@/store/glammityGroup'
-
-// import { firestore, timestamp } from '@/plugins/firebase'
-// const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const api = process.env.STRIPE_PUBLIC_KEY
 
 @Component({
