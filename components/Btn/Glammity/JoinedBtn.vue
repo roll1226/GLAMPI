@@ -5,7 +5,7 @@
     </v-btn>
 
     <div justify="center">
-      <v-dialog v-model="dialog" max-width="500">
+      <v-dialog v-model="joinedDialog" max-width="500">
         <v-card>
           <v-card-title class="headline">
             {{ glammityName }}に参加しました。
@@ -35,9 +35,7 @@ export default class JoinedBtn extends Vue {
   @Prop({ required: true, default: '' })
   glammityId!: string
 
-  get dialog(): boolean {
-    return this.$store.state.glammityJoin.joinedBtnDialog
-  }
+  joinedDialog: boolean = false
 
   get userId(): string {
     return this.$store.state.login.userUid
@@ -68,12 +66,10 @@ export default class JoinedBtn extends Vue {
       .set({})
 
     this.$store.commit('glammityJoin/SET_LOADING', false)
-    this.$store.commit('glammityJoin/SET_JOINED_BTN_DIALOG', true)
+    this.joinedDialog = true
   }
 
   closeAll() {
-    this.$store.commit('glammityJoin/SET_JOINED_BTN_DIALOG', false)
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
     this.$router.push(`/glammity/Group/${this.glammityId}/glammityGroup`)
   }
 }
