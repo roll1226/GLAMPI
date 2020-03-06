@@ -18,7 +18,7 @@ export interface IFacility {
 }
 
 export interface IPlan {
-  details: [...string[]]
+  details: string
   pay: number
   planImage: string
   planTitle: string
@@ -27,7 +27,7 @@ export interface IPlan {
 
 export interface IOption {
   title: string
-  texts: [...string[]]
+  texts: string
   src: string
   pay: number
   displayName: string
