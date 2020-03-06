@@ -6,7 +6,7 @@
       cols="12"
     >
       <CommentCard
-        :facility-name="comment.facilityName"
+        :facility-name="comment.facilityName1"
         :star="comment.star"
         :text="comment.text"
         :date="comment.date"

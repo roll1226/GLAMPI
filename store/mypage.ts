@@ -43,6 +43,19 @@ interface IState {
   comments: IComment[]
 }
 
+interface IUserData {
+  facilityId: string
+  plan: string
+  totalPay: number
+  status: string
+}
+
+interface ICommentData {
+  star: number
+  text: string
+  createdAt: any
+}
+
 export interface IFacility {
   facilityName: string
   facilityImg: string
@@ -67,19 +80,6 @@ export interface IComment {
   date: string | undefined
   text: string
   url: string
-}
-
-interface IUserData {
-  facilityId: string
-  plan: string
-  totalPay: number
-  status: string
-}
-
-interface ICommentData {
-  star: number
-  text: string
-  createdAt: any
 }
 
 export const state = (): IState => ({

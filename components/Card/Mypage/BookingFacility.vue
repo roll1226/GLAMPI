@@ -10,7 +10,7 @@
           <v-row no-gutters class="flex-column">
             <v-col>
               <v-card-text class="pa-0">
-                <v-card-title class="pl-0 pt-sm-0" @click="goFacility">
+                <v-card-title class="pl-0 pt-0" @click="goFacility">
                   {{ fasilityName }}
                 </v-card-title>
                 <v-card-subtitle class="pl-0">
@@ -94,16 +94,6 @@ export default class BookingFasility extends Vue {
   .container {
     //各カード内余白
     padding: 40px 25px;
-
-    .row {
-      //background-color: antiquewhite;
-      .col {
-        .row {
-          .col {
-          }
-        }
-      }
-    }
   }
 }
 @media screen and (max-width: 770px) {
@@ -111,15 +101,6 @@ export default class BookingFasility extends Vue {
     .container {
       //各カード内余白
       padding: 30px 20px;
-
-      .row {
-        .col {
-          .row {
-            .col {
-            }
-          }
-        }
-      }
     }
   }
 }

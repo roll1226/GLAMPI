@@ -57,6 +57,9 @@ export default class GlampiFoot extends Vue {
 }
 </script>
 <style lang="scss">
+.v-footer {
+  margin: 40px 0 0 0;
+}
 .v-btn::before,
 .v-btn::after {
   background-color: #fff;

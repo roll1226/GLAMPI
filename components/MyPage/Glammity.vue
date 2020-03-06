@@ -1,5 +1,5 @@
 <template>
-  <v-row class="glammity-wrapp">
+  <v-row no-gutters class="glammity-wrap">
     <v-col
       v-for="(glammity, cardIndex) in cards"
       :key="cardIndex"

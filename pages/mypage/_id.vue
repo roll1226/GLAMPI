@@ -107,7 +107,7 @@ export default class mypage extends Vue {
 .mypage-wrapp {
   overflow: visible !important;
   max-width: 1100px;
-  padding: 28px 0 100px 0;
+  padding: 28px 0 0 0;
   .mypage-navi {
     width: 100%;
     margin: 0 0 28px 0;
@@ -129,12 +129,12 @@ export default class mypage extends Vue {
     width: 100%;
     box-sizing: border-box;
     margin: 0 auto;
-    min-height: 400px;
+    min-height: 500px;
     //カード内左右と下
     padding: 0 60px 40px;
     .mypage-user {
       width: 180px;
-      margin: 70px 60px 0 0;
+      margin: 100px 60px 0 0;
       p {
         font-size: 22px;
         text-align: center;
@@ -157,7 +157,7 @@ export default class mypage extends Vue {
     //mypage,Mytopコンポーネント
     .mytop-wrap {
       max-width: 740px;
-      margin: 70px 0 0 0;
+      margin: 100px 0 0 0;
       * {
         padding: 0px;
         margin: 0px;
@@ -188,9 +188,15 @@ export default class mypage extends Vue {
       }
     }
 
-    //mypage,BookingListコンポーネント
     .bList-wrap {
-      //各カード間のmargin(margin-bottom)
+      margin: 50px 0 0 0;
+      .v-card {
+        margin: 0 0 35px 0;
+      }
+    }
+
+    .glammity-wrap {
+      margin: 50px 0 0 0;
       .v-card {
         margin: 0 0 35px 0;
       }
@@ -238,20 +244,25 @@ export default class mypage extends Vue {
       }
 
       .changeInfo-wrap {
-        margin: 0px 10px 20px;
+        margin: 0px 10px 0;
         .row {
           margin-top: 0px;
         }
       }
 
       .bList-wrap {
-        margin: 20px 0 0;
+        margin: 40px 0 0 0;
         .v-card {
           margin: 0 0 30px 0;
           padding: 0;
-          .container {
-            padding: 25px 10px 25px;
-          }
+        }
+      }
+
+      .glammity-wrap {
+        margin: 40px 0 0 0;
+        .v-card {
+          margin: 0 0 30px 0;
+          padding: 0;
         }
       }
     }

@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" outlined>
     <v-container>
-      <v-row justify="space-between" no-gutters>
+      <v-row justify="center" no-gutters>
         <v-col cols="auto" class="mx-auto">
           <v-img height="220" max-width="300" :src="facilityImg"> </v-img>
         </v-col>
@@ -10,7 +10,7 @@
       <v-row no-gutters>
         <v-col>
           <v-card-text class="pa-0">
-            <v-card-title class="pl-0 pt-sm-0">
+            <v-card-title class="pl-0 pt-0">
               {{ facilityName }}
             </v-card-title>
           </v-card-text>

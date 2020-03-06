@@ -50,9 +50,7 @@ export default class IndexPage extends Vue {
 
 <style lang="scss">
 .top-page-introduction-wrap {
-  //background-color: aquamarine;
-  //各top-page-introduction-wrapのmargin
-  margin: 50px 0 10px 0;
+  margin: 100px 0 0 0;
 
   .top-page-titles {
     //background-color: bisque;
