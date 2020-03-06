@@ -1,6 +1,12 @@
 <template>
   <div class="text-center">
-    <v-btn :block="isBlock" :text="isBlock" @click.stop="openModal">
+    <v-btn
+      :block="isBlock"
+      class="glammity-btn"
+      :text="isBlock"
+      :outlined="isOutlined"
+      @click.stop="openModal"
+    >
       <v-icon class="mr-2">
         fas fa-campground
       </v-icon>
@@ -78,6 +84,9 @@ export default class JoinBtn extends Vue {
 
   @Prop({ required: true, default: true })
   isBlock!: boolean
+
+  @Prop({ required: true, default: false })
+  isOutlined!: boolean
 
   get joinBtnLoading(): boolean {
     return this.$store.state.glammityJoin.loading

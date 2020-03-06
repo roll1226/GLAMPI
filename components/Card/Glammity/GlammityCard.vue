@@ -23,14 +23,15 @@
       <!-- 詳細飛ぶ -->
       <v-btn
         outlined
-        class="glammity-btn"
+        class="glammity-btn mr-3"
         :to="`/Glammity/${url}/glammityIntroduction`"
       >
         詳細
       </v-btn>
       <!-- 参加する -->
       <JoinBtn
-        :is-block="true"
+        :is-block="false"
+        :is-outlined="true"
         :glammity-name="glammityName"
         :glammity-id="url"
       />
