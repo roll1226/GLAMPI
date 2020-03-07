@@ -1,12 +1,12 @@
 <template>
   <v-card outlined>
     <v-container>
-      <v-row no-gutters align="center">
-        <v-col cols="auto"
-          ><v-card-title class="pa-0">{{ facilityName }} </v-card-title>
+      <v-row no-gutters class="flex-column flex-sm-row">
+        <v-col cols="auto">
+          <v-card-title class="pa-0">{{ facilityName }} </v-card-title>
         </v-col>
-        <v-col
-          ><v-card-actions class="pa-0">
+        <v-col cols="auto">
+          <v-card-actions class="pa-0">
             <v-rating
               :value="star"
               readonly
@@ -19,13 +19,12 @@
             <span class="grey--text body-2"> ({{ star }}) </span>
           </v-card-actions>
         </v-col>
-        <v-col class="text-right">
+        <v-col class="text-left text-sm-right">
           <v-card-text class="grey--text subtitle-1 pa-0">{{
             date
           }}</v-card-text>
         </v-col>
       </v-row>
-
       <v-row no-gutters>
         <v-col>
           <v-card-text class="pa-0 subtitle-1">
@@ -66,11 +65,5 @@ export default class BookingFasility extends Vue {
   }
 }
 @media screen and (max-width: 770px) {
-  .v-card {
-    .container {
-      //各カード内余白
-      padding: 30px 20px;
-    }
-  }
 }
 </style>

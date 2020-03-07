@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters class="review-wrap">
+  <v-row no-gutters>
     <v-col
       v-for="(comment, commentIndex) in commentList"
       :key="commentIndex"

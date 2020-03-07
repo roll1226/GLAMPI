@@ -109,9 +109,9 @@ export const state = (): IState => ({
   sex: '',
   birthday: '',
   reservation: [],
+  glammity: [],
   likes: [],
-  comments: [],
-  glammity: []
+  comments: []
 })
 
 export const mutations = {
@@ -119,12 +119,16 @@ export const mutations = {
     state.reservation = []
   },
 
+  RESET_GLAMMITY(state: IState) {
+    state.glammity = []
+  },
+
   RESET_LIKES(state: IState) {
     state.likes = []
   },
 
-  RESET_GLAMMITY(state: IState) {
-    state.glammity = []
+  RESET_COMMENTS(state: IState) {
+    state.comments = []
   },
 
   SET_SCREEN_NUMBER(state: IState, payload: number) {
@@ -353,6 +357,35 @@ export const actions = {
     })
   },
 
+  async getGlammity(dispatch: ICommit, payload: string) {
+    const user = await firestore
+      .collection('users')
+      .doc(payload)
+      .collection('glammity')
+      .get()
+    console.log(user.docs)
+    for (let index = 0; index < user.size; index++) {
+      dispatch.dispatch('getGlammityFacility', user.docs[index].id)
+    }
+  },
+  async getGlammityFacility(dispatch: ICommit, payload: string) {
+    const glammity: any = await firestore
+      .collection('glammity')
+      .doc(payload)
+      .get()
+
+    const facility = await firestore
+      .collection('facilities')
+      .where('displayName', '==', glammity.data().facilityUrl)
+      .get()
+
+    dispatch.commit('SET_GLAMMITY', {
+      facilityData: facility.docs[0].data(),
+      glammityData: glammity.data(),
+      url: payload
+    })
+  },
+
   async getLikes(dispatch: ICommit, payload: string) {
     const user = await firestore
       .collection('users')
@@ -403,35 +436,6 @@ export const actions = {
     dispatch.commit('SET_REVIEWS_COMMENT', {
       commentData: payload,
       facilityData: facility.docs[0].data()
-    })
-  },
-
-  async getGlammity(dispatch: ICommit, payload: string) {
-    const user = await firestore
-      .collection('users')
-      .doc(payload)
-      .collection('glammity')
-      .get()
-    console.log(user.docs)
-    for (let index = 0; index < user.size; index++) {
-      dispatch.dispatch('getGlammityFacility', user.docs[index].id)
-    }
-  },
-  async getGlammityFacility(dispatch: ICommit, payload: string) {
-    const glammity: any = await firestore
-      .collection('glammity')
-      .doc(payload)
-      .get()
-
-    const facility = await firestore
-      .collection('facilities')
-      .where('displayName', '==', glammity.data().facilityUrl)
-      .get()
-
-    dispatch.commit('SET_GLAMMITY', {
-      facilityData: facility.docs[0].data(),
-      glammityData: glammity.data(),
-      url: payload
     })
   }
 }

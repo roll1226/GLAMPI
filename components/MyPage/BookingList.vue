@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters class="bList-wrap">
+  <v-row no-gutters>
     <v-col
       v-for="(facility, facilityIndex) in facilityList"
       :key="facilityIndex"
