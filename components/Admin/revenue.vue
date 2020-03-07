@@ -1,35 +1,6 @@
 <template>
   <div>
     <v-row class="pa-0 ma-0 mb-10 row1">
-      <v-card tile elevation="0" color="grey lighten-4">
-        <v-card-text class="black--text pa-0">
-          <v-row class="ma-0 pa-0" justify="space-around">
-            <v-col class="text-center pa-0">
-              <p class="ma-0 title">
-                今月<br /><span class="revenue"
-                  >収益:{{ berforIncomeNumber.toLocaleString() }}円</span
-                ><br /><span class="revenue"
-                  >宿泊人数:{{ berforGuestsNumber }}人</span
-                ><br /><span class="revenue"
-                  >仲介料:{{ berforBrokerageFee.toLocaleString() }}円</span
-                >
-              </p></v-col
-            >
-
-            <v-col class="text-center pa-0">
-              <p class="ma-0 title">
-                先月<br /><span class="revenue"
-                  >収益:{{ toIncomeNumber.toLocaleString() }}円</span
-                ><br /><span class="revenue"
-                  >宿泊人数:{{ toGuestsNumber }}人</span
-                ><br /><span class="revenue"
-                  >仲介料:{{ toBrokerageFee.toLocaleString() }}円</span
-                >
-              </p>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
       <v-row justify="center">
         <v-col cols="auto">
           <IncomeChart
@@ -63,13 +34,6 @@ import GuestsNumberChard from '@/components/Admin/GuestsNumberChard.vue'
   }
 })
 export default class RevenueFacility extends Vue {
-  berforIncomeNumber: number = 240000
-  berforGuestsNumber: number = 32
-  toIncomeNumber: number = 520000
-  toGuestsNumber: number = 67
-  berforBrokerageFee: number = this.berforIncomeNumber / 10
-  toBrokerageFee: number = this.toIncomeNumber / 10
-
   incomeChartOption: Chart.ChartOptions = {
     scales: {
       xAxes: [
@@ -93,7 +57,7 @@ export default class RevenueFacility extends Vue {
           ticks: {
             beginAtZero: true,
             min: 0,
-            stepSize: 100000,
+            stepSize: 5000,
             fontSize: 18
           }
         }
@@ -124,7 +88,7 @@ export default class RevenueFacility extends Vue {
           ticks: {
             beginAtZero: true,
             min: 0,
-            stepSize: 10,
+            stepSize: 5,
             fontSize: 18
           }
         }
