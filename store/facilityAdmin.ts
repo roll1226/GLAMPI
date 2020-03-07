@@ -14,6 +14,7 @@ export interface IGuests {
   checkOut: string
   planName: string
   optionName: string
+  guestNumber: string
 }
 
 interface IState {
@@ -35,6 +36,7 @@ export const mutations = {
       checkIn: string
       checkOut: string
       userDate: { firstName: string; lastName: string }
+      guestNumber: string
     }
   ) {
     const number = Math.floor(Math.random() * (99 - 1) + 1)
@@ -46,7 +48,8 @@ export const mutations = {
       checkIn: payload.checkIn,
       checkOut: payload.checkOut,
       planName: payload.plan,
-      optionName: payload.option
+      optionName: payload.option,
+      guestNumber: payload.guestNumber
     }
 
     state.toDateGuests.push(toDateGuests)
@@ -80,10 +83,8 @@ export const actions = {
       .where('checkIn', '==', payload.toDate)
       .get()
 
-    if (reservation.size === 0) {
-      dispatch.commit('SET_TABLE_LOADING', false)
-      return
-    }
+    if (reservation.size === 0)
+      return dispatch.commit('SET_TABLE_LOADING', false)
 
     for (let index = 0; index < reservation.size; index++) {
       await dispatch.dispatch('getUser', {
@@ -91,7 +92,8 @@ export const actions = {
         option: reservation.docs[index].data().option,
         checkIn: reservation.docs[index].data().checkIn,
         checkOut: reservation.docs[index].data().checkOut,
-        userId: reservation.docs[index].data().userId
+        userId: reservation.docs[index].data().userId,
+        guestNumber: reservation.docs[index].data().guestNumber
       })
     }
 
@@ -106,6 +108,7 @@ export const actions = {
       checkIn: string
       checkOut: string
       userId: string
+      guestNumber: string
     }
   ) {
     const user = await firestore
@@ -120,6 +123,7 @@ export const actions = {
       option: payload.option,
       checkIn: payload.checkIn,
       checkOut: payload.checkOut,
+      guestNumber: payload.guestNumber,
       userDate: user.data()
     })
   }

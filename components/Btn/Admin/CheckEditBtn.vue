@@ -33,9 +33,12 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class CheackEditBtn extends Vue {
-  editLoading: boolean = false
   get dialog(): boolean {
     return this.$store.state.facilityEdit.dialog
+  }
+
+  get editLoading(): boolean {
+    return this.$store.state.facilityEdit.loading
   }
 
   set dialog(value: boolean) {

@@ -46,6 +46,10 @@
 
           <v-card-text class="pb-2">
             <div class="my-4 subtitle-1">
+              宿泊人数: <span class="title">{{ guestNumber }}人</span>
+            </div>
+
+            <div class="my-4 subtitle-1">
               プラン: <span class="title">{{ plan }}</span>
             </div>
 
@@ -89,6 +93,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import moment from 'moment'
 import { IGuests } from '@/store/facilityAdmin'
+// import { storage } from '@/plugins/firebase'
 
 interface IHeader {
   text: string
@@ -109,6 +114,7 @@ export default class FacilityTop extends Vue {
   option: string = ''
   checkIn: string = ''
   checkOut: string = ''
+  guestNumber: string = ''
 
   headers: IHeader[] = [
     {
@@ -164,6 +170,7 @@ export default class FacilityTop extends Vue {
         : guestDate.optionName
     this.checkIn = guestDate.checkIn
     this.checkOut = guestDate.checkOut
+    this.guestNumber = guestDate.guestNumber
   }
 
   closeDetailReservation() {
@@ -173,6 +180,7 @@ export default class FacilityTop extends Vue {
     this.option = ''
     this.checkIn = ''
     this.checkOut = ''
+    this.guestNumber = ''
   }
 
   get guests(): IGuests[] {

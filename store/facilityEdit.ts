@@ -179,6 +179,8 @@ export const mutations = {
   },
 
   SET_SLIDER_EDIT_IMAGE(state: IState, payload: { img: any; cnt: number }) {
+    console.log(payload.img)
+
     state.sliderEdit[payload.cnt].img = payload.img
   },
 
