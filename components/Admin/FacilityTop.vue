@@ -93,7 +93,6 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import moment from 'moment'
 import { IGuests } from '@/store/facilityAdmin'
-// import { storage } from '@/plugins/firebase'
 
 interface IHeader {
   text: string

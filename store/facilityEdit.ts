@@ -42,6 +42,7 @@ export interface IState {
   dialog: boolean
   endDialog: boolean
   loading: boolean
+  siteDialog: boolea
 }
 
 const planList = {
@@ -75,7 +76,8 @@ export const state = (): IState => ({
   tagsEdit: [],
   dialog: false,
   endDialog: false,
-  loading: false
+  loading: false,
+  siteDialog: false
 })
 
 export const mutations = {
@@ -208,6 +210,10 @@ export const mutations = {
 
   SET_END_DIALOG(state: IState, payload: boolean) {
     state.endDialog = payload
+  },
+
+  SET_SITE_DIALOG(state: IState, payload: boolean) {
+    state.siteDialog = payload
   }
 }
 
