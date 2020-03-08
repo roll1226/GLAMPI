@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-text-field
-      v-model="tel"
+      v-model="phoneNumber"
       v-mask="telMask"
       label="電話番号"
       prepend-icon="mdi-phone"
@@ -16,23 +16,18 @@ const { mask } = require('vue-the-mask')
 @Component({
   directives: {
     mask
-  },
-  data() {
-    return {
-      telMask: '###-####-####'
-    }
   }
 })
-export default class telFacilityRegistration extends Vue {
-  // public tel: string = ''
-  get tel(): string {
-    return this.$store.state.facilityRegist.phoneNumber
+export default class FacilityTelRegistration extends Vue {
+  telMask: string = '###-####-####'
+  get phoneNumber(): string {
+    return this.$store.state.facilityRegistration.phoneNumber
   }
 
-  set tel(value: string) {
-    this.$store.commit('registration/SET_PHONE_NUMBER', value)
+  set phoneNumber(value: string) {
+    this.$store.commit('facilityRegistration/SET_PHONE_NUMBER', value)
   }
-  public telMask: string = ''
+
   public rules: {} = {
     isTel: (v: string) => !!v || '電話番号は必ず入力してください。',
     telFormat: (v: string) => {
