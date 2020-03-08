@@ -99,14 +99,7 @@ export const state = (): IState => ({
   siteDialog: false,
 
   checkSliderImg: [],
-  checkPlan: [
-    {
-      planTitle: '',
-      pay: 0,
-      details: '',
-      maxGuests: ''
-    }
-  ],
+  checkPlan: [],
   checkPlanImg: [],
   checkOption: [
     {
@@ -135,7 +128,6 @@ export const mutations = {
     state.optionEdit.push(optionList)
     state.sliderEdit.push(sliderList)
     state.checkPlan.push(checkPlanList)
-    state.checkPlan.push(checkOptionList)
     state.checkOption.push(checkOptionList)
   },
 

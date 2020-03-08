@@ -7,7 +7,7 @@
       transition="dialog-bottom-transition"
     >
       <v-card>
-        <v-toolbar dark color="primary">
+        <v-toolbar :elevation="2" dark color="grey lighten-2">
           <v-btn icon dark @click="colseCheckSite">
             <v-icon>mdi-close</v-icon>
           </v-btn>
