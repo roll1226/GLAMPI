@@ -50,6 +50,12 @@ export default class CheackEditBtn extends Vue {
     return this.$store.state.facilityEdit.dialog
   }
 
+  get sliders(): [...any[]] {
+    if (this.$store.state.facilityEdit.sliderEdit[0].img !== null) {
+    }
+    return this.$store.state.facilityEdit.sliderEdit
+  }
+
   get editLoading(): boolean {
     return this.$store.state.facilityEdit.loading
   }

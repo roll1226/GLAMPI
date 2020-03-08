@@ -11,6 +11,27 @@
       <v-divider class="mx-2"></v-divider>
 
       <v-card-title>
+        スライダー画像
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <FacilitySliderEdit
+            v-for="(slider, index) in sliderCnt"
+            :key="index"
+            :index-cnt="index"
+          />
+
+          <v-col cols="4" class="d-flex flex-row align-center pt-10">
+            <v-btn class="mt-5" fab depressed @click="plusSliderList">
+              <v-icon dark>mdi-plus</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+
+      <v-divider class="mx-2"></v-divider>
+
+      <v-card-title>
         予約プラン
       </v-card-title>
       <v-card-text>
@@ -45,27 +66,6 @@
           <v-icon dark>mdi-plus</v-icon>
         </v-btn>
       </div>
-
-      <v-divider class="mx-2"></v-divider>
-
-      <v-card-title>
-        スライダー画像
-      </v-card-title>
-      <v-card-text>
-        <v-row>
-          <FacilitySliderEdit
-            v-for="(slider, index) in sliderCnt"
-            :key="index"
-            :index-cnt="index"
-          />
-
-          <v-col cols="4" class="d-flex flex-row align-center pt-10">
-            <v-btn class="mt-5" fab depressed @click="plusSliderList">
-              <v-icon dark>mdi-plus</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-text>
 
       <v-divider class="mx-2"></v-divider>
 

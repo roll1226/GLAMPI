@@ -17,7 +17,7 @@
 
     <v-card-text class="text--primary" v-text="details"></v-card-text>
 
-    <v-card-actions>
+    <v-card-actions v-if="url !== ''">
       <v-spacer></v-spacer>
 
       <!-- 予約ページに遷移する -->
