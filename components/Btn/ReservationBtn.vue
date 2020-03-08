@@ -1,6 +1,13 @@
 <template>
-  <div class="text-center mb-1">
-    <v-btn :disabled="!isReservation" @click="toVerification">
+  <div class="text-center mb-1 mt-4">
+    <v-btn
+      :disabled="!isReservation"
+      color="success"
+      width="200"
+      height="60"
+      class="title"
+      @click="toVerification"
+    >
       予約確認
     </v-btn>
 
@@ -36,12 +43,26 @@ export default class ReservationBtn extends Vue {
     return this.$store.state.login.isLogin
   }
 
+  get gusetNumber(): string {
+    return this.$store.state.reservation.guest
+  }
+
   @Watch('dates')
-  reservationIsValid() {
+  reservationIsValidDates() {
     this.isReservation =
       this.isDateInputed(this.dates[0]) &&
       this.isDateInputed(this.dates[1]) &&
-      this.checkDateLength(this.dates)
+      this.checkDateLength(this.dates) &&
+      this.checkGuestNumber(this.gusetNumber)
+  }
+
+  @Watch('gusetNumber')
+  reservationIsValidGuestNumber() {
+    this.isReservation =
+      this.isDateInputed(this.dates[0]) &&
+      this.isDateInputed(this.dates[1]) &&
+      this.checkDateLength(this.dates) &&
+      this.checkGuestNumber(this.gusetNumber)
   }
 
   isDateInputed(date: string): boolean {
@@ -54,6 +75,16 @@ export default class ReservationBtn extends Vue {
 
   checkDateLength(dates: [...string[]]): boolean {
     if (dates.length === 2) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  checkGuestNumber(gusetNumber: string): boolean {
+    console.log(gusetNumber)
+
+    if (gusetNumber !== '') {
       return true
     } else {
       return false

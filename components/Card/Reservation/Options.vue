@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mb-5" max-width="300">
+  <v-card max-width="300">
     <v-img class="white--text align-end" height="200px" :src="image">
       <v-card-title>
         {{ optionTitle }}
@@ -8,10 +8,7 @@
 
     <v-card-subtitle class="pb-0">{{ pay }}円</v-card-subtitle>
 
-    <v-card-text class="text--primary">
-      <div v-for="(text, index) in texts" :key="index">
-        {{ text }}
-      </div>
+    <v-card-text class="text--primary" style="word-wrap: pre;" v-text="texts">
     </v-card-text>
 
     <v-card-actions>
@@ -44,8 +41,8 @@ export default class reservation extends Vue {
   @Prop({ required: true, default: '' })
   pay!: number
 
-  @Prop({ default: '' })
-  texts!: [...string[]]
+  @Prop({ required: true, default: '' })
+  texts!: ''
 
   @Prop({ required: true, default: '' })
   image!: string

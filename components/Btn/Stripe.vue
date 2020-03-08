@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center mt-6">
-      <v-btn class="light-blue darken-4 white--text" @click.stop="openDialog">
+      <v-btn class="success white--text" @click.stop="openDialog">
         予約する
       </v-btn>
     </div>
@@ -116,6 +116,12 @@ export default class Stripe extends Vue {
   get facility(): IFacility {
     return this.$store.state.facility.facility
   }
+  get userId(): string {
+    return this.$store.state.login.userUid
+  }
+  get guestNumber(): string {
+    return this.$store.state.reservation.guest
+  }
 
   async pay() {
     this.loading = true
@@ -140,14 +146,17 @@ export default class Stripe extends Vue {
           // 成功時firebaseに投げる
           const batch = firestore.batch()
           const reservationList = {
-            checkDates: [this.dates[0], this.dates[1]],
+            checkIn: this.dates[0],
+            checkOut: this.dates[1],
             createdAt: timestamp,
             facilityId: this.$route.params.id,
             option: this.optionTitle,
             payment: 'クレジットカード',
             plan: this.planTitle,
             status: '宿泊前',
-            totalPay: this.totalPay
+            totalPay: this.totalPay,
+            userId: this.userId,
+            guestNumber: this.guestNumber
           }
           const userReservation = firestore
             .collection('users')
