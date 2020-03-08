@@ -48,7 +48,7 @@ import email from '@/components/MyPage/Form/email.vue'
 import addressForm from '@/components/MyPage/Form/address.vue'
 import username from '@/components/MyPage/Form/username.vue'
 import comment from '@/components/MyPage/Form/comment.vue'
-import { firestore, auth } from '@/plugins/firebase'
+import { firestore } from '@/plugins/firebase'
 
 @Component({
   components: {
@@ -71,10 +71,10 @@ export default class BasicInfo extends Vue {
       .delete()
 
     // userは消せる(ログインしてるuserが)
-    const user = auth.currentUser
-    user.delete().then(() => {
-      this.$router.push('/')
-    })
+    // const user = auth.currentUser
+    // user.delete().then(() => {
+    //   this.$router.push('/')
+    // })
   }
 }
 </script>

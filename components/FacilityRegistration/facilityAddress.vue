@@ -15,7 +15,7 @@
       </div>
       <v-col sm="2">
         <v-text-field
-          v-model="SecondAddres"
+          v-model="secondAddres"
           v-mask="secondPostMask"
           label="xxxx"
           :rules="[rules.secondPost]"
@@ -88,7 +88,7 @@ export default class FacilityAddressRegistration extends Vue {
   secondPostMask: string = '####'
 
   firstAddres: string = ''
-  SecondAddres: string = ''
+  secondAddres: string = ''
   error?: string = ''
 
   public rules: {} = {
@@ -112,7 +112,7 @@ export default class FacilityAddressRegistration extends Vue {
 
     await this.$axios
       .get(
-        `https://api.zipaddress.net/?zipcode=${this.firstAddres}${this.SecondAddres}`
+        `https://api.zipaddress.net/?zipcode=${this.firstAddres}${this.secondAddres}`
       )
       .then((res) => {
         if (res.data.code === 200) {
@@ -128,7 +128,6 @@ export default class FacilityAddressRegistration extends Vue {
             'facilityRegistration/SET_MUNICIPALITY',
             res.data.data.address
           )
-          this.loading = false
         } else {
           this.$store.commit(
             'facilityRegistration/SET_PREFECTURES',
@@ -136,6 +135,9 @@ export default class FacilityAddressRegistration extends Vue {
           )
         }
       })
+
+    this.loading = false
+    this.$store.commit('facilityRegistration/SET_ADDRESS', '')
   }
 }
 </script>
