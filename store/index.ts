@@ -96,7 +96,7 @@ export const mutations = {
       url: payload.displayName
     }
 
-    state.getNewFacilityList.push(list)
+    state.getNewFacilityList.unshift(list)
   },
 
   RESET_GLAMMITY_DATA(state: IState) {

@@ -39,7 +39,7 @@ import { IFacility } from '@/store'
 })
 export default class NewArrivalIndexCard extends Vue {
   get facilities(): IFacility[] {
-    return this.$store.state.getFacilityList
+    return this.$store.state.getNewFacilityList
   }
 }
 </script>
