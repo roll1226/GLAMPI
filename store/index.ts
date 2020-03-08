@@ -66,6 +66,8 @@ export const mutations = {
       info: string
     }
   ) {
+    if (!payload.slider) return
+
     const list = {
       src: payload.slider[0],
       title: payload.name,
@@ -85,6 +87,8 @@ export const mutations = {
       info: string
     }
   ) {
+    if (!payload.slider) return
+
     const list = {
       src: payload.slider[0],
       title: payload.name,
