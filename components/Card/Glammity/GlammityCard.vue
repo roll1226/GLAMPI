@@ -13,7 +13,7 @@
 
     <v-card-text
       class="text--primary"
-      style="white-space: pre;"
+      style="word-wrap: break-word; white-space: pre-wrap;"
       v-text="introduction"
     >
     </v-card-text>

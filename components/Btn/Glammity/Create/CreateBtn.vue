@@ -177,6 +177,13 @@ export default class CreateBtn extends Vue {
           })
 
         await firestore
+          .collection('users')
+          .doc(this.userId)
+          .collection('glammity')
+          .doc(glammityId.id)
+          .set({})
+
+        await firestore
           .collection('glammity')
           .doc(glammityId.id)
           .collection('messages')

@@ -75,18 +75,7 @@
             </p>
           </v-col>
 
-          <v-col>
-            <div>
-              募集人数
-            </div>
-            <p class="display-1 text--primary text-center">
-              {{
-                (
-                  glammityData.allPay / glammityData.numberOfApplicants
-                ).toLocaleString()
-              }}円
-            </p>
-          </v-col>
+          <v-col> </v-col>
         </v-row>
       </v-card-text>
 

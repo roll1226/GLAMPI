@@ -370,21 +370,45 @@ export const actions = {
 
     // スライダー
     const sliderEdit = dispatch.state.sliderEdit
-    for (let index = 0; index < sliderEdit.length; index++) {
-      const sliderImg = await storage
-        .ref()
-        .child(`facility/${payload}/slider/${sliderEdit[index].img.name}`)
-        .put(sliderEdit[index].img)
 
-      const sliderImgUrl = await sliderImg.ref.getDownloadURL()
+    await storage
+      .ref()
+      .child(`facility/${payload}/slider/${sliderEdit[0].img.name}`)
+      .put(sliderEdit[0].img)
+      .then(async (snapshot) => {
+        await snapshot.ref.getDownloadURL().then(async (url) => {
+          const slider = {
+            slider: fieldValue.arrayUnion(url)
+          }
 
-      await firestore
-        .collection('facilities')
-        .doc(facility.docs[0].id)
-        .update({
-          slider: fieldValue.arrayUnion(sliderImgUrl)
+          await firestore
+            .collection('facilities')
+            .doc(facility.docs[0].id)
+            .update(slider)
+            .then(async () => {
+              for (let index = 0; index < sliderEdit.length - 1; index++) {
+                await storage
+                  .ref()
+                  .child(
+                    `facility/${payload}/slider/${sliderEdit[index].img.name}`
+                  )
+                  .put(sliderEdit[index].img)
+                  .then(async (snapshot) => {
+                    await snapshot.ref.getDownloadURL().then(async (url) => {
+                      const slider = {
+                        slider: fieldValue.arrayUnion(url)
+                      }
+
+                      await firestore
+                        .collection('facilities')
+                        .doc(facility.docs[0].id)
+                        .update(slider)
+                    })
+                  })
+              }
+            })
         })
-    }
+      })
 
     // タグ
     const tagEdit = dispatch.state.tagsEdit
