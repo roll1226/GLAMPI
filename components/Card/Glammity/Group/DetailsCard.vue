@@ -21,7 +21,7 @@
       />
     </v-row>
 
-    <v-row>
+    <v-row no-gutters>
       <GlammityInfoCard
         :title="estimatedAmount.title"
         :info="estimatedAmount.info"
@@ -93,3 +93,10 @@ export default class DetailsCard extends Vue {
   }
 }
 </script>
+<style lang="scss">
+.v-card {
+  .row {
+    margin: 0 0 20px 0;
+  }
+}
+</style>

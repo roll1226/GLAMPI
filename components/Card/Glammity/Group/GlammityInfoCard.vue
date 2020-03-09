@@ -5,7 +5,7 @@
         <div>
           {{ title }}
         </div>
-        <p class="display-1 text--primary mb-0 ml-10">
+        <p class="display-1 text--primary mb-0 ml-10 mt-2">
           {{ info }}
         </p>
       </v-card-text>
