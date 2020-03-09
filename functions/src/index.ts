@@ -8,7 +8,8 @@ const funcs = {
   charge: './function/stripe',
   regist: './function/userRegist',
   sendReservationMail: './function/resavationEmail',
-  sendTextMail: './function/testEmail'
+  sendTextMail: './function/testEmail',
+  facilityRegist: './function/facilityRegist'
 }
 
 const loadFunctions = (funcsObj: any) => {

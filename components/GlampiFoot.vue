@@ -10,7 +10,11 @@
         >
           {{ link.name }}
         </v-btn>
-        <v-divider v-if="index !== 4" vertical></v-divider>
+        <v-divider
+          v-if="index !== 4"
+          class="mobile-divider"
+          vertical
+        ></v-divider>
       </v-toolbar-items>
 
       <!-- fontsize:overline
@@ -32,6 +36,7 @@ interface footLink {
 
 @Component
 export default class GlampiFoot extends Vue {
+  isResize: boolean = true
   links: footLink[] = [
     {
       name: 'GLAMPIとは',
@@ -51,9 +56,13 @@ export default class GlampiFoot extends Vue {
     },
     {
       name: '施設登録はこちら',
-      displayName: '/facilitiesRegistration'
+      displayName: '/officerAdminFacility/facilityRegistration'
     }
   ]
+
+  created() {
+    if (window.innerWidth < 770) this.isResize = false
+  }
 }
 </script>
 <style lang="scss">
@@ -63,5 +72,11 @@ export default class GlampiFoot extends Vue {
 .v-btn::before,
 .v-btn::after {
   background-color: #fff;
+}
+
+@media screen and(max-width: 770px) {
+  .mobile-divider {
+    display: none;
+  }
 }
 </style>

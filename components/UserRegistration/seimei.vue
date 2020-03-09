@@ -24,6 +24,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
+const apiKey = process.env.GOO_LABS_API_KEY
+const BASE_URL = 'https://labs.goo.ne.jp/api/hiragana'
+const OUTPU_TYPE = 'katakana'
+let surnameTime: any
+let nameTime: any
+
 @Component
 export default class seimeiUserRegistration extends Vue {
   // public sei: string = ''
@@ -33,6 +39,29 @@ export default class seimeiUserRegistration extends Vue {
 
   set sei(value: string) {
     this.$store.commit('registration/SET_FIRST_NAME', value)
+
+    const options: any = {
+      method: 'post',
+      url: BASE_URL,
+      headers: {
+        'Content-Type': `application/json`
+      },
+      data: {
+        app_id: apiKey,
+        sentence: value,
+        output_type: OUTPU_TYPE
+      }
+    }
+
+    clearTimeout(surnameTime)
+    surnameTime = setTimeout(() => {
+      this.$axios(options).then((res) => {
+        this.$store.commit(
+          'registration/SET_FIRST_NAME_KANA',
+          res.data.converted
+        )
+      })
+    }, 1000)
   }
   // public mei: string = ''
   get mei(): string {
@@ -41,6 +70,29 @@ export default class seimeiUserRegistration extends Vue {
 
   set mei(value: string) {
     this.$store.commit('registration/SET_LAST_NAME', value)
+
+    const options: any = {
+      method: 'post',
+      url: BASE_URL,
+      headers: {
+        'Content-Type': `application/json`
+      },
+      data: {
+        app_id: apiKey,
+        sentence: value,
+        output_type: OUTPU_TYPE
+      }
+    }
+
+    clearTimeout(nameTime)
+    nameTime = setTimeout(() => {
+      this.$axios(options).then((res) => {
+        this.$store.commit(
+          'registration/SET_LAST_NAME_KANA',
+          res.data.converted
+        )
+      })
+    }, 1000)
   }
   public rules: {} = {
     isSeiLength: (v: string) =>

@@ -10,6 +10,8 @@ const middleware: Middleware = ({ route, store, redirect }) => {
         .where('email', '==', user.email)
         .get()
 
+      console.log(user)
+
       if (facility.empty) {
         await auth.signOut()
 

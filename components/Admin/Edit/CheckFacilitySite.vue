@@ -7,7 +7,7 @@
       transition="dialog-bottom-transition"
     >
       <v-card>
-        <v-toolbar dark color="primary">
+        <v-toolbar :elevation="2" dark color="grey lighten-2">
           <v-btn icon dark @click="colseCheckSite">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -23,7 +23,7 @@
           width="500"
         >
           <v-carousel-item
-            v-for="(slider, i) in facility.slider"
+            v-for="(slider, i) in slideImgs"
             :key="i"
             :src="slider"
           ></v-carousel-item>
@@ -34,7 +34,7 @@
             class="text-left mt-5"
             max-width="300"
             style="white-space: pre;"
-            v-text="facility.info"
+            v-text="info"
           >
           </v-card-text>
         </v-card>
@@ -49,34 +49,74 @@
             xs="12"
           >
             <PlanCard
-              :src="planCard.planImage"
+              :src="planImg[index]"
               :plan-title="planCard.planTitle"
               :pay="planCard.pay"
-              :url="planCard.pay"
+              :url="''"
               :details="planCard.details"
               :max-guests="planCard.maxGuests"
             />
           </v-col>
         </v-row>
+      </v-card>
 
-        <OptionListCard />
+      <v-card>
+        <v-list-item three-line>
+          <v-list-item-content>
+            <div class="body-2 mb-1">
+              オプション一覧
+            </div>
 
-        <GlammityListCard />
+            <v-list-item-title class="headline mb-1">
+              <v-row dense>
+                <v-col
+                  v-for="(option, cardIndex) in optionList"
+                  :key="cardIndex"
+                  lg="4"
+                  md="4"
+                  sm="4"
+                  xs="6"
+                >
+                  <v-card class="mx-auto" max-width="300">
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      :src="optionListImg[cardIndex]"
+                    >
+                      <v-card-title>
+                        {{ option.title }}
+                      </v-card-title>
+                    </v-img>
 
-        <!-- コメント -->
-        <CommentCard />
+                    <v-card-subtitle class="pb-0">
+                      金額: {{ option.pay.toLocaleString() }}円
+                    </v-card-subtitle>
 
-        <!-- コメント入力カード -->
-        <SendCommentCard />
+                    <v-card-text
+                      class="text--primary"
+                      v-text="option.details"
+                    ></v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+              <div class="text-center">
+                <v-pagination
+                  v-model="page"
+                  :length="length"
+                  @input="pageChange"
+                ></v-pagination>
+              </div>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import PlanCard from '@/components/Card/Facility/Introduction/PlanCard.vue'
-import { IFacility, IPlan } from '@/store/facility'
 import CommentCard from '@/components/Card/Facility/Introduction/CommentCard.vue'
 import GlammityListCard from '@/components/Card/Facility/Introduction/GlammityListCard.vue'
 import GlammityCard from '@/components/Card/Glammity/GlammityCard.vue'
@@ -94,66 +134,36 @@ import SendCommentCard from '@/components/Card/Facility/Introduction/SendComment
   }
 })
 export default class CheckFacilitySite extends Vue {
+  pageSlice: number = 0
+  length: number = 0
+  page: number = 1
+
   get dialog(): boolean {
     return this.$store.state.facilityEdit.siteDialog
   }
 
-  get like(): boolean {
-    return this.$store.state.facility.like
+  get slideImgs(): any {
+    return this.$store.state.facilityEdit.checkSliderImg
   }
 
-  get facility(): IFacility {
-    return this.$store.state.facility.facility
+  get info(): string {
+    return this.$store.state.facilityEdit.facilityInfo
   }
 
-  get plan(): IPlan {
-    return this.$store.state.facility.plan
+  get plan(): any {
+    return this.$store.state.facilityEdit.checkPlan
   }
 
-  get isLogin(): boolean {
-    return this.$store.state.login.isLogin
+  get planImg(): any {
+    return this.$store.state.facilityEdit.checkPlanImg
   }
 
-  get facilityId(): string {
-    return this.$store.state.facility.uuid
+  get optionList(): any {
+    return this.$store.state.facilityEdit.checkOption
   }
 
-  get userUid(): string {
-    return this.$store.state.login.userUid
-  }
-
-  // ユーザidをログイン時に登録
-
-  created() {
-    this.$store.commit('facilityGlammity/RESET_GLAMMITY_DATA')
-    this.$store.dispatch('facility/catchFacility', this.$route.params.id)
-    this.chackLike()
-  }
-
-  @Watch('userUid')
-  chackLike() {
-    if (this.isLogin === false) return
-    this.$store.dispatch('facility/catchUserLike', {
-      userId: this.$store.state.login.userUid,
-      facilityId: this.$route.params.id
-    })
-  }
-
-  changeLike() {
-    if (this.isLogin === false) return
-    if (this.like === true) {
-      this.$store.dispatch('facility/deleteLike', {
-        userId: this.userUid,
-        facilityId: this.$route.params.id,
-        facilityUid: this.facilityId
-      })
-    } else if (this.like === false) {
-      this.$store.dispatch('facility/creatLike', {
-        userId: this.userUid,
-        facilityId: this.$route.params.id,
-        facilityUid: this.facilityId
-      })
-    }
+  get optionListImg(): any {
+    return this.$store.state.facilityEdit.checkOptionImg
   }
 
   colseCheckSite() {

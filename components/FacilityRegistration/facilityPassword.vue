@@ -10,6 +10,7 @@
       counter
       @click:append="show1 = !show1"
     ></v-text-field>
+
     <v-text-field
       v-model="passwordCheck"
       :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -23,32 +24,41 @@
     ></v-text-field>
   </div>
 </template>
+
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class passwordFacilityRegistration extends Vue {
-  public show1: boolean = false
-  public show2: boolean = false
-  // public password: string = ''
-  // public passwordCheck: string = ''
+export default class FacilityPasswordRegistration extends Vue {
+  show1: boolean = false
+  show2: boolean = false
+
   get password() {
-    return this.$store.state.facilityRegist.password
+    return this.$store.state.facilityRegistration.password
   }
+
   set password(value: string) {
-    this.$store.commit('facilityRegist/CHECK_PASSWORD', value)
+    this.$store.commit('facilityRegistration/SET_FACILITY_PASSWORD', value)
   }
+
   get passwordCheck() {
-    return this.$store.state.facilityRegist.passwordCheck
+    return this.$store.state.facilityRegistration.passwordCheck
   }
+
   set passwordCheck(value: string) {
-    this.$store.commit('facilityRegist/CHECK_PASSWORDCHECK', value)
+    this.$store.commit(
+      'facilityRegistration/SET_FACILITY_CHECK_PASSWORD',
+      value
+    )
   }
+
   public rules: {} = {
     isPassword: (v: string) => !!v || 'パスワードは必ず入力してください。',
+
     passwordLength: (v: string) =>
-      (v.length <= 20 && v.length >= 6) ||
+      (v && v.length <= 20 && v.length >= 6) ||
       'パスワードは6桁以上20桁以内にて入力してください。',
+
     passwordFormat: (v: string) => {
       const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
       return (
@@ -56,8 +66,10 @@ export default class passwordFacilityRegistration extends Vue {
         'パスワードは半角英字と、数字の両方を必ず入れてください。'
       )
     },
+
     isPasswordCheck: (v: string) =>
       !!v || 'パスワード確認は必ず入力してください',
+
     passwordCheck: (v: string) =>
       v === this.password || 'パスワードが一致していません。'
   }

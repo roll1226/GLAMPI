@@ -43,6 +43,11 @@ export interface IState {
   endDialog: boolean
   loading: boolean
   siteDialog: boolean
+  checkSliderImg: any
+  checkPlan: any
+  checkPlanImg: any
+  checkOption: any
+  checkOptionImg: any
 }
 
 const planList = {
@@ -51,6 +56,13 @@ const planList = {
   maxGuests: '',
   details: '',
   pay: ''
+}
+
+const checkPlanList = {
+  planTitle: '',
+  pay: 0,
+  details: '',
+  maxGuests: ''
 }
 
 const optionList = {
@@ -62,6 +74,12 @@ const optionList = {
     .split('-')
     .join('')
     .slice(0, -12)
+}
+
+const checkOptionList = {
+  optionTitle: '',
+  details: '',
+  pay: 0
 }
 
 const sliderList = {
@@ -77,7 +95,19 @@ export const state = (): IState => ({
   dialog: false,
   endDialog: false,
   loading: false,
-  siteDialog: false
+  siteDialog: false,
+
+  checkSliderImg: [],
+  checkPlan: [],
+  checkPlanImg: [],
+  checkOption: [
+    {
+      optionTitle: '',
+      details: '',
+      pay: 0
+    }
+  ],
+  checkOptionImg: []
 })
 
 export const mutations = {
@@ -87,10 +117,17 @@ export const mutations = {
     state.optionEdit = []
     state.sliderEdit = []
     state.tagsEdit = []
+    state.checkSliderImg = []
+    state.checkPlan = []
+    state.checkPlanImg = []
+    state.checkOption = []
+    state.checkOptionImg = []
 
     state.planEdit.push(planList)
     state.optionEdit.push(optionList)
     state.sliderEdit.push(sliderList)
+    state.checkPlan.push(checkPlanList)
+    state.checkOption.push(checkOptionList)
   },
 
   SET_FACILITY_INFO(state: IState, payload: string) {
@@ -106,7 +143,15 @@ export const mutations = {
       pay: ''
     }
 
+    const setCheckPlan = {
+      planTitle: '',
+      pay: 0,
+      details: '',
+      maxGuests: ''
+    }
+
     state.planEdit.push(setPlanDate)
+    state.checkPlan.push(setCheckPlan)
   },
 
   PLUS_OPTION_EDIT(state: IState) {
@@ -121,7 +166,14 @@ export const mutations = {
         .slice(0, -12)
     }
 
+    const setCheckOptionDate = {
+      optionTitle: '',
+      details: '',
+      pay: 0
+    }
+
     state.optionEdit.push(setOptionDate)
+    state.checkOption.push(setCheckOptionDate)
   },
 
   PLUS_SLIDER_EDIT(state: IState) {
@@ -130,10 +182,18 @@ export const mutations = {
 
   SET_PLAN_EDIT_IMAGE(state: IState, payload: { img: any; cnt: number }) {
     state.planEdit[payload.cnt].img = payload.img
+
+    const reader = new FileReader()
+    reader.readAsDataURL(payload.img)
+    reader.addEventListener('load', () => {
+      state.checkPlanImg[payload.cnt] = reader.result
+    })
   },
 
   SET_PLAN_EDIT_TITLE(state: IState, payload: { value: string; cnt: number }) {
     state.planEdit[payload.cnt].planTitle = payload.value
+
+    state.checkPlan[payload.cnt].planTitle = payload.value
   },
 
   SET_PLAN_EDIT_MAX_GUESTS(
@@ -141,6 +201,8 @@ export const mutations = {
     payload: { value: string; cnt: number }
   ) {
     state.planEdit[payload.cnt].maxGuests = payload.value
+
+    state.checkPlan[payload.cnt].maxGuests = payload.value
   },
 
   SET_PLAN_EDIT_DETAILS(
@@ -148,14 +210,24 @@ export const mutations = {
     payload: { value: string; cnt: number }
   ) {
     state.planEdit[payload.cnt].details = payload.value
+
+    state.checkPlan[payload.cnt].details = payload.value
   },
 
   SET_PLAN_EDIT_PAY(state: IState, payload: { value: string; cnt: number }) {
     state.planEdit[payload.cnt].pay = Number(payload.value)
+
+    state.checkPlan[payload.cnt].pay = Number(payload.value)
   },
 
   SET_OPTION_EDIT_IMAGE(state: IState, payload: { img: any; cnt: number }) {
     state.optionEdit[payload.cnt].img = payload.img
+
+    const reader = new FileReader()
+    reader.readAsDataURL(payload.img)
+    reader.addEventListener('load', () => {
+      state.checkOptionImg[payload.cnt] = reader.result
+    })
   },
 
   SET_OPTION_EDIT_TITLE(
@@ -163,6 +235,8 @@ export const mutations = {
     payload: { value: string; cnt: number }
   ) {
     state.optionEdit[payload.cnt].optionTitle = payload.value
+
+    state.checkOption[payload.cnt].optionTitle = payload.value
   },
 
   SET_OPTION_EDIT_DETAILS(
@@ -170,10 +244,14 @@ export const mutations = {
     payload: { value: string; cnt: number }
   ) {
     state.optionEdit[payload.cnt].details = payload.value
+
+    state.checkOption[payload.cnt].details = payload.value
   },
 
   SET_OPTION_EDIT_PAY(state: IState, payload: { value: string; cnt: number }) {
     state.optionEdit[payload.cnt].pay = Number(payload.value)
+
+    state.checkOption[payload.cnt].pay = Number(payload.value)
   },
 
   SET_OPTION_EDIT_UID(state: IState, payload: { value: string; cnt: number }) {
@@ -184,6 +262,12 @@ export const mutations = {
     console.log(payload.img)
 
     state.sliderEdit[payload.cnt].img = payload.img
+
+    const reader = new FileReader()
+    reader.readAsDataURL(payload.img)
+    reader.addEventListener('load', () => {
+      state.checkSliderImg[payload.cnt] = reader.result
+    })
   },
 
   SET_TAG_EDIT(state: IState, payload: ITagsList[]) {

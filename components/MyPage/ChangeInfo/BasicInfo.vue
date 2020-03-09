@@ -48,7 +48,7 @@ import email from '@/components/MyPage/Form/email.vue'
 import addressForm from '@/components/MyPage/Form/address.vue'
 import username from '@/components/MyPage/Form/username.vue'
 import comment from '@/components/MyPage/Form/comment.vue'
-import { firestore, auth } from '@/plugins/firebase'
+import { auth } from '@/plugins/firebase'
 
 @Component({
   components: {
@@ -65,14 +65,10 @@ export default class BasicInfo extends Vue {
   dialogChange: boolean = false
 
   async deleteUserData() {
-    await firestore
-      .collection('users')
-      .doc(this.$route.params.id)
-      .delete()
-
     // userは消せる(ログインしてるuserが)
-    const user = auth.currentUser
-    user.delete().then(() => {
+    const user: any = auth.currentUser
+    await user.delete().then(() => {
+      this.$store.commit('login/IS_LOGIN', false)
       this.$router.push('/')
     })
   }
