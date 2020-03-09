@@ -25,7 +25,7 @@
 
         <v-divider class="mx-2" inset vertical></v-divider>
 
-        <v-btn text small color="black">
+        <v-btn text small color="black" to="/userRegistration">
           会員登録
         </v-btn>
       </template>
