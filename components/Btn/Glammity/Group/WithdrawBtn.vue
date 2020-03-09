@@ -1,26 +1,26 @@
 <template>
   <div>
-    <v-btn @click="openDialog">
+    <v-btn width="120" height="40" outlined color="error" @click="openDialog">
       退会
     </v-btn>
 
     <div justify="center">
       <v-dialog
         v-model="verificationDialog"
-        max-width="350"
+        max-width="400"
         :persistent="withdrawLoading"
       >
         <v-card :loading="withdrawLoading">
-          <v-card-text class="pt-5">
+          <v-card-text class="pa-0 py-5 px-4">
             <div class="text-center headline">
-              退会するノー?
+              Glammityから退会しますか？
             </div>
           </v-card-text>
 
           <v-divider></v-divider>
 
           <v-card-actions class="d-flex justify-space-around pb-3">
-            <v-btn color="green" class="white--text" @click="closeDialog">
+            <v-btn outlined color="green" @click="closeDialog">
               戻る
             </v-btn>
 

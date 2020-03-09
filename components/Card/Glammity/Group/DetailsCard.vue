@@ -33,9 +33,13 @@
       <GlammityInfoCard :title="checkOut.title" :info="checkOut.info" />
     </v-row>
 
-    <MemberListCard />
+    <v-row no-gutters class="pt-4 justify-center">
+      <MemberListCard />
+    </v-row>
 
-    <WithdrawBtn />
+    <v-row no-gutters class="justify-end mt-10 mr-10">
+      <WithdrawBtn />
+    </v-row>
   </v-card>
 </template>
 
