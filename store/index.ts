@@ -140,7 +140,7 @@ export const actions = {
   async getFacility(dispatch: ICommit) {
     const facility = await firestore
       .collection('facilities')
-      .orderBy('like', 'asc')
+      .orderBy('like', 'desc')
       .limit(4)
       .get()
 

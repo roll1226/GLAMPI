@@ -75,7 +75,8 @@ export default class GuestsNumberchard extends mixins(Bar) {
         .doc(year)
         .collection(getMonth[index])
         .get()
-      console.log(profitData.docs[0].data().guests)
+
+      if (profitData.empty) return
 
       if (this.chartData.datasets) {
         if (this.chartData.datasets[0].data) {

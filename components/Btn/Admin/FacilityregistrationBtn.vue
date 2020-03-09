@@ -123,6 +123,9 @@ export default class FacilityRegistrationBtn extends Vue {
             this.facilityNameRuby
           ]
         })
+        // .then((res) => {
+        //   storage.ref().child(`facility/`)
+        // })
         await auth.signOut().then(() => {
           this.$router.push('/officerAdminFacility')
         })

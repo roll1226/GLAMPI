@@ -75,6 +75,8 @@ export default class IncomeChart extends mixins(Bar) {
         .doc(year)
         .collection(getMonth[index])
         .get()
+
+      if (profitData.empty) return
       console.log(profitData.docs[0].data().guests)
 
       if (this.chartData.datasets) {
