@@ -191,7 +191,7 @@ export default class Stripe extends Vue {
               .then(() => {
                 this.loading = false
                 this.dialog = false
-                this.$store.state.reservationModal.isCardDialog = true
+                this.$store.commit('reservationModal/SET_ISCARDDIALOG', true)
                 this.$router.push(`/`)
               })
           })

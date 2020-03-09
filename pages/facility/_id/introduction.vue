@@ -45,7 +45,7 @@
       <v-card-text
         class="mt-5 body-1"
         max-width="300"
-        style="white-space: pre; color:#444;"
+        style="word-wrap: break-word; white-space: pre-wrap; color:#444;"
         v-text="facility.info"
       >
       </v-card-text>

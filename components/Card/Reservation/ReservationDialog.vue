@@ -45,7 +45,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class reservationComplete extends Vue {
   isCardtrue() {
-    this.$store.state.reservationModal.isCardDialog = false
+    this.$store.commit('reservationModal/SET_ISCARDDIALOG', false)
   }
 }
 </script>

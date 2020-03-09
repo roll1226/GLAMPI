@@ -188,7 +188,7 @@ export const mutations = {
 
     state.lastName = payload.lastName
 
-    state.firstNameKana = payload.lastNameKana
+    state.firstNameKana = payload.firstNameKana
 
     state.lastNameKana = payload.lastNameKana
 

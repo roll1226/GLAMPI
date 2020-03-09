@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="300" elevation="4">
+  <v-card class="mx-auto" max-width="300" max-height="500" elevation="4">
     <v-img class="white--text align-end" height="200px" :src="facilityImage">
       <v-card-title>
         {{ facilityName }}
@@ -11,7 +11,7 @@
     </v-card-subtitle>
 
     <v-card-text
-      class="text--primary"
+      class="text--primary d-inline-block text-truncate"
       style="word-wrap: break-word; white-space: pre-wrap;"
       v-text="introduction"
     ></v-card-text>
