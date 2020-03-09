@@ -18,6 +18,10 @@
     <NewArrivalIndexCard />
 
     <TagIndexWrap />
+
+    <v-dialog v-model="isCardDialog" width="500">
+      <reservationModal />
+    </v-dialog>
   </div>
 </template>
 
@@ -28,6 +32,7 @@ import GlammityIndexWrap from '@/components/IndexContentWrap/GlammityIndexWrap.v
 import RecommendationIndexWrap from '@/components/IndexContentWrap/RecommendationIndexWrap.vue'
 import NewArrivalIndexCard from '@/components/IndexContentWrap/NewArrivalIndexCard.vue'
 import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
+import reservationModal from '@/components/Card/Reservation/ReservationDialog.vue'
 
 @Component({
   layout: 'layoutIndex',
@@ -36,14 +41,22 @@ import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
     GlammityIndexWrap,
     RecommendationIndexWrap,
     NewArrivalIndexCard,
-    TagIndexWrap
+    TagIndexWrap,
+    reservationModal
   }
 })
 export default class IndexPage extends Vue {
+  get isCardDialog(): boolean {
+    return this.$store.state.reservationModal.isCardDialog
+  }
+  set isCardDialog(value: boolean) {
+    this.$store.commit('reservationModal/SET_ISCARDDIALOG', value)
+  }
   created() {
     this.$store.commit('RESET_GLAMMITY_DATA')
     this.$store.dispatch('getGlammity')
     this.$store.dispatch('getFacility')
+    this.isCardDialog = this.$store.state.reservationModal.isCardDialog
   }
 }
 </script>

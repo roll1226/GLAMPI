@@ -1,9 +1,5 @@
 <template>
-  <v-card>
-    <v-card-text>
-      支払い
-    </v-card-text>
-
+  <v-card class="py-8 px-3 px-sm-8">
     <GlammityStripeBtn />
   </v-card>
 </template>

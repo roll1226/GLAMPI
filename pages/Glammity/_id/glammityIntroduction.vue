@@ -1,6 +1,6 @@
 <template>
-  <div class="pb-2">
-    <h2>{{ glammityData.glammityName }} | 詳細ページ</h2>
+  <div class="glammity-introduction">
+    <h2 class="mt-6 mb-5">{{ glammityData.glammityName }} | 詳細ページ</h2>
 
     <v-carousel
       cycle
@@ -15,9 +15,9 @@
       ></v-carousel-item>
     </v-carousel>
 
-    <v-card class="mx-3">
-      <v-card-text class="pb-0">
-        <v-row>
+    <v-card tile elevation="0">
+      <v-card-text>
+        <v-row class="flex-column flex-sm-row">
           <v-col>
             <div>
               施設名
@@ -35,6 +35,19 @@
               {{ glammityData.planName }}
             </p>
           </v-col>
+        </v-row>
+      </v-card-text>
+
+      <v-card-text>
+        <v-row class="flex-column flex-sm-row">
+          <v-col>
+            <div>
+              現在の参加人数
+            </div>
+            <p class="display-1 text--primary text-center">
+              {{ glammityData.users.length }}人
+            </p>
+          </v-col>
 
           <v-col>
             <div>
@@ -47,28 +60,47 @@
         </v-row>
       </v-card-text>
 
-      <v-card-text class="pt-0">
-        <div>
-          現在、一人当たりの金額
-        </div>
-        <p class="display-1 text--primary text-center">
-          {{
-            (glammityData.allPay / glammityData.users.length).toLocaleString()
-          }}円
-        </p>
+      <v-card-text>
+        <v-row class="flex-column flex-sm-row">
+          <v-col>
+            <div>
+              現在の一人当たりの金額
+            </div>
+            <p class="display-1 text--primary text-center">
+              {{
+                (
+                  glammityData.allPay / glammityData.users.length
+                ).toLocaleString()
+              }}円
+            </p>
+          </v-col>
+
+          <v-col>
+            <div>
+              募集人数
+            </div>
+            <p class="display-1 text--primary text-center">
+              {{
+                (
+                  glammityData.allPay / glammityData.numberOfApplicants
+                ).toLocaleString()
+              }}円
+            </p>
+          </v-col>
+        </v-row>
       </v-card-text>
 
-      <v-card-text class="pt-0">
+      <v-card-text>
         <div>
           日程
         </div>
         <p class="display-1 text--primary text-center">
-          {{ glammityData.checkIn }}
+          {{ glammityData.checkIn }} - {{ glammityData.checkOut }}
         </p>
       </v-card-text>
     </v-card>
 
-    <v-card class="mx-3">
+    <v-card tile elevation="0">
       <v-card-text>
         <div>
           主査者からのコメント
@@ -79,7 +111,7 @@
       </v-card-text>
     </v-card>
 
-    <v-card class="mx-3">
+    <v-card tile elevation="0">
       <v-card-subtitle class="pb-0">
         参加中のメンバー
       </v-card-subtitle>
@@ -114,7 +146,6 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import JoinBtn from '@/components/Btn/Glammity/JoinBtn.vue'
-
 import { IGlammity } from '@/store/glammityJoin'
 
 interface IAvater {
@@ -144,3 +175,27 @@ export default class glammityIndex extends Vue {
   }
 }
 </script>
+<style lang="scss">
+.glammity-introduction {
+  h2 {
+    font-size: 2em;
+    color: $site_color_2;
+  }
+  .v-card {
+    width: 80%;
+    margin: 30px auto 0;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .glammity-introduction {
+    h2 {
+      font-size: 1.5em;
+    }
+    .v-card {
+      width: 100%;
+      margin: 30px auto 0;
+    }
+  }
+}
+</style>

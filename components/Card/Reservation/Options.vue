@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mb-5" max-width="300">
+  <v-card max-width="300">
     <v-img class="white--text align-end" height="200px" :src="image">
       <v-card-title>
         {{ optionTitle }}

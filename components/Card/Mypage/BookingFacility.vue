@@ -7,7 +7,7 @@
         </v-col>
 
         <v-col cols="12" sm="" md="" lg="" class="facility-content">
-          <v-row no-gutters class="flex-column">
+          <v-row no-gutters>
             <v-col>
               <v-card-text class="pa-0">
                 <v-card-title class="pl-0 pt-0" @click="goFacility">

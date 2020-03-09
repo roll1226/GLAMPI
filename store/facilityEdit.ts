@@ -43,7 +43,6 @@ export interface IState {
   endDialog: boolean
   loading: boolean
   siteDialog: boolean
-
   checkSliderImg: any
   checkPlan: any
   checkPlanImg: any

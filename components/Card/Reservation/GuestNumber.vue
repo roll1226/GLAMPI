@@ -1,17 +1,20 @@
 <template>
-  <v-card>
+  <v-card elevation="0" tile>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="body-2 mb-1">
           宿泊人数
         </div>
 
-        <v-list-item-title class="headline mb-1 text-center">
+        <v-list-item-title class="body-2 text-center">
           <v-overflow-btn
             v-model="selectGuest"
-            class="my-2"
             :items="dropdownFont"
+            class="ma-0 pa-0"
             label="宿泊人数"
+            tile
+            :dense="true"
+            :filled="false"
             target="#dropdown-example-1"
           ></v-overflow-btn>
         </v-list-item-title>

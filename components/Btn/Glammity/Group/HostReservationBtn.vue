@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="openDialog">
+    <v-btn width="120" height="40" outlined @click="openDialog">
       予約
     </v-btn>
 
@@ -15,11 +15,11 @@
 
           <v-divider></v-divider>
 
-          <v-card-actions class="d-flex justify-space-around">
+          <v-card-actions class="d-flex justify-space-around pb-3">
             <HostReservationStripe />
 
-            <v-btn @click="dialog = false">
-              しません
+            <v-btn outlined color="green" @click="dialog = false">
+              戻る
             </v-btn>
           </v-card-actions>
         </v-card>

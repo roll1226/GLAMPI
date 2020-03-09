@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card elevation="0" tile>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="body-2 mb-1">

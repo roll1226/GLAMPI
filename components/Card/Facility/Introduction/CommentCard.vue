@@ -3,6 +3,7 @@
     <v-card
       v-for="(comment, commentIndex) in comments"
       :key="commentIndex"
+      class="mx-5 mt-2"
       outlined
     >
       <v-card-actions class="py-2 px-4">
