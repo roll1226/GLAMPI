@@ -1,33 +1,35 @@
 <template>
-  <v-card>
-    <v-card-text>
-      詳細
-    </v-card-text>
-
-    <v-row>
+  <v-card class="py-8 px-3 px-sm-8">
+    <v-row no-gutters>
       <GlammityInfoCard :title="glammityName.title" :info="glammityName.info" />
+    </v-row>
 
+    <v-row no-gutters class="flex-column flex-sm-row">
       <GlammityInfoCard :title="facilityName.title" :info="facilityName.info" />
-
       <GlammityInfoCard :title="plan.title" :info="plan.info" />
+    </v-row>
 
-      <GlammityInfoCard
-        :title="numberOfApplicants.title"
-        :info="numberOfApplicants.info"
-      />
-
+    <v-row no-gutters class="flex-column flex-sm-row">
       <GlammityInfoCard
         :title="numberOfParticipants.title"
         :info="numberOfParticipants.info"
       />
 
       <GlammityInfoCard
+        :title="numberOfApplicants.title"
+        :info="numberOfApplicants.info"
+      />
+    </v-row>
+
+    <v-row>
+      <GlammityInfoCard
         :title="estimatedAmount.title"
         :info="estimatedAmount.info"
       />
+    </v-row>
 
+    <v-row no-gutters class="flex-column flex-sm-row">
       <GlammityInfoCard :title="checkIn.title" :info="checkIn.info" />
-
       <GlammityInfoCard :title="checkOut.title" :info="checkOut.info" />
     </v-row>
 
