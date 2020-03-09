@@ -1,6 +1,12 @@
 <template>
-  <div class="text-center mb-1">
-    <v-btn :disabled="!isReservation" @click="toVerification">
+  <div class="text-center mb-1 mt-4">
+    <v-btn
+      :disabled="!isReservation"
+      color="rgb(87, 95, 69)"
+      large
+      class="subtitle-1 white--text"
+      @click="toVerification"
+    >
       予約確認
     </v-btn>
 

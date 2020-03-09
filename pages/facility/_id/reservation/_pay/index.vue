@@ -1,90 +1,104 @@
 <template>
   <div>
-    <h1>
-      予約
-    </h1>
+    <v-card elevation="0" tile style="border-top:solid 1px #ddd">
+      <v-card-title class="display-1">
+        <v-row justify="center">
+          <v-col cols="auto">
+            予約
+          </v-col>
+        </v-row>
+      </v-card-title>
+      <v-row justify="center">
+        <v-col cols="8">
+          <hr class="mt-n4" />
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col :cols="10" class="ma-auto">
+          <Plan />
+        </v-col>
 
-    <v-row dense>
-      <v-col :cols="10" class="ma-auto">
-        <Plan />
-      </v-col>
+        <v-col :cols="10" class="ma-auto">
+          <GuestNumber />
+        </v-col>
 
-      <v-col :cols="10" class="ma-auto">
-        <GuestNumber />
-      </v-col>
-
-      <v-col :cols="10" class="ma-auto">
-        <v-card>
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="body-2 mb-1">
-                日程
-              </div>
-
-              <v-list-item-title class="headline mb-1 text-center">
-                <v-text-field
-                  v-model="dateRangeText"
-                  label="日程"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                ></v-text-field>
-                <v-date-picker
-                  v-model="dates"
-                  locale="ja-jp"
-                  :show-current="false"
-                  range
-                  :min="nowDate"
-                  :day-format="(date) => new Date(date).getDate()"
-                  class="mb-2"
-                ></v-date-picker>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-col>
-
-      <v-col :cols="10" class="ma-auto">
-        <v-card>
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="body-2 mb-1">
-                オプション
-              </div>
-
-              <v-list-item-title class="headline mb-1">
-                <v-row dense>
-                  <v-col
-                    v-for="(optionList, index) in displayLists"
-                    :key="index"
-                    lg="4"
-                    md="4"
-                    sm="4"
-                    xs="6"
-                  >
-                    <Options
-                      :option-title="optionList.title"
-                      :pay="optionList.pay.toLocaleString()"
-                      :texts="optionList.texts"
-                      :image="optionList.src"
-                      :display-name="optionList.displayName"
-                    />
-                  </v-col>
-                </v-row>
-                <div class="text-center">
-                  <v-pagination
-                    v-model="page"
-                    :length="length"
-                    @input="pageChange"
-                  ></v-pagination>
+        <v-col :cols="10" class="ma-auto">
+          <v-card elevation="0" tile>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <div class="body-2 mb-1">
+                  日程
                 </div>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-col>
-    </v-row>
+                <v-list-item-title class="headline mb-1 text-center">
+                  <v-text-field
+                    v-model="dateRangeText"
+                    label="日程"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                  ></v-text-field>
+                  <v-row dense justify="center">
+                    <v-col cols="8">
+                      <v-date-picker
+                        v-model="dates"
+                        :full-width="true"
+                        locale="ja-jp"
+                        :show-current="false"
+                        range
+                        :min="nowDate"
+                        :day-format="(date) => new Date(date).getDate()"
+                        class="mb-2"
+                      ></v-date-picker>
+                    </v-col>
+                  </v-row>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </v-col>
 
-    <ReservationBtn />
+        <v-col :cols="10" class="ma-auto">
+          <v-card elevation="0" tile>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <div class="body-2 mb-1">
+                  オプション
+                </div>
+
+                <v-list-item-title class="headline mb-1">
+                  <v-row class="ma-0 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" cols="auto">
+                      <v-row class="ma-0 pa-0">
+                        <v-col
+                          v-for="(optionList, index) in displayLists"
+                          :key="index"
+                        >
+                          <Options
+                            :option-title="optionList.title"
+                            :pay="optionList.pay.toLocaleString()"
+                            :texts="optionList.texts"
+                            :image="optionList.src"
+                            :display-name="optionList.displayName"
+                          />
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                  <div class="text-center">
+                    <v-pagination
+                      v-model="page"
+                      :length="length"
+                      @input="pageChange"
+                    ></v-pagination>
+                  </div>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <ReservationBtn />
+    </v-card>
   </div>
 </template>
 

@@ -42,7 +42,7 @@ export interface IState {
   dialog: boolean
   endDialog: boolean
   loading: boolean
-  siteDialog: boolea
+  siteDialog: boolean
 }
 
 const planList = {
