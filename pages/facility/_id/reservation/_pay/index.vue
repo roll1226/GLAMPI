@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card elevation="0" tile style="border-top:solid 1px #ddd">
+    <v-card elevation="0" class="mt-2">
       <v-card-title class="display-1">
         <v-row justify="center">
           <v-col cols="auto">
