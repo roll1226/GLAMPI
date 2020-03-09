@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="text-center mt-10" style="color: rgb(87, 95, 69);">
-      お問い合わせ
+      ユーザ登録
     </h2>
 
     <v-divider
