@@ -1,4 +1,5 @@
 <template>
+  <!-- バグあり(ページネーション効かない) -->
   <v-card class="mx-auto" max-width="300" elevation="4">
     <v-img class="white--text align-end" height="200px" :src="glammityImage">
       <v-card-title style="text-shadow: 1px 2px 3px #000; ">
@@ -23,14 +24,15 @@
       <!-- 詳細飛ぶ -->
       <v-btn
         outlined
-        class="glammity-btn"
+        class="glammity-btn mr-3"
         :to="`/Glammity/${url}/glammityIntroduction`"
       >
         詳細
       </v-btn>
       <!-- 参加する -->
       <JoinBtn
-        :is-block="true"
+        :is-block="false"
+        :is-outlined="true"
         :glammity-name="glammityName"
         :glammity-id="url"
       />

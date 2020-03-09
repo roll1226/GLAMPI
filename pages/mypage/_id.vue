@@ -32,8 +32,11 @@
 
     <v-row no-gutters>
       <v-card class="card">
-        <v-row no-gutters justify="space-around">
-          <v-col xs="12" cols="auto">
+        <v-row
+          no-gutters
+          class="flex-row justyfy-center justify-sm-space-around"
+        >
+          <v-col sm="auto" cols="12" class="d-flex justify-center">
             <div class="mypage-user">
               <v-avatar color="rgb(87,95,69)" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
@@ -43,7 +46,7 @@
             </div>
           </v-col>
 
-          <v-col xs="12">
+          <v-col cols="12" sm="9">
             <MyTop v-if="screen1 == 0" />
 
             <ChangeInfo v-else-if="screen1 == 1" />
@@ -89,9 +92,12 @@ export default class mypage extends Vue {
 
   created() {
     this.$store.commit('mypage/RESET_RESERVATION')
+    this.$store.commit('mypage/RESET_GLAMMITY')
     this.$store.commit('mypage/RESET_LIKES')
+    this.$store.commit('mypage/RESET_COMMENTS')
     this.$store.dispatch('mypage/getUserData', this.$route.params.id)
     this.$store.dispatch('mypage/getReservationFacility', this.$route.params.id)
+    this.$store.dispatch('mypage/getGlammity', this.$route.params.id)
     this.$store.dispatch('mypage/getLikes', this.$route.params.id)
     this.$store.dispatch('mypage/getComments', this.$route.params.id)
   }
@@ -129,12 +135,12 @@ export default class mypage extends Vue {
     width: 100%;
     box-sizing: border-box;
     margin: 0 auto;
-    min-height: 500px;
+    min-height: 400px;
     //カード内左右と下
-    padding: 0 60px 40px;
+    padding: 60px 40px;
     .mypage-user {
       width: 180px;
-      margin: 100px 60px 0 0;
+      // margin: 100px 0 0 0;
       p {
         font-size: 22px;
         text-align: center;
@@ -157,7 +163,6 @@ export default class mypage extends Vue {
     //mypage,Mytopコンポーネント
     .mytop-wrap {
       max-width: 740px;
-      margin: 100px 0 0 0;
       * {
         padding: 0px;
         margin: 0px;
@@ -178,7 +183,6 @@ export default class mypage extends Vue {
     //mypage,ChangeInfoコンポーネント
     .changeInfo-wrap {
       .row {
-        margin: 20px 0 0 0;
         .row {
           margin: 30px 0 0 0;
           .row {
@@ -188,15 +192,7 @@ export default class mypage extends Vue {
       }
     }
 
-    .bList-wrap {
-      margin: 50px 0 0 0;
-      .v-card {
-        margin: 0 0 35px 0;
-      }
-    }
-
-    .glammity-wrap {
-      margin: 50px 0 0 0;
+    .row {
       .v-card {
         margin: 0 0 35px 0;
       }
@@ -250,15 +246,7 @@ export default class mypage extends Vue {
         }
       }
 
-      .bList-wrap {
-        margin: 40px 0 0 0;
-        .v-card {
-          margin: 0 0 30px 0;
-          padding: 0;
-        }
-      }
-
-      .glammity-wrap {
+      .row {
         margin: 40px 0 0 0;
         .v-card {
           margin: 0 0 30px 0;

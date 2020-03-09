@@ -4,7 +4,7 @@
       :src="src"
       class="white--text align-end"
       gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-      height="200px"
+      height="200"
     >
       <v-card-title v-text="planTitle"></v-card-title>
     </v-img>
@@ -21,7 +21,12 @@
       <v-spacer></v-spacer>
 
       <!-- 予約ページに遷移する -->
-      <v-btn @click="setPay(pay, planTitle, src)">
+      <v-btn
+        color="grey darken-2"
+        elevation="0"
+        outlined
+        @click="setPay(pay, planTitle, src, maxGuests)"
+      >
         <v-icon class="mr-2">
           fas fa-campground
         </v-icon>
@@ -54,10 +59,11 @@ export default class PlanCard extends Vue {
   @Prop({ required: true, default: '' })
   maxGuests!: string
 
-  setPay(pay: number, planTitle: string, src: string) {
+  setPay(pay: number, planTitle: string, src: string, maxGuests: string) {
     // `/facility/${$route.params.id}/reservation/${url}`
     this.$store.commit('reservation/SET_PAY', pay)
     this.$store.commit('reservation/SET_PLAN_TITLE', planTitle)
+    this.$store.commit('reservation/SET_MAX_GUESTS', maxGuests)
 
     this.$router.push(
       `/facility/${this.$route.params.id}/reservation/${this.url}`

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn color="error" class="white--text" @click="withdraw">
+    <v-btn outlined color="error" @click="withdraw">
       退会
     </v-btn>
 

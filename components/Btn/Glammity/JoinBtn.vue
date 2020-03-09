@@ -1,6 +1,12 @@
 <template>
   <div class="text-center">
-    <v-btn :block="isBlock" :text="isBlock" @click.stop="openModal">
+    <v-btn
+      class="mt-10"
+      outlined
+      :block="isBlock"
+      :text="isBlock"
+      @click.stop="openModal"
+    >
       <v-icon class="mr-2">
         fas fa-campground
       </v-icon>
@@ -35,17 +41,17 @@
 
           <template v-else-if="isGroup === true">
             <v-card-title class="headline">
-              {{ glammityName }}に戻るよね？
+              {{ glammityName }}に参加しますか？
             </v-card-title>
 
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="green darken-1" text @click="goGroup">
-                戻る
+                参加する
               </v-btn>
 
               <v-btn color="error" text @click="closeCard">
-                戻らん
+                戻る
               </v-btn>
             </v-card-actions>
           </template>

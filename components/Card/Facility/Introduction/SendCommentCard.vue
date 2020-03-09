@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined>
+  <v-card elevation="0">
     <v-card-actions class="pt-2 pb-1 px-4">
       <v-rating
         v-model="Rating"

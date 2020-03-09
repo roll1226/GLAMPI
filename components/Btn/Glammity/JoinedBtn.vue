@@ -14,7 +14,7 @@
           <v-card-actions class="text-center">
             <v-spacer></v-spacer>
             <v-btn color="green darken-1" text @click="closeAll">
-              Yes, sir.
+              閉じる
             </v-btn>
           </v-card-actions>
         </v-card>

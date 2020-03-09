@@ -1,12 +1,13 @@
 <template>
   <div>
-    {{ estimatedAmount.info }}
-
-    <div class="mt-6">
-      <v-btn class="light-blue darken-4 white--text" @click="openDialog">
-        予約する
-      </v-btn>
-    </div>
+    <v-row no-gutters class="align-center">
+      <v-col cols="auto"> {{ estimatedAmount.info }}</v-col>
+      <v-col class="ml-5">
+        <v-btn width="120" height="40" outlined @click="openDialog">
+          予約する
+        </v-btn>
+      </v-col>
+    </v-row>
 
     <v-row justify="center">
       <v-dialog
