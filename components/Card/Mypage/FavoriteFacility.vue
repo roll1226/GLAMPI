@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" outlined>
+  <v-card outlined>
     <v-container>
       <v-row justify="center" no-gutters>
         <v-col cols="auto" class="mx-auto">

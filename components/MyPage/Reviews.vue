@@ -3,10 +3,13 @@
     <v-col
       v-for="(comment, commentIndex) in commentList"
       :key="commentIndex"
-      cols="12"
+      lg="12"
+      md="12"
+      sm="12"
+      xs="12"
     >
       <CommentCard
-        :facility-name="comment.facilityName1"
+        :facility-name="comment.facilityName"
         :star="comment.star"
         :text="comment.text"
         :date="comment.date"

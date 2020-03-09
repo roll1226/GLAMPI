@@ -1,5 +1,5 @@
 <template>
-  <v-row class="favorites-wrapp">
+  <v-row>
     <v-col
       v-for="(facility, facilityIndex) in facilityList"
       :key="facilityIndex"

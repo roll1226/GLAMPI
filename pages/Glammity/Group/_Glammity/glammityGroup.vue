@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <div class="glammity-group mt-10">
     <h1>
       Glammityグループ
     </h1>
 
-    <v-row>
-      <v-col cols="2">
+    <v-row no-gutters>
+      <v-col cols="auto">
         <GlammityTabsCard />
       </v-col>
+    </v-row>
 
-      <v-col cols="10">
+    <v-row no-gutters>
+      <v-col>
         <ChatCard v-if="tabNumber === 0" />
 
         <MemberCard v-else-if="tabNumber === 1" />
@@ -54,3 +56,15 @@ export default class glammityChat extends Vue {
   }
 }
 </script>
+<style lang="scss">
+.glammity-group {
+  width: 80%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 770px) {
+  .glammity-group {
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+</style>
