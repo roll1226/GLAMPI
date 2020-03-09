@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex">
-      <v-card tile width="100%">
+      <v-card tile width="100%" class="mt-2" :elevation="0">
         <v-row class="ma-0 pa-0 px-3" justify="space-between">
           <v-col class="ma-0 pa-0" cols="auto">
             <v-card-title class="headline">
