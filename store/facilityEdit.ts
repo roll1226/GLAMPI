@@ -42,6 +42,7 @@ export interface IState {
   dialog: boolean
   endDialog: boolean
   loading: boolean
+  siteDialog: boolean
 }
 
 const planList = {
@@ -75,7 +76,8 @@ export const state = (): IState => ({
   tagsEdit: [],
   dialog: false,
   endDialog: false,
-  loading: false
+  loading: false,
+  siteDialog: false
 })
 
 export const mutations = {
@@ -179,6 +181,8 @@ export const mutations = {
   },
 
   SET_SLIDER_EDIT_IMAGE(state: IState, payload: { img: any; cnt: number }) {
+    console.log(payload.img)
+
     state.sliderEdit[payload.cnt].img = payload.img
   },
 
@@ -206,6 +210,10 @@ export const mutations = {
 
   SET_END_DIALOG(state: IState, payload: boolean) {
     state.endDialog = payload
+  },
+
+  SET_SITE_DIALOG(state: IState, payload: boolean) {
+    state.siteDialog = payload
   }
 }
 

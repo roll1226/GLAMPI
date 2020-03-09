@@ -18,9 +18,9 @@
           <Plan />
         </v-col>
 
-        <!-- <v-col :cols="10" class="ma-auto">
+        <v-col :cols="10" class="ma-auto">
           <GuestNumber />
-        </v-col> -->
+        </v-col>
 
         <v-col :cols="10" class="ma-auto">
           <v-card elevation="0" tile>
@@ -55,9 +55,8 @@
             </v-list-item>
           </v-card>
         </v-col>
-      </v-row>
-      <v-row dense justify="center">
-        <v-col cols="auto" class="ma-auto">
+
+        <v-col :cols="10" class="ma-auto">
           <v-card elevation="0" tile>
             <v-list-item three-line>
               <v-list-item-content>
@@ -66,35 +65,31 @@
                 </div>
 
                 <v-list-item-title class="headline mb-1">
-                  <v-row dense justify="center">
-                    <v-col cols="auto">
-                      <v-sheet class="mx-auto" elevation="0" max-width="948">
-                        <v-slide-group center-active show-arrows>
-                          <v-slide-item
-                            v-for="(optionList, index) in displayLists"
-                            :key="index"
-                            v-slot:default="{ active, toggle }"
-                          >
-                            <v-card class="ma-0 mx-2" @click="toggle">
-                              <v-row dense align="center" justify="center">
-                                <v-scale-transition>
-                                  <v-col cols="auto">
-                                    <Options
-                                      :option-title="optionList.title"
-                                      :pay="optionList.pay.toLocaleString()"
-                                      :texts="optionList.texts"
-                                      :image="optionList.src"
-                                      :display-name="optionList.displayName"
-                                    />
-                                  </v-col>
-                                </v-scale-transition>
-                              </v-row>
-                            </v-card>
-                          </v-slide-item>
-                        </v-slide-group>
-                      </v-sheet>
+                  <v-row class="ma-0 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" cols="auto">
+                      <v-row class="ma-0 pa-0">
+                        <v-col
+                          v-for="(optionList, index) in displayLists"
+                          :key="index"
+                        >
+                          <Options
+                            :option-title="optionList.title"
+                            :pay="optionList.pay.toLocaleString()"
+                            :texts="optionList.texts"
+                            :image="optionList.src"
+                            :display-name="optionList.displayName"
+                          />
+                        </v-col>
+                      </v-row>
                     </v-col>
                   </v-row>
+                  <div class="text-center">
+                    <v-pagination
+                      v-model="page"
+                      :length="length"
+                      @input="pageChange"
+                    ></v-pagination>
+                  </div>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -113,7 +108,7 @@ import moment from 'moment'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
 import ReservationBtn from '@/components/Btn/ReservationBtn.vue'
-// import GuestNumber from '@/components/Card/Reservation/GuestNumber.vue'
+import GuestNumber from '@/components/Card/Reservation/GuestNumber.vue'
 
 interface option {
   slidesPerView: number
@@ -136,8 +131,8 @@ interface options {
   components: {
     Plan,
     Options,
-    ReservationBtn
-    // GuestNumber
+    ReservationBtn,
+    GuestNumber
   }
 })
 export default class reservation extends Vue {

@@ -2,10 +2,9 @@
   <div class="text-center mb-1 mt-4">
     <v-btn
       :disabled="!isReservation"
-      color="success"
-      width="200"
-      height="60"
-      class="title"
+      color="rgb(87, 95, 69)"
+      large
+      class="subtitle-1 white--text"
       @click="toVerification"
     >
       予約確認

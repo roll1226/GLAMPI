@@ -1,8 +1,16 @@
 <template>
   <v-card-actions>
-    <v-btn @click="updateFacilityEdit">
+    <v-spacer></v-spacer>
+
+    <v-btn outlined color="success" @click="updateFacilityEdit">
       更新
     </v-btn>
+
+    <v-btn outlined color="primary" @click="openCheckSite">
+      確認する
+    </v-btn>
+
+    <CheckFacilitySite />
 
     <div justify="center">
       <v-dialog v-model="dialog" :persistent="editLoading" max-width="400">
@@ -30,12 +38,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import CheckFacilitySite from '../../Admin/Edit/CheckFacilitySite.vue'
 
-@Component
+@Component({
+  components: {
+    CheckFacilitySite
+  }
+})
 export default class CheackEditBtn extends Vue {
-  editLoading: boolean = false
   get dialog(): boolean {
     return this.$store.state.facilityEdit.dialog
+  }
+
+  get editLoading(): boolean {
+    return this.$store.state.facilityEdit.loading
   }
 
   set dialog(value: boolean) {
@@ -56,6 +72,10 @@ export default class CheackEditBtn extends Vue {
 
   closeCard() {
     this.$store.commit('facilityEdit/SET_EDIT_DIALOG', false)
+  }
+
+  openCheckSite() {
+    this.$store.commit('facilityEdit/SET_SITE_DIALOG', true)
   }
 }
 </script>
