@@ -8,6 +8,7 @@
           :rules="[rules.isSeiLength, rules.seiFormat]"
           prepend-icon="mdi-pencil"
           counter="20"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
       </v-col>
       <v-col>
@@ -16,6 +17,7 @@
           label="名"
           :rules="[rules.isMeiLength, rules.meiFormat]"
           counter="20"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
       </v-col>
     </v-row>

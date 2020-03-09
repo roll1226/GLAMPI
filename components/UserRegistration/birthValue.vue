@@ -7,6 +7,7 @@
           :items="dropdown"
           :rules="[rules.isYear]"
           label="生年"
+          color="rgb(87, 95, 69)"
           prepend-icon="mdi-folder-account"
         ></v-select>
       </v-col>
@@ -16,6 +17,7 @@
           :items="dropdown1"
           :rules="[rules.isMonth]"
           label="生月"
+          color="rgb(87, 95, 69)"
         ></v-select>
       </v-col>
       <v-col cols="12" sm="4">
@@ -24,6 +26,7 @@
           :items="dropdown2"
           :rules="[rules.isDay]"
           label="生日"
+          color="rgb(87, 95, 69)"
         ></v-select>
       </v-col>
     </v-row>

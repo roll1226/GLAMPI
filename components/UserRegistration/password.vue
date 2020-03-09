@@ -8,6 +8,7 @@
       prepend-icon="mdi-lock"
       :rules="[rules.isPassword, rules.passwordLength, rules.passwordFormat]"
       counter
+      color="rgb(87, 95, 69)"
       @click:append="show1 = !show1"
     ></v-text-field>
     <v-text-field
@@ -19,6 +20,7 @@
       hint="パスワードをもう一度入力してください。"
       :rules="[rules.isPasswordCheck, rules.passwordCheck]"
       counter
+      color="rgb(87, 95, 69)"
       @click:append="show2 = !show2"
     ></v-text-field>
   </div>

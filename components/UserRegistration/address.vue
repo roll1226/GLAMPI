@@ -8,6 +8,7 @@
           label="xxx"
           prepend-icon="mdi-home"
           :rules="[rules.post1]"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
       </v-col>
       <div class="mt-10">
@@ -19,6 +20,7 @@
           v-mask="POST1"
           label="xxxx"
           :rules="[rules.post2]"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
       </v-col>
       <v-col>
@@ -31,6 +33,7 @@
       v-model="streetAddress"
       label="住所"
       prepend-icon="mdi-"
+      color="rgb(87, 95, 69)"
       :rules="[
         rules.isStreetAddress,
         rules.streetAddressLength,

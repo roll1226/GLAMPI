@@ -7,6 +7,7 @@
           label="セイ"
           :rules="[rules.seiKanaFormat]"
           prepend-icon="mdi-"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
       </v-col>
       <v-col>
@@ -14,6 +15,7 @@
           v-model="meiKana"
           label="メイ"
           :rules="[rules.meiKanaFormat]"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
 
         <div class="text-right">
