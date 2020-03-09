@@ -20,11 +20,11 @@
           <v-divider></v-divider>
 
           <v-card-actions class="d-flex justify-space-around pb-3">
+            <WithdrawedBtn />
+
             <v-btn outlined color="green" @click="closeDialog">
               戻る
             </v-btn>
-
-            <WithdrawedBtn />
           </v-card-actions>
         </v-card>
       </v-dialog>
