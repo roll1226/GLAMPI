@@ -127,6 +127,7 @@
     <JoinBtn
       :is-block="false"
       :glammity-name="glammityData.glammityName"
+      :is-outlined="true"
       :glammity-id="this.$route.params.id"
     />
   </div>
