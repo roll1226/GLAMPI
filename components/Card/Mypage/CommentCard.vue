@@ -3,7 +3,13 @@
     <v-container>
       <v-row no-gutters class="flex-column flex-sm-row">
         <v-col cols="auto">
-          <v-card-title class="pa-0">{{ facilityName }} </v-card-title>
+          <v-card-title
+            class="pa-0"
+            style="cursor: pointer"
+            @click="goFacility"
+          >
+            {{ facilityName }}
+          </v-card-title>
         </v-col>
         <v-col cols="auto">
           <v-card-actions class="pa-0">
@@ -55,6 +61,10 @@ export default class BookingFasility extends Vue {
 
   @Prop({ required: true, default: '' })
   url!: string
+
+  goFacility() {
+    this.$router.push(`/facility/${this.url}/introduction`)
+  }
 }
 </script>
 <style lang="scss">

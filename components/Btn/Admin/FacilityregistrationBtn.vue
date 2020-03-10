@@ -126,9 +126,8 @@ export default class FacilityRegistrationBtn extends Vue {
         // .then((res) => {
         //   storage.ref().child(`facility/`)
         // })
-        await auth.signOut().then(() => {
-          this.$router.push('/officerAdminFacility')
-        })
+
+        this.$router.push('/officerAdminFacility')
       })
     this.loading = false
   }

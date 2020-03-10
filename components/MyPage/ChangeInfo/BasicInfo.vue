@@ -8,10 +8,14 @@
     <comment />
     <v-row>
       <v-col>
-        <v-btn @click="dialogWithdraw = true">退会</v-btn>
+        <v-btn outlined color="error" @click="dialogWithdraw = true"
+          >退会</v-btn
+        >
       </v-col>
       <v-col>
-        <v-btn @click="dialogChange = true">変更</v-btn>
+        <v-btn outlined color="primary" @click="dialogChange = true"
+          >変更</v-btn
+        >
       </v-col>
     </v-row>
 

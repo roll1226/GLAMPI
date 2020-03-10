@@ -1,9 +1,9 @@
 <template>
   <v-card outlined>
-    <v-container>
+    <v-container class="px-5">
       <v-row justify="center" no-gutters>
         <v-col cols="auto" class="mx-auto">
-          <v-img height="220" max-width="300" :src="facilityImg"> </v-img>
+          <v-img height="220" :src="facilityImg"> </v-img>
         </v-col>
       </v-row>
 
@@ -29,7 +29,7 @@
               詳細ページへ
             </v-btn>
           </v-col>
-          <v-col class="pa-0">
+          <v-col class="pa-0 pl-12 ml-9">
             <v-btn outlined @click="dialog = true">
               お気に入り解除
             </v-btn>

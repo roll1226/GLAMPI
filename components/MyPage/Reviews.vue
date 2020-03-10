@@ -13,7 +13,7 @@
         :star="comment.star"
         :text="comment.text"
         :date="comment.date"
-        :url="comment.date"
+        :url="comment.url"
       />
     </v-col>
   </v-row>

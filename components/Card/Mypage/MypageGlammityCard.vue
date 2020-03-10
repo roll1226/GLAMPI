@@ -6,7 +6,7 @@
           <v-img height="220" max-width="300" :src="glammityImg"></v-img>
         </v-col>
 
-        <v-col cols="12" sm="" md="" lg="">
+        <v-col class="ml-3" cols="12" sm="" md="" lg="">
           <v-row no-gutters>
             <v-card-title class="headline pl-0 pt-0">
               {{ glammityName }}
@@ -19,7 +19,7 @@
             </v-col>
           </v-row>
 
-          <v-row no-gutters>
+          <v-row class="mt-12" no-gutters>
             <v-col>
               <v-btn v-if="status" outlined class="pa-0">
                 参加中
@@ -29,7 +29,7 @@
               </v-btn></v-col
             ></v-row
           >
-          <v-row no-gutters>
+          <v-row class="mt-6" no-gutters>
             <v-card-actions class="pa-0">
               <v-col class="pa-0">
                 <v-btn outlined @click="goGlammity">

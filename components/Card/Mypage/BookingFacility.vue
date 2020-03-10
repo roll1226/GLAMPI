@@ -6,7 +6,7 @@
           <v-img height="220" width="300" :src="facilityImg"></v-img>
         </v-col>
 
-        <v-col cols="12" sm="" md="" lg="" class="facility-content">
+        <v-col cols="12" sm="" md="" lg="" class="facility-content ml-5">
           <v-row no-gutters>
             <v-col>
               <v-card-text class="pa-0">
@@ -29,18 +29,18 @@
             <v-col> 以前予約したプラン:{{ planName }} </v-col>
           </v-row>
           <v-row no-gutters>
-            <v-col> 合計金額:{{ planPay }} </v-col>
+            <v-col> 合計金額:{{ planPay.toLocaleString() }}円</v-col>
           </v-row>
 
           <v-row no-gutters>
             <v-card-actions class="pa-0">
-              <v-col class="pa-0">
-                <v-btn class="status">
+              <v-col class="pa-0 mr-5">
+                <v-chip class="status">
                   {{ status }}
-                </v-btn>
+                </v-chip>
               </v-col>
               <v-col class="pa-0">
-                <v-btn>
+                <v-btn outlined color="red">
                   {{ cancel }}
                 </v-btn>
               </v-col>
@@ -82,6 +82,12 @@ export default class BookingFasility extends Vue {
 
   @Prop({ required: true, default: '' })
   status!: string
+
+  get color(): string {
+    if (this.status === '宿泊前') {
+      return 'aa'
+    } else return 'red'
+  }
 
   goFacility() {
     this.$router.push(`/facility/${this.url}/introduction`)

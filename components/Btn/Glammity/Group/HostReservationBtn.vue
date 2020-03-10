@@ -3,6 +3,7 @@
     <v-btn width="120" height="40" outlined @click="openDialog">
       予約
     </v-btn>
+    <HostReservationStripe />
 
     <div justify="center">
       <v-dialog v-model="chareDialog" max-width="400">
@@ -15,12 +16,16 @@
 
           <v-divider></v-divider>
 
-          <v-card-actions class="d-flex justify-space-around pb-3">
-            <HostReservationStripe />
-
-            <v-btn outlined color="green" @click="dialog = false">
-              戻る
+          <v-card-actions class="d-flex justify-space-around">
+            <v-btn outlined color="primary" @click="openStripe">
+              します
             </v-btn>
+
+            <div>
+              <v-btn outlined color="green" @click="dialog = false">
+                戻る
+              </v-btn>
+            </div>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -48,6 +53,11 @@ export default class HostReservationBtn extends Vue {
 
   openDialog() {
     this.$store.commit('glammityStripe/SET_DIALOG', true)
+  }
+
+  openStripe() {
+    this.$store.commit('glammityStripe/SET_DIALOG', false)
+    this.$store.commit('glammityStripe/SET_HOST_DIALOG', true)
   }
 }
 </script>

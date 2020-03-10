@@ -322,7 +322,7 @@ export const actions = {
     for (let index = 0; index < dispatch.state.planEdit.length; index++) {
       const planImg = await storage
         .ref()
-        .child(`facility/${payload}/plans/${planEdit[index].img.name}`)
+        .child(`facility/${planEdit[index].img.name}`)
         .put(planEdit[index].img)
 
       const planImgUrl = await planImg.ref.getDownloadURL()
@@ -347,7 +347,7 @@ export const actions = {
     for (let index = 0; index < optionEdit.length; index++) {
       const optionImg = await storage
         .ref()
-        .child(`facility/${payload}/options/${optionEdit[index].img.name}`)
+        .child(`facility/${optionEdit[index].img.name}`)
         .put(optionEdit[index].img)
 
       const optionImgUrl = await optionImg.ref.getDownloadURL()
@@ -370,45 +370,21 @@ export const actions = {
 
     // スライダー
     const sliderEdit = dispatch.state.sliderEdit
+    for (let index = 0; index < sliderEdit.length; index++) {
+      const sliderImg = await storage
+        .ref()
+        .child(`facility/${sliderEdit[index].img.name}`)
+        .put(sliderEdit[index].img)
 
-    await storage
-      .ref()
-      .child(`facility/${payload}/slider/${sliderEdit[0].img.name}`)
-      .put(sliderEdit[0].img)
-      .then(async (snapshot) => {
-        await snapshot.ref.getDownloadURL().then(async (url) => {
-          const slider = {
-            slider: fieldValue.arrayUnion(url)
-          }
+      const sliderImgUrl = await sliderImg.ref.getDownloadURL()
 
-          await firestore
-            .collection('facilities')
-            .doc(facility.docs[0].id)
-            .update(slider)
-            .then(async () => {
-              for (let index = 0; index < sliderEdit.length - 1; index++) {
-                await storage
-                  .ref()
-                  .child(
-                    `facility/${payload}/slider/${sliderEdit[index].img.name}`
-                  )
-                  .put(sliderEdit[index].img)
-                  .then(async (snapshot) => {
-                    await snapshot.ref.getDownloadURL().then(async (url) => {
-                      const slider = {
-                        slider: fieldValue.arrayUnion(url)
-                      }
-
-                      await firestore
-                        .collection('facilities')
-                        .doc(facility.docs[0].id)
-                        .update(slider)
-                    })
-                  })
-              }
-            })
+      await firestore
+        .collection('facilities')
+        .doc(facility.docs[0].id)
+        .update({
+          slider: fieldValue.arrayUnion(sliderImgUrl)
         })
-      })
+    }
 
     // タグ
     const tagEdit = dispatch.state.tagsEdit

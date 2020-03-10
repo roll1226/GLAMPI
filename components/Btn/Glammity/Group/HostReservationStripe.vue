@@ -1,56 +1,45 @@
 <template>
-  <div>
-    <v-btn @click="openStripe">
-      します
-    </v-btn>
+  <div justify="center">
+    <v-dialog v-model="hostDialog" max-width="500" :persistent="hostLoading">
+      <v-card :loading="hostLoading">
+        <v-toolbar dark color="rgb(73, 92, 114)">
+          <v-toolbar-title>
+            クレジット支払い
+          </v-toolbar-title>
+        </v-toolbar>
 
-    <v-row justify="center">
-      <v-dialog v-model="hostDialog" max-width="450" :persistent="hostLoading">
-        <v-card :loading="hostLoading">
-          <v-toolbar dark class="grey lighten-1">
-            <v-toolbar-title>
-              クレジット支払い
-            </v-toolbar-title>
-          </v-toolbar>
+        <div class="px-5 py-3">
+          <v-text-field
+            v-model="stripeEmail"
+            :rules="emailRules.email"
+            label="E-mail"
+            hint="確認メール送信用アドレスを入力ください。"
+            required
+          ></v-text-field>
 
-          <div class="px-5 py-3">
-            <v-text-field
-              v-model="stripeEmail"
-              :rules="emailRules.email"
-              label="E-mail"
-              required
-            ></v-text-field>
+          <!-- クレジットカード -->
+          <card
+            id="card"
+            class="stripe-card"
+            :class="{ complete }"
+            :stripe="stripeApiKey"
+            :options="stripeOptions"
+            @change="complete = $event.complete"
+          />
 
-            <label for="card">
-              クレジットカード
-            </label>
-            <p>
-              テスト用カード<span class="cc-number">4242 4242 4242 4242</span>
-            </p>
-
-            <!-- クレジットカード -->
-            <card
-              id="card"
-              class="stripe-card"
-              :class="{ complete }"
-              :stripe="stripeApiKey"
-              :options="stripeOptions"
-              @change="complete = $event.complete"
-            />
-
-            <div class="text-center">
-              <v-btn
-                class="pay-with-stripe light-blue darken-4 white--text"
-                :disabled="!complete || !stripeEmail"
-                @click="checkout"
-              >
-                {{ estimatedAmount.info }}、支払う
-              </v-btn>
-            </div>
+          <div class="text-center">
+            <v-btn
+              class="white--text"
+              color="rgb(87, 95, 69)"
+              :disabled="!complete || !stripeEmail"
+              @click="checkout"
+            >
+              {{ estimatedAmount.info.toLocaleString() }}、支払う
+            </v-btn>
           </div>
-        </v-card>
-      </v-dialog>
-    </v-row>
+        </div>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -123,10 +112,6 @@ export default class HostReservationStripe extends Vue {
 
   set hostDialog(value: boolean) {
     this.$store.commit('glammityStripe/SET_HOST_DIALOG', value)
-  }
-
-  openStripe() {
-    this.$store.commit('glammityStripe/SET_HOST_DIALOG', true)
   }
 
   checkout() {

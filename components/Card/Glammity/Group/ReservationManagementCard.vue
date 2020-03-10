@@ -9,11 +9,6 @@
       <GlammityInfoCard :title="plan.title" :info="plan.info" />
     </v-row>
 
-    <v-row no-gutters class="flex-column flex-sm-row">
-      <GlammityInfoCard :title="facilityName.title" :info="facilityName.info" />
-      <GlammityInfoCard :title="plan.title" :info="plan.info" />
-    </v-row>
-
     <v-row no-gutters>
       <GlammityInfoCard
         :title="estimatedAmount.title"
