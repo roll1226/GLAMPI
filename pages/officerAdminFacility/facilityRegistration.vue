@@ -38,7 +38,7 @@ import FacilityEmailRegistration from '@/components/FacilityRegistration/facilit
 import FacilityPasswordRegistration from '@/components/FacilityRegistration/facilityPassword.vue'
 import FacilityRegistrationOfficerName from '@/components/FacilityRegistration/FacilityOfficerName.vue'
 import FacilityTelRegistration from '@/components/FacilityRegistration/FacilityPhoneNumber.vue'
-import FacilityFacilityNameRegistration from '@/components/facilityRegistration/facilityName.vue'
+import FacilityFacilityNameRegistration from '@/components/FacilityRegistration/facilityName.vue'
 import FacilityAddressRegistration from '@/components/FacilityRegistration/facilityAddress.vue'
 import FacilityRegistrationBtn from '@/components/Btn/Admin/FacilityregistrationBtn.vue'
 
