@@ -39,7 +39,7 @@
           <v-col sm="auto" cols="12" class="d-flex justify-center">
             <div class="mypage-user">
               <v-avatar color="rgb(87,95,69)" size="180">
-                <v-icon size="160" dark>mdi-account-circle</v-icon>
+                <v-img :src="userImg"></v-img>
               </v-avatar>
               <p>{{ nickname }}</p>
               <ChangeInfoBtn v-if="screen1 == 1" />
@@ -105,6 +105,10 @@ export default class mypage extends Vue {
     return this.$store.state.mypage.nickname !== ''
       ? this.$store.state.mypage.nickname
       : this.$store.state.mypage.firstName + this.$store.state.mypage.lastName
+  }
+
+  get userImg(): string {
+    return this.$store.state.mypage.userImg
   }
 }
 </script>

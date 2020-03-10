@@ -19,6 +19,7 @@ interface IUser {
   comment: string
   sex: string
   birthday: string
+  userImg: string
 }
 
 interface IState {
@@ -42,6 +43,7 @@ interface IState {
   likes: IFacilityLike[]
   comments: IComment[]
   glammity: IGlammity[]
+  userImg: string
 }
 
 interface IUserData {
@@ -106,6 +108,7 @@ export const state = (): IState => ({
   passwordCheck: '',
   nickname: '',
   comment: '',
+  userImg: '',
   sex: '',
   birthday: '',
   reservation: [],
@@ -205,6 +208,8 @@ export const mutations = {
     state.sex = payload.sex
 
     state.birthday = payload.birthday
+
+    state.userImg = payload.userImg
   },
   SET_RESERVATION_FACILITY(
     state: IState,
