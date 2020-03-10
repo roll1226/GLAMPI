@@ -24,7 +24,6 @@
           v-model="email"
           prepend-inner-icon="far fa-envelope"
           label="メールアドレス"
-          :rules="[rules.emailFormat]"
           color="rgb(87, 95, 69)"
         ></v-text-field>
 
@@ -110,16 +109,6 @@ export default class Support extends Vue {
   dialog: boolean = false
   laoding: boolean = false
   snackbar: boolean = false
-
-  rules: {} = {
-    emailFormat: (v: string) => {
-      const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
-      return (
-        pattern.test(v) ||
-        'メールアドレスは半角英数字で「XX@XX.XX」の形式にて入力してください。'
-      )
-    }
-  }
 
   get isSet(): string {
     return this.facilityValue && this.title && this.email && this.text
