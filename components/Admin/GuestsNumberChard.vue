@@ -83,11 +83,11 @@ export default class GuestsNumberchard extends mixins(Bar) {
           await this.chartData.datasets[0].data.push(
             profitData.docs[0].data().guests
           )
+
+          this.renderChart(this.chartData, this.chartOptions)
         }
       }
     }
-
-    this.renderChart(this.chartData, this.chartOptions)
   }
 }
 </script>

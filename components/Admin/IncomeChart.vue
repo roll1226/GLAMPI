@@ -84,11 +84,11 @@ export default class IncomeChart extends mixins(Bar) {
           await this.chartData.datasets[0].data.push(
             profitData.docs[0].data().pay
           )
+
+          this.renderChart(this.chartData, this.chartOptions)
         }
       }
     }
-
-    this.renderChart(this.chartData, this.chartOptions)
   }
 }
 </script>
