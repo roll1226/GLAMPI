@@ -25,7 +25,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import moment from 'moment'
 import Options from '~/components/Card/Reservation/Options.vue'
 
@@ -43,67 +43,30 @@ interface options {
   }
 })
 export default class ScheduleCreateGlammity extends Vue {
-  page: number = 1
-
-  // dates: [] = []
-  length: number = 0
-  pageSlice: number = 0
-  payNum: number = 2000
   nowDate: string = ''
-  isReservation: boolean = false
 
   created() {
-    if (window.parent.screen.width <= 420) {
-      this.pageSlice = 1
-    } else {
-      this.pageSlice = 3
-    }
     this.nowDate = moment(new Date()).format('YYYY-MM-DD')
-    console.log(moment(new Date()).format('YYYY-MM-DD'))
   }
-  list: options[] = this.$store.state.facility.options
-  displayLists?: options[] = []
 
   public get schedule(): string {
-    if (this.dates[1]) {
-      if (this.dates[0] > this.dates[1]) {
-        const checkOut = this.dates[0]
-        const checkIn = this.dates[1]
-
-        this.$store.commit('reservation/SET_DATE_RE', { checkIn, checkOut })
-      }
-    }
     return this.dates.join(' ~ ')
   }
+
   get dates(): [...string[]] {
-    return this.$store.state.reservation.dates
+    return this.$store.state.glammityCreate.dates
   }
 
   set dates(selectdates: [...string[]]) {
-    this.$store.commit('reservation/SET_DATES', selectdates)
-  }
+    this.$store.commit('glammityCreate/SET_DATES', selectdates)
+    if (selectdates[1]) {
+      this.$store.commit('glammityCreate/SET_DATES', selectdates)
+      if (selectdates[0] > selectdates[1]) {
+        const checkOut = selectdates[0]
+        const checkIn = selectdates[1]
 
-  @Watch('dates')
-  reservationIsValid() {
-    this.isReservation =
-      this.isDateInputed(this.dates[0]) &&
-      this.isDateInputed(this.dates[1]) &&
-      this.checkDateLength(this.dates)
-  }
-
-  private isDateInputed(date: string): boolean {
-    if (date !== '') {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  private checkDateLength(dates: [...string[]]): boolean {
-    if (dates.length === 2) {
-      return true
-    } else {
-      return false
+        this.$store.commit('glammityCreate/SET_DATE_RE', { checkIn, checkOut })
+      }
     }
   }
 }

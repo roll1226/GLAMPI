@@ -9,6 +9,7 @@
           :counter="100"
           :rules="[rules.isEmail, rules.emailLength, rules.emailFormat]"
           hint="「XX@XX.XX」の形式で入力してください"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
       </v-col>
       <v-col>

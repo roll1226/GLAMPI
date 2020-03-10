@@ -1,11 +1,36 @@
 <template>
-  <div>
-    <v-card-title>口コミ</v-card-title>
-  </div>
+  <v-row no-gutters>
+    <v-col
+      v-for="(comment, commentIndex) in commentList"
+      :key="commentIndex"
+      lg="12"
+      md="12"
+      sm="12"
+      xs="12"
+    >
+      <CommentCard
+        :facility-name="comment.facilityName"
+        :star="comment.star"
+        :text="comment.text"
+        :date="comment.date"
+        :url="comment.url"
+      />
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { IComment } from '@/store/mypage'
+import CommentCard from '@/components/Card/Mypage/CommentCard.vue'
 
-@Component
-export default class Reviews extends Vue {}
+@Component({
+  components: {
+    CommentCard
+  }
+})
+export default class Reviews extends Vue {
+  get commentList(): IComment[] {
+    return this.$store.state.mypage.comments
+  }
+}
 </script>

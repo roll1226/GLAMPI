@@ -5,6 +5,7 @@
       label="ユーザ名"
       prepend-icon="mdi-account-circle"
       :rules="[rules.usernameLength]"
+      color="rgb(87, 95, 69)"
     ></v-text-field>
   </div>
 </template>

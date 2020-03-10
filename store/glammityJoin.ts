@@ -20,6 +20,7 @@ interface IGlammityData {
   numberOfApplicants: number
   allPay: number
   checkIn: string
+  checkOut: string
   comment: string
   slider: [...string[]]
 }
@@ -31,6 +32,7 @@ export interface IGlammity {
   numberOfApplicants: number
   allPay: number
   checkIn: string
+  checkOut: string
   comment: string
   users: IUser[]
   slider: [...string[]]
@@ -58,6 +60,7 @@ export const state = (): IState => ({
     numberOfApplicants: 0,
     allPay: 0,
     checkIn: '',
+    checkOut: '',
     comment: '',
     slider: [],
     users: []
@@ -86,7 +89,7 @@ export const mutations = {
       userName:
         payload.nickname !== ''
           ? payload.nickname
-          : payload.lastName + payload.firstName,
+          : payload.firstName + payload.lastName,
       userImg: payload.userImg
     }
 
@@ -112,6 +115,7 @@ export const mutations = {
     state.glammity.numberOfApplicants = payload.numberOfApplicants
     state.glammity.allPay = payload.allPay
     state.glammity.checkIn = payload.checkIn
+    state.glammity.checkOut = payload.checkOut
     state.glammity.comment = payload.comment
   },
 
@@ -123,6 +127,7 @@ export const mutations = {
       numberOfApplicants: 0,
       allPay: 0,
       checkIn: '',
+      checkOut: '',
       comment: '',
       slider: [],
       users: []
@@ -162,6 +167,7 @@ export const actions = {
         .collection('users')
         .doc(user.id)
         .get()
+
       dispatch.commit('SET_USER', userInfo.data())
     }
   },
@@ -183,26 +189,6 @@ export const actions = {
     dispatch.commit('SET_GLAMMITY_SLIDER', slider)
     dispatch.commit('SET_GLAMMITY_PLAN', plan.data())
     dispatch.commit('SET_GLAMMITY_FACILITY_NAME', facilityName)
-  },
-
-  async joinGlammity(
-    dispatch: ICommit,
-    payload: { glammityId: string; userId: string }
-  ) {
-    console.log(payload)
-    try {
-      await firestore
-        .collection('glammity')
-        .doc(payload.glammityId)
-        .collection('member')
-        .doc(payload.userId)
-        .set({ userStates: 'guest' })
-
-      dispatch.commit('SET_LOADING', false)
-      dispatch.commit('SET_JOINED_BTN_DIALOG', true)
-    } catch (error) {
-      console.log(error)
-    }
   },
 
   async searchUser(dispatch: ICommit, payload: { id: string; userId: string }) {

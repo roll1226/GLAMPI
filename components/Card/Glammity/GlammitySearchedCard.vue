@@ -46,7 +46,7 @@
               <v-btn
                 block
                 text
-                :to="`/glammity/${glammity.glammityId}/glammityIntroduction`"
+                :to="`/Glammity/${glammity.glammityId}/glammityIntroduction`"
               >
                 紹介ページ
 

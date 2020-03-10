@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card elevation="0">
     <v-list-item three-line>
       <v-list-item-content>
         <div class="body-2 mb-1">
@@ -31,14 +31,10 @@
                   金額: {{ option.pay.toLocaleString() }}円
                 </v-card-subtitle>
 
-                <v-card-text class="text--primary">
-                  <div
-                    v-for="(text, textIndex) in option.texts"
-                    :key="textIndex"
-                  >
-                    {{ text }}
-                  </div>
-                </v-card-text>
+                <v-card-text
+                  class="text--primary"
+                  v-text="option.texts"
+                ></v-card-text>
               </v-card>
             </v-col>
           </v-row>

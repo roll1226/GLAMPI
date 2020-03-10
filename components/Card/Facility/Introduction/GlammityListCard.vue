@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card elevation="0">
     <v-list-item three-line>
       <v-list-item-content>
         <div class="body-2 mb-1">
@@ -63,30 +63,6 @@ export default class GlammityListCard extends Vue {
   get displayLists(): IGlammity[] {
     return this.$store.state.facilityGlammity.displayLists
   }
-
-  // list: IGlammity[] = [
-  //   {
-  //     title: 'GLAMMITY1',
-  //     text: '凄い',
-  //     src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
-  //   },
-  //   {
-  //     title: 'GLAMMITY2',
-  //     text: 'やばい',
-  //     src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
-  //   },
-  //   {
-  //     title: 'GLAMMITY3',
-  //     text: '博俊',
-  //     src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
-  //   },
-  //   {
-  //     title: 'GLAMMITY4',
-  //     text: '優人',
-  //     src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
-  //   }
-  // ]
-  // displayLists?: IGlammity[] = []
 
   created() {
     this.$store.commit(

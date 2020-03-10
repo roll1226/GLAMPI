@@ -8,56 +8,23 @@
       </v-col>
     </v-row>
 
-    <div class="index-tag-mobile top-page-introduction-lists">
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            タグ数 18個
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-row>
-              <v-col
-                v-for="n of 18"
-                :key="n"
-                lg="2"
-                md="2"
-                sm="4"
-                class="text-center"
-              >
-                <v-btn rounded depressed>
-                  <v-icon class="mr-2">
-                    fas fa-train
-                  </v-icon>
-                  都心に近い
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </div>
-
     <v-row class="top-page-cards">
       <v-col>
-        <v-card class="index-tag-pc" elevation="0">
-          <v-card-text>
-            <v-row>
-              <v-col
-                v-for="n of 18"
-                :key="n"
-                lg="2"
-                md="2"
-                sm="4"
-                class="text-center"
+        <v-card :elevation="0">
+          <v-card-text class="pt-0">
+            <v-chip-group column>
+              <v-chip
+                v-for="(tag, index) in tags"
+                :key="index"
+                @click="searchTag(tag.tag)"
               >
-                <v-btn rounded depressed>
-                  <v-icon class="mr-2">
-                    fas fa-train
-                  </v-icon>
-                  都心に近い
-                </v-btn>
-              </v-col>
-            </v-row>
+                <v-icon left class="px-1">
+                  {{ tag.icon }}
+                </v-icon>
+
+                {{ tag.tag }}
+              </v-chip>
+            </v-chip-group>
           </v-card-text>
         </v-card>
       </v-col>
@@ -67,9 +34,42 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import SearchedSideNavigationTags from '@/components/Card/Search/SearchedSideNavigationTags.vue'
+import { firestore } from '@/plugins/firebase'
 
-@Component
-export default class TagIndexWrap extends Vue {}
+export interface ITags {
+  tag: string
+  icon: string
+}
+
+@Component({
+  components: {
+    SearchedSideNavigationTags
+  }
+})
+export default class TagIndexWrap extends Vue {
+  tags: ITags[] = []
+
+  async created() {
+    const tags = await firestore.collection('tags').get()
+    console.log(tags.docs.length)
+    for (let index = 0; index < tags.docs.length; index++) {
+      const tag = tags.docs[index].data().tag
+      const icon = tags.docs[index].data().icon
+
+      const tagList = {
+        tag,
+        icon
+      }
+
+      this.tags.push(tagList)
+    }
+  }
+
+  searchTag(tag: string) {
+    this.$router.push(`/searched?facilityKeyWord=&prefectures=&tag=${tag}`)
+  }
+}
 </script>
 
 <style lang="scss">

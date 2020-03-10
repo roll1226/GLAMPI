@@ -1,13 +1,19 @@
 <template>
   <div class="text-center">
-    <v-btn :block="isBlock" :text="isBlock" @click.stop="openModal">
+    <v-btn
+      :block="isBlock"
+      class="glammity-btn"
+      :text="isBlock"
+      :outlined="isOutlined"
+      @click.stop="openModal"
+    >
       <v-icon class="mr-2">
         fas fa-campground
       </v-icon>
 
       参加する
     </v-btn>
-    {{ isGroup }}
+
     <div justify="center">
       <v-dialog v-model="dialog" :persistent="joinBtnLoading" max-width="400">
         <v-card :loading="joinBtnLoading">
@@ -35,17 +41,17 @@
 
           <template v-else-if="isGroup === true">
             <v-card-title class="headline">
-              {{ glammityName }}に戻るよね？
+              {{ glammityName }}に参加しますか？
             </v-card-title>
 
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="green darken-1" text @click="goGroup">
-                戻る
+                参加する
               </v-btn>
 
               <v-btn color="error" text @click="closeCard">
-                戻らん
+                戻る
               </v-btn>
             </v-card-actions>
           </template>
@@ -79,20 +85,17 @@ export default class JoinBtn extends Vue {
   @Prop({ required: true, default: true })
   isBlock!: boolean
 
+  @Prop({ required: true, default: false })
+  isOutlined!: boolean
+
   get joinBtnLoading(): boolean {
     return this.$store.state.glammityJoin.loading
   }
 
-  get dialog(): boolean {
-    return this.$store.state.glammityJoin.joinBtnDialog
-  }
+  dialog: boolean = false
 
   get isLogin(): boolean {
     return this.$store.state.login.isLogin
-  }
-
-  set dialog(dialog: boolean) {
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', dialog)
   }
 
   get isGroup(): isGroupStates {
@@ -108,7 +111,7 @@ export default class JoinBtn extends Vue {
       this.$store.commit('login/SET_LOGIN_DIALOG', true)
       return
     }
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', true)
+    this.dialog = true
     this.$store.commit('glammityJoin/SET_LOADING', true)
     this.$store.dispatch('glammityJoin/searchUser', {
       id: this.glammityId,
@@ -117,12 +120,11 @@ export default class JoinBtn extends Vue {
   }
 
   closeCard() {
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
+    this.dialog = false
   }
 
   goGroup() {
-    this.$store.commit('glammityJoin/SET_JOIN_BTN_DIALOG', false)
-    this.$router.push(`/glammity/Group/${this.glammityId}/glammityGroup`)
+    this.$router.push(`/Glammity/Group/${this.glammityId}/glammityGroup`)
   }
 }
 </script>

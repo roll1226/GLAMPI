@@ -32,8 +32,11 @@
 
     <v-row no-gutters>
       <v-card class="card">
-        <v-row no-gutters justify="space-around">
-          <v-col xs="12" cols="auto">
+        <v-row
+          no-gutters
+          class="flex-row justyfy-center justify-sm-space-around"
+        >
+          <v-col sm="auto" cols="12" class="d-flex justify-center">
             <div class="mypage-user">
               <v-avatar color="rgb(87,95,69)" size="180">
                 <v-icon size="160" dark>mdi-account-circle</v-icon>
@@ -43,7 +46,7 @@
             </div>
           </v-col>
 
-          <v-col xs="12">
+          <v-col cols="12" sm="9">
             <MyTop v-if="screen1 == 0" />
 
             <ChangeInfo v-else-if="screen1 == 1" />
@@ -88,7 +91,15 @@ export default class mypage extends Vue {
   public screen2: number = 0
 
   created() {
+    this.$store.commit('mypage/RESET_RESERVATION')
+    this.$store.commit('mypage/RESET_GLAMMITY')
+    this.$store.commit('mypage/RESET_LIKES')
+    this.$store.commit('mypage/RESET_COMMENTS')
     this.$store.dispatch('mypage/getUserData', this.$route.params.id)
+    this.$store.dispatch('mypage/getReservationFacility', this.$route.params.id)
+    this.$store.dispatch('mypage/getGlammity', this.$route.params.id)
+    this.$store.dispatch('mypage/getLikes', this.$route.params.id)
+    this.$store.dispatch('mypage/getComments', this.$route.params.id)
   }
   get nickname(): string {
     return this.$store.state.mypage.nickname !== ''
@@ -102,7 +113,7 @@ export default class mypage extends Vue {
 .mypage-wrapp {
   overflow: visible !important;
   max-width: 1100px;
-  padding: 28px 0 100px 0;
+  padding: 28px 0 0 0;
   .mypage-navi {
     width: 100%;
     margin: 0 0 28px 0;
@@ -126,19 +137,17 @@ export default class mypage extends Vue {
     margin: 0 auto;
     min-height: 400px;
     //カード内左右と下
-    padding: 0 60px 40px;
+    padding: 60px 40px;
     .mypage-user {
       width: 180px;
-      margin: 70px 60px 0 0;
+      // margin: 100px 0 0 0;
       p {
         font-size: 22px;
         text-align: center;
         margin: 15px 0 0 0;
       }
-      //ChangeInfoBtn位置
       .change-info-btn {
         margin: 20px 0 0 0;
-        //background-color: aquamarine;
         .v-btn {
           margin: 20px 0 0 0;
           width: 180px;
@@ -154,7 +163,6 @@ export default class mypage extends Vue {
     //mypage,Mytopコンポーネント
     .mytop-wrap {
       max-width: 740px;
-      margin: 70px 0 0 0;
       * {
         padding: 0px;
         margin: 0px;
@@ -172,24 +180,21 @@ export default class mypage extends Vue {
       }
     }
 
-    /////////////////imakoko
     //mypage,ChangeInfoコンポーネント
     .changeInfo-wrap {
       .row {
-        //入力フォーム各コンポーネントの上余白
-        margin: 30px 0 0 0;
-        .v-icon {
-          //各アイコンのmargin
-          margin: 20px 10px 0 0;
-        }
-        p {
-          margin: 20px 0 0 0;
-          width: max-content;
+        .row {
+          margin: 30px 0 0 0;
+          .row {
+            margin: 0 0 0 0;
+          }
         }
       }
-      //コンポーネント内で二重になってるv-rowの上余白削除
-      .margin-delete {
-        margin: 0 0 0 0;
+    }
+
+    .row {
+      .v-card {
+        margin: 0 0 35px 0;
       }
     }
   }
@@ -235,46 +240,18 @@ export default class mypage extends Vue {
       }
 
       .changeInfo-wrap {
-        margin: 30px 15px 20px;
+        margin: 0px 10px 0;
         .row {
-          .v-input {
-            //全入力フォームのwidth固定
-            width: 266px;
-          }
-
-          //郵便番号「xxx-xxxx」全体
-          .postal {
-            width: 200px;
-            .postal-b {
-              width: 70px;
-              margin: 0 8px 0 0;
-            }
-            p {
-              margin: 20px 8px 0 0;
-            }
-            .postal-a {
-              width: 90px;
-              margin: 0 8px 0 0;
-            }
-          }
-          //検索btn
-          .kensaku {
-            margin: 10px 0 0 0;
-          }
-          //メール送信btn
-          .mail {
-            width: max-content;
-            margin: 0 0 0 143px;
-          }
-
-          .under {
-            //同じコンポーネント内で２行目はアイコン分の左余白
-            margin-left: 34px;
-          }
+          margin-top: 0px;
         }
       }
 
-      .bList-wrap {
+      .row {
+        margin: 40px 0 0 0;
+        .v-card {
+          margin: 0 0 30px 0;
+          padding: 0;
+        }
       }
     }
   }

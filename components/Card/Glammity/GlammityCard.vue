@@ -1,4 +1,5 @@
 <template>
+  <!-- バグあり(ページネーション効かない) -->
   <v-card class="mx-auto" max-width="300" elevation="4">
     <v-img class="white--text align-end" height="200px" :src="glammityImage">
       <v-card-title style="text-shadow: 1px 2px 3px #000; ">
@@ -10,10 +11,11 @@
       GLAMMITY紹介文
     </v-card-subtitle>
 
-    <v-card-text class="text--primary">
-      <div>
-        {{ introduction }}
-      </div>
+    <v-card-text
+      class="text--primary"
+      style="word-wrap: break-word; white-space: pre-wrap;"
+      v-text="introduction"
+    >
     </v-card-text>
 
     <v-card-actions>
@@ -22,23 +24,31 @@
       <!-- 詳細飛ぶ -->
       <v-btn
         outlined
-        class="glammity-btn"
-        :to="`/glammity/${url}/glammityIntroduction`"
+        class="glammity-btn mr-3"
+        :to="`/Glammity/${url}/glammityIntroduction`"
       >
         詳細
       </v-btn>
       <!-- 参加する -->
-      <v-btn outlined class="glammity-btn" to="">
-        参加
-      </v-btn>
+      <JoinBtn
+        :is-block="false"
+        :is-outlined="true"
+        :glammity-name="glammityName"
+        :glammity-id="url"
+      />
     </v-card-actions>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import JoinBtn from '@/components/Btn/Glammity/JoinBtn.vue'
 
-@Component
+@Component({
+  components: {
+    JoinBtn
+  }
+})
 export default class GlammityCard extends Vue {
   @Prop({ required: true, default: '' })
   glammityImage!: string

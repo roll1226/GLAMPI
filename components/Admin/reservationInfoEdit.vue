@@ -1,554 +1,145 @@
 <template>
   <div>
-    <v-card max-width="900" class="mx-auto">
-      <v-container>
+    <v-card class="mx-auto">
+      <v-card-title>
         情報登録
-        <v-textarea label="施設紹介"></v-textarea>
-        予約プラン
-        <v-row>
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-if="file == 1"
-              style="display: none"
-              type="file"
-              accept="image/*"
-              @change="getFileName"
-            ></v-file-input>
-            <v-btn icon text @click="btnclick">
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden" icon @click="click()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file1"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden1" icon text @click="click1()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add1 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file2"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden2" icon text @click="click2()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add2 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file3"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden3" icon text @click="click3()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add3 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file4"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden4" icon text @click="click4()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add4 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file5"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden5" icon text @click="click5()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add5 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file6"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden6" icon text @click="click6()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add6 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file7"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden7" icon text @click="click7()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add7 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file8"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden8" icon text @click="click8()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add8 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file9"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden9" icon text @click="click9()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row v-if="add9 == 1" class="mt-n12 pt-0">
-          <v-col sm="4" class="px-5">
-            <v-file-input
-              v-model="file10"
-              accept="image/*"
-              :src="uploadedImage"
-              @change="getFileName"
-            ></v-file-input>
-            <v-img
-              v-show="uploadedImage"
-              :src="uploadedImage"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="250"
-              max-height="200"
-            ></v-img>
-            <canvas id="canvas"></canvas>
-          </v-col>
-          <v-row>
-            <v-col sm="11" class="mx-5">
-              <v-text-field label="プランタイトル" single-line></v-text-field>
-              <v-text-field label="サブタイトル" single-line></v-text-field>
-              <v-text-field label="値段" single-line></v-text-field>
-              <v-btn v-show="!hidden10" icon text @click="click10()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-row>
-        <div id="app">
-          <h2>スライド画像</h2>
-          <!-- <input
-            v-if="!isSelected && !mustReset"
-            :name="uploadFieldName"
-            accept="image/*"
-            type="file"
-            class="input-file"
-            @change="getFileName"
-          />
-          <div v-else>
-            <div class="preview">
-              <img
-                v-show="uploadedImage"
-                v-if="imageUrl"
-                :src="imageUrl"
-                alt="preview"
-              />
-            </div>
-            <div class="buttons">
-              <a class="button" @click="reset">cancel </a>
-              <a class="button" @click="upload">upload</a>
-            </div>
-          </div>-->
-        </div>
+      </v-card-title>
+      <v-card-text>
+        <v-textarea v-model="info" label="施設紹介"></v-textarea>
+      </v-card-text>
 
-        <!-- <v-file-input
-          v-model="file"
-          accept="image/*"
-          @change="getFileName"
-        ></v-file-input> -->
-        <!--
-    <v-card>
-      <v-container>
-        情報登録
-        <v-textarea label="施設紹介" name=""></v-textarea>
+      <v-divider class="mx-2"></v-divider>
+
+      <v-card-title>
+        スライダー画像
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <FacilitySliderEdit
+            v-for="(slider, index) in sliderCnt"
+            :key="index"
+            :index-cnt="index"
+          />
+
+          <v-col cols="4" class="d-flex flex-row align-center pt-10">
+            <v-btn class="mt-5" fab depressed @click="plusSliderList">
+              <v-icon dark>mdi-plus</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+
+      <v-divider class="mx-2"></v-divider>
+
+      <v-card-title>
         予約プラン
-        <v-layout row>
-          <v-flex xs4>
-            <v-flex xs11>
-              <v-file-input
-                v-model="file"
-                accept="image/*"
-                label="File input"
-                @change="getFileName"
-              ></v-file-input>
-              <v-img
-                v-show="uploadedImage"
-                :src="uploadedImage"
-                aspect-ratio="1"
-                class="grey lighten-2"
-                max-width="250"
-                max-height="200"
-              ></v-img>
-              <canvas id="canvas"></canvas>
-            </v-flex>
-          </v-flex>
-          <v-flex xs7>
-            <v-text-field label="プランタイトル" single-line></v-text-field>
-            <v-text-field label="サブタイトル" single-line></v-text-field>
-            <v-text-field label="値段" single-line></v-text-field>
-          </v-flex>
-        </v-layout>
-        スライド画像
-        <v-file-input
-          v-model="file"
-          accept="image/*"
-          label="File input"
-          @change="getFileName"
-        ></v-file-input>
-        <v-img
-          v-show="uploadedImage"
-          :src="uploadedImage"
-          aspect-ratio="1"
-          class="grey lighten-2"
-          max-width="250"
-          max-height="200"
-        ></v-img> -->
-        <canvas id="canvas"></canvas>
-        <!-- ></v-img> -->
-      </v-container>
+      </v-card-title>
+      <v-card-text>
+        <FacilityPlanEdit
+          v-for="(plan, index) in planCnt"
+          :key="index"
+          :index-cnt="index"
+        />
+      </v-card-text>
+
+      <div class="text-center mb-6">
+        <v-btn fab depressed @click="plusPlanList">
+          <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
+      </div>
+
+      <v-divider class="mx-2"></v-divider>
+
+      <v-card-title>
+        オプション
+      </v-card-title>
+      <v-card-text>
+        <FacilityOptionEdit
+          v-for="(option, index) in optionCnt"
+          :key="index"
+          :index-cnt="index"
+        />
+      </v-card-text>
+
+      <div class="text-center mb-6">
+        <v-btn fab depressed @click="plusOptionList">
+          <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
+      </div>
+
+      <v-divider class="mx-2"></v-divider>
+
+      <v-card-title>
+        施設関連タグ
+      </v-card-title>
+      <v-card-text>
+        <FacilityTagsEdit />
+      </v-card-text>
+
+      <CheackEditBtn />
+
+      <FacilityEditEnd />
     </v-card>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { storage } from '@/plugins/firebase'
-import ReservationPlan from '@/components/Admin/ReservationPlan.vue'
-interface imageType {
-  file: string
-  name: string
-  type: string
-}
-
 // import { storage } from '@/plugins/firebase'
-// interface imageType {
-//   file: string
-//   name: string
-//   type: string
-// }
+import FacilityPlanEdit from '@/components/Admin/Edit/FacilityPlanEdit.vue'
+import FacilityOptionEdit from '@/components/Admin/Edit/FacilityOptionEdit.vue'
+import FacilitySliderEdit from '@/components/Admin/Edit/FacilitySliderEdit.vue'
+import FacilityTagsEdit from '@/components/Admin/Edit/FacilityTagsEdit.vue'
+import CheackEditBtn from '@/components/Btn/Admin/CheckEditBtn.vue'
+import FacilityEditEnd from '@/components/Admin/Edit/FacilityEditEnd.vue'
+
+import { IPlanList, IOptionList, ISliderList } from '@/store/facilityEdit'
 
 @Component({
   components: {
-    ReservationPlan
+    FacilityPlanEdit,
+    FacilityOptionEdit,
+    FacilitySliderEdit,
+    FacilityTagsEdit,
+    CheackEditBtn,
+    FacilityEditEnd
   }
 })
 export default class reservationInfoEdit extends Vue {
-  public add: number = 0
-  public add1: number = 0
-  public add2: number = 0
-  public add3: number = 0
-  public add4: number = 0
-  public add5: number = 0
-  public add6: number = 0
-  public add7: number = 0
-  public add8: number = 0
-  public add9: number = 0
-  public add10: number = 0
-  hidden = false
-  hidden1 = false
-  hidden2 = false
-  hidden3 = false
-  hidden4 = false
-  hidden5 = false
-  hidden6 = false
-  hidden7 = false
-  hidden8 = false
-  hidden9 = false
-  test?: string = ''
-  file?: object[] = []
-  uploadedImage: string =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5s_Eb1IVAun_V4M-QW_6VrE5xYSSluHdb-F5Hp4Qv5FgeEZee&s'
-  click() {
-    this.add = 1
-    this.hidden = !this.hidden
+  get planCnt(): IPlanList[] {
+    return this.$store.state.facilityEdit.planEdit
   }
-  click1() {
-    this.add1 = 1
-    this.hidden1 = !this.hidden1
+
+  get optionCnt(): IOptionList[] {
+    return this.$store.state.facilityEdit.optionEdit
   }
-  click2() {
-    this.add2 = 1
-    this.hidden2 = !this.hidden2
+
+  get sliderCnt(): ISliderList[] {
+    return this.$store.state.facilityEdit.sliderEdit
   }
-  click3() {
-    this.add3 = 1
-    this.hidden3 = !this.hidden3
+
+  get info(): string {
+    return this.$store.state.facilityEdit.facilityInfo
   }
-  click4() {
-    this.add4 = 1
-    this.hidden4 = !this.hidden4
+
+  set info(value: string) {
+    this.$store.commit('facilityEdit/SET_FACILITY_INFO', value)
   }
-  click5() {
-    this.add5 = 1
-    this.hidden5 = !this.hidden5
+
+  created() {
+    this.$store.commit('facilityEdit/RESET_EDIT')
   }
-  click6() {
-    this.add6 = 1
-    this.hidden6 = !this.hidden6
+
+  plusPlanList() {
+    this.$store.commit('facilityEdit/PLUS_PLAN_EDIT')
   }
-  click7() {
-    this.add7 = 1
-    this.hidden7 = !this.hidden7
+
+  plusOptionList() {
+    this.$store.commit('facilityEdit/PLUS_OPTION_EDIT')
   }
-  click8() {
-    this.add8 = 1
-    this.hidden8 = !this.hidden8
+
+  plusSliderList() {
+    this.$store.commit('facilityEdit/PLUS_SLIDER_EDIT')
   }
-  click9() {
-    this.add9 = 1
-    this.hidden9 = !this.hidden9
-  }
-  getFileName(e: any) {
-    this.createImage(this.file)
-    storage
-      .ref()
-      .child(`${e.name}`)
-      .put(e)
-      .then(() => {
-        console.log('Uploaded a blob or file!')
-      })
-      .catch((e: any) => {
-        console.log(e)
-      })
-    this.test = e
-  }
-  createImage(file: any) {
-    const reader = new FileReader()
-    reader.onload = (e: any) => {
-      this.uploadedImage = e.target.result
-    }
-    reader.readAsDataURL(file)
-  }
-  //   test?: string = ''
-  //   file?: object[] = []
-  //   uploadedImage: string =
-  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5s_Eb1IVAun_V4M-QW_6VrE5xYSSluHdb-F5Hp4Qv5FgeEZee&s'
-  //   getFileName(e: any) {
-  //     this.createImage(this.file)
-  //     storage
-  //       .ref()
-  //       .child(`images/${e.name}`)
-  //       .put(e)
-  //       .then(() => {
-  //         console.log('Uploaded a blob or file!')
-  //       })
-  //       .catch((e: any) => {
-  //         console.log(e)
-  //       })
-  //     this.test = e
-  //   }
-  //   createImage(file: any) {
-  //     const reader = new FileReader()
-  //     reader.onload = (e: any) => {
-  //       this.uploadedImage = e.target.result
-  //     }
-  //     reader.readAsDataURL(file)
-  //   }
-  // file?: object[] = []
-  // uploadedImage: string = ''
-  // getFileName() {}
 }
 </script>

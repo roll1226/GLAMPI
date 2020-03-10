@@ -29,13 +29,18 @@
           <v-card-actions class="pb-0">
             <v-row>
               <v-col cols="5">
-                <v-btn block :to="`/facility/${introductionUrl}/introduction`">
+                <v-btn
+                  color="rgb(87, 95, 69)"
+                  outlined
+                  block
+                  :to="`/facility/${introductionUrl}/introduction`"
+                >
                   詳細
                 </v-btn>
               </v-col>
 
               <v-col cols="5">
-                <v-btn block :to="glammityUrl">
+                <v-btn color="rgb(87, 95, 69)" outlined block :to="glammityUrl">
                   GLAMMITY
                 </v-btn>
               </v-col>

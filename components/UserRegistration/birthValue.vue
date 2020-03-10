@@ -1,30 +1,38 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="12" sm="4">
+    <v-row class="align-end">
+      <v-col cols="auto">
         <v-select
           v-model="birthValueYear"
           :items="dropdown"
           :rules="[rules.isYear]"
-          label="生年"
+          label="年"
+          color="rgb(87, 95, 69)"
           prepend-icon="mdi-folder-account"
         ></v-select>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="auto">
         <v-select
           v-model="birthValueMonth"
           :items="dropdown1"
           :rules="[rules.isMonth]"
-          label="生月"
+          label="月"
+          color="rgb(87, 95, 69)"
         ></v-select>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="auto">
         <v-select
           v-model="birthValueDay"
           :items="dropdown2"
           :rules="[rules.isDay]"
-          label="生日"
+          label="日"
+          color="rgb(87, 95, 69)"
         ></v-select>
+      </v-col>
+      <v-col cols="1">
+        <p>
+          生まれ
+        </p>
       </v-col>
     </v-row>
   </div>

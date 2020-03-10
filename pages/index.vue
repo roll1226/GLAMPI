@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-img
-      src="https://firebasestorage.googleapis.com/v0/b/j4k1-b789f.appspot.com/o/glampy%2Ftop.jpg?alt=media&token=01d75370-7f04-4932-b3dd-c9d286798a01"
+      src="https://images.unsplash.com/photo-1508974462591-3c124867fdf8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1952&q=80"
       aspect-ratio="1"
       class="grey lighten-2"
       max-height="750"
@@ -18,6 +18,10 @@
     <NewArrivalIndexCard />
 
     <TagIndexWrap />
+
+    <v-dialog v-model="isCardDialog" width="500">
+      <reservationModal />
+    </v-dialog>
   </div>
 </template>
 
@@ -28,6 +32,7 @@ import GlammityIndexWrap from '@/components/IndexContentWrap/GlammityIndexWrap.v
 import RecommendationIndexWrap from '@/components/IndexContentWrap/RecommendationIndexWrap.vue'
 import NewArrivalIndexCard from '@/components/IndexContentWrap/NewArrivalIndexCard.vue'
 import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
+import reservationModal from '@/components/Card/Reservation/ReservationDialog.vue'
 
 @Component({
   layout: 'layoutIndex',
@@ -36,17 +41,29 @@ import TagIndexWrap from '@/components/IndexContentWrap/TagIndexWrap.vue'
     GlammityIndexWrap,
     RecommendationIndexWrap,
     NewArrivalIndexCard,
-    TagIndexWrap
+    TagIndexWrap,
+    reservationModal
   }
 })
-export default class IndexPage extends Vue {}
+export default class IndexPage extends Vue {
+  get isCardDialog(): boolean {
+    return this.$store.state.reservationModal.isCardDialog
+  }
+  set isCardDialog(value: boolean) {
+    this.$store.commit('reservationModal/SET_ISCARDDIALOG', value)
+  }
+  created() {
+    this.$store.commit('RESET_GLAMMITY_DATA')
+    this.$store.dispatch('getGlammity')
+    this.$store.dispatch('getFacility')
+    this.isCardDialog = this.$store.state.reservationModal.isCardDialog
+  }
+}
 </script>
 
 <style lang="scss">
 .top-page-introduction-wrap {
-  //background-color: aquamarine;
-  //各top-page-introduction-wrapのmargin
-  margin: 50px 0 10px 0;
+  margin: 100px 0 0 0;
 
   .top-page-titles {
     //background-color: bisque;

@@ -1,11 +1,12 @@
 <template>
-  <v-row no-gutters>
+  <v-row no-gutters class="align-baseline">
     <v-col cols="auto"> <v-icon>mdi-message-processing-outline</v-icon> </v-col>
-    <v-col>
+    <v-col class="pl-3">
       <v-text-field
         v-model="comment"
         label="プロフィールコメント"
         :rules="[rules.commentLength]"
+        counter="280"
       ></v-text-field>
     </v-col>
   </v-row>

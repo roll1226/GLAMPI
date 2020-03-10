@@ -1,11 +1,11 @@
 <template>
-  <v-col cols="6">
-    <v-card outlined>
+  <v-col>
+    <v-card elevation="0">
       <v-card-text>
         <div>
           {{ title }}
         </div>
-        <p class="display-1 text--primary mb-0">
+        <p class="display-1 text--primary mb-0 ml-10 mt-2">
           {{ info }}
         </p>
       </v-card-text>

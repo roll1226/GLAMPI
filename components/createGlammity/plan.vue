@@ -10,6 +10,7 @@
           label="プラン名"
           :items="dropdown"
           :rules="[rules.isPlanName]"
+          item-value="text"
         ></v-overflow-btn>
       </v-col>
     </v-row>
@@ -18,23 +19,25 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { IList } from '@/store/glammityCreate'
 
 @Component
 export default class PlanCreateGlammity extends Vue {
+  get dropdown(): IList[] {
+    return this.$store.state.glammityCreate.planList
+  }
+
   get plan(): string {
-    return this.$store.state.createGlammity.plan
+    return this.$store.state.glammityCreate.planTitle
   }
 
   set plan(value: string) {
-    this.$store.commit('createGlammity/SET_PLAN', value)
+    const target = this.dropdown.find((city: IList) => {
+      return city.text === value
+    })
+    this.$store.commit('glammityCreate/SET_PLAN_ID', target)
   }
-  dropdown: [...string[]] = []
-  created() {
-    for (let index = 0; index < 10; index++) {
-      const x = 0
-      this.dropdown.push(String(x + index))
-    }
-  }
+
   public rules: {} = {
     isPlanName: (v: string) => !!v || 'プラン名は必ず選択してください。'
   }

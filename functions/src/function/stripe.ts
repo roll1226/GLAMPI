@@ -13,9 +13,14 @@ const stripeCharge = (
   const amount = body.charge.amount
   const currency = body.charge.currency
   const description = 'グランピング支払い' // ここはあとで変えルカ
-  const receiptEmail = body.charge.email
   const source = body.token.id
-  const charge = { amount, currency, description, receiptEmail, source }
+  const charge = {
+    amount,
+    currency,
+    description,
+    receipt_email: body.charge.email,
+    source
+  }
 
   stripe.charges
     .create(charge)

@@ -99,73 +99,103 @@ export default class InquiryFacility extends Vue {
       ],
       list: [
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/1/15',
+          Requirements: 'なぜ俺はこんなにも神なんすか？',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/1/16',
+          Requirements: 'もう身長伸びないの、どうして？',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/1/18',
+          Requirements: '昨日UFOを見ました。',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/1/20',
+          Requirements: '丸亀製麵はうまいす。',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/1/21',
+          Requirements: 'いーいーなーいーいーなー',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'にーーーんげんっていーいーなー',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'おいしいおやつに',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'ほかほかおかゆ～～～～～',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/1/21',
+          Requirements: 'あったかーいーふーとーんでー',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/2/29',
+          Requirements: '昏睡状態。',
+          user: 'くまのこ'
+        },
+        {
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/27',
-          Requirements: 'あいうえおー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/23',
-          Requirements: 'かきくけこー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/18',
-          Requirements: 'さしすせそー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/12',
-          Requirements: 'たちつてとー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         },
         {
-          date: '12/9',
-          Requirements: 'なにぬねのー！！',
+          date: '2020/3/1',
+          Requirements: '見ましたね？',
           user: 'iwaya'
         }
       ],
@@ -177,29 +207,29 @@ export default class InquiryFacility extends Vue {
       ],
       list2: [
         {
-          date: '11/27',
-          Requirements: 'はひふへほー！！',
+          date: '2019/12/27',
+          Requirements: 'オレハコノヒ、カミニナッタ',
           user: 'god'
         },
         {
-          date: '11/20',
-          Requirements: 'まみむめもー！！',
+          date: '2019/12/21',
+          Requirements: 'いわや製麺',
+          user: 'iwaya'
+        },
+        {
+          date: '2019/12/14',
+          Requirements: 'ワレコソガ、ユイイツシン',
           user: 'god'
         },
         {
-          date: '11/8',
-          Requirements: 'やゆよー！！',
-          user: 'god'
+          date: '2019/11/20',
+          Requirements: 'ふ',
+          user: 'iwaya'
         },
         {
-          date: '10/25',
-          Requirements: 'らりるれろー！！',
-          user: 'god'
-        },
-        {
-          date: '10/2',
-          Requirements: 'わをんー！！',
-          user: 'god'
+          date: '2019/9/7',
+          Requirements: 'かくれんぼなうw',
+          user: 'くまのこ'
         }
       ]
     }

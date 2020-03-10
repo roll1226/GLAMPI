@@ -7,6 +7,7 @@
           label="セイ"
           :rules="[rules.seiKanaFormat]"
           prepend-icon="mdi-"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
       </v-col>
       <v-col>
@@ -14,7 +15,19 @@
           v-model="meiKana"
           label="メイ"
           :rules="[rules.meiKanaFormat]"
+          color="rgb(87, 95, 69)"
         ></v-text-field>
+
+        <div class="text-right">
+          <v-btn text target="_block" href="http://www.goo.ne.jp/">
+            <img
+              src="//u.xgoo.jp/img/sgoo.png"
+              alt="supported by goo"
+              title="supported by goo"
+              width="100"
+            />
+          </v-btn>
+        </div>
       </v-col>
     </v-row>
   </div>

@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-radio-group v-model="sex" prepend-icon="mdi-human-male-female" row>
-      <v-radio label="男性" value="M"></v-radio>
-      <v-radio label="女性" value="F"></v-radio>
+      <v-radio color="rgb(87, 95, 69)" label="男性" value="M"></v-radio>
+      <v-radio color="rgb(87, 95, 69)" label="女性" value="F"></v-radio>
     </v-radio-group>
   </div>
 </template>

@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="text-center mt-6">
-      <v-btn class="light-blue darken-4 white--text" @click.stop="openDialog">
+      <v-btn
+        color="rgb(87, 95, 69)"
+        class="white--text"
+        @click.stop="openDialog"
+      >
         予約する
       </v-btn>
     </div>
@@ -9,7 +13,7 @@
     <v-row justify="center">
       <v-dialog v-model="dialog" max-width="500">
         <v-card :loading="loading">
-          <v-toolbar dark class="grey lighten-1">
+          <v-toolbar dark color="rgb(73, 92, 114)">
             <v-toolbar-title>
               クレジット支払い
             </v-toolbar-title>
@@ -20,20 +24,13 @@
               v-model="stripeEmail"
               :rules="emailRules.email"
               label="E-mail"
+              hint="確認メール送信用アドレスを入力ください。"
               required
             ></v-text-field>
-
-            <label for="card">
-              クレジットカード
-            </label>
-            <p>
-              テスト用カード<span class="cc-number">4242 4242 4242 4242</span>
-            </p>
-
             <!-- クレジットカード -->
             <card
               id="card"
-              class="stripe-card"
+              class="stripe-card mt-1"
               :class="{ complete }"
               :stripe="stripeApiKey"
               :options="stripeOptions"
@@ -42,7 +39,8 @@
 
             <div class="text-center">
               <v-btn
-                class="pay-with-stripe light-blue darken-4 white--text"
+                color="rgb(87, 95, 69)"
+                class="white--text"
                 :disabled="!complete || !stripeEmail"
                 @click="pay"
               >
@@ -116,6 +114,18 @@ export default class Stripe extends Vue {
   get facility(): IFacility {
     return this.$store.state.facility.facility
   }
+  get userId(): string {
+    return this.$store.state.login.userUid
+  }
+  get guestNumber(): string {
+    return this.$store.state.reservation.guest
+  }
+  get isCardDialog(): boolean {
+    return this.$store.state.reservationModal.isCardDialog
+  }
+  set isCardDialog(value: boolean) {
+    this.$store.commit('reservationModal/SET_ISCARDDIALOG', true)
+  }
 
   async pay() {
     this.loading = true
@@ -140,14 +150,17 @@ export default class Stripe extends Vue {
           // 成功時firebaseに投げる
           const batch = firestore.batch()
           const reservationList = {
-            checkDates: [this.dates[0], this.dates[1]],
+            checkIn: this.dates[0],
+            checkOut: this.dates[1],
             createdAt: timestamp,
             facilityId: this.$route.params.id,
             option: this.optionTitle,
             payment: 'クレジットカード',
             plan: this.planTitle,
             status: '宿泊前',
-            totalPay: this.totalPay
+            totalPay: this.totalPay,
+            userId: this.userId,
+            guestNumber: this.guestNumber
           }
           const userReservation = firestore
             .collection('users')
@@ -175,12 +188,42 @@ export default class Stripe extends Vue {
                 transaction.update(userReservation, reservationList)
                 transaction.update(facilityReservation, reservationList)
               })
-              .then(() => {
-                this.loading = false
-                this.dialog = false
-                this.$router.push(
-                  `/facility/${this.$route.params.id}/reservation/complete`
+              .then(async () => {
+                await fetch(
+                  'https://us-central1-j4k1-b789f.cloudfunctions.net/sendReservationMail',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      facilityReser: {
+                        name: 'roll1226',
+                        checkIn: this.dates[0],
+                        checkOut: this.dates[1],
+                        plan: this.planTitle,
+                        option: this.optionTitle,
+                        payment: 'クレジットカード',
+                        facility: this.facility.name,
+                        pay: this.totalPay,
+                        email: this.stripeEmail
+                      }
+                    })
+                  }
                 )
+                  .then((response) => {
+                    console.log('response data', response)
+                    this.loading = false
+                    this.dialog = false
+                    this.$store.commit(
+                      'reservationModal/SET_ISCARDDIALOG',
+                      true
+                    )
+                    this.$router.push(`/`)
+                  })
+                  .catch((error) => {
+                    console.log('response error', error)
+                  })
               })
           })
         })

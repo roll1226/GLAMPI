@@ -9,7 +9,7 @@ interface ICommit {
 }
 
 export interface IFacility {
-  info: [...string[]]
+  info: ''
   email: string
   phoneNumber: string
   name: string
@@ -18,7 +18,7 @@ export interface IFacility {
 }
 
 export interface IPlan {
-  details: [...string[]]
+  details: string
   pay: number
   planImage: string
   planTitle: string
@@ -27,7 +27,7 @@ export interface IPlan {
 
 export interface IOption {
   title: string
-  texts: [...string[]]
+  texts: string
   src: string
   pay: number
   displayName: string
@@ -76,7 +76,7 @@ interface IState {
 
 export const state = (): IState => ({
   facility: {
-    info: [],
+    info: '',
     email: '',
     phoneNumber: '',
     name: '',
@@ -155,7 +155,7 @@ export const mutations = {
 
   RESET_FACILITY_INFO(state: IState) {
     state.facility = {
-      info: [],
+      info: '',
       email: '',
       phoneNumber: '',
       name: '',

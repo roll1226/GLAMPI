@@ -1,20 +1,20 @@
 <template>
   <v-app style="overflow: hidden;">
-    <grampi-head :login-btn-class="'login-btn'" :elevation-head="3" />
+    <glampi-head :login-btn-class="'login-btn'" :elevation-head="3" />
     <nuxt />
-    <grampi-foot />
+    <glampi-foot />
   </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import GrampiHead from '@/components/GrampiHead.vue'
-import GrampiFoot from '@/components/GrampiFoot.vue'
+import GlampiHead from '@/components/GlampiHead.vue'
+import GlampiFoot from '@/components/GlampiFoot.vue'
 
 @Component({
   components: {
-    GrampiHead,
-    GrampiFoot
+    GlampiHead,
+    GlampiFoot
   },
   middleware: 'auth'
 })

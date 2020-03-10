@@ -1,27 +1,31 @@
 <template>
   <div>
     <div class="d-flex">
-      <h2>
-        {{ facility.name }}
-      </h2>
-
-      <v-spacer></v-spacer>
-
-      <v-btn v-if="isLogin === true" icon @click="changeLike">
-        <v-icon v-if="!like">mdi-heart</v-icon>
-        <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
-      </v-btn>
-
-      <v-tooltip v-else-if="isLogin === false" bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn color="grey" icon v-on="on">
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-        </template>
-        <span color="pink">
-          お気に入りに登録するにはログインが必要です。
-        </span>
-      </v-tooltip>
+      <v-card tile width="100%" class="mt-2" :elevation="0">
+        <v-row class="ma-0 pa-0 px-3" justify="space-between">
+          <v-col class="ma-0 pa-0" cols="auto">
+            <v-card-title class="headline">
+              {{ facility.name }}
+            </v-card-title>
+          </v-col>
+          <v-col class="ma-0 pa-0 pt-3" cols="auto">
+            <v-btn v-if="isLogin === true" icon @click="changeLike">
+              <v-icon v-if="!like">mdi-heart</v-icon>
+              <v-icon v-else color="pink lighten-1">mdi-heart</v-icon>
+            </v-btn>
+            <v-tooltip v-else-if="isLogin === false" bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn color="grey" icon v-on="on">
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </template>
+              <span color="pink">
+                お気に入りに登録するにはログインが必要です。
+              </span>
+            </v-tooltip>
+          </v-col>
+        </v-row>
+      </v-card>
     </div>
 
     <v-carousel
@@ -37,21 +41,23 @@
       ></v-carousel-item>
     </v-carousel>
 
-    <v-card>
-      <v-card-text class="text-left mt-5" max-width="300">
-        <div v-for="(info, index) in facility.info" :key="index">
-          {{ info }}
-        </div>
+    <v-card elevation="0">
+      <v-card-text
+        class="mt-5 body-1"
+        max-width="300"
+        style="word-wrap: break-word; white-space: pre-wrap; color:#444;"
+        v-text="facility.info"
+      >
       </v-card-text>
     </v-card>
 
-    <v-row>
+    <v-row class="px-2">
       <v-col
         v-for="(planCard, index) in plan"
         :key="index"
-        lg="6"
-        md="6"
-        sm="6"
+        lg="4"
+        md="4"
+        sm="4"
         xs="12"
       >
         <PlanCard

@@ -25,13 +25,13 @@
 
         <v-divider class="mx-2" inset vertical></v-divider>
 
-        <v-btn text small color="black">
+        <v-btn text small color="black" to="/userRegistration">
           会員登録
         </v-btn>
       </template>
 
       <template v-else>
-        <v-btn text small class="mypage-btn" to="/mypage">
+        <v-btn text small class="mypage-btn" :to="`/mypage/${userId}`">
           マイページ
         </v-btn>
 
@@ -66,6 +66,10 @@ export default class GlampiHead extends Vue {
     await auth.signOut().then(() => {
       this.$store.commit('login/IS_LOGIN', false)
     })
+  }
+
+  get userId(): string {
+    return this.$store.state.login.userUid
   }
 
   get snackbar(): boolean {

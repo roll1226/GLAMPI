@@ -35,28 +35,22 @@ export interface IPrefectures {
 export default class SearchedSideNavigation extends Vue {
   prefectures: IPrefectures[] = [
     {
-      prefectures: '北海道地方',
-      prefecture: ['北海道']
-    },
-    {
-      prefectures: '東北地方',
-      prefecture: ['青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県']
-    },
-    {
-      prefectures: '関東地方',
+      prefectures: '都道府県で絞る',
       prefecture: [
+        '北海道',
+        '青森県',
+        '岩手県',
+        '宮城県',
+        '秋田県',
+        '山形県',
+        '福島県',
         '茨城県',
         '栃木県',
         '群馬県',
         '埼玉県',
         '千葉県',
         '東京都',
-        '神奈川県'
-      ]
-    },
-    {
-      prefectures: '中部地方',
-      prefecture: [
+        '神奈川県',
         '新潟県',
         '富山県',
         '石川県',
@@ -65,32 +59,23 @@ export default class SearchedSideNavigation extends Vue {
         '長野県',
         '岐阜県',
         '静岡県',
-        '愛知県'
-      ]
-    },
-    {
-      prefectures: '近畿地方',
-      prefecture: [
+        '愛知県',
         '三重県',
         '滋賀県',
         '京都府',
         '大阪府',
         '兵庫県',
         '奈良県',
-        '和歌山県'
-      ]
-    },
-    {
-      prefectures: '中国地方',
-      prefecture: ['鳥取県', '島根県', '岡山県', '広島県', '山口県']
-    },
-    {
-      prefectures: '四国地方',
-      prefecture: ['徳島県', '香川県', '愛媛県', '高知県']
-    },
-    {
-      prefectures: '九州・沖縄地方',
-      prefecture: [
+        '和歌山県',
+        '鳥取県',
+        '島根県',
+        '岡山県',
+        '広島県',
+        '山口県',
+        '徳島県',
+        '香川県',
+        '愛媛県',
+        '高知県',
         '福岡県',
         '佐賀県',
         '長崎県',
@@ -111,3 +96,11 @@ export default class SearchedSideNavigation extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.v-expansion-panel-content {
+  height: auto;
+  max-height: 300px;
+  overflow-x: hidden;
+}
+</style>

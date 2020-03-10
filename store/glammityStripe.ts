@@ -1,9 +1,9 @@
 import * as Vuex from 'vuex'
 import { createToken } from 'vue-stripe-elements-plus'
 import { firestore, timestamp } from '@/plugins/firebase'
+import { userStates } from '@/store/glammityGroup'
 const checkoutUrl = 'https://us-central1-j4k1-b789f.cloudfunctions.net/charge'
 const uuid = require('uuid/v4')
-
 const reservationUuid = uuid()
   .split('-')
   .join('')
@@ -22,6 +22,7 @@ interface ICharge {
 
 interface IState {
   dialog: boolean
+  hostDialog: boolean
   loading: boolean
   complete: boolean
   stripeEmail: string
@@ -29,6 +30,7 @@ interface IState {
 
 export const state = (): IState => ({
   dialog: false,
+  hostDialog: false,
   loading: false,
   complete: false,
   stripeEmail: ''
@@ -45,6 +47,14 @@ export const mutations = {
 
   SET_STRIPE_EMAIL(state: IState, payload: string) {
     state.stripeEmail = payload
+  },
+
+  SET_HOST_DIALOG(state: IState, payload: boolean) {
+    state.hostDialog = payload
+  },
+
+  RESET_EMAIL(state: IState) {
+    state.stripeEmail = ''
   }
 }
 
@@ -57,7 +67,9 @@ export const actions = {
       userId: string
       glammityId: string
       facilityId: string
-      date: string
+      checkIn: string
+      checkOut: string
+      userStates: userStates
     }
   ) {
     await createToken().then(async (data: any) => {
@@ -76,10 +88,12 @@ export const actions = {
         const batch = firestore.batch()
 
         const reservationList = {
-          checkDates: payload.date,
+          checkIn: payload.checkIn,
+          checkOut: payload.checkOut,
           createdAt: timestamp,
           facilityId: payload.facilityId,
           glammityId: payload.glammityId,
+          guestNumber: 123,
           userId: payload.userId,
           payment: 'クレジットカード',
           plan: payload.planName,
@@ -114,6 +128,27 @@ export const actions = {
             transaction.update(userReservation, reservationList)
             transaction.update(facilityReservation, reservationList)
           })
+
+          if (payload.userStates === 'guest') {
+            dispatch.commit('SET_LOADING', false)
+            dispatch.commit('SET_DIALOG', false)
+            dispatch.commit('SET_HOST_DIALOG', false)
+            dispatch.commit('RESET_EMAIL')
+            return
+          }
+
+          await firestore
+            .collection('glammity')
+            .doc(payload.glammityId)
+            .update({
+              isReservation: true
+            })
+            .then(() => {
+              dispatch.commit('SET_LOADING', false)
+              dispatch.commit('SET_DIALOG', false)
+              dispatch.commit('SET_HOST_DIALOG', false)
+              dispatch.commit('RESET_EMAIL')
+            })
         })
       })
     })

@@ -20,20 +20,24 @@
     </v-row>
     <v-row class="pa-0 ma-0">
       <v-card elevation="0" class="black--text">
-        <v-card-title>不正ユーザ</v-card-title>
+        <v-card-title>登録ユーザ</v-card-title>
         <v-data-table
           :headers="headers"
           :items="username"
           :page.sync="page"
-          height="527.5px"
+          height="576.5px"
           class="ma-0 pa-0"
           hide-default-footer
           @page-count="pageCount = $event"
         >
           <template v-slot:item.action>
-            <v-btn elevation="1" small class="mr-2">
-              詳細
-            </v-btn>
+            <div>
+              <v-col cols="auto" class="mx-n12">
+                <v-btn elevation="1" small class=" mr-n12">
+                  詳細
+                </v-btn>
+              </v-col>
+            </div>
           </template></v-data-table
         >
       </v-card>
@@ -48,20 +52,24 @@
     </v-row>
     <v-row class="px-0 pt-4 pb-0">
       <v-card elevation="0" class="black--text">
-        <v-card-title>登録ユーザ</v-card-title>
+        <v-card-title>不正ユーザ</v-card-title>
         <v-data-table
           :headers="headers2"
           :items="username2"
           :page.sync="page2"
-          height="527.5px"
+          height="576.5px"
           class="ma-0 pa-0"
           hide-default-footer
           @page-count="pageCount2 = $event"
         >
           <template v-slot:item.action>
-            <v-btn elevation="1" small class="mr-2">
-              詳細
-            </v-btn>
+            <div>
+              <v-col cols="auto" class="mx-n12">
+                <v-btn elevation="1" small class=" mr-n12">
+                  詳細
+                </v-btn>
+              </v-col>
+            </div>
           </template></v-data-table
         >
       </v-card>
@@ -79,11 +87,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { IUser } from '@/store/adminUser'
+
+interface IHeader {
+  text: string
+  value: string
+  sortable: boolean | null
+}
 
 @Component
 export default class UserManageAdmin extends Vue {
-  public users: number = 48132
-  public unauthorizedUsers: number = 12
+  public users: number = this.$store.state.adminUser.users.length
+  public unauthorizedUsers: number = 3
   public tab: number = 0
   public page: number = 1
   public pageCount: number = 0
@@ -92,158 +107,37 @@ export default class UserManageAdmin extends Vue {
   public itemsPerPage: number = 10
   data() {
     return {
-      headers: [
-        {
-          text: 'ユーザ名',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: '', value: 'action', sortable: false }
-      ],
-      username: [
-        {
-          name: 'Guest1'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest2'
-        },
-        {
-          name: 'Guest3'
-        }
-      ],
       headers2: [
-        {
-          text: 'ユーザ名',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
+        { text: 'ユーザ名', value: 'name', sortable: false },
         { text: '', value: 'action', sortable: false }
       ],
       username2: [
         {
-          name: 'Guest4'
+          name: '不正ユーザA'
         },
         {
-          name: 'Guest5'
+          name: '不正ユーザB'
         },
         {
-          name: 'Guest6'
-        },
-        {
-          name: 'Guest7'
-        },
-        {
-          name: 'Guest8'
-        },
-        {
-          name: 'Guest9'
-        },
-        {
-          name: 'Guest10'
-        },
-        {
-          name: 'Guest11'
-        },
-        {
-          name: 'Guest12'
-        },
-        {
-          name: 'Guest13'
-        },
-        {
-          name: 'Guest14'
-        },
-        {
-          name: 'Guest15'
-        },
-        {
-          name: 'Guest16'
-        },
-        {
-          name: 'Guest17'
-        },
-        {
-          name: 'Guest18'
-        },
-        {
-          name: 'Guest19'
-        },
-        {
-          name: 'Guest20'
-        },
-        {
-          name: 'Guest21'
-        },
-        {
-          name: 'Guest22'
-        },
-        {
-          name: 'Guest23'
-        },
-        {
-          name: 'Guest24'
-        },
-        {
-          name: 'Guest25'
-        },
-        {
-          name: 'Guest26'
-        },
-        {
-          name: 'Guest27'
-        },
-        {
-          name: 'Guest28'
-        },
-        {
-          name: 'Guest29'
-        },
-        {
-          name: 'Guest30'
-        },
-        {
-          name: 'Guest31'
-        },
-        {
-          name: 'Guest32'
-        },
-        {
-          name: 'Guest33'
-        },
-        {
-          name: 'Guest34'
+          name: '不正ユーザC'
         }
       ]
     }
+  }
+
+  headers: IHeader[] = [
+    { text: 'ユーザ名', value: 'user', sortable: null },
+    { text: '', value: 'action', sortable: false }
+  ]
+
+  get username(): IUser[] {
+    return this.$store.state.adminUser.users
+  }
+  created() {
+    // const url = this.$route.params.id
+    // console.log(url)
+    this.$store.commit('adminUser/CLEAR_INFO')
+    this.$store.dispatch('adminUser/getUsers')
   }
 }
 </script>

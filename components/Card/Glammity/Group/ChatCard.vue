@@ -1,69 +1,69 @@
 <template>
-  <v-card>
-    <v-card-title>
-      チャット
-    </v-card-title>
-
-    <v-card-text>
-      <v-sheet height="400" class="overflow-auto">
+  <v-card class="px-sm-3  py-8">
+    <v-card-text class="pl-8">
+      <v-sheet height="400" class="overflow-auto overflow-x-hidden">
         <v-card
           v-for="(message, index) in glammityMessage"
           :key="index"
-          class="mt-1"
-          outlined
+          elevation="0"
+          class="mb-8"
         >
-          <v-card-actions class="pb-0">
-            <v-list-item class="grow">
-              <v-list-item-avatar
+          <v-row no-gutters>
+            <v-col cols="auto">
+              <v-avatar
                 max-width="50"
                 width="50"
                 height="50"
                 color="grey darken-3"
               >
                 <v-img class="elevation-1" :src="message.userImg"></v-img>
-              </v-list-item-avatar>
-
-              <v-list-item-content>
-                <v-list-item-title
-                  style="color: rgba(0, 0, 0, 0.6);"
-                  v-text="message.userName"
-                ></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-card-actions>
-
-          <v-card-text
-            class="ml-3 body-1 text--grey darken-4"
-            style="white-space: pre; color:rgba(0, 0, 0, 0.87);"
-            v-text="message.message"
-          ></v-card-text>
+              </v-avatar>
+            </v-col>
+            <v-col class="pl-3">
+              <p class="ma-0 my-1 subtitle-1 font-weight-black">
+                {{ message.userName }}
+              </p>
+              <v-card-text
+                class="pa-0 pr-10 body-2 text--grey darken-4"
+                style="word-wrap: break-word; white-space: pre-wrap;"
+                v-text="message.message"
+              ></v-card-text>
+            </v-col>
+          </v-row>
         </v-card>
       </v-sheet>
     </v-card-text>
 
-    <v-card-text>
-      <v-card :loading="chatSendLoading" outlined>
-        <v-card outlined class="d-flex align-end">
-          <v-card-text class="pb-0">
-            <v-textarea
-              v-model="message"
-              clearable
-              clear-icon="fas fa-times-circle"
-              label="メッセージ"
-            ></v-textarea>
-          </v-card-text>
+    <v-card-text class="pb-0">
+      <v-card
+        :loading="chatSendLoading"
+        outlined
+        class="d-flex flex-row align-end px-4"
+      >
+        <v-card-text class="pa-0">
+          <v-textarea
+            v-model="message"
+            clearable
+            clear-icon="fas fa-times-circle"
+            label="メッセージ"
+            color="rgb(87,95,69)"
+          ></v-textarea>
+        </v-card-text>
 
-          <v-card-actions class="pb-5">
-            <v-btn
-              v-shortkey="{ mac: ['meta', 'enter'], win: ['ctrl', 'enter'] }"
-              :disabled="!formIsValid"
-              @click="createMessage"
-              @shortkey="chooseMethod"
-            >
-              投稿
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-card-actions class="mb-3 pl-4 pr-0">
+          <v-btn
+            v-shortkey="{ mac: ['meta', 'enter'], win: ['ctrl', 'enter'] }"
+            outlined
+            color="rgb(87,95,69)"
+            :disabled="!formIsValid"
+            @click="createMessage"
+            @shortkey="chooseMethod"
+          >
+            <v-icon>
+              fas fa-paper-plane
+            </v-icon>
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-card-text>
   </v-card>

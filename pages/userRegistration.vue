@@ -1,6 +1,15 @@
 <template>
   <div>
-    <h1>会員登録</h1>
+    <h2 class="text-center mt-10" style="color: rgb(87, 95, 69);">
+      ユーザ登録
+    </h2>
+
+    <v-divider
+      width="600"
+      class="mt-3 mb-4 mx-auto"
+      color="rgb(87, 95, 69)"
+    ></v-divider>
+
     <v-row justify="center">
       <v-col cols="7" class="mx-12">
         <v-form ref="form" v-model="valid" :lazy-validation="lazy">
@@ -16,10 +25,8 @@
         </v-form>
         <v-row justify="end" class="my-4">
           <v-btn
-            color="success"
-            width="200"
-            height="60"
-            class="title"
+            outlined
+            color="rgb(87, 95, 69)"
             :disabled="!valid"
             :loading="loading"
             @click="regist"

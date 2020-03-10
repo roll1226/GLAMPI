@@ -1,22 +1,22 @@
 <template>
   <v-card outlined>
     <v-container>
-      <v-row justify="space-between" no-gutters>
-        <v-col cols="auto" class="image">
-          <v-img height="200" max-width="340" :src="facilityImg"></v-img>
+      <v-row justify="center" no-gutters>
+        <v-col cols="auto" class="mx-auto">
+          <v-img height="220" width="300" :src="facilityImg"></v-img>
         </v-col>
 
-        <v-col class="text">
+        <v-col cols="12" sm="" md="" lg="" class="facility-content ml-5">
           <v-row no-gutters>
             <v-col>
-              <v-list-item-content class="pt-0 pb-5">
-                <v-list-item-title class="headline">
+              <v-card-text class="pa-0">
+                <v-card-title class="pl-0 pt-0" @click="goFacility">
                   {{ fasilityName }}
-                </v-list-item-title>
-                <v-list-item-subtitle>
+                </v-card-title>
+                <v-card-subtitle class="pl-0">
                   {{ address }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
+                </v-card-subtitle>
+              </v-card-text>
             </v-col>
           </v-row>
 
@@ -26,33 +26,26 @@
             </v-col>
           </v-row>
           <v-row no-gutters>
-            <v-col>
-              最安値のプラン
-            </v-col>
+            <v-col> 以前予約したプラン:{{ planName }} </v-col>
           </v-row>
           <v-row no-gutters>
-            <v-col>
-              {{ planName }}
-            </v-col>
-            <v-col>
-              {{ planPay }}
-            </v-col>
+            <v-col> 合計金額:{{ planPay.toLocaleString() }}円</v-col>
           </v-row>
 
-          <v-card-actions class="pa-0">
-            <v-row no-gutters>
-              <v-col>
-                <v-btn class="status">
+          <v-row no-gutters>
+            <v-card-actions class="pa-0">
+              <v-col class="pa-0 mr-5">
+                <v-chip class="status">
                   {{ status }}
-                </v-btn>
+                </v-chip>
               </v-col>
-              <v-col>
-                <v-btn class="action-btn">
+              <v-col class="pa-0">
+                <v-btn outlined color="red">
                   {{ cancel }}
                 </v-btn>
               </v-col>
-            </v-row>
-          </v-card-actions>
+            </v-card-actions>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -64,7 +57,6 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class BookingFasility extends Vue {
-  status: string = '予約中'
   cancel: string = '予約キャンセル'
 
   @Prop({ required: true, default: '' })
@@ -86,29 +78,35 @@ export default class BookingFasility extends Vue {
   planPay!: number
 
   @Prop({ required: true, default: '' })
-  introductionUrl!: string
+  url!: string
+
+  @Prop({ required: true, default: '' })
+  status!: string
+
+  get color(): string {
+    if (this.status === '宿泊前') {
+      return 'aa'
+    } else return 'red'
+  }
+
+  goFacility() {
+    this.$router.push(`/facility/${this.url}/introduction`)
+  }
 }
 </script>
 
 <style lang="scss">
 .v-card {
   .container {
-    padding: 40px 20px;
-    .image {
-    }
-    .text {
-      margin: 0 0 0 16px;
-      //写真の右
-      .v-listitem__content {
-      }
-      .v-btn {
-        height: 46px;
-        border-radius: 8px;
-      }
-      .status {
-        width: 120px;
-        background-color: $site_color_6;
-      }
+    //各カード内余白
+    padding: 40px 25px;
+  }
+}
+@media screen and (max-width: 770px) {
+  .v-card {
+    .container {
+      //各カード内余白
+      padding: 30px 20px;
     }
   }
 }

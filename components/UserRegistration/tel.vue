@@ -4,6 +4,7 @@
       v-model="tel"
       v-mask="telMask"
       label="電話番号"
+      color="rgb(87, 95, 69)"
       prepend-icon="mdi-phone"
       :rules="[rules.isTel, rules.telFormat]"
     ></v-text-field>

@@ -26,6 +26,24 @@
         </v-tabs-items>
       </v-col>
     </v-row>
+
+    <v-snackbar
+      v-model="snackbar"
+      color="success"
+      :timeout="2300"
+      class="subtitle-1"
+    >
+      <v-icon color="white" style="margin-right: -50px">
+        far fa-check-circle
+      </v-icon>
+
+      ログインしました。
+      <v-btn fab color="white" text @click="closeSnackbar">
+        <v-icon>
+          fas fa-times
+        </v-icon>
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -44,10 +62,24 @@ import inquiry from '@/components/Admin/inquiry.vue'
     revenue,
     reservationInfoEdit,
     inquiry
-  }
+  },
+  layout: 'admin',
+  middleware: 'adminAuth'
 })
 export default class FacilityIndex extends Vue {
   public tab: number = 0
+
+  get snackbar(): boolean {
+    return this.$store.state.adminLogin.snackbarOk
+  }
+
+  set snackbar(value: boolean) {
+    this.$store.commit('adminLogin/LOGIN_OK', value)
+  }
+
+  closeSnackbar() {
+    this.$store.commit('adminLogin/LOGIN_OK', false)
+  }
 }
 </script>
 <style lang="scss">
