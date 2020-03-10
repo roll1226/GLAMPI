@@ -27,6 +27,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import moment from 'moment'
+
 import Options from '~/components/Card/Reservation/Options.vue'
 
 interface options {
