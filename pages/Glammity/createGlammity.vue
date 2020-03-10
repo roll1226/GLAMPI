@@ -18,11 +18,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import GlammityName from '@/components/CreateGlammity/GlammityName.vue'
-import FacilityName from '@/components/CreateGlammity/FacilityName.vue'
-import Plan from '@/components/CreateGlammity/Plan.vue'
+import GlammityName from '@/components/CreateGlammity/glammityName.vue'
+import FacilityName from '@/components/CreateGlammity/facilityName.vue'
+import Plan from '@/components/CreateGlammity/plan.vue'
 import GuestNumber from '@/components/CreateGlammity/GuestNumber.vue'
-import Schedule from '@/components/CreateGlammity/Schedule.vue'
+import Schedule from '@/components/CreateGlammity/schedule.vue'
 import GlammityOption from '@/components/CreateGlammity/GlammityOption.vue'
 import Recruitment from '@/components/CreateGlammity/Recruitment.vue'
 import CommentGlammityCreate from '@/components/CreateGlammity/Comment.vue'
