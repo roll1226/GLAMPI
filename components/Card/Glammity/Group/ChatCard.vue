@@ -46,17 +46,22 @@
             clearable
             clear-icon="fas fa-times-circle"
             label="メッセージ"
+            color="rgb(87,95,69)"
           ></v-textarea>
         </v-card-text>
 
         <v-card-actions class="mb-3 pl-4 pr-0">
           <v-btn
             v-shortkey="{ mac: ['meta', 'enter'], win: ['ctrl', 'enter'] }"
+            outlined
+            color="rgb(87,95,69)"
             :disabled="!formIsValid"
             @click="createMessage"
             @shortkey="chooseMethod"
           >
-            投稿
+            <v-icon>
+              fas fa-paper-plane
+            </v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
