@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import CreateTable from '@/components/CreateGlammity/CheckTable.vue'
+import CreateTable from '@/components/createGlammity/CheckTable.vue'
 import { firestore } from '@/plugins/firebase'
 
 @Component({
