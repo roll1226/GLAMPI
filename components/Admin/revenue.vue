@@ -57,7 +57,7 @@ export default class RevenueFacility extends Vue {
           ticks: {
             beginAtZero: true,
             min: 0,
-            stepSize: 5000,
+            stepSize: 50000,
             fontSize: 18
           }
         }
@@ -88,7 +88,7 @@ export default class RevenueFacility extends Vue {
           ticks: {
             beginAtZero: true,
             min: 0,
-            stepSize: 5,
+            stepSize: 10,
             fontSize: 18
           }
         }
