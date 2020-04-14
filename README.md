@@ -13,6 +13,7 @@
 - algolia
 - github Actions 
  
-URL -> [GLAMPI](https://glampi.web.app/)
+## URL
+[GLAMPI](https://glampi.web.app/)
 
 
