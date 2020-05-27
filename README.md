@@ -12,8 +12,3 @@
 - stripe
 - algolia
 - github Actions 
- 
-## URL
-[GLAMPI](https://glampi.web.app/)
-
-
