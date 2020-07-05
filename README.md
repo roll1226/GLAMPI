@@ -1,22 +1,14 @@
-# app
+# GLAMPI
 
-> My premium Nuxt.js project
+> HEW 2年生グループ制作
 
-## Build Setup
+![GLAMPIトップページ](https://firebasestorage.googleapis.com/v0/b/j4k1-b789f.appspot.com/o/Screen%20Shot%202020-04-14%20at%2017.32.48.png?alt=media&token=2d3a0d38-e0c6-449c-bbd3-b1f5a245672b)
 
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## 使用技術
+- nuxt.js
+- vuetify
+- typeScript
+- firebase
+- stripe
+- algolia
+- github Actions 
