@@ -107,8 +107,8 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import moment from 'moment'
 import Plan from '~/components/Card/Reservation/Plan.vue'
 import Options from '~/components/Card/Reservation/Options.vue'
-import ReservationBtn from '@/components/Btn/ReservationBtn.vue'
-import GuestNumber from '@/components/Card/Reservation/GuestNumber.vue'
+import ReservationBtn from '~/components/Btn/ReservationBtn.vue'
+import GuestNumber from '~/components/Card/Reservation/GuestNumber.vue'
 
 interface option {
   slidesPerView: number
