@@ -26,7 +26,7 @@
     "firebase": "^7.6.1",
     "install": "^0.13.0",
     "node-sass": "^4.13.0",
-    "npm": "^6.13.4",
+    "npm": "^6.14.6",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.0",
     "sass-loader": "^8.0.0",
