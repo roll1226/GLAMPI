@@ -18,7 +18,7 @@
     "cors": "^2.8.5",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
-    "nodemailer": "^2.4.1",
+    "nodemailer": "^6.4.16",
     "save": "^2.4.0",
     "stripe": "^7.14.0"
   },
